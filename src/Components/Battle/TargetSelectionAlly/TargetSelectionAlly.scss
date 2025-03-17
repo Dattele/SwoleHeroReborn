@@ -1,0 +1,34 @@
+.Target-Modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #282C35;
+  border: 2px solid #F3e8ee;
+  padding: 1rem;
+  z-index: 1000;
+
+  h3 {
+    text-align: center;
+  }
+
+  .Selection-Btn {
+    border: 2px solid #F3e8ee;
+    border-radius: 0.5rem;
+    color: #F3e8ee;
+    background: transparent;
+    padding: 0.5rem 15px;
+    font-size: 20px;
+    font-family: 'Pixelify Sans';
+    font-weight: bold;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+
+    &:hover {
+      color: #FFD700;
+      border-color: #FFD700;
+    }
+  }
+}

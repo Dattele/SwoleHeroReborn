@@ -11,3 +11,55 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Pixelify Sans';
+}
+
+p, a, span, label {
+  font-family: 'Times New Roman', Times, serif;
+}
+
+button, a {
+  cursor: pointer;
+}
+
+.Next-Btn {
+  border: 2px solid #F3e8ee;
+  border-radius: 0.5rem;
+  color: #F3e8ee;
+  background: transparent;
+  padding: 0.5rem 15px;
+  font-size: 20px;
+  font-family: 'Pixelify Sans';
+  font-weight: bold;
+  width: fit-content;
+}
+
+.Next-Btn:hover {
+  color: #bacdb0;
+  border-color: #bacdb0;
+}
+
+.Full-Screen {
+  width: 100vw;
+  height: 100vh;
+  background-color: #2E2C2F;
+}
+
+img {
+  width: 300px;
+}
+
+.Max-Width {
+  max-width: 1000px;
+}

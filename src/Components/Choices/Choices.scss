@@ -1,0 +1,19 @@
+.Choices {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 600px;
+  gap: 1rem;
+  
+  button {
+    //background-color: #ffcc00;
+    transition: 0.2s;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+}
+
+.Plains-Screen, .Forest-Screen {
+  .Choices .Next-Btn {
+    max-width: calc(50% - 8px);
+  }
+}

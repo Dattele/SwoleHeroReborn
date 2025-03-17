@@ -1,0 +1,41 @@
+.Hero-Screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 2rem;
+
+  .Hero-Screen-Section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    color: #f3e8ee;
+    font-size: 4rem;
+  }
+
+  p {
+    color: #f3e8ee;
+    font-size: 1.5rem;
+    text-align: center;
+  }
+
+  input, textarea {
+    border: 2px solid #BACDB0;
+    border-radius: 0.5rem;
+    color: #BACDB0;
+    background: transparent;
+    padding: 0.5rem 15px;
+    font-size: 2rem;
+    font-family: 'Pixelify Sans';
+    font-weight: bold;
+    outline: none;
+  }
+
+  textarea {
+    font-size: 24px;
+    width: 100%;
+    height: 300px;
+  }
+}

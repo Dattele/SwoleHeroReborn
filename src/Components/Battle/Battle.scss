@@ -1,0 +1,81 @@
+.Battle-Screen {
+
+  h3 {
+    font-size: 1.75rem;
+    font-family: 'Times New Roman', Times, serif;
+  }
+
+  .Battle-Log {
+    z-index: 10;
+    max-width: 600px;
+    text-align: center;
+  }
+}
+
+.Section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.Player-Section {
+  position: absolute;
+  bottom: 0;
+
+  .Player {
+    padding: 1.5rem;
+    text-align: center;
+    background-color: #555;
+    border-radius: 10px;
+    width: 80%;
+
+    h3 {
+      margin-top: 1rem;
+    }
+  }
+
+  .Attack-Buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // Three equal columns
+    grid-template-rows: repeat(2, auto); // Two rows
+    gap: 10px;
+    width: 100%;
+    margin: auto;
+    align-items: center;
+
+    .Attack-Image {
+      grid-row: span 2;
+      width: 250px;
+      height: auto;
+      object-fit: cover;
+    }
+
+    .Attack-Btn {
+      border: 2px solid #F3e8ee;
+      border-radius: 0.5rem;
+      color: #F3e8ee;
+      background: transparent;
+      padding: 0.5rem 15px;
+      font-size: 22px;
+      font-family: 'Pixelify Sans';
+      font-weight: bold;
+      width: 100%;
+      height: 100%;
+
+      &:hover {
+        color: #bacdb0;
+        border-color: #bacdb0;
+      }
+    }
+  }
+}
+
+.Enemy-Section {
+  position: absolute;
+  top: 0;
+
+  h3 {
+    text-align: center;
+  }
+}

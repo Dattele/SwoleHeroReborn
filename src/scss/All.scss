@@ -1,0 +1,16 @@
+.Screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  
+  .Next-Btn {
+    margin-top: 1rem;
+    background-color: #2E2C2F;
+  }
+
+  .Text-Box {
+    background-color: #2E2C2F;
+  }
+}
