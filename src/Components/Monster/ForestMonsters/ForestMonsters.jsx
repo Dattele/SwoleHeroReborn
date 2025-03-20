@@ -8,113 +8,124 @@ import alphawolf from '../../../assets/images/alphawolf.png';
 
 const ForestMonsters = [
   {
-    name: "Slime",
-    type: "enemy",
+    name: 'Slime',
+    type: 'enemy',
     image: slime,
-    description: "A small, squishy blob that bounces around. Weak, but hard to hit.",
+    description:
+      'A small, squishy blob that bounces around. Weak, but hard to hit.',
     hp: 20,
     strength: 5,
     defense: 2,
     speed: 3,
     xp: 10,
-    loot: ["Slimy Gel", "Minor Potion"],
-    abilities: [
-      { name: "Bounce Attack", type: 'attack', damage: 5},
-    ]
+    loot: ['Slimy Gel', 'Minor Potion'],
+    abilities: [{ name: 'Bounce Attack', type: 'attack', damage: 5 }],
   },
   {
-    name: "Forest Wolf",
-    type: "enemy",
+    name: 'Forest Wolf',
+    type: 'enemy',
     image: wolf,
-    description: "A fast, cunning predator that hunts in packs.",
+    description: 'A fast, cunning predator that hunts in packs.',
     hp: 30,
     strength: 8,
     defense: 4,
     speed: 7,
     xp: 15,
-    loot: ["Wolf Fur", "Basic Potion"],
+    loot: ['Wolf Fur', 'Basic Potion'],
     abilities: [
-      { name: "Bite", type: 'attack', damage: 8},
-      { name: "Howl", type: 'group-buff', effect: "+4 strength" }
-    ]
+      { name: 'Bite', type: 'attack', damage: 8 },
+      { name: 'Howl', type: 'group-buff', effect: '+4 strength' },
+    ],
   },
   {
-    name: "Moss Golem",
-    type: "enemy",
+    name: 'Moss Golem',
+    type: 'enemy',
     image: golem,
-    description: "A slow-moving, ancient creature covered in vines. Hits hard but is easy to dodge.",
+    description:
+      'A slow-moving, ancient creature covered in vines. Hits hard but is easy to dodge.',
     hp: 50,
     strength: 12,
     defense: 8,
     speed: 2,
     xp: 20,
-    loot: ["Mossy Bark", "Small Strength Buff"],
-    abilities: [
-      { name: "Heavy Slam", type: 'attack', damage: 12 },
-    ]
+    loot: ['Mossy Bark', 'Small Strength Buff'],
+    abilities: [{ name: 'Heavy Slam', type: 'attack', damage: 12 }],
   },
   {
-    name: "Giant Mosquito",
-    type: "enemy",
+    name: 'Giant Mosquito',
+    type: 'enemy',
     image: mosquito,
-    description: "Annoying, bloodsucking pest. Just irritating.",
+    description: 'Annoying, bloodsucking pest. Just irritating.',
     hp: 15,
     strength: 4,
     defense: 1,
     speed: 10,
     xp: 5,
-    loot: ["Mosquito Wings", "HP Potion"],
-    abilities: [
-      { name: "Drain Life", type: 'drain', damage: 3, effect: "3" },
-    ]
+    loot: ['Mosquito Wings', 'HP Potion'],
+    abilities: [{ name: 'Drain Life', type: 'drain', damage: 3, effect: 3 }],
   },
   {
-    name: "Venomous Viper",
-    type: "enemy",
+    name: 'Venomous Viper',
+    type: 'enemy',
     image: viper,
-    description: "A coiled snake hidden in the underbrush, striking suddenly.",
+    description: 'A coiled snake hidden in the underbrush, striking suddenly.',
     hp: 25,
     strength: 10,
     defense: 3,
     speed: 8,
     xp: 18,
-    loot: ["Viper Fang", "Venom Extract"],
-    abilities: [
-      { name: "Poison Bite", type: 'attack', damage: 8 },
-    ]
+    loot: ['Viper Fang', 'Venom Extract'],
+    abilities: [{ name: 'Poison Bite', type: 'attack', damage: 8 }],
   },
   {
-    name: "Shadow Sprite",
-    type: "enemy",
+    name: 'Shadow Sprite',
+    type: 'enemy',
     image: shadowsprite,
-    description: "A mischievous creature that steals items and disappears.",
+    description: 'A mischievous creature that steals items and disappears.',
     hp: 18,
     strength: 7,
     defense: 2,
     speed: 9,
     xp: 12,
-    loot: ["Stolen Item (random return)"],
-    abilities: [
-      { name: "Blink Strike", type:'attack', damage: 7 },
-    ]
+    loot: ['Stolen Item (random return)'],
+    abilities: [{ name: 'Blink Strike', type: 'attack', damage: 7 }],
   },
   {
-    name: "Fangborn",
-    type: "enemy",
+    name: 'Fangborn',
+    type: 'enemy',
     image: alphawolf,
-    description: "A massive, battle-scarred wolf that rules the forest. It only acknowledges the strongest challengers.",
+    description:
+      'A massive, battle-scarred wolf that rules the forest. It only acknowledges the strongest challengers.',
     hp: 80,
     strength: 14,
     defense: 8,
     speed: 12,
     xp: 50,
-    loot: ["Alpha Fang", "Rare Hide", "Strength Potion"],
+    loot: ['Alpha Fang', 'Rare Hide', 'Strength Potion'],
     abilities: [
-      { name: "Savage Bite", damage: 16, effect: "50% chance to cause Bleed (Opponent takes extra damage for 3 turns)" },
-      { name: "Pack Leader Howl", damage: 0, effect: "Summons 1-2 normal wolves to assist" },
-      { name: "Crushing Pounce", damage: 12, effect: "Stuns Opponent for 1 turn if it lands"},
-      { name: "Unyielding Spirit (Passive)", damage: '-', effect: "If HP drops below 20%, Fangborn's Attack & Speed increase by 50%"},
-    ]
+      {
+        name: 'Savage Bite',
+        damage: 16,
+        effect:
+          '50% chance to cause Bleed (Opponent takes extra damage for 3 turns)',
+      },
+      {
+        name: 'Pack Leader Howl',
+        damage: 0,
+        effect: 'Summons 1-2 normal wolves to assist',
+      },
+      {
+        name: 'Crushing Pounce',
+        damage: 12,
+        effect: 'Stuns Opponent for 1 turn if it lands',
+      },
+      {
+        name: 'Unyielding Spirit (Passive)',
+        damage: '-',
+        effect:
+          "If HP drops below 20%, Fangborn's Attack & Speed increase by 50%",
+      },
+    ],
   },
 ];
 

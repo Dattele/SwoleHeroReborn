@@ -1,4 +1,19 @@
 .Battle-Screen {
+  .Start-Battle-Btn {
+    border: 2px solid #f3e8ee;
+    border-radius: 0.5rem;
+    color: #f3e8ee;
+    background: transparent;
+    padding: 0.5rem 15px;
+    font-size: 22px;
+    font-family: 'Pixelify Sans';
+    font-weight: bold;
+
+    &:hover {
+      color: #bacdb0;
+      border-color: #bacdb0;
+    }
+  }
 
   h3 {
     font-size: 1.75rem;
@@ -8,7 +23,20 @@
   .Battle-Log {
     z-index: 10;
     max-width: 600px;
+    max-height: 200px;
     text-align: center;
+    overflow-y: auto;
+    scrollbar-width: thin;
+
+    p {
+      font-size: 1.75rem;
+      font-family: 'Times New Roman', Times, serif;
+      font-weight: bold;
+    }
+
+    &::-webkit-scrollbar {
+      width: 8px;
+    }
   }
 }
 
@@ -52,9 +80,9 @@
     }
 
     .Attack-Btn {
-      border: 2px solid #F3e8ee;
+      border: 2px solid #f3e8ee;
       border-radius: 0.5rem;
-      color: #F3e8ee;
+      color: #f3e8ee;
       background: transparent;
       padding: 0.5rem 15px;
       font-size: 22px;

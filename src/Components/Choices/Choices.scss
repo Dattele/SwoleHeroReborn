@@ -4,7 +4,7 @@
   align-items: center;
   max-width: 600px;
   gap: 1rem;
-  
+
   button {
     //background-color: #ffcc00;
     transition: 0.2s;
@@ -12,7 +12,8 @@
   }
 }
 
-.Plains-Screen, .Forest-Screen {
+.Plains-Screen,
+.Forest-Screen {
   .Choices .Next-Btn {
     max-width: calc(50% - 8px);
   }

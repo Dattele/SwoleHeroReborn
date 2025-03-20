@@ -3,8 +3,8 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  background: #282C35;
-  border: 2px solid #F3e8ee;
+  background: #282c35;
+  border: 2px solid #f3e8ee;
   padding: 1rem;
   z-index: 1000;
 
@@ -13,9 +13,9 @@
   }
 
   .Selection-Btn {
-    border: 2px solid #F3e8ee;
+    border: 2px solid #f3e8ee;
     border-radius: 0.5rem;
-    color: #F3e8ee;
+    color: #f3e8ee;
     background: transparent;
     padding: 0.5rem 15px;
     font-size: 20px;
@@ -27,8 +27,8 @@
     flex-direction: column;
 
     &:hover {
-      color: #FFD700;
-      border-color: #FFD700;
+      color: #ffd700;
+      border-color: #ffd700;
     }
   }
 }

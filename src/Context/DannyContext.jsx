@@ -19,13 +19,13 @@ export function DannyProvider({ children }) {
     defense: 4,
     speed: 4,
     rizz: 2,
-    class:  bodyBuilderClass.name,
-    description: 'A man who can deadlift 400 lbs but has never lifted a single date',
+    class: bodyBuilderClass.name,
+    description:
+      'A man who can deadlift 400 lbs but has never lifted a single date',
     abilities: bodyBuilderClass.abilities[1],
     image: DanielFace,
   });
   const [wolfKills, setWolfKills] = useState(0);
-
 
   // Level Up Function
   const levelUp = () => {
@@ -44,11 +44,13 @@ export function DannyProvider({ children }) {
 
   // Function to keep track of wolf kills
   const incrementWolfKills = () => {
-    setWolfKills(prev => prev + 1);
-  }
+    setWolfKills((prev) => prev + 1);
+  };
 
   return (
-    <DannyContext.Provider value={{ stats, level, xp, levelUp, incrementWolfKills }}>
+    <DannyContext.Provider
+      value={{ stats, level, xp, levelUp, incrementWolfKills }}
+    >
       {children}
     </DannyContext.Provider>
   );

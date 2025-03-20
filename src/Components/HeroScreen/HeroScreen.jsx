@@ -10,13 +10,16 @@ export default function HeroScreen({ setPreGameScreen }) {
   return (
     <div className='Hero-Screen Full-Screen'>
       <h2>Danny B Dimes</h2>
-      <img src={dannyImage} alt='Danny B Dev'/>
+      <img src={dannyImage} alt='Danny B Dev' />
       <p className='Max-Width'>
-        Tired of grinding Rocket League with no results and maxing out his bench press 
-        with nothing to show for it, Danny has made a bold decision: it's time to leave 
-        his comfort zone and take on the ultimate challenge - finding love.
+        Tired of grinding Rocket League with no results and maxing out his bench
+        press with nothing to show for it, Danny has made a bold decision: it's
+        time to leave his comfort zone and take on the ultimate challenge -
+        finding love.
       </p>
-      <button className='Next-Btn' onClick={() => navigate('/world')}>Continue</button>
+      <button className='Next-Btn' onClick={() => navigate('/world')}>
+        Continue
+      </button>
     </div>
-  )
+  );
 }

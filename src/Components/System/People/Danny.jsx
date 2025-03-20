@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Classes from "../Classes";
+import React, { useState } from 'react';
+import Classes from '../Classes';
 
 export default function Danny() {
   const [level, setLevel] = useState(1);
@@ -31,7 +31,7 @@ export default function Danny() {
   };
 
   return (
-    <div className="Character-Sheet">
+    <div className='Character-Sheet'>
       <h2>Danny (Level {level})</h2>
       <p>Class: {classData.name}</p>
       <p>HP: {stats.hp}</p>
@@ -39,7 +39,9 @@ export default function Danny() {
       <p>Defense: {stats.defense}</p>
       <p>Speed: {stats.speed}</p>
       <p>Rizz: {stats.rizz}</p>
-      <p>XP: {xp}/{100 * level}</p>
+      <p>
+        XP: {xp}/{100 * level}
+      </p>
 
       <button onClick={levelUp}>Level Up</button>
     </div>

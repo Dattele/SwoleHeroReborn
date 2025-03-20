@@ -1,42 +1,52 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: 'Pixelify Sans';
 }
 
-p, a, span, label {
+p,
+a,
+span,
+label {
   font-family: 'Times New Roman', Times, serif;
 }
 
-button, a {
+button,
+a {
   cursor: pointer;
 }
 
 .Next-Btn {
-  border: 2px solid #F3e8ee;
+  border: 2px solid #f3e8ee;
   border-radius: 0.5rem;
-  color: #F3e8ee;
+  color: #f3e8ee;
   background: transparent;
   padding: 0.5rem 15px;
   font-size: 20px;
@@ -53,7 +63,7 @@ button, a {
 .Full-Screen {
   width: 100vw;
   height: 100vh;
-  background-color: #2E2C2F;
+  background-color: #2e2c2f;
 }
 
 img {
