@@ -49,7 +49,7 @@ export function DannyProvider({ children }) {
 
   return (
     <DannyContext.Provider
-      value={{ stats, level, xp, levelUp, incrementWolfKills }}
+      value={{ stats, level, xp, levelUp, wolfKills, incrementWolfKills }}
     >
       {children}
     </DannyContext.Provider>

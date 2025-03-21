@@ -102,6 +102,8 @@
 .Enemy-Section {
   position: absolute;
   top: 0;
+  flex-direction: row;
+  gap: 1rem;
 
   h3 {
     text-align: center;

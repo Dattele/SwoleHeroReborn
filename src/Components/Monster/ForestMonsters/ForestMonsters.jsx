@@ -17,6 +17,7 @@ const ForestMonsters = [
     strength: 5,
     defense: 2,
     speed: 3,
+    rizz: 1,
     xp: 10,
     loot: ['Slimy Gel', 'Minor Potion'],
     abilities: [{ name: 'Bounce Attack', type: 'attack', damage: 5 }],
@@ -30,6 +31,7 @@ const ForestMonsters = [
     strength: 8,
     defense: 4,
     speed: 7,
+    rizz: 5,
     xp: 15,
     loot: ['Wolf Fur', 'Basic Potion'],
     abilities: [
@@ -47,7 +49,8 @@ const ForestMonsters = [
     strength: 12,
     defense: 8,
     speed: 2,
-    xp: 20,
+    rizz: 3,
+    xp: 25,
     loot: ['Mossy Bark', 'Small Strength Buff'],
     abilities: [{ name: 'Heavy Slam', type: 'attack', damage: 12 }],
   },
@@ -60,6 +63,7 @@ const ForestMonsters = [
     strength: 4,
     defense: 1,
     speed: 10,
+    rizz: 1,
     xp: 5,
     loot: ['Mosquito Wings', 'HP Potion'],
     abilities: [{ name: 'Drain Life', type: 'drain', damage: 3, effect: 3 }],
@@ -73,6 +77,7 @@ const ForestMonsters = [
     strength: 10,
     defense: 3,
     speed: 8,
+    rizz: 15,
     xp: 18,
     loot: ['Viper Fang', 'Venom Extract'],
     abilities: [{ name: 'Poison Bite', type: 'attack', damage: 8 }],
@@ -86,10 +91,14 @@ const ForestMonsters = [
     strength: 7,
     defense: 2,
     speed: 9,
+    rizz: 10,
     xp: 12,
     loot: ['Stolen Item (random return)'],
     abilities: [{ name: 'Blink Strike', type: 'attack', damage: 7 }],
   },
+];
+
+export const ForestBoss = [
   {
     name: 'Fangborn',
     type: 'enemy',
@@ -100,30 +109,25 @@ const ForestMonsters = [
     strength: 14,
     defense: 8,
     speed: 12,
-    xp: 50,
+    rizz: 20,
+    xp: 100,
     loot: ['Alpha Fang', 'Rare Hide', 'Strength Potion'],
     abilities: [
       {
         name: 'Savage Bite',
+        type: 'smash',
         damage: 16,
-        effect:
-          '50% chance to cause Bleed (Opponent takes extra damage for 3 turns)',
+        effect: "-4 defense",
       },
       {
         name: 'Pack Leader Howl',
-        damage: 0,
-        effect: 'Summons 1-2 normal wolves to assist',
+        type: 'summon',
+        effect: ForestMonsters[1],
       },
       {
         name: 'Crushing Pounce',
-        damage: 12,
-        effect: 'Stuns Opponent for 1 turn if it lands',
-      },
-      {
-        name: 'Unyielding Spirit (Passive)',
-        damage: '-',
-        effect:
-          "If HP drops below 20%, Fangborn's Attack & Speed increase by 50%",
+        type: 'attack',
+        damage: 20,
       },
     ],
   },

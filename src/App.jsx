@@ -10,6 +10,8 @@ import PlainsScreen from './Components/FantasyWorldScreen/Components/PlainsScree
 import ForestScreen from './Components/FantasyWorldScreen/Components/ForestScreen/ForestScreen';
 import ForestBattle from './Components/Battle/ForestBattle/ForestBattle';
 import BattleResults from './Components/Battle/BattleResults';
+import ForestBossScreen from './Components/FantasyWorldScreen/Components/ForestBossScreen/ForestBossScreen';
+import ForestBossBattle from './Components/Battle/ForestBossBattle/ForestBossBattle';
 
 export default function App() {
   return (
@@ -23,6 +25,8 @@ export default function App() {
           <Route path='/plains' element={<PlainsScreen />} />
           <Route path='/forest' element={<ForestScreen />} />
           <Route path='/forest-battle' element={<ForestBattle />} />
+          <Route path='/forest-boss' element={<ForestBossScreen />} />
+          <Route path='/forest-boss/battle' element={<ForestBossBattle />} />
           <Route path='/battle-results' element={<BattleResults />} />
         </Routes>
       </Router>
