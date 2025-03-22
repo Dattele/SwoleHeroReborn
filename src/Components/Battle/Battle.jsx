@@ -5,10 +5,27 @@ import { v4 as uuidv4 } from 'uuid';
 import TargetSelection from './TargetSelection';
 import TargetSelectionAlly from './TargetSelectionAlly';
 
+import death from '../../assets/sounds/death.mp3';
+import fortniteDeath from '../../assets/sounds/fortnite-death.mp3';
+import yodaDeath from '../../assets/sounds/lego-yoda-death.mp3';
+import marioDeath from '../../assets/sounds/mario-death.mp3';
+import minecraftDeath from '../../assets/sounds/minecraft-death.mp3';
+import minecraftHorse from '../../assets/sounds/minecraft-horse-death.mp3';
+import phasDeath from '../../assets/sounds/phas-death.mp3';
+import robloxDeath from '../../assets/sounds/roblox-death.mp3';
+import rotmgDeath from '../../assets/sounds/rotmg-death.mp3';
+import stormDeath from '../../assets/sounds/stormtrooper-death.mp3';
+import warioDeath from '../../assets/sounds/wario-death.mp3';
+import werehogDeath from '../../assets/sounds/werehog-death.mp3';
+
 import './Battle.scss';
 import '../../scss/All.scss';
 
 export default function Battle({ players, enemies, onBattleEnd = null }) {
+  const deathSounds = [death, fortniteDeath, yodaDeath, 
+    marioDeath, minecraftDeath, minecraftHorse, phasDeath, robloxDeath, rotmgDeath, 
+    stormDeath, warioDeath, werehogDeath];
+  
   let navigate = useNavigate();
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
@@ -21,6 +38,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     ...enemy,
     id: uuidv4(),
   }));
+
+  // Play a death sound audio
+  const playRandomDeathSound = () => {
+    const randomSound = deathSounds[Math.floor(Math.random() * deathSounds.length)];
+    const audio = new Audio(randomSound);
+    audio.volume = 0.5;
+    audio.play();
+  }
+  
 
   const initialState = {
     turnOrder: [...playersClone, ...enemiesClone].sort(
@@ -100,6 +126,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           xp += target.xp;
           deathLog = `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`;
           xpLog = `${attacker.name} has gained ${xp} xp!`;
+          playRandomDeathSound();
         }
 
         return {

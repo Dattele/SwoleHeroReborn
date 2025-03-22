@@ -38,7 +38,7 @@ export default function ForestBattle() {
     });
     console.log('Handling battle end', wolfKills);
     setTimeout(
-      wolfKills >= 0 && navigate('/forest-boss'), 3000
+      wolfKills >= 3 && navigate('/forest-boss'), 3000
     );
   };
 
