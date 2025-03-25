@@ -29,7 +29,7 @@ export default function BronzebellScreen() {
   ];
 
   const locationChoices = [
-    { text: '🛍 Rizz & Bits Store', nextScene: '/bronzebell/rizz-store' },
+    { text: '🛍 Rizz & Bits Market', nextScene: '/bronzebell/rizz-and-bits' },
     { text: '🍻 Ironhide Inn & Tavern', nextScene: '/bronzebell/ironhide' },
     { text: "🧘 Bobby's Shrine", nextScene: '/bronzebell/shrine' },
     { text: '⚔️ Training Grounds', nextScene: '/bronzebell/training' },

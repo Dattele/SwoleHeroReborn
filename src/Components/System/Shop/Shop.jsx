@@ -11,7 +11,7 @@ export default function Shop({ title, items, onClose, onBuy }) {
 
       {items.map((item, index) => (
         <div key={index} className='Shop-Items'>
-          <span>{item.name}</span>
+          <span>{item.name} - {item.description}</span>
           <button onClick={() => onBuy(item)} className='Btn'>
             Buy - {item.price} Gold
           </button>

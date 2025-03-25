@@ -107,8 +107,8 @@ export function DannyProvider({ children }) {
 
   const addPartyMember = (newMember) => {
     setParty((prev) => ({
-      ...prev,
-      party: [...prev.party, newMember],
+      // ...prev,
+      party: [...prev, newMember],
     }));
   };
 

@@ -13,13 +13,13 @@ import Ethan from '../../../../../assets/images/Ethan.png';
 import '../../../../../scss/All.scss';
 
 export default function IronHide() {
-  const { addPartyMember } = useDanny();
+  const { party, addPartyMember } = useDanny();
   const navigate = useNavigate();
 
   const [stage, setStage] = useState('intro');
   const [eventIndex, setEventIndex] = useState(0);
 
-  const barbarianClass = Classes.Bodybuilder;
+  const barbarianClass = Classes.Barbarian;
   const ethan = {
     name: 'Ethan, the Brute',
     type: 'player',

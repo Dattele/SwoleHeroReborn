@@ -28,8 +28,10 @@ export default function Bartender() {
     { text: '🪑 Go back to your seat', action: 'leave' }
   ];
 
-  const danny = party.find(member => member.name === 'Danny');
+  console.log('partyy', party);
+  const danny = party?.find(member => member.name === 'Danny');
   const dannyRizz = danny?.rizz ?? 0;
+
   const shopItems = [Items[0], Items[1], Items[2]];
 
   const handleChoice = (choice) => {
@@ -73,7 +75,13 @@ export default function Bartender() {
   }
 
   const handleRizz = () => {
-
+    if (dannyRizz >= 6) {
+      //Smooth talker
+    } else if (dannyRizz >= 3) {
+      //Awkward
+    } else {
+      //Terrible
+    }
   }
 
   return (

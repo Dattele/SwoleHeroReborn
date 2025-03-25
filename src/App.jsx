@@ -15,6 +15,8 @@ import ForestBossBattle from './Components/Battle/ForestBossBattle/ForestBossBat
 import BronzebellScreen from './Components/FantasyWorldScreen/Components/Bronzebell/BronzebellScreen';
 import IronHide from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/IronHide';
 import Bartender from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/Bartender';
+import TrainingGrounds from './Components/FantasyWorldScreen/Components/Bronzebell/TrainingGrounds';
+import RizzAndBits from './Components/FantasyWorldScreen/Components/Bronzebell/RizzAndBits/RizzAndBits';
 
 export default function App() {
   return (
@@ -32,8 +34,10 @@ export default function App() {
           <Route path='/forest-boss/battle' element={<ForestBossBattle />} />
           <Route path='/battle-results' element={<BattleResults />} />
           <Route path='/bronzebell' element={<BronzebellScreen />} />
+          <Route path='/bronzebell/rizz-and-bits' element={<RizzAndBits />} />
           <Route path='/bronzebell/ironhide' element={<IronHide />} />
           <Route path='/bronzebell/ironhide/lisa' element={<Bartender />} />
+          <Route path='/bronzebell/training' element={<TrainingGrounds />} />
         </Routes>
       </Router>
     </DannyProvider>
