@@ -1,0 +1,25 @@
+.Shop-Screen {
+  h2 {
+    font-size: 2rem;
+  }
+
+  p {
+    font-size: 1.5rem;
+  }
+
+  .Shop-Items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 0.5rem;
+
+    span {
+      font-size: 1.25rem;
+    }
+
+    .Btn {
+      margin-top: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+}

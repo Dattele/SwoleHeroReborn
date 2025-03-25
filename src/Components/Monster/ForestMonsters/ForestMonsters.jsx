@@ -66,7 +66,7 @@ const ForestMonsters = [
     rizz: 1,
     xp: 5,
     loot: ['Mosquito Wings', 'HP Potion'],
-    abilities: [{ name: 'Drain Life', type: 'drain', damage: 3, effect: 3 }],
+    abilities: [{ name: 'Drain Life', type: 'drain', damage: 3, heal: 3 }],
   },
   {
     name: 'Venomous Viper',

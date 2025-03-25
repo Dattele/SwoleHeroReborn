@@ -43,33 +43,6 @@ a {
   cursor: pointer;
 }
 
-.Next-Btn {
-  border: 2px solid #f3e8ee;
-  border-radius: 0.5rem;
-  color: #f3e8ee;
-  background: transparent;
-  padding: 0.5rem 15px;
-  font-size: 20px;
-  font-family: 'Pixelify Sans';
-  font-weight: bold;
-  width: fit-content;
-}
-
-.Next-Btn:hover {
-  color: #bacdb0;
-  border-color: #bacdb0;
-}
-
-.Full-Screen {
-  width: 100vw;
-  height: 100vh;
-  background-color: #2e2c2f;
-}
-
 img {
   width: 300px;
-}
-
-.Max-Width {
-  max-width: 1000px;
 }

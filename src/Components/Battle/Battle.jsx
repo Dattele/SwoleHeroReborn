@@ -43,7 +43,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const playRandomDeathSound = () => {
     const randomSound = deathSounds[Math.floor(Math.random() * deathSounds.length)];
     const audio = new Audio(randomSound);
-    audio.volume = 0.5;
+    audio.volume = 0.3;
     audio.play();
   }
   
@@ -182,7 +182,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'HANDLE_HEAL': {
         const { attacker, attack, target } = action.payload;
-        const heal = attack.effect;
+        const heal = attack.heal;
         const isEnemy = attacker.type === 'enemy';
 
         console.log('enemies in HANDLE_HEAL', enemies);

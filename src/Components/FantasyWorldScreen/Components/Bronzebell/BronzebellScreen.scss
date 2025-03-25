@@ -1,0 +1,9 @@
+.Bronzebell-Screen {
+  transition: background-image 0.33s ease-in-out;
+  opacity: 1;
+  transition-property: opacity, background-image;
+}
+
+.Bronzebell-Screen.fade-out {
+  opacity: 0;
+}

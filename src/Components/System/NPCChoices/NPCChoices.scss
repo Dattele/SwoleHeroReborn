@@ -1,0 +1,12 @@
+.NPC-Choices {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 800px;
+  gap: 1rem;
+
+  .Next-Btn {
+    min-height: 60px;
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.2);
+  }
+}
