@@ -7,19 +7,44 @@
     font-size: 1.5rem;
   }
 
-  .Shop-Items {
+  .Shop-Screen-Items {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding-bottom: 0.5rem;
 
-    span {
-      font-size: 1.25rem;
+    .Shop-Items {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1.5rem;
+      width: 100%;
+
+      .Shop-Items-Text {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 400px;
+        flex-wrap: wrap;
+
+        .Item-Title {
+          font-weight: bold;
+        }
+
+        span {
+          font-size: 1.5rem;
+        }
+      }
+
+      .Btn {
+        margin-left: auto;
+      }
     }
   }
 
   .Btn {
+    margin: 0;
+  }
+
+  .Btn-Exit {
     margin-top: 0.5rem;
-    margin-bottom: 1rem;
   }
 }

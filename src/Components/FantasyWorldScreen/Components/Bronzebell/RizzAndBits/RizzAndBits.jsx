@@ -9,7 +9,7 @@ export default function RizzAndBits() {
   const { spendGold, addItemToInventory } = useDanny();
   const navigate = useNavigate();
   
-  const shopItems = [Items[0]]; // Set the stores items
+  const shopItems = [Items[7], Items[6], Items[8], Items[4], Items[5]]; // Set the stores items
 
   const handleBuy = (item) => {
     if (spendGold(item.price)) {

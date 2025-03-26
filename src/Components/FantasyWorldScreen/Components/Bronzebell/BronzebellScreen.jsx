@@ -15,7 +15,7 @@ export default function BronzebellScreen() {
   const [eventIndex, setEventIndex] = useState(0);
 
   const bronzebellIntro = [
-    'After surviving VerdenGrove Forest and somehow getting even sweatier, Danny finally arrives at the edge of a fortified town.',
+    'After surviving EdenGrove Forest and somehow getting even sweatier, Danny finally arrives at the edge of a fortified town.',
     'The gates open without question, and the scent of roasted meat, steel, and slightly questionable herbal supplements fill the air.',
     "A guard gives Danny a quick once-over, then immediately looks away, as if unsure if he just saw a hero or a fever dream.",
   ];
