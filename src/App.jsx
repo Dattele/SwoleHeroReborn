@@ -17,6 +17,8 @@ import IronHide from './Components/FantasyWorldScreen/Components/Bronzebell/Iron
 import Bartender from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/Bartender';
 import TrainingGrounds from './Components/FantasyWorldScreen/Components/Bronzebell/TrainingGrounds';
 import RizzAndBits from './Components/FantasyWorldScreen/Components/Bronzebell/RizzAndBits/RizzAndBits';
+import DrunkScholar from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/DrunkScholar';
+import ToughGuy from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/ToughGuy';
 
 export default function App() {
   return (
@@ -37,6 +39,8 @@ export default function App() {
           <Route path='/bronzebell/rizz-and-bits' element={<RizzAndBits />} />
           <Route path='/bronzebell/ironhide' element={<IronHide />} />
           <Route path='/bronzebell/ironhide/lisa' element={<Bartender />} />
+          <Route path='/bronzebell/ironhide/drunk-scholar' element={<DrunkScholar />} />
+          <Route path='/bronzebell/ironhide/local-tough-guy' element={<ToughGuy />} />
           <Route path='/bronzebell/training' element={<TrainingGrounds />} />
         </Routes>
       </Router>
