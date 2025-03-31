@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import TextBox from "../../../../TextBox";
 import NPCChoices from "../../../../System/NPCChoices";
+import Choices from "../../../../Choices";
 import goat from '../../../../../assets/images/Goat.png';
 
 import './Goat.scss';
@@ -12,6 +13,7 @@ export default function Goat() {
   const [eventIndex, setEventIndex] = useState(0);
   const [showAttack, setShowAttack] = useState(false);
   const [showIgnore, setShowIgnore] = useState(false);
+  const [showChoices, setShowChoices] = useState(false);
   const navigate = useNavigate();
 
   const goatDialogue = [
@@ -28,7 +30,7 @@ export default function Goat() {
     "The Goat locks eyes with Danny, lets out a menacing 'BLEEEAAT' — and sidesteps like a master.",
     "It stomps on Danny's foot causing him to fall onto the ground, then it *launches* itself at Ja'von and Ethan, kicking them both in the face.",
     "They hit the ground with a grunt. The Goat lands, flicks its tail, and vanishes into the crowd.",
-    "Danny: 'What the hell was that?!'",
+    "Danny: 'What the hell was that!?'",
     "Ja'von: 'That was no ordinary goat.'",
   ];
 
@@ -37,14 +39,26 @@ export default function Goat() {
     "Danny: 'Nah. We're heroes. We don't have time for barnyard drama.'",
     "They laugh and walk off — but Danny pauses. He turns around slowly and the Goat is no longer there.",
     "Danny stares in disbelief - '...Guys? It was just staring at me a second ago and now its gone. I swear.'",
-    "Ethan: 'You're just dehydrated. Again.'",
+    "Ethan: 'You're just dehydrated.. Again.'",
+  ];
+
+  const npcChoices = [
+    { text: '✅ Accept the quest and confront the Goat - for Bronzebell!', action: 'attack' },
+    { text: "❌ Deny the Goat's influence (like a coward)", action: 'ignore' },
   ];
 
   const choices = [
-    { text: '🍺 Buy Food or Drinks', action: 'attack' },
-    { text: '🛏 Rent a room', action: 'ignore' },
+    { text: 'Scream and run', nextScene: '/bronzebell' },
   ];
 
+  // Get the current dialogue
+  const getCurrentDialogue = () => {
+    if (showAttack) return attackDialogue;
+    if (showIgnore) return ignoreDialogue;
+    return goatDialogue;
+  };
+
+  // Handle the choice the user makes
   const handleChoice = (choice) => {
     switch (choice.action) {
       case 'attack':
@@ -62,21 +76,18 @@ export default function Goat() {
     }
   };
 
+  // Handle the next event
   const handleNextEvent = () => {
-    let dialogue;
-    if (showAttack) dialogue = attackDialogue;
-    else if (showIgnore) dialogue = ignoreDialogue;
-    else dialogue = goatDialogue;
+    const dialogue = getCurrentDialogue();
 
     if (eventIndex < dialogue.length - 1) {
       setEventIndex(eventIndex + 1);
     } else {
-      setEventIndex(0);
-      // if (showAttack) {
-      //   setSecondDialogue(attackDialogue);
-      // } else if (showIgnore) {
-      //   setSecondDialogue(ignoreDialogue);
-      // }
+      console.log('next', showAttack);
+      if (!showAttack && !showIgnore) {
+        setEventIndex(0);
+        setShowChoices(true);
+      } 
     }
   };
 
@@ -95,7 +106,7 @@ export default function Goat() {
           <TextBox text={attackDialogue[eventIndex]} />
 
           {eventIndex === attackDialogue.length - 1 ? (
-            <NPCChoices options={choices} onChoiceSelected={handleChoice} />
+            <Choices options={choices} onChoiceSelected={navigate} />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next
@@ -107,7 +118,7 @@ export default function Goat() {
           <TextBox text={ignoreDialogue[eventIndex]} />
 
           {eventIndex === ignoreDialogue.length - 1 ? (
-            <NPCChoices options={choices} onChoiceSelected={handleChoice} />
+            <Choices options={choices} onChoiceSelected={navigate} />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next
@@ -118,9 +129,13 @@ export default function Goat() {
         <>
           <TextBox text={goatDialogue[eventIndex]} />
 
-          <button className='Next-Btn' onClick={handleNextEvent}>
-            Next
-          </button>
+          {showChoices ? (
+            <NPCChoices options={npcChoices} onChoiceSelected={handleChoice} />
+          ) : (
+            <button className='Next-Btn' onClick={handleNextEvent}>
+              Next
+            </button>
+          )}
         </>
       )}
     </div>
