@@ -45,6 +45,9 @@ export function DannyProvider({ children }) {
   const [gold, setGold] = useState(0);
   const [inventory, setInventory] = useState([]);
   const [party, setParty] = useState([Danny]);
+  const [goatState, setGoatState] = useState({
+    sightings: 0,
+  })
 
   // Level Up Function
   const levelUp = (name, classData) => {
@@ -105,6 +108,7 @@ export function DannyProvider({ children }) {
     });
   };
 
+  // Add a party member
   const addPartyMember = (newMember) => {
     setParty((prev) => ({
       // ...prev,
@@ -117,9 +121,14 @@ export function DannyProvider({ children }) {
     setWolfKills((prev) => prev + 1);
   };
 
+  // Keep track of the Goat sightings
+  const incrementGoatSightings = () => {
+    setGoatState((prev) => prev + 1);
+  };
+
   return (
     <DannyContext.Provider
-      value={{ stats, levelUp, wolfKills, incrementWolfKills, gold, inventory, addItem, spendGold, party, addPartyMember }}
+      value={{ stats, levelUp, wolfKills, incrementWolfKills, gold, inventory, addItem, spendGold, party, addPartyMember, goatState, incrementGoatSightings }}
     >
       {children}
     </DannyContext.Provider>

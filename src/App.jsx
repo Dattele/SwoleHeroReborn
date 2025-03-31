@@ -19,6 +19,7 @@ import TrainingGrounds from './Components/FantasyWorldScreen/Components/Bronzebe
 import RizzAndBits from './Components/FantasyWorldScreen/Components/Bronzebell/RizzAndBits/RizzAndBits';
 import DrunkScholar from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/DrunkScholar';
 import ToughGuy from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/ToughGuy';
+import Goat from './Components/FantasyWorldScreen/Components/Bronzebell/Goat';
 
 export default function App() {
   return (
@@ -42,6 +43,7 @@ export default function App() {
           <Route path='/bronzebell/ironhide/drunk-scholar' element={<DrunkScholar />} />
           <Route path='/bronzebell/ironhide/local-tough-guy' element={<ToughGuy />} />
           <Route path='/bronzebell/training' element={<TrainingGrounds />} />
+          <Route path='/bronzebell/goat' element={<Goat />} />
         </Routes>
       </Router>
     </DannyProvider>
