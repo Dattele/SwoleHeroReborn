@@ -57,6 +57,32 @@ const Classes = {
       ]
     }
   },
+  Knight: {
+    name: 'Knight',
+    description: 'A disciplined warrior trained in swordplay and honor. Fights with elegance, defends with pride, and flirts with nobility.',
+    statGrowth: {
+      hp: 10,
+      strength: 3,
+      defense: 3,
+      speed: 2,
+      rizz: 3,
+    },
+    abilities: {
+      1: [
+        { name: 'Riposte', type: 'attack', damage: 10 },
+        { name: 'Stand Firm', type: 'defense', effect: '+4 defense' }
+      ],
+      3: [
+        { name: 'Radiant Slash', type: 'attack', damage: 14, effect: '+2 rizz' },
+      ],
+      5: [
+        { name: 'Royal Decree', type: 'group-buff', effect: '+2 strength, +2 rizz' }
+      ],
+      7: [
+        { name: 'Blade of Feymere', type: 'attack-def', damage: 22, effect: 'Ignores enemy defense' }
+      ]
+    }
+  }
 };
 
 export default Classes;

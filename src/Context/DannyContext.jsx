@@ -13,8 +13,8 @@ export function DannyProvider({ children }) {
     name: 'Danny',
     type: 'player',
     level: 1,
-    hp: 35,
     xp: 0,
+    hp: 35,
     strength: 8,
     defense: 4,
     speed: 4,
@@ -47,7 +47,12 @@ export function DannyProvider({ children }) {
   const [party, setParty] = useState([Danny]);
   const [goatState, setGoatState] = useState({
     sightings: 0,
-  })
+  });
+  const [questFlags, setQuestFlags] = useState({
+    hasParty: false,
+    edenGroveQuestGiven: false,
+    edenGroveCleansed: false,
+  });
 
   // Level Up Function
   const levelUp = (name, classData) => {
@@ -124,6 +129,14 @@ export function DannyProvider({ children }) {
   // Keep track of the Goat sightings
   const incrementGoatSightings = () => {
     setGoatState((prev) => prev + 1);
+  };
+
+  // Update your quests
+  const updateQuestFlag = (flag, value) => {
+    setQuestFlags((prev) => ({
+      ...prev,
+      [flag]: value,
+    }));
   };
 
   return (

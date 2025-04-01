@@ -18,20 +18,20 @@ export default function TrainingGrounds() {
   const [stage, setStage] = useState('intro');
   const [eventIndex, setEventIndex] = useState(0);
 
-  const barbarianClass = Classes.Bodybuilder;
+  const knightClass = Classes.Knight;
   const javon = {
     name: "Ja'von, the Rizzler",
     type: 'player',
     level: 1,
     xp: 0,
     hp: 35,
-    strength: 8,
-    defense: 4,
-    speed: 4,
-    rizz: 2,
-    class: barbarianClass.name,
-    description: 'A man who can deadlift 400 lbs but has never lifted a single date',
-    abilities: barbarianClass.abilities[1],
+    strength: 5,
+    defense: 5,
+    speed: 6,
+    rizz: 8,
+    class: knightClass.name,
+    description: 'Prince of the fallen Kingdom of Feymore. Oozes out Charisma.',
+    abilities: knightClass.abilities[1],
     image: Javon,
   };
 

@@ -20,6 +20,8 @@ import RizzAndBits from './Components/FantasyWorldScreen/Components/Bronzebell/R
 import DrunkScholar from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/DrunkScholar';
 import ToughGuy from './Components/FantasyWorldScreen/Components/Bronzebell/IronHide/Components/ToughGuy';
 import Goat from './Components/FantasyWorldScreen/Components/Bronzebell/Goat';
+import Shrine from './Components/FantasyWorldScreen/Components/Bronzebell/Shrine';
+import Mayor from './Components/FantasyWorldScreen/Components/Bronzebell/MayorHall/MayorHall';
 
 export default function App() {
   return (
@@ -42,7 +44,9 @@ export default function App() {
           <Route path='/bronzebell/ironhide/lisa' element={<Bartender />} />
           <Route path='/bronzebell/ironhide/drunk-scholar' element={<DrunkScholar />} />
           <Route path='/bronzebell/ironhide/local-tough-guy' element={<ToughGuy />} />
+          <Route path='/bronzebell/shrine' element={<Shrine />} />
           <Route path='/bronzebell/training' element={<TrainingGrounds />} />
+          <Route path='/bronzebell/mayor' element={<Mayor />} />
           <Route path='/bronzebell/goat' element={<Goat />} />
         </Routes>
       </Router>
