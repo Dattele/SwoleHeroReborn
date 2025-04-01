@@ -17,7 +17,7 @@ export default function BronzebellScreen() {
   const bronzebellIntro = [
     'After surviving EdenGrove Forest and somehow getting even sweatier, Danny finally arrives at the edge of a fortified town.',
     'The gates open without question, and the scent of roasted meat, steel, and slightly questionable herbal supplements fill the air.',
-    "A guard gives Danny a quick once-over, then immediately looks away, as if unsure if he just saw a hero or a fever dream.",
+    'A guard gives Danny a quick once-over, then immediately looks away, as if unsure if he just saw a hero or a fever dream.',
   ];
 
   const bronzebellEvents = [
@@ -34,7 +34,7 @@ export default function BronzebellScreen() {
     { text: "🧘 Bobby's Shrine", nextScene: '/bronzebell/shrine' },
     { text: '⚔️ Training Grounds', nextScene: '/bronzebell/training' },
     { text: "🏛 Mayor's Hall", nextScene: '/bronzebell/mayor' },
-    { text: "🐐 Goat", nextScene: '/bronzebell/goat' },
+    { text: '🐐 Goat', nextScene: '/bronzebell/goat' },
     { text: '🌍 World Map', nextScene: '/bronzebell/world-map' },
   ];
 
@@ -76,9 +76,15 @@ export default function BronzebellScreen() {
         backgroundPosition: 'center',
       }}
     >
-      {stage !== 'options' ?  (
+      {stage !== 'options' ? (
         <>
-          <TextBox text={stage === 'intro' ? bronzebellIntro[eventIndex] : bronzebellEvents[eventIndex]} />
+          <TextBox
+            text={
+              stage === 'intro'
+                ? bronzebellIntro[eventIndex]
+                : bronzebellEvents[eventIndex]
+            }
+          />
           <button className='Next-Btn' onClick={handleNextEvent}>
             Next
           </button>

@@ -1,14 +1,14 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import { useDanny } from "../../../../../Context/DannyContext";
-import Shop from "../../../../System/Shop";
-import Items from "../../../../System/Items";
+import { useDanny } from '../../../../../Context/DannyContext';
+import Shop from '../../../../System/Shop';
+import Items from '../../../../System/Items';
 
 export default function RizzAndBits() {
   const { spendGold, addItemToInventory } = useDanny();
   const navigate = useNavigate();
-  
+
   const shopItems = [Items[7], Items[6], Items[8], Items[4], Items[5]]; // Set the stores items
 
   const handleBuy = (item) => {
@@ -21,6 +21,11 @@ export default function RizzAndBits() {
   };
 
   return (
-    <Shop title='🛍 Rizz & Bits Market' items={shopItems} onClose={() => navigate('/bronzebell')} onBuy={handleBuy} />
+    <Shop
+      title='🛍 Rizz & Bits Market'
+      items={shopItems}
+      onClose={() => navigate('/bronzebell')}
+      onBuy={handleBuy}
+    />
   );
 }

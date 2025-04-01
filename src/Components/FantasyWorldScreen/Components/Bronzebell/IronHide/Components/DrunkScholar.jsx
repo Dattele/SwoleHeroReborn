@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../../TextBox';
-import Choices from "../../../../../Choices";
+import Choices from '../../../../../Choices';
 import drunkscholar from '../../../../../../assets/images/drunkscholar.png';
 
 import './Components.scss';
@@ -13,7 +13,7 @@ export default function DrunkScholar() {
   const navigate = useNavigate();
 
   const drunkScholarDialogue = [
-    "You approach a scholar hunched over the bar, mumbling at his drink.",
+    'You approach a scholar hunched over the bar, mumbling at his drink.',
     "'He doesn't just conquer... he consumes. Cities vanish. No names, no rubble. It's like history itself fears him.'",
     "He swirls his drink, staring off into the distance - 'Wes leads his armies now. Bright kid. Smarter than me. Now he whispers in the dark like it's a language.'",
     "Danny just looks at him - 'Right... so, the Demon King is, what? Hungry for attention?'",

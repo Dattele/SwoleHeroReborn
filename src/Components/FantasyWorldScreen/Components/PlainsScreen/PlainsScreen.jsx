@@ -18,7 +18,10 @@ const plainsEvents = [
 ];
 
 const choices = [
-  { text: 'Head straight to town (Maybe they have a gym)', nextScene: '/bronzebell' },
+  {
+    text: 'Head straight to town (Maybe they have a gym)',
+    nextScene: '/bronzebell',
+  },
   { text: 'Train in the forest (Time to grind EXP)', nextScene: '/forest' },
 ];
 

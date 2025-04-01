@@ -20,7 +20,8 @@ export function DannyProvider({ children }) {
     speed: 4,
     rizz: 2,
     class: bodyBuilderClass.name,
-    description: 'A man who can deadlift 400 lbs but has never lifted a single date',
+    description:
+      'A man who can deadlift 400 lbs but has never lifted a single date',
     abilities: bodyBuilderClass.abilities[1],
     image: DanielFace,
   };
@@ -56,8 +57,8 @@ export function DannyProvider({ children }) {
 
   // Level Up Function
   const levelUp = (name, classData) => {
-    setParty(prevParty =>
-      prevParty.map(member => {
+    setParty((prevParty) =>
+      prevParty.map((member) => {
         if (member.name === name && member.xp >= 100 * member.level) {
           return {
             ...member,
@@ -71,7 +72,7 @@ export function DannyProvider({ children }) {
           };
         }
         return member;
-      })
+      }),
     );
   };
   // const levelUp = (player, playerClass) => {
@@ -103,9 +104,7 @@ export function DannyProvider({ children }) {
       const existingItem = prev.find((i) => i.name === item.name);
       if (existingItem) {
         return prev.map((i) =>
-          i.name === item.name
-            ? { ...i, quantity: (i.quantity || 1) + 1 }
-            : i
+          i.name === item.name ? { ...i, quantity: (i.quantity || 1) + 1 } : i,
         );
       } else {
         return [...prev, { ...item, quantity: 1 }];
@@ -141,7 +140,20 @@ export function DannyProvider({ children }) {
 
   return (
     <DannyContext.Provider
-      value={{ stats, levelUp, wolfKills, incrementWolfKills, gold, inventory, addItem, spendGold, party, addPartyMember, goatState, incrementGoatSightings }}
+      value={{
+        stats,
+        levelUp,
+        wolfKills,
+        incrementWolfKills,
+        gold,
+        inventory,
+        addItem,
+        spendGold,
+        party,
+        addPartyMember,
+        goatState,
+        incrementGoatSightings,
+      }}
     >
       {children}
     </DannyContext.Provider>

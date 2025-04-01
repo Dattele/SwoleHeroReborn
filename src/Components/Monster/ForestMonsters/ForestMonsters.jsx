@@ -117,7 +117,7 @@ export const ForestBoss = [
         name: 'Savage Bite',
         type: 'smash',
         damage: 16,
-        effect: "-4 defense",
+        effect: '-4 defense',
       },
       {
         name: 'Pack Leader Howl',

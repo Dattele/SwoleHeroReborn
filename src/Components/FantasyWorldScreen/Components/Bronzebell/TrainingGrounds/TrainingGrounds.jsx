@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TextBox from "../../../../TextBox";
+import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices/Choices';
-import Classes from "../../../../System/Classes";
-import { useDanny } from "../../../../../Context/DannyContext";
+import Classes from '../../../../System/Classes';
+import { useDanny } from '../../../../../Context/DannyContext';
 
 import Grounds from '../../../../../assets/images/TrainingGrounds.webp';
 import Javon from '../../../../../assets/images/Javon.png';
@@ -37,19 +37,20 @@ export default function TrainingGrounds() {
 
   const context = useDanny();
   console.log('context', context);
-  const ethan = party?.find(member => member.name === 'Ethan, the Brute');
+  const ethan = party?.find((member) => member.name === 'Ethan, the Brute');
   console.log('ethan', ethan);
 
   const trainingGroundsIntro = [
-    "You arrive at the Bronzebell Training Grounds - you hear the clashing of steel and the shouts of a small crowd.",
-    "Two fighters circle each other - one in battered armor, the other moving with regal precision.",
+    'You arrive at the Bronzebell Training Grounds - you hear the clashing of steel and the shouts of a small crowd.',
+    'Two fighters circle each other - one in battered armor, the other moving with regal precision.',
     "The armored figure lunges - but in a flash, he's disarmed. His weapon clatters to the ground. The crowd gasps.",
     "'And that is why posture matters,' the victor says, smoothly sheathing his blade.",
     "He turns towards you - tall, poised, and disgustingly attractive. 'Ja'von, Prince of Feymere. And you are?'",
     "You step forward. 'Danny. Professional lifter. Big time hero. On a quest to defeat the Demon King... and maybe get a girlfriend out of it.'",
   ];
 
-  const ethanLine = "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
+  const ethanLine =
+    "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
 
   const javonDialogue = [
     "'A noble mission,' Ja'von says with a slight smirk. 'Even if your fashion sense is... outdated.'",
@@ -71,9 +72,7 @@ export default function TrainingGrounds() {
     ...javonDialogue,
   ];
 
-  const choices = [
-    { text: "Go to Town Square", nextScene: '/bronzebell' },
-  ];
+  const choices = [{ text: 'Go to Town Square', nextScene: '/bronzebell' }];
 
   const handleNextEvent = () => {
     if (eventIndex < fullDialogue.length - 1) {
@@ -82,7 +81,7 @@ export default function TrainingGrounds() {
       console.log('setting local storage to visited the training grounds');
       addPartyMember(javon);
       setStage('options');
-      localStorage.setItem('visitedTrainingGrounds', 'true'); // Save the visit   
+      localStorage.setItem('visitedTrainingGrounds', 'true'); // Save the visit
     }
   };
 
@@ -117,7 +116,6 @@ export default function TrainingGrounds() {
           <Choices options={choices} onChoiceSelected={navigate} />
         </>
       )}
-      
     </div>
   );
 }

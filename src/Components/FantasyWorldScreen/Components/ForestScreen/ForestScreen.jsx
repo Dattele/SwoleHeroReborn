@@ -16,7 +16,10 @@ const forestEvents = [
 
 const choices = [
   { text: 'Explore deeper (Encounter a monster)', nextScene: '/forest-battle' },
-  { text: "Head to town (Maybe there's a gym or females)", nextScene: '/bronzebell' },
+  {
+    text: "Head to town (Maybe there's a gym or females)",
+    nextScene: '/bronzebell',
+  },
 ];
 
 export default function ForestScreen() {

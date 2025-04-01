@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-import TextBox from "../../../../TextBox";
-import NPCChoices from "../../../../System/NPCChoices";
-import Choices from "../../../../Choices";
+import TextBox from '../../../../TextBox';
+import NPCChoices from '../../../../System/NPCChoices';
+import Choices from '../../../../Choices';
 import goat from '../../../../../assets/images/Goat.png';
 
 import './Goat.scss';
@@ -17,39 +17,40 @@ export default function Goat() {
   const navigate = useNavigate();
 
   const goatDialogue = [
-    "As you approach the Town Square, a bone-chilling bleat echoes through the air.",
-    "A Goat is standing in the middle of the street. Menacing. Still. Unblinking.",
+    'As you approach the Town Square, a bone-chilling bleat echoes through the air.',
+    'A Goat is standing in the middle of the street. Menacing. Still. Unblinking.',
     "Townfolk whisper in terror — 'Don't make eye contact...' 'It's got plans...' 'It once snuck into the inn and stole a beer.'",
-    "Something deep inside you says this Goat is not normal. This Goat is trouble.",
+    'Something deep inside you says this Goat is not normal. This Goat is trouble.',
     "A desperate farmer rushes up. 'Good sirs - please. That creature has haunted our lives long enough!'",
-    "**Quest: Remove the Goat**",
+    '**Quest: Remove the Goat**',
   ];
 
   const attackDialogue = [
     "Danny, Ja'von, and Ethan charge forward. Danny leads with a fist full of vengeance.",
     "The Goat locks eyes with Danny, lets out a menacing 'BLEEEAAT' — and sidesteps like a master.",
     "It stomps on Danny's foot causing him to fall onto the ground, then it *launches* itself at Ja'von and Ethan, kicking them both in the face.",
-    "They hit the ground with a grunt. The Goat lands, flicks its tail, and vanishes into the crowd.",
+    'They hit the ground with a grunt. The Goat lands, flicks its tail, and vanishes into the crowd.',
     "Danny: 'What the hell was that!?'",
     "Ja'von: 'That was no ordinary goat.'",
   ];
 
   const ignoreDialogue = [
-    "The group looks at the Goat… then at each other.",
+    'The group looks at the Goat… then at each other.',
     "Danny: 'Nah. We're heroes. We don't have time for barnyard drama.'",
-    "They laugh and walk off — but Danny pauses. He turns around slowly and the Goat is no longer there.",
+    'They laugh and walk off — but Danny pauses. He turns around slowly and the Goat is no longer there.',
     "Danny stares in disbelief - '...Guys? It was just staring at me a second ago and now its gone. I swear.'",
     "Ethan: 'You're just dehydrated.. Again.'",
   ];
 
   const npcChoices = [
-    { text: '✅ Accept the quest and confront the Goat - for Bronzebell!', action: 'attack' },
+    {
+      text: '✅ Accept the quest and confront the Goat - for Bronzebell!',
+      action: 'attack',
+    },
     { text: "❌ Deny the Goat's influence (like a coward)", action: 'ignore' },
   ];
 
-  const choices = [
-    { text: 'Scream and run', nextScene: '/bronzebell' },
-  ];
+  const choices = [{ text: 'Scream and run', nextScene: '/bronzebell' }];
 
   // Get the current dialogue
   const getCurrentDialogue = () => {
@@ -64,12 +65,12 @@ export default function Goat() {
       case 'attack':
         // Open shop modal, change mode, etc.
         setShowAttack(true);
-        console.log("Opening shop menu...");
+        console.log('Opening shop menu...');
         break;
       case 'ignore':
         // Show rest confirmation modal
         setShowIgnore(true);
-        console.log("Opening rest confirmation...");
+        console.log('Opening rest confirmation...');
         break;
       default:
         break;
@@ -87,7 +88,7 @@ export default function Goat() {
       if (!showAttack && !showIgnore) {
         setEventIndex(0);
         setShowChoices(true);
-      } 
+      }
     }
   };
 

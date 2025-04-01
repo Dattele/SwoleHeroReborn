@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TextBox from "../../../../TextBox";
-import Choices from "../../../../Choices";
+import TextBox from '../../../../TextBox';
+import Choices from '../../../../Choices';
 
 import shrine from '../../../../../assets/images/Shrine.png';
 
@@ -15,13 +15,13 @@ export default function Shrine() {
 
   const bobbyDialogue = {
     notReady: [
-      "The shrine is still. Bobby opens one eye as you approach... alone.",
+      'The shrine is still. Bobby opens one eye as you approach... alone.',
       "'You are eager, but not yet ready.. Come back when you're surrounded by strength'",
       "'Until then, I will wait... and the world will worsen.'",
     ],
-  
+
     giveQuest: [
-      "The shrine is quiet. You see a young monk in deep meditation.",
+      'The shrine is quiet. You see a young monk in deep meditation.',
       "As you approach, he opens one eye. 'So... the one who reeks of chalk and protein finally arrives.'",
       "'I am Bobby. Keeper of stories, seer of truths, and undefeated town chess champion.'",
       "He gestures for your party to kneel. 'Much has changed, brave ones. Eldoria is breaking.'",
@@ -33,15 +33,15 @@ export default function Shrine() {
       "Ethan: 'Sounds like a wizard with daddy issues.'",
       "Bobby ignores the comment. 'There is something worse. The forests are dying. EdenGrove has begun to rot from within.'",
       "'The corruption must be cleansed. Return there. Find its heart. Purge the darkness before it spreads further.'",
-      "**[ New Quest: Cleanse EdenGrove Forest 🌿 ]**"
+      '**[ New Quest: Cleanse EdenGrove Forest 🌿 ]**',
     ],
-  
+
     stillCorrupted: [
       "Bobby greets you with a heavy gaze. 'The forest still suffers.'",
       "'You carry strength, but action defines purpose. Return only when EdenGrove breathes clean again.'",
       "'The trees are whispering, and they do not sound hopeful.'",
     ],
-  
+
     completed: [
       "Bobby steps forward, a rare look of hope in his eyes. 'It is done.'",
       "'The corruption is purged. EdenGrove breathes once more. You have done a great thing... though you still smell like gym socks.'",
@@ -57,18 +57,16 @@ export default function Shrine() {
       "Bobby smiles. 'Perhaps. Or perhaps the prophecy meant someone a little less sweaty..'",
       "'Go now. Your journey begins anew. And the fate of Eldoria... may just rest on your absurdly large shoulders.'",
       "He returns to meditation. 'May your strength remain... and your squats remain deep.'",
-      "**[ Quest Complete: EdenGrove Purified ✅ ]**"
-    ]
+      '**[ Quest Complete: EdenGrove Purified ✅ ]**',
+    ],
   };
 
-  const choices = [
-    { text: 'Head back', nextScene: '/bronzebell' },
-  ];
+  const choices = [{ text: 'Head back', nextScene: '/bronzebell' }];
 
   const handleNextEvent = () => {
     if (eventIndex < bobbyDialogue.giveQuest.length - 1) {
       setEventIndex(eventIndex + 1);
-    } 
+    }
   };
 
   return (
@@ -90,7 +88,6 @@ export default function Shrine() {
           Next
         </button>
       )}
-      
     </div>
   );
 }

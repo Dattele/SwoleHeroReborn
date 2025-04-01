@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
-import ForestBossIntro from '../../../../assets/images/ForestBossIntro.webp'
+import ForestBossIntro from '../../../../assets/images/ForestBossIntro.webp';
 
 import '../../../../scss/All.scss';
 
@@ -37,14 +37,15 @@ const ForestBossScreen = () => {
   ];
 
   return (
-    <div 
-      className='Screen Full-Screen Forest-Boss-Screen' 
+    <div
+      className='Screen Full-Screen Forest-Boss-Screen'
       style={{
         backgroundImage: `url(${ForestBossIntro})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
-      }}>
+      }}
+    >
       <TextBox text={alphaEvents[eventIndex]} />
 
       {eventIndex === alphaEvents.length - 1 ? (
@@ -56,6 +57,6 @@ const ForestBossScreen = () => {
       )}
     </div>
   );
-}
+};
 
 export default ForestBossScreen;

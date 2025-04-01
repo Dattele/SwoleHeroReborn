@@ -5,7 +5,7 @@ import '../../../scss/All.scss';
 
 export default function Shop({ title, items, onClose, onBuy }) {
   return (
-    <div className="Screen Full-Screen Shop-Screen">
+    <div className='Screen Full-Screen Shop-Screen'>
       <h2>{title}</h2>
       <p>Looking for gains? We've got 'em — for the right price.</p>
 

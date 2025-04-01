@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../../TextBox';
-import NPCChoices from "../../../../../System/NPCChoices";
-import Shop from "../../../../../System/Shop";
-import Rest from "../../../../../System/Rest";
-import Items from "../../../../../System/Items";
-import { useDanny } from "../../../../../../Context/DannyContext";
+import NPCChoices from '../../../../../System/NPCChoices';
+import Shop from '../../../../../System/Shop';
+import Rest from '../../../../../System/Rest';
+import Items from '../../../../../System/Items';
+import { useDanny } from '../../../../../../Context/DannyContext';
 
 import IronhideBartender from '../../../../../../assets/images/IronhideBartender.webp';
 
@@ -28,11 +28,11 @@ export default function Bartender() {
     { text: '🛏 Rent a room', action: 'rest' },
     { text: '💘 Rizz her Up', action: 'rizz' },
     { text: '😈 Ask about the Demon King', action: 'demon-king' },
-    { text: '🪑 Go back to your seat', action: 'leave' }
+    { text: '🪑 Go back to your seat', action: 'leave' },
   ];
 
   console.log('partyy', party);
-  const danny = party?.find(member => member.name === 'Danny');
+  const danny = party?.find((member) => member.name === 'Danny');
   const dannyRizz = danny?.rizz ?? 0;
 
   const shopItems = [Items[0], Items[1], Items[2]];
@@ -42,18 +42,18 @@ export default function Bartender() {
       case 'shop':
         // Open shop modal, change mode, etc.
         setShowShop(true);
-        console.log("Opening shop menu...");
+        console.log('Opening shop menu...');
         break;
       case 'rest':
         // Show rest confirmation modal
         setShowRest(true);
-        console.log("Opening rest confirmation...");
+        console.log('Opening rest confirmation...');
         break;
       case 'rizz':
         // Do rizz check
         handleRizz(dannyRizz);
         setShowRizz(true);
-        console.log("Attempting to Rizz Lisa...");
+        console.log('Attempting to Rizz Lisa...');
         break;
       case 'demon-king':
         setShowDemonKing(true);
@@ -77,8 +77,7 @@ export default function Bartender() {
 
   const handleRest = (item) => {
     console.log('handling rest');
-  }
-
+  };
 
   const handleRizz = (rizz) => {
     if (rizz >= 8) {
@@ -96,7 +95,7 @@ export default function Bartender() {
     } else if (rizz >= 4) {
       //Awkward
       setRizzText([
-        "Bartenders like strong drinks, right? Good thing I come in bulk.",
+        'Bartenders like strong drinks, right? Good thing I come in bulk.',
         "Lisa hands him a glass of water - 'Hydrate. That was painful.'",
       ]);
     } else {
@@ -105,10 +104,10 @@ export default function Bartender() {
       setRizzText([
         "Danny: 'Did it hurt when you fell from the protein shelf?'",
         "Lisa just stares. 'Wow. That pickup line just made me file for worker's comp.'",
-        "You lose 1 HP from emotional damage."
+        'You lose 1 HP from emotional damage.',
       ]);
     }
-  }
+  };
 
   const handleNextEvent = () => {
     if (rizzIndex < rizzText.length - 1) {
@@ -120,14 +119,24 @@ export default function Bartender() {
     setShowRizz(false);
     setRizzIndex(0);
     setRizzText([]);
-  }
+  };
 
   return (
     <>
       {showShop ? (
-        <Shop title='🍻 Ironhide Inn & Tavern' items={shopItems} onClose={() => setShowShop(false)} onBuy={handleBuy} />
+        <Shop
+          title='🍻 Ironhide Inn & Tavern'
+          items={shopItems}
+          onClose={() => setShowShop(false)}
+          onBuy={handleBuy}
+        />
       ) : showRest ? (
-        <Rest title='🛏 Ironhide Inn' text="Beds so sturdy, even Ethan hasn't broken one… yet." onRest={handleRest} onClose={() => setShowRest(false)} />
+        <Rest
+          title='🛏 Ironhide Inn'
+          text="Beds so sturdy, even Ethan hasn't broken one… yet."
+          onRest={handleRest}
+          onClose={() => setShowRest(false)}
+        />
       ) : showDemonKing ? (
         <div
           className='Screen Full-Screen Bartender-Screen'
@@ -138,8 +147,14 @@ export default function Bartender() {
             backgroundPosition: 'center',
           }}
         >
-          <TextBox text={"The Demon King? Word is he just took Caldrith Port - one of Eldoria's last strongholds. You want my advice, tough guy? Stay out of it - Dead men don't lift"} />
-          <button className='Btn' onClick={() => setShowDemonKing(false)}>I am scared of no man.. I can bench 225!</button>
+          <TextBox
+            text={
+              "The Demon King? Word is he just took Caldrith Port - one of Eldoria's last strongholds. You want my advice, tough guy? Stay out of it - Dead men don't lift"
+            }
+          />
+          <button className='Btn' onClick={() => setShowDemonKing(false)}>
+            I am scared of no man.. I can bench 225!
+          </button>
         </div>
       ) : showRizz ? (
         <div
@@ -153,7 +168,9 @@ export default function Bartender() {
         >
           <TextBox text={rizzText[rizzIndex]} />
           {rizzIndex === rizzText.length - 1 ? (
-            <button className='Btn' onClick={() => resetRizz()}>Go back</button>
+            <button className='Btn' onClick={() => resetRizz()}>
+              Go back
+            </button>
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next

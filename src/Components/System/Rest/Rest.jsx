@@ -5,7 +5,7 @@ import '../../../scss/All.scss';
 
 export default function Rest({ title, text, onRest, onClose }) {
   return (
-    <div className="Screen Full-Screen Rest-Screen">
+    <div className='Screen Full-Screen Rest-Screen'>
       <h2>{title}</h2>
       <p>{text}</p>
       <p>Resting restores your parties HP</p>

@@ -22,31 +22,42 @@ import './Battle.scss';
 import '../../scss/All.scss';
 
 export default function Battle({ players, enemies, onBattleEnd = null }) {
-  const deathSounds = [death, fortniteDeath, yodaDeath, 
-    marioDeath, minecraftDeath, minecraftHorse, phasDeath, robloxDeath, rotmgDeath, 
-    stormDeath, warioDeath, werehogDeath];
-  
+  const deathSounds = [
+    death,
+    fortniteDeath,
+    yodaDeath,
+    marioDeath,
+    minecraftDeath,
+    minecraftHorse,
+    phasDeath,
+    robloxDeath,
+    rotmgDeath,
+    stormDeath,
+    warioDeath,
+    werehogDeath,
+  ];
+
   let navigate = useNavigate();
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
 
-  const playersClone = structuredClone(players).map(player => ({
+  const playersClone = structuredClone(players).map((player) => ({
     ...player,
     id: uuidv4(),
   }));
-  const enemiesClone = structuredClone(enemies).map(enemy => ({
+  const enemiesClone = structuredClone(enemies).map((enemy) => ({
     ...enemy,
     id: uuidv4(),
   }));
 
   // Play a death sound audio
   const playRandomDeathSound = () => {
-    const randomSound = deathSounds[Math.floor(Math.random() * deathSounds.length)];
+    const randomSound =
+      deathSounds[Math.floor(Math.random() * deathSounds.length)];
     const audio = new Audio(randomSound);
     audio.volume = 0.3;
     audio.play();
-  }
-  
+  };
 
   const initialState = {
     turnOrder: [...playersClone, ...enemiesClone].sort(
@@ -102,13 +113,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           newLog = `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`;
         }
 
-        const updatedTurnOrder = state.turnOrder.map(element =>
-          element.id === target.id
-            ? { ...element, hp: Math.max(0, element.hp - damage) }
-            : element,
-        ).filter(
-          (element) => element.hp > 0
-        );;
+        const updatedTurnOrder = state.turnOrder
+          .map((element) =>
+            element.id === target.id
+              ? { ...element, hp: Math.max(0, element.hp - damage) }
+              : element,
+          )
+          .filter((element) => element.hp > 0);
 
         // Filter out dead enemies from turn order
         // const updatedTurnOrder = state.turnOrder.filter(
@@ -121,7 +132,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let deathLog;
         let xpLog;
         let DeadTargets = state.deadEnemies;
-        if (updatedTurnOrder.length < state.turnOrder.length && target.type === 'enemy') {
+        if (
+          updatedTurnOrder.length < state.turnOrder.length &&
+          target.type === 'enemy'
+        ) {
           DeadTargets.push(target);
           xp += target.xp;
           deathLog = `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`;
@@ -134,7 +148,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           // playerHPs: updatedPlayers,
           // enemyHPs: updatedEnemies,
           turnOrder: updatedTurnOrder,
-          battleLog: deathLog 
+          battleLog: deathLog
             ? [...state.battleLog, newLog, deathLog, xpLog]
             : [...state.battleLog, newLog],
           xpGained: xp,
@@ -165,7 +179,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           return newStats;
         };
 
-        const updatedTurnOrder = state.turnOrder.map(element =>
+        const updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id ? applyBuff(element) : element,
         );
 
@@ -204,7 +218,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         //     ? { ...player, hp: Math.min(originalHP.hp, target.hp + heal) }
         //     : player,
         // );
-        const updatedTurnOrder = state.turnOrder.map(element =>
+        const updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
             ? { ...element, hp: Math.min(originalHP.hp, target.hp + heal) }
             : element,
@@ -233,14 +247,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'CHECK_WIN_CONDITIONS': {
         const aliveCombatants = state.turnOrder.filter(
-          element => element.hp > 0,
+          (element) => element.hp > 0,
         );
 
         const aliveEnemies = aliveCombatants.filter(
-          element => element.type === 'enemy',
+          (element) => element.type === 'enemy',
         );
         const alivePlayers = aliveCombatants.filter(
-          element => element.type === 'player',
+          (element) => element.type === 'player',
         );
 
         let outcome = null;
@@ -251,9 +265,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         if (aliveEnemies.length === 0) outcome = 'win';
         if (alivePlayers.length === 0) outcome = 'lose';
 
-        return { 
-          ...state, 
-          battleOutcome: outcome, 
+        return {
+          ...state,
+          battleOutcome: outcome,
           turnOrder: aliveCombatants,
         };
       }
@@ -261,13 +275,18 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const newEnemy = action.payload;
         console.log(newEnemy);
 
-        const updatedTurnOrder = [...state.turnOrder, newEnemy].sort((a, b) => b.speed - a.speed);
+        const updatedTurnOrder = [...state.turnOrder, newEnemy].sort(
+          (a, b) => b.speed - a.speed,
+        );
         console.log(updatedTurnOrder);
 
         return {
           ...state,
           turnOrder: updatedTurnOrder,
-          battleLog: [...state.battleLog, `${newEnemy.name} has been summoned into battle!`],
+          battleLog: [
+            ...state.battleLog,
+            `${newEnemy.name} has been summoned into battle!`,
+          ],
         };
       }
       default: {
@@ -284,26 +303,32 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   // Sets a timeout to wait before performing any other actions
   const sleep = (ms) => {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
   // Adding an enemy to battle
   const AddEnemyToBattle = (newEnemy) => {
     dispatch({
       type: 'ADD_ENEMY',
-      payload: newEnemy
+      payload: newEnemy,
     });
   };
 
   // Select enemy to attack
   const SelectTarget = (attack) => {
     // Get selected attack
-    dispatch({ type: 'SELECT_ATTACK', payload: attack })
+    dispatch({ type: 'SELECT_ATTACK', payload: attack });
 
     if (attack.type === 'attack') {
-      dispatch({ type: 'SET_TARGETING', payload: { enemy: true, ally: false } });
+      dispatch({
+        type: 'SET_TARGETING',
+        payload: { enemy: true, ally: false },
+      });
     } else {
-      dispatch({ type: 'SET_TARGETING', payload: { enemy: false, ally: true } });
+      dispatch({
+        type: 'SET_TARGETING',
+        payload: { enemy: false, ally: true },
+      });
     }
   };
 
@@ -323,14 +348,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     } else if (selectedAttack.type === 'heal' && target) {
       HandleHeal(selectedAttack, target);
     }
-    
+
     // Reset attack state
     dispatch({ type: 'SELECT_ATTACK', payload: {} });
 
     const goNextTurn = async () => {
       await sleep(2000);
       NextTurn();
-    }
+    };
     goNextTurn();
   };
 
@@ -349,8 +374,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       payload: { attacker, attack, target },
     });
 
-     // Check if battle has ended
-     CheckBattleEnd();
+    // Check if battle has ended
+    CheckBattleEnd();
   };
 
   const HandleBuff = (attack, target) => {
@@ -394,7 +419,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     });
     dispatch({
       type: 'HANDLE_HEAL',
-      payload: { attacker, attack,  target: attackerCopy },
+      payload: { attacker, attack, target: attackerCopy },
     });
   };
 
@@ -415,7 +440,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_BUFF',
       payload: { attacker, attack, target },
     });
-  }
+  };
 
   // Enemy turn logic
   const EnemyTurn = (enemy) => {
@@ -429,17 +454,21 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Select a random target from turnOrder
     let targets;
     let newEnemy;
-    if (randomAttack.type === 'attack' || randomAttack.type === 'drain' || randomAttack.type === 'smash') {
-      targets = state.turnOrder.filter(element => element.type === 'player'); // Attack players
+    if (
+      randomAttack.type === 'attack' ||
+      randomAttack.type === 'drain' ||
+      randomAttack.type === 'smash'
+    ) {
+      targets = state.turnOrder.filter((element) => element.type === 'player'); // Attack players
     } else {
-      targets = state.turnOrder.filter(element => element.type === 'enemy'); // Buff or heal enemies
+      targets = state.turnOrder.filter((element) => element.type === 'enemy'); // Buff or heal enemies
     }
     const randomTarget = targets[Math.floor(Math.random() * targets.length)];
 
     if (randomAttack.type === 'summon') {
-      newEnemy = { ...randomAttack.effect }
+      newEnemy = { ...randomAttack.effect };
       console.log('new enemy added', newEnemy);
-    } 
+    }
 
     console.log('random target selected', randomTarget);
     console.log('random attack selected', randomAttack);
@@ -462,9 +491,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         break;
       }
       case 'group-buff': {
-        state.turnOrder.filter(enemy => enemy.type === 'enemy').forEach(enemyTarget => {
-          HandleBuff(randomAttack, enemyTarget);
-        })
+        state.turnOrder
+          .filter((enemy) => enemy.type === 'enemy')
+          .forEach((enemyTarget) => {
+            HandleBuff(randomAttack, enemyTarget);
+          });
         break;
       }
       case 'smash': {
@@ -476,7 +507,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         break;
       }
       default: {
-        console.log("Unknown attack type:", randomAttack.type);
+        console.log('Unknown attack type:', randomAttack.type);
         break;
       }
     }
@@ -497,24 +528,24 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const CheckBattleEnd = () => {
     dispatch({
       type: 'CHECK_WIN_CONDITIONS',
-    })
-  }
+    });
+  };
   const BattleEnd = (result, xp) => {
     console.log('xp gained from battle', xp);
-     // Handle special ending scenarios
+    // Handle special ending scenarios
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
   };
 
   useEffect(() => {
-    if (state.battleOutcome === 'win' || state.battleOutcome === 'lose') 
-      BattleEnd(state.battleOutcome, state.xpGained)
-  }, [state.battleOutcome])
+    if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
+      BattleEnd(state.battleOutcome, state.xpGained);
+  }, [state.battleOutcome]);
 
   // Smooth scroll to newest battleLog entry
   useEffect(() => {
     if (lastEntryRef.current) {
-      lastEntryRef.current.scrollIntoView({ behavior: "smooth" });
+      lastEntryRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [state.battleLog]);
 
@@ -539,16 +570,16 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Enemy Display */}
       <div className='Section Enemy-Section'>
         {state.turnOrder && state.turnOrder.length > 0 ? (
-          state.turnOrder.filter(
-            enemy => enemy.type === 'enemy'
-          ).map((enemy, index) => (
-            <div key={index} className='Enemy'>
-              <h3>
-                {enemy.name} (HP: {enemy.hp})
-              </h3>
-              <img src={enemy.image} alt={enemy.name} />
-            </div>
-          ))
+          state.turnOrder
+            .filter((enemy) => enemy.type === 'enemy')
+            .map((enemy, index) => (
+              <div key={index} className='Enemy'>
+                <h3>
+                  {enemy.name} (HP: {enemy.hp})
+                </h3>
+                <img src={enemy.image} alt={enemy.name} />
+              </div>
+            ))
         ) : (
           <h3>No enemies remain</h3>
         )}
@@ -557,8 +588,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Battle Log */}
       <div className='Battle-Log' ref={logRef}>
         {state.battleLog && state.battleLog.length > 0 ? (
-          state.battleLog.map((entry, index) => <p key={index} 
-            ref={index === state.battleLog.length - 1 ? lastEntryRef : null}>{entry}</p>)
+          state.battleLog.map((entry, index) => (
+            <p
+              key={index}
+              ref={index === state.battleLog.length - 1 ? lastEntryRef : null}
+            >
+              {entry}
+            </p>
+          ))
         ) : (
           <p>Begin Battle</p>
         )}
@@ -567,7 +604,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Pop-up for selecting enemy */}
       {state.isTargetingEnemy && (
         <TargetSelection
-          enemies={state.turnOrder.filter(enemy => enemy.type === 'enemy')}
+          enemies={state.turnOrder.filter((enemy) => enemy.type === 'enemy')}
           onSelectTarget={HandleTargetSelection}
         />
       )}
@@ -575,43 +612,43 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Pop-up for selecting ally */}
       {state.isTargetingAlly && (
         <TargetSelectionAlly
-          allies={state.turnOrder.filter(player => player.type === 'player')}
+          allies={state.turnOrder.filter((player) => player.type === 'player')}
           onSelectTarget={HandleTargetSelection}
         />
       )}
 
       {/* Player Display */}
       <div className='Section Player-Section'>
-        {state.turnOrder.filter(
-          player => player.type === 'player'
-        ).map((player, index) => (
-          <div key={index} className='Player'>
-            <h3>
-              {player.name} (HP: {player.hp})
-            </h3>
-            <div className='Attack-Buttons'>
-              <img
-                src={player.image}
-                alt={player.name}
-                className='Attack-Image'
-              />
-              {player.abilities.map((attack, i) => (
-                <button
-                  key={i}
-                  disabled={state.isEnemyTurn}
-                  className='Attack-Btn'
-                  onClick={() => SelectTarget(attack)}
-                >
-                  {attack.name} (
-                  {attack.type === 'attack'
-                    ? `${attack.damage} DMG`
-                    : attack.effect}
-                  )
-                </button>
-              ))}
+        {state.turnOrder
+          .filter((player) => player.type === 'player')
+          .map((player, index) => (
+            <div key={index} className='Player'>
+              <h3>
+                {player.name} (HP: {player.hp})
+              </h3>
+              <div className='Attack-Buttons'>
+                <img
+                  src={player.image}
+                  alt={player.name}
+                  className='Attack-Image'
+                />
+                {player.abilities.map((attack, i) => (
+                  <button
+                    key={i}
+                    disabled={state.isEnemyTurn}
+                    className='Attack-Btn'
+                    onClick={() => SelectTarget(attack)}
+                  >
+                    {attack.name} (
+                    {attack.type === 'attack'
+                      ? `${attack.damage} DMG`
+                      : attack.effect}
+                    )
+                  </button>
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          ))}
       </div>
     </div>
   );

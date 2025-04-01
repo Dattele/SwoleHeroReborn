@@ -1,7 +1,8 @@
 const Classes = {
   Bodybuilder: {
     name: 'BodyBuilder',
-    description: 'A warrior of strength and gains. Prioritizes brute force over finesse.',
+    description:
+      'A warrior of strength and gains. Prioritizes brute force over finesse.',
     statGrowth: {
       hp: 10, // Gains 10 HP per level
       strength: 6, // Gains 6 Strength per level
@@ -33,7 +34,8 @@ const Classes = {
   },
   Barbarian: {
     name: 'Barbarian',
-    description: 'A brutal warrior with fists of steel and a heart full of rage.',
+    description:
+      'A brutal warrior with fists of steel and a heart full of rage.',
     statGrowth: {
       hp: 15,
       strength: 3,
@@ -42,24 +44,24 @@ const Classes = {
       rizz: 1,
     },
     abilities: {
-      1: [
-        { name: 'Gut Slam', type: 'attack', damage: 12}
-      ],
+      1: [{ name: 'Gut Slam', type: 'attack', damage: 12 }],
       3: [
-        { name: '🍻 Bottoms Up', type: 'chug', heal: 20, effect: '+2 strength' },
-        { name: 'Cleaver', type: 'aoe', damage: '10' }
+        {
+          name: '🍻 Bottoms Up',
+          type: 'chug',
+          heal: 20,
+          effect: '+2 strength',
+        },
+        { name: 'Cleaver', type: 'aoe', damage: '10' },
       ],
-      5: [
-        { name: 'Skull Bash', type: 'smash', damage: '16' }
-      ],
-      7: [
-        { name: 'Fury Slame', type: 'strength', damage: '25' }
-      ]
-    }
+      5: [{ name: 'Skull Bash', type: 'smash', damage: '16' }],
+      7: [{ name: 'Fury Slame', type: 'strength', damage: '25' }],
+    },
   },
   Knight: {
     name: 'Knight',
-    description: 'A disciplined warrior trained in swordplay and honor. Fights with elegance, defends with pride, and flirts with nobility.',
+    description:
+      'A disciplined warrior trained in swordplay and honor. Fights with elegance, defends with pride, and flirts with nobility.',
     statGrowth: {
       hp: 10,
       strength: 3,
@@ -70,19 +72,33 @@ const Classes = {
     abilities: {
       1: [
         { name: 'Riposte', type: 'attack', damage: 10 },
-        { name: 'Stand Firm', type: 'defense', effect: '+4 defense' }
+        { name: 'Stand Firm', type: 'defense', effect: '+4 defense' },
       ],
       3: [
-        { name: 'Radiant Slash', type: 'attack', damage: 14, effect: '+2 rizz' },
+        {
+          name: 'Radiant Slash',
+          type: 'attack',
+          damage: 14,
+          effect: '+2 rizz',
+        },
       ],
       5: [
-        { name: 'Royal Decree', type: 'group-buff', effect: '+2 strength, +2 rizz' }
+        {
+          name: 'Royal Decree',
+          type: 'group-buff',
+          effect: '+2 strength, +2 rizz',
+        },
       ],
       7: [
-        { name: 'Blade of Feymere', type: 'attack-def', damage: 22, effect: 'Ignores enemy defense' }
-      ]
-    }
-  }
+        {
+          name: 'Blade of Feymere',
+          type: 'attack-def',
+          damage: 22,
+          effect: 'Ignores enemy defense',
+        },
+      ],
+    },
+  },
 };
 
 export default Classes;
