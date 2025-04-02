@@ -22,6 +22,7 @@ import ToughGuy from './Components/FantasyWorldScreen/Components/Bronzebell/Iron
 import Goat from './Components/FantasyWorldScreen/Components/Bronzebell/Goat';
 import Shrine from './Components/FantasyWorldScreen/Components/Bronzebell/Shrine';
 import Mayor from './Components/FantasyWorldScreen/Components/Bronzebell/MayorHall/MayorHall';
+import WorldMap from './Components/System/WorldMap/WorldMap';
 
 export default function App() {
   return (
@@ -54,6 +55,7 @@ export default function App() {
           <Route path='/bronzebell/training' element={<TrainingGrounds />} />
           <Route path='/bronzebell/mayor' element={<Mayor />} />
           <Route path='/bronzebell/goat' element={<Goat />} />
+          <Route path='/world-map' element={<WorldMap />} />
         </Routes>
       </Router>
     </DannyProvider>

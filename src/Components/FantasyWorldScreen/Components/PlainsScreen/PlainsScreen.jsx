@@ -14,7 +14,7 @@ const plainsEvents = [
   "Danny takes a deep breath, flexes for no reason, and grins. 'Alright, time to get this party started!'",
   'In the distance, he sees a town — his first stop in Eldoria. Maybe they have a gym. Maybe they have single women. Or maybe both!?',
   'To his right, a dense forest hums with the sounds of creatures, adventure… and potential EXP gains.',
-  "Danny cracks his knuckles. 'Alright, I’ve got two options. Do I roll up to town looking like a total newbie, or do I hit the forest, grind some levels, and show up jacked?'",
+  "Danny cracks his knuckles. 'Alright, I've got two options. Do I roll up to town looking like a total newbie, or do I hit the forest, grind some levels, and show up jacked?'",
 ];
 
 const choices = [

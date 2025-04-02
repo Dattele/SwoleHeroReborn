@@ -1,0 +1,25 @@
+.Map-Container {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  aspect-ratio: 16 / 9;
+
+  .Map-Location {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    border: none;
+    outline: none;
+    background: none;
+    color: #ffffff;
+    font-weight: bold;
+    font-size: 18px;
+    font-family: 'Pixelify Sans';
+    transition: color 0.3s, border 0.3s;
+
+    &:hover,
+    &:active {
+      color: #e6e6e6;
+      border: 2px solid #e6e6e6;
+    }
+  }
+}

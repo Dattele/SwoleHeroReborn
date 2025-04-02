@@ -35,7 +35,7 @@ export default function BronzebellScreen() {
     { text: '⚔️ Training Grounds', nextScene: '/bronzebell/training' },
     { text: "🏛 Mayor's Hall", nextScene: '/bronzebell/mayor' },
     { text: '🐐 Goat', nextScene: '/bronzebell/goat' },
-    { text: '🌍 World Map', nextScene: '/bronzebell/world-map' },
+    { text: '🌍 World Map', nextScene: '/world-map' },
   ];
 
   const handleNextEvent = () => {

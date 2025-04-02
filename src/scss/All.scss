@@ -26,6 +26,7 @@
   font-family: 'Pixelify Sans';
   font-weight: bold;
   width: fit-content;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;
@@ -43,6 +44,7 @@
   font-family: 'Roboto';
   font-weight: bold;
   width: fit-content;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;
