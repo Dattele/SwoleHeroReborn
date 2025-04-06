@@ -72,12 +72,12 @@ const Classes = {
     abilities: {
       1: [
         { name: 'Riposte', type: 'attack', damage: 10 },
-        { name: 'Stand Firm', type: 'defense', effect: '+4 defense' },
+        { name: 'Stand Firm', type: 'buff', effect: '+4 defense' },
       ],
       3: [
         {
           name: 'Radiant Slash',
-          type: 'attack',
+          type: 'rizz-attack',
           damage: 14,
           effect: '+2 rizz',
         },

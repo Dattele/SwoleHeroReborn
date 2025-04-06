@@ -8,7 +8,8 @@ import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
 // import dannyImage from '../../../assets/images/Daniel.jpeg';
 
 export default function ForestBattle() {
-  const { stats, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
+  const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
+  console.log(party);
   const navigate = useNavigate();
   //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
 
@@ -41,6 +42,6 @@ export default function ForestBattle() {
   };
 
   return (
-    <Battle players={[stats]} enemies={[enemy]} onBattleEnd={handleBattleEnd} />
+    <Battle players={party} enemies={[enemy]} onBattleEnd={handleBattleEnd} />
   );
 }

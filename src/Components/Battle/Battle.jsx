@@ -40,6 +40,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   let navigate = useNavigate();
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
+  const playerSectRefs = useRef([]);
 
   const playersClone = structuredClone(players).map((player) => ({
     ...player,
@@ -49,6 +50,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     ...enemy,
     id: uuidv4(),
   }));
+  const [playerHeight, setPlayerHeight] = useState('auto');
 
   // Play a death sound audio
   const playRandomDeathSound = () => {
@@ -72,6 +74,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     deadEnemies: [],
     isEnemyTurn: null,
     battleOutcome: null,
+    activePlayerIndex: 0,
   };
 
   const BattleReducer = (state, action) => {
@@ -81,6 +84,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'NEXT_TURN': {
         if (state.battleOutcome) return state; // Stop turn progression
+      
+        // Increase player index if the fighter was a player
+        let playerIndex = state.activePlayerIndex;
+        if (state.turnOrder[state.turnIndex].type === 'player') 
+          playerIndex = (playerIndex + 1) % players.length;
 
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
         const nextFighter = state.turnOrder[nextTurnIndex];
@@ -90,6 +98,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           ...state,
           turnIndex: nextTurnIndex,
           isEnemyTurn: nextFighter.type === 'enemy',
+          activePlayerIndex: playerIndex,
         };
       }
       case 'HANDLE_ATTACK': {
@@ -565,6 +574,16 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     }
   }, [state.isEnemyTurn]);
 
+  // Set all the player sections to be the same height as the tallest one
+  // useEffect(() => {
+  //   if (playerSectRefs.current.length > 1) {
+  //     const maxHeight = Math.max(
+  //       ...playerSectRefs.current.map((btn) => btn?.offsetHeight || 0),
+  //     );
+  //     setPlayerHeight(`${maxHeight}px`);
+  //   }
+  // }, []);
+
   return (
     <div className='Screen Battle-Screen Full-Screen'>
       {/* Enemy Display */}
@@ -622,11 +641,42 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         {state.turnOrder
           .filter((player) => player.type === 'player')
           .map((player, index) => (
-            <div key={index} className='Player'>
+            <div key={index} className='Player' ref={(el) => { playerSectRefs.current[index] = el; }} style={{ height: playerHeight }}>
               <h3>
                 {player.name} (HP: {player.hp})
               </h3>
-              <div className='Attack-Buttons'>
+              {index === state.activePlayerIndex ? (
+                <div className='Attack-Buttons'>
+                  <img
+                    src={player.imageFace}
+                    alt={player.name}
+                    className='Attack-Image'
+                  />
+                  {player.abilities.map((attack, i) => (
+                    <button
+                      key={i}
+                      disabled={state.isEnemyTurn}
+                      className='Attack-Btn'
+                      onClick={() => SelectTarget(attack)}
+                    >
+                      {attack.name} ({
+                        attack.type === 'attack' ? `${attack.damage} DMG`
+                        : attack.type === 'heal' ? attack.heal
+                        : attack.effect     
+                      })
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <div className='Non-Attack-Images'>
+                  <img
+                    src={player.imageFace}
+                    alt={player.name}
+                    className='Attack-Image'
+                  />
+                </div>
+              )}
+              {/* <div className='Attack-Buttons'>
                 <img
                   src={player.image}
                   alt={player.name}
@@ -639,14 +689,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                     className='Attack-Btn'
                     onClick={() => SelectTarget(attack)}
                   >
-                    {attack.name} (
-                    {attack.type === 'attack'
-                      ? `${attack.damage} DMG`
-                      : attack.effect}
-                    )
+                    {attack.name} ({
+                      attack.type === 'attack' ? `${attack.damage} DMG`
+                      : attack.type === 'heal' ? attack.heal
+                      : attack.effect     
+                    })
                   </button>
                 ))}
-              </div>
+              </div> */}
             </div>
           ))}
       </div>

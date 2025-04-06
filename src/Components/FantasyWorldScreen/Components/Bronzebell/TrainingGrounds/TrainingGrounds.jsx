@@ -8,6 +8,7 @@ import { useDanny } from '../../../../../Context/DannyContext';
 
 import Grounds from '../../../../../assets/images/TrainingGrounds.webp';
 import Javon from '../../../../../assets/images/Javon.png';
+import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
 
@@ -33,12 +34,13 @@ export default function TrainingGrounds() {
     description: 'Prince of the fallen Kingdom of Feymore. Oozes out Charisma.',
     abilities: knightClass.abilities[1],
     image: Javon,
+    imageFace: JavonFace,
   };
 
   const context = useDanny();
-  console.log('context', context);
-  const ethan = party?.find((member) => member.name === 'Ethan, the Brute');
-  console.log('ethan', ethan);
+  //console.log('context', context);
+  const ethan = party.find((member) => member.name === 'Ethan, the Brute');
+  //console.log('ethan', ethan);
 
   const trainingGroundsIntro = [
     'You arrive at the Bronzebell Training Grounds - you hear the clashing of steel and the shouts of a small crowd.',
@@ -49,8 +51,7 @@ export default function TrainingGrounds() {
     "You step forward. 'Danny. Professional lifter. Big time hero. On a quest to defeat the Demon King... and maybe get a girlfriend out of it.'",
   ];
 
-  const ethanLine =
-    "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
+  const ethanLine = "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
 
   const javonDialogue = [
     "'A noble mission,' Ja'von says with a slight smirk. 'Even if your fashion sense is... outdated.'",

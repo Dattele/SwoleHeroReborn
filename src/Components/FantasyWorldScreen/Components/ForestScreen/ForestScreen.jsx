@@ -47,14 +47,6 @@ export default function ForestScreen() {
       localStorage.setItem('visitedEdenGrove', 'true');
     }
   };
- 
-  // Skip straight to choices if user has been to EdenGrove Forest
-  // useEffect(() => {
-  //   const visited = localStorage.getItem('visitedEdenGrove') === 'true';
-  //   if (visited) {
-  //     setStage('options');
-  //   }
-  // }, []);
 
   return (
     <div
@@ -66,21 +58,6 @@ export default function ForestScreen() {
         backgroundPosition: 'center',
       }}
     >
-{/* 
-      {stage === 'options' ? (
-        visited ? (
-            <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
-        ) : (
-          <>
-            <TextBox text={forestEvents[eventIndex]} />
-            <Choices options={choices} onChoiceSelected={navigate} />
-          </>
-        )
-      ) : (
-        <button className='Next-Btn' onClick={handleNextEvent}>
-          Next
-        </button>
-      )} */}
       {!visited ? (
         <>
           <TextBox text={forestEvents[eventIndex]} />

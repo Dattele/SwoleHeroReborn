@@ -1,7 +1,13 @@
 import { createContext, useContext, useState } from 'react';
 import Classes from '../Components/System/Classes';
 
+import Daniel from '../assets/images/Daniel.jpeg';
 import DanielFace from '../assets/images/DanielFace.png';
+
+import Ethan from '../assets/images/Ethan.png';
+import EthanFace from '../assets/images/EthanFace.png';
+import Javon from '../assets/images/Javon.png';
+import JavonFace from '../assets/images/JavonFace.png';
 
 const DannyContext = createContext();
 
@@ -23,7 +29,45 @@ export function DannyProvider({ children }) {
     description:
       'A man who can deadlift 400 lbs but has never lifted a single date',
     abilities: bodyBuilderClass.abilities[1],
-    image: DanielFace,
+    image: Daniel,
+    imageFace: DanielFace,
+  };
+
+  const barbarianClass = Classes.Barbarian;
+  const ethan = {
+    name: 'Ethan, the Brute',
+    type: 'player',
+    level: 1,
+    xp: 0,
+    hp: 50,
+    strength: 4,
+    defense: 8,
+    speed: 2,
+    rizz: 1,
+    class: barbarianClass.name,
+    description:
+      'Former Pit fighter from Stonejaw Hold - Fallen to the Demon King',
+    abilities: barbarianClass.abilities[1],
+    image: Ethan,
+    imageFace: EthanFace,
+  };
+
+  const knightClass = Classes.Knight;
+  const javon = {
+    name: "Ja'von, the Rizzler",
+    type: 'player',
+    level: 1,
+    xp: 0,
+    hp: 35,
+    strength: 5,
+    defense: 5,
+    speed: 6,
+    rizz: 8,
+    class: knightClass.name,
+    description: 'Prince of the fallen Kingdom of Feymore. Oozes out Charisma.',
+    abilities: knightClass.abilities[1],
+    image: Javon,
+    imageFace: JavonFace,
   };
 
   //const [level, setLevel] = useState(1);
@@ -45,7 +89,7 @@ export function DannyProvider({ children }) {
   const [wolfKills, setWolfKills] = useState(0);
   const [gold, setGold] = useState(0);
   const [inventory, setInventory] = useState([]);
-  const [party, setParty] = useState([Danny]);
+  const [party, setParty] = useState([Danny, ethan, javon]);
   const [goatState, setGoatState] = useState({
     sightings: 0,
   });
@@ -75,19 +119,8 @@ export function DannyProvider({ children }) {
       }),
     );
   };
-  // const levelUp = (player, playerClass) => {
-  //   if (xp >= 100 * player.level) {
-  //     player.level += 1;
-  //     setXp(0);
-  //     setStats((prevStats) => ({
-  //       hp: prevStats.hp + playerClass.statGrowth.hp,
-  //       strength: prevStats.strength + playerClass.statGrowth.strength,
-  //       defense: prevStats.defense + playerClass.statGrowth.defense,
-  //       speed: prevStats.speed + playerClass.statGrowth.speed,
-  //       rizz: prevStats.rizz + playerClass.statGrowth.rizz,
-  //     }));
-  //   }
-  // };
+ 
+  console.log('party', party);
 
   // Spend gold
   const spendGold = (amount) => {
@@ -114,10 +147,7 @@ export function DannyProvider({ children }) {
 
   // Add a party member
   const addPartyMember = (newMember) => {
-    setParty((prev) => ({
-      // ...prev,
-      party: [...prev, newMember],
-    }));
+    setParty((prev) => [...prev, newMember]);
   };
 
   // Function to keep track of wolf kills

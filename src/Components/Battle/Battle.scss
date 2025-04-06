@@ -50,6 +50,7 @@
 .Player-Section {
   position: absolute;
   bottom: 0;
+  flex-direction: row;
 
   .Player {
     padding: 1.5rem;
@@ -107,5 +108,11 @@
 
   h3 {
     text-align: center;
+  }
+}
+
+.Non-Attack-Images {
+  .Attack-Image {
+    width: 200px;
   }
 }

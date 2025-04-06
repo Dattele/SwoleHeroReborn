@@ -8,7 +8,9 @@ import { useDanny } from '../../../../../Context/DannyContext';
 
 import Ironhide from '../../../../../assets/images/Ironhide.webp';
 import IronhideIntro from '../../../../../assets/images/IronhideIntro.webp';
+
 import Ethan from '../../../../../assets/images/Ethan.png';
+import EthanFace from '../../../../../assets/images/EthanFace.png';
 
 import '../../../../../scss/All.scss';
 
@@ -35,6 +37,7 @@ export default function IronHide() {
       'Former Pit fighter from Stonejaw Hold - Fallen to the Demon King',
     abilities: barbarianClass.abilities[1],
     image: Ethan,
+    imageFace: EthanFace,
   };
 
   const ethanIntro = [
