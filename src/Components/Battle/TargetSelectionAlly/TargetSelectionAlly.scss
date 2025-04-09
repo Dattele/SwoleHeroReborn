@@ -25,10 +25,11 @@
     height: 100%;
     display: flex;
     flex-direction: column;
+    transition: color 0.3s, border-color 0.3s;
 
     &:hover {
-      color: #ffd700;
-      border-color: #ffd700;
+      color: #add8e6;
+      border-color: #000080;
     }
   }
 }

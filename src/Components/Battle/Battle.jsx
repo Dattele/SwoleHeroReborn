@@ -2,6 +2,8 @@ import React, { useState, useEffect, useReducer, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
+import { useDanny } from '../../Context/DannyContext';
+
 import TargetSelection from './TargetSelection';
 import TargetSelectionAlly from './TargetSelectionAlly';
 
@@ -22,6 +24,8 @@ import './Battle.scss';
 import '../../scss/All.scss';
 
 export default function Battle({ players, enemies, onBattleEnd = null }) {
+  const { updateXP } = useDanny();
+
   const deathSounds = [
     death,
     fortniteDeath,
@@ -40,7 +44,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   let navigate = useNavigate();
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
-  const playerSectRefs = useRef([]);
 
   const playersClone = structuredClone(players).map((player) => ({
     ...player,
@@ -50,7 +53,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     ...enemy,
     id: uuidv4(),
   }));
-  const [playerHeight, setPlayerHeight] = useState('auto');
 
   // Play a death sound audio
   const playRandomDeathSound = () => {
@@ -539,13 +541,19 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'CHECK_WIN_CONDITIONS',
     });
   };
+
+  /* Helper function for when the battle ends 
+   * Calls onBattleEnd with the result and the enemies
+   */
   const BattleEnd = (result, xp) => {
     console.log('xp gained from battle', xp);
-    // Handle special ending scenarios
+    console.log('')
+    updateXP(xp);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
   };
 
+  // Check for when the battle ends
   useEffect(() => {
     if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
       BattleEnd(state.battleOutcome, state.xpGained);
@@ -573,16 +581,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       enemysMove();
     }
   }, [state.isEnemyTurn]);
-
-  // Set all the player sections to be the same height as the tallest one
-  // useEffect(() => {
-  //   if (playerSectRefs.current.length > 1) {
-  //     const maxHeight = Math.max(
-  //       ...playerSectRefs.current.map((btn) => btn?.offsetHeight || 0),
-  //     );
-  //     setPlayerHeight(`${maxHeight}px`);
-  //   }
-  // }, []);
 
   return (
     <div className='Screen Battle-Screen Full-Screen'>
@@ -616,7 +614,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             </p>
           ))
         ) : (
-          <p>Begin Battle</p>
+          <div>
+            <p>Begin Battle</p>
+            <p>{state.turnOrder[0].name} goes first</p>
+          </div>
         )}
       </div>
 
@@ -641,7 +642,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         {state.turnOrder
           .filter((player) => player.type === 'player')
           .map((player, index) => (
-            <div key={index} className='Player' ref={(el) => { playerSectRefs.current[index] = el; }} style={{ height: playerHeight }}>
+            <div key={index} className='Player'>
               <h3>
                 {player.name} (HP: {player.hp})
               </h3>
@@ -676,27 +677,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                   />
                 </div>
               )}
-              {/* <div className='Attack-Buttons'>
-                <img
-                  src={player.image}
-                  alt={player.name}
-                  className='Attack-Image'
-                />
-                {player.abilities.map((attack, i) => (
-                  <button
-                    key={i}
-                    disabled={state.isEnemyTurn}
-                    className='Attack-Btn'
-                    onClick={() => SelectTarget(attack)}
-                  >
-                    {attack.name} ({
-                      attack.type === 'attack' ? `${attack.damage} DMG`
-                      : attack.type === 'heal' ? attack.heal
-                      : attack.effect     
-                    })
-                  </button>
-                ))}
-              </div> */}
             </div>
           ))}
       </div>

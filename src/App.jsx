@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 import { DannyProvider } from './Context/DannyContext';
+
 import HomeScreen from './Components/HomeScreen';
 import HeroScreen from './Components/HeroScreen';
 import WorldScreen from './Components/WorldScreen';
@@ -23,11 +24,13 @@ import Goat from './Components/FantasyWorldScreen/Components/Bronzebell/Goat';
 import Shrine from './Components/FantasyWorldScreen/Components/Bronzebell/Shrine';
 import Mayor from './Components/FantasyWorldScreen/Components/Bronzebell/MayorHall/MayorHall';
 import WorldMap from './Components/System/WorldMap/WorldMap';
+import GameWrapper from './Components/GameWrapper';
 
 export default function App() {
   return (
     <DannyProvider>
       <Router>
+        <GameWrapper />
         <Routes>
           <Route path='/' element={<HomeScreen />} />
           <Route path='/character' element={<HeroScreen />} />
