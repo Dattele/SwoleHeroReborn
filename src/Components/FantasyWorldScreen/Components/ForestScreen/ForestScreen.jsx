@@ -21,17 +21,23 @@ export default function ForestScreen() {
     "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...",
     "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'",
   ];
-  
+
   const choices = [
-    { text: 'Explore deeper (Encounter a monster)', nextScene: '/forest-battle' },
+    {
+      text: 'Explore deeper (Encounter a monster)',
+      nextScene: '/forest-battle',
+    },
     {
       text: "Head to town (Maybe there's a gym.. or girls)",
       nextScene: '/bronzebell',
     },
   ];
-  
+
   const secondTimeChoices = [
-    { text: "⚔️ Clear the path ahead (Another round with forest freaks)", nextScene: '/forest-battle' },
+    {
+      text: '⚔️ Clear the path ahead (Another round with forest freaks)',
+      nextScene: '/forest-battle',
+    },
     {
       text: "🍻 'Town's got ale and women. Just sayin.' - Ethan",
       nextScene: '/bronzebell',

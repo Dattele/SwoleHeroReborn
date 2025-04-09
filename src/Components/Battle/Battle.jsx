@@ -86,10 +86,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'NEXT_TURN': {
         if (state.battleOutcome) return state; // Stop turn progression
-      
+
         // Increase player index if the fighter was a player
         let playerIndex = state.activePlayerIndex;
-        if (state.turnOrder[state.turnIndex].type === 'player') 
+        if (state.turnOrder[state.turnIndex].type === 'player')
           playerIndex = (playerIndex + 1) % players.length;
 
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
@@ -542,12 +542,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     });
   };
 
-  /* Helper function for when the battle ends 
+  /* Helper function for when the battle ends
    * Calls onBattleEnd with the result and the enemies
    */
   const BattleEnd = (result, xp) => {
     console.log('xp gained from battle', xp);
-    console.log('')
+    console.log('');
     updateXP(xp);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
@@ -660,11 +660,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                       className='Attack-Btn'
                       onClick={() => SelectTarget(attack)}
                     >
-                      {attack.name} ({
-                        attack.type === 'attack' ? `${attack.damage} DMG`
-                        : attack.type === 'heal' ? attack.heal
-                        : attack.effect     
-                      })
+                      {attack.name} (
+                      {attack.type === 'attack'
+                        ? `${attack.damage} DMG`
+                        : attack.type === 'heal'
+                          ? attack.heal
+                          : attack.effect}
+                      )
                     </button>
                   ))}
                 </div>

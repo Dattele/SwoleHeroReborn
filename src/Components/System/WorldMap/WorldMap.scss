@@ -14,7 +14,9 @@
     font-weight: bold;
     font-size: 18px;
     font-family: 'Pixelify Sans';
-    transition: color 0.3s, border 0.3s;
+    transition:
+      color 0.3s,
+      border 0.3s;
 
     &:hover,
     &:active {

@@ -7,7 +7,10 @@ export default function GameUI({ showMenu = false }) {
   return (
     <div className='GameUI'>
       {showMenu && (
-        <button className="Inventory-Open-Btn" onClick={() => setModalOpen((prev) => prev === true ? false : true)}>
+        <button
+          className='Inventory-Open-Btn'
+          onClick={() => setModalOpen((prev) => (prev === true ? false : true))}
+        >
           📦 Party / Inventory
         </button>
       )}

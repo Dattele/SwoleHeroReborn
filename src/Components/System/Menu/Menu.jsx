@@ -39,10 +39,16 @@ export default function Menu({ isOpen, onClose }) {
                   <div>
                     <h3>{member.name}</h3>
                     <p>{member.description}</p>
-                    <p>Level: {member.level} / XP: {member.xp}</p>
+                    <p>
+                      Level: {member.level} / XP: {member.xp}
+                    </p>
                     <p>HP: {member.hp}</p>
-                    <p>STR: {member.strength} / DEF: {member.defense}</p>
-                    <p>SPD: {member.speed} / RIZZ: {member.rizz}</p>
+                    <p>
+                      STR: {member.strength} / DEF: {member.defense}
+                    </p>
+                    <p>
+                      SPD: {member.speed} / RIZZ: {member.rizz}
+                    </p>
                   </div>
                 </div>
               ))}

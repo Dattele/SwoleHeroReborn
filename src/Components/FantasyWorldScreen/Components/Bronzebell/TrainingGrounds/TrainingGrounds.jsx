@@ -51,7 +51,8 @@ export default function TrainingGrounds() {
     "You step forward. 'Danny. Professional lifter. Big time hero. On a quest to defeat the Demon King... and maybe get a girlfriend out of it.'",
   ];
 
-  const ethanLine = "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
+  const ethanLine =
+    "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
 
   const javonDialogue = [
     "'A noble mission,' Ja'von says with a slight smirk. 'Even if your fashion sense is... outdated.'",

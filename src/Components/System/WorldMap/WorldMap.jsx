@@ -83,15 +83,16 @@ export default function WorldMap() {
   ];
 
   return (
-    <div
-      className='Screen Full-Screen Map-Screen'
-    >
-      <div className='Map-Container'       style={{
-        backgroundImage: `url(${Map})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }}>
+    <div className='Screen Full-Screen Map-Screen'>
+      <div
+        className='Map-Container'
+        style={{
+          backgroundImage: `url(${Map})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        }}
+      >
         {locations.map((loc, index) =>
           loc.unlocked ? (
             <button

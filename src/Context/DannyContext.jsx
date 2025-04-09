@@ -45,8 +45,7 @@ export function DannyProvider({ children }) {
     speed: 2,
     rizz: 1,
     class: barbarianClass.name,
-    description:
-      'Former Gladiator from Stonejaw Hold. Big, muscular Beast',
+    description: 'Former Gladiator from Stonejaw Hold. Big, muscular Beast',
     abilities: barbarianClass.abilities[1],
     image: Ethan,
     imageFace: EthanFace,
@@ -75,7 +74,7 @@ export function DannyProvider({ children }) {
     gold: 0,
     inventory: [],
     party: [Danny, ethan, javon],
-    goatState: { sightings: 0, },
+    goatState: { sightings: 0 },
     questFlags: {
       hasParty: false,
       edenGroveQuestGiven: false,
@@ -95,41 +94,46 @@ export function DannyProvider({ children }) {
               xp: member.xp + xpGained,
             };
           }),
-        }
+        };
       }
       case 'LEVEL_UP': {
         return {
           ...state,
-          party: state.party.map((member) => 
-            member.name === action.payload.name && 
+          party: state.party.map((member) =>
+            member.name === action.payload.name &&
             member.xp >= 100 * member.level
               ? {
                   ...member,
                   xp: 0,
                   level: member.level + 1,
                   hp: member.hp + action.payload.classData.statGrowth.hp,
-                  strength: member.strength + action.payload.classData.statGrowth.strength,
-                  defense: member.defense + action.payload.classData.statGrowth.defense,
-                  speed: member.speed + action.payload.classData.statGrowth.speed,
+                  strength:
+                    member.strength +
+                    action.payload.classData.statGrowth.strength,
+                  defense:
+                    member.defense +
+                    action.payload.classData.statGrowth.defense,
+                  speed:
+                    member.speed + action.payload.classData.statGrowth.speed,
                   rizz: member.rizz + action.payload.classData.statGrowth.rizz,
                 }
-              : member
+              : member,
           ),
-        }
+        };
       }
       case 'SPEND_GOLD': {
         const spentGold = action.payload;
         return {
           ...state,
-          gold: state.gold - spentGold
-        }
+          gold: state.gold - spentGold,
+        };
       }
       case 'GAIN_GOLD': {
         const gainedGold = action.payload;
         return {
           ...state,
-          gold: state.gold + gainedGold
-        }
+          gold: state.gold + gainedGold,
+        };
       }
       case 'ADD_ITEM': {
         const item = action.payload;
@@ -140,7 +144,7 @@ export function DannyProvider({ children }) {
           updatedInventory = state.inventory.map((i) =>
             i.name === item.name
               ? { ...i, quantity: (i.quantity || 1) + 1 }
-              : i
+              : i,
           );
         } else {
           updatedInventory = [...state.inventory, { ...item, quantity: 1 }];
@@ -149,46 +153,48 @@ export function DannyProvider({ children }) {
         return {
           ...state,
           inventory: updatedInventory,
-        }
+        };
       }
       case 'REMOVE_ITEM': {
         const itemToRemove = action.payload;
 
-        const updatedInventory = state.inventory.map((item) => {
-          if (item.name === itemToRemove.name) {
-            if ((item.quantity || 1) > 1) {
-              return { ...item, quantity: item.quantity - 1 };
+        const updatedInventory = state.inventory
+          .map((item) => {
+            if (item.name === itemToRemove.name) {
+              if ((item.quantity || 1) > 1) {
+                return { ...item, quantity: item.quantity - 1 };
+              }
+              return null; // Removal
             }
-            return null; // Removal
-          }
-          return item;
-        }).filter(Boolean); // Removes null values
+            return item;
+          })
+          .filter(Boolean); // Removes null values
 
         return {
           ...state,
           inventory: updatedInventory,
-        }
+        };
       }
       case 'ADD_PARTY_MEMBER': {
         const newMember = action.payload;
         return {
           ...state,
-          party: [...state.party, newMember]
-        }
+          party: [...state.party, newMember],
+        };
       }
       case 'INCREMENT_GOAT': {
         return {
           ...state,
           goatState: {
             sightings: state.goatState.sightings + 1,
-          }
-        }
+          },
+        };
       }
       case 'INCREMENT_WOLF_KILLS': {
         return {
           ...state,
           wolfKills: state.wolfKills + 1,
-        }
+        };
       }
       case 'UPDATE_QUEST_FLAG': {
         return {
@@ -203,7 +209,7 @@ export function DannyProvider({ children }) {
         return state;
       }
     }
-  }
+  };
 
   // const [wolfKills, setWolfKills] = useState(0);
   // const [gold, setGold] = useState(0);
@@ -246,9 +252,9 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'LEVEL_UP',
       payload: { name, classData },
-    })
-  }
- 
+    });
+  };
+
   console.log('party', state.party);
 
   // Spend gold
@@ -263,16 +269,16 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'SPEND_GOLD',
       payload: amount,
-    })
-  }
+    });
+  };
 
   // Gain gold
   const gainGold = (amount) => {
     dispatch({
       type: 'GAIN_GOLD',
       payload: amount,
-    })
-  }
+    });
+  };
 
   // Add item to party inventory
   // const addItem = (item) => {
@@ -291,16 +297,16 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'ADD_ITEM',
       payload: item,
-    })
-  }
+    });
+  };
 
   // Removing an item - typically from using it
   const removeItem = (item) => {
     dispatch({
       type: 'REMOVE_ITEM',
       payload: item,
-    })
-  }
+    });
+  };
 
   // Add a party member
   // const addPartyMember = (newMember) => {
@@ -310,8 +316,8 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'ADD_PARTY_MEMBER',
       payload: newMember,
-    })
-  }
+    });
+  };
 
   // Function to keep track of wolf kills
   // const incrementWolfKills = () => {
@@ -320,7 +326,7 @@ export function DannyProvider({ children }) {
   const incrementWolfKills = () => {
     dispatch({
       type: 'INCREMENT_WOLF_KILLS',
-    })
+    });
   };
 
   // Keep track of the Goat sightings
@@ -330,7 +336,7 @@ export function DannyProvider({ children }) {
   const incrementGoatSightings = () => {
     dispatch({
       type: 'INCREMENT_GOAT',
-    })
+    });
   };
 
   // Update your quests
@@ -338,7 +344,7 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'UPDATE_QUEST_FLAG',
       payload: { flag, value },
-    })
+    });
   };
 
   // Update everyone in the party's xp
@@ -357,7 +363,7 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'UPDATE_XP',
       payload: xpGained,
-    })
+    });
     console.log('updated party xp', state.party);
   };
 
