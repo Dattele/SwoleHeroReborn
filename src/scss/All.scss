@@ -26,13 +26,29 @@
   font-family: 'Pixelify Sans';
   font-weight: bold;
   width: fit-content;
-  transition:
-    color 0.3s,
-    border-color 0.3s;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;
     border-color: #bacdb0;
+  }
+}
+
+.GameUI-Btn {
+  border: none;
+  border-radius: none;
+  color: white;
+  font-family: 'Pixelify Sans';
+  font-weight: bold;
+  font-size: 1.25rem;
+  background: transparent;
+  padding: 0.25rem;
+  margin: 0.5rem;
+  transition: border 0.3s, border-radius 0.3s;
+
+  &:hover {
+    border: 2px solid #f3e8ee;
+    border-radius: 0.5rem;
   }
 }
 
@@ -46,9 +62,7 @@
   font-family: 'Roboto';
   font-weight: bold;
   width: fit-content;
-  transition:
-    color 0.3s,
-    border-color 0.3s;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import Menu from '../System/Menu';
 
+import '../../scss/All.scss';
+import './GameUI.scss';
+
 export default function GameUI({ showMenu = false }) {
   const [modalOpen, setModalOpen] = useState(false);
 
@@ -8,7 +11,7 @@ export default function GameUI({ showMenu = false }) {
     <div className='GameUI'>
       {showMenu && (
         <button
-          className='Inventory-Open-Btn'
+          className='GameUI-Btn'
           onClick={() => setModalOpen((prev) => (prev === true ? false : true))}
         >
           📦 Party / Inventory

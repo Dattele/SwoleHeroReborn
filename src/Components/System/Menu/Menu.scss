@@ -1,3 +1,63 @@
 .Closed {
   display: none;
 }
+
+.Menu-Overlay {
+  max-width: 800px;
+  margin-bottom: 1rem;
+}
+
+.Menu-Header {
+  display: flex;
+  justify-content: center;
+}
+
+.Menu-Content {
+  display: flex;
+  justify-content: center;
+  color: #f3e8ee;
+  font-size: 1.25rem;
+
+  .Party-Member {
+    display: flex;
+  }
+
+  .Party-Image-Wrapper {
+    width: 250px;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 2rem;
+    overflow: hidden;
+  }
+
+  .Party-Image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    object-position: center center;
+  }
+
+  .Inventory-Tab {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+
+    .Inventory-Items-Wrapper {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr); // Two equal columns
+      gap: 10px;
+
+      p {
+        margin-top: 10px;
+        margin-bottom: 0;
+      }
+    }
+
+    h2,
+    p {
+      font-family: 'Roboto';
+    }
+  }
+}

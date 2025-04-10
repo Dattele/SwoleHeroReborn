@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import Classes from '../Components/System/Classes';
 
 import Daniel from '../assets/images/Daniel.jpeg';
@@ -45,7 +45,7 @@ export function DannyProvider({ children }) {
     speed: 2,
     rizz: 1,
     class: barbarianClass.name,
-    description: 'Former Gladiator from Stonejaw Hold. Big, muscular Beast',
+    description: 'Former Gladiator from Stonejaw Hold - Big, Muscular Beast',
     abilities: barbarianClass.abilities[1],
     image: Ethan,
     imageFace: EthanFace,
@@ -63,7 +63,7 @@ export function DannyProvider({ children }) {
     speed: 6,
     rizz: 8,
     class: knightClass.name,
-    description: 'Prince of the fallen Kingdom of Feymore. Oozes out Charisma',
+    description: 'Prince of the fallen Kingdom of Feymore - Oozes out Charisma',
     abilities: knightClass.abilities[1],
     image: Javon,
     imageFace: JavonFace,
@@ -266,10 +266,12 @@ export function DannyProvider({ children }) {
   //   return false;
   // };
   const spendGold = (amount) => {
-    dispatch({
-      type: 'SPEND_GOLD',
-      payload: amount,
-    });
+    if (state.gold >= amount) {
+      dispatch({
+        type: 'SPEND_GOLD',
+        payload: amount,
+      });
+    }
   };
 
   // Gain gold
