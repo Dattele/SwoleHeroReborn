@@ -87,14 +87,24 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'NEXT_TURN': {
         if (state.battleOutcome) return state; // Stop turn progression
 
-        // Increase player index if the fighter was a player
-        let playerIndex = state.activePlayerIndex;
-        if (state.turnOrder[state.turnIndex].type === 'player')
-          playerIndex = (playerIndex + 1) % players.length;
+        //const aliveTurnOrder = state.turnOrder.filter(c => c.hp > 0); // Get the alive combatants
+        console.log('next turn alive turn order', state.turnOrder);
+        // const currentFighter = state.turnOrder[state.turnIndex];
+        // console.log('next turn current fighter', currentFighter);
 
+        // const nextTurnIndex = (state.turnIndex + 1) % aliveTurnOrder.length;
+        // const nextFighter = aliveTurnOrder[nextTurnIndex];
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
         const nextFighter = state.turnOrder[nextTurnIndex];
         console.log('next turn combatant:', state.turnOrder[nextTurnIndex]);
+
+        // Increase player index if the fighter was a player
+        let playerIndex = state.activePlayerIndex;
+        if (nextFighter.type === 'player') {
+          const alivePlayers = state.turnOrder.filter(p => p.type === 'player' && p.hp > 0);
+          //playerIndex = (playerIndex + 1) % alivePlayers.length;
+          playerIndex = alivePlayers.findIndex(p => p.id === nextFighter.id);
+        }
 
         return {
           ...state,
@@ -124,41 +134,50 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           newLog = `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`;
         }
 
-        const updatedTurnOrder = state.turnOrder
-          .map((element) =>
-            element.id === target.id
-              ? { ...element, hp: Math.max(0, element.hp - damage) }
-              : element,
-          )
-          .filter((element) => element.hp > 0);
+        let updatedTurnOrder = state.turnOrder.map((element) =>
+          element.id === target.id
+            ? { ...element, hp: Math.max(0, element.hp - damage) }
+            : element,
+        );
 
-        // Filter out dead enemies from turn order
-        // const updatedTurnOrder = state.turnOrder.filter(
-        //   (entity) => entity.hp > 0
-        // );
+        // Getting the nextTurnIndex
+        let nextTurnIndex = state.turnIndex;
 
-        let xp = state.xpGained;
+        // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
+        const targetIndex = updatedTurnOrder.findIndex(e => e.id === target.id);
+        if (target.hp - damage <= 0 && targetIndex < nextTurnIndex) {
+          nextTurnIndex = state.turnIndex - 1;          
+          console.log('target died and next turnIndex is now', nextTurnIndex);
+        }
 
-        // Add dead enemies to deadEnemies
+        updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0); // Remove the dead enemies/players
+
+        // Add to deathLog
         let deathLog;
+        if (updatedTurnOrder.length < state.turnOrder.length) {
+          playRandomDeathSound();
+          if (attacker.name === 'Danny') {
+            deathLog = `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`;
+          } else {
+            deathLog = `${target.name} has been slaughtered by ${attacker.name}! 💀`;
+          }
+        }
+
+        // Add an xp log and add to xp if an enemy died
         let xpLog;
-        let DeadTargets = state.deadEnemies;
+        let xp = state.xpGained;
         if (
           updatedTurnOrder.length < state.turnOrder.length &&
           target.type === 'enemy'
         ) {
-          DeadTargets.push(target);
-          xp += target.xp;
-          deathLog = `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`;
-          xpLog = `${attacker.name} has gained ${xp} xp!`;
-          playRandomDeathSound();
+          xp += Math.floor(target.xp / players.length);
+          xpLog = `Party members have gained ${Math.floor(target.xp / players.length)} xp!`;
         }
 
         return {
           ...state,
-          // playerHPs: updatedPlayers,
-          // enemyHPs: updatedEnemies,
           turnOrder: updatedTurnOrder,
+          turnIndex: nextTurnIndex,
           battleLog: deathLog
             ? [...state.battleLog, newLog, deathLog, xpLog]
             : [...state.battleLog, newLog],
@@ -455,9 +474,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   // Enemy turn logic
   const EnemyTurn = (enemy) => {
-    // const { turnOrder, turnIndex } = state;
-    // const attacker = turnOrder[turnIndex]; // Get the current attacker
-
     // Selecting a random attack
     const randomIndex = Math.floor(Math.random() * enemy.abilities.length);
     const randomAttack = enemy.abilities[randomIndex];
@@ -547,7 +563,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
    */
   const BattleEnd = (result, xp) => {
     console.log('xp gained from battle', xp);
-    console.log('');
     updateXP(xp);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
@@ -580,7 +595,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
       enemysMove();
     }
-  }, [state.isEnemyTurn]);
+  }, [state.isEnemyTurn, state.turnIndex]);
 
   return (
     <div className='Screen Battle-Screen Full-Screen'>
@@ -646,6 +661,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
               <h3>
                 {player.name} (HP: {player.hp})
               </h3>
+              {console.log('active player index', state.activePlayerIndex)}
               {index === state.activePlayerIndex ? (
                 <div className='Attack-Buttons'>
                   <img

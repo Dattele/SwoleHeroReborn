@@ -13,13 +13,13 @@ export default function Menu({ isOpen, onClose }) {
         <div className='Menu-Header'>
           <div className='Tabs'>
             <button
-              className={`GameUI-Btn ${activeTab === 'party' && 'active'}`}
+              className={`GameUI-Btn ${activeTab === 'party' && 'Active'}`}
               onClick={() => setActiveTab('party')}
             >
               Party
             </button>
             <button
-              className={`GameUI-Btn ${activeTab === 'inventory' && 'active'}`}
+              className={`GameUI-Btn ${activeTab === 'inventory' && 'Active'}`}
               onClick={() => setActiveTab('inventory')}
             >
               Inventory

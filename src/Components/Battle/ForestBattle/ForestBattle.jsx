@@ -9,12 +9,18 @@ import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
 
 export default function ForestBattle() {
   const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
-  console.log(party);
+  console.log('party', party);
   const navigate = useNavigate();
   //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
 
+  // Get the amount of enemies
+  const NumberOfEnemies = () => {
+    const number = Math.floor((Math.random() * 3) + 1);
+    return number;
+  }
+
   // Get the enemy
-  const GetRandomMonster = () => {
+  const GetRandomMonsters = () => {
     const weightedMonsters = [];
 
     ForestMonsters.forEach((monster) => {
@@ -28,7 +34,20 @@ export default function ForestBattle() {
       Math.floor(Math.random() * weightedMonsters.length)
     ];
   };
-  const enemy = GetRandomMonster();
+
+  // Get all the enemies
+  const getEnemies = () => {
+    const numberOfEnemies = NumberOfEnemies();
+    const enemies = [];
+
+    for (let i = 0; i < numberOfEnemies; i++) {
+      enemies.push(GetRandomMonsters());
+    }
+
+    return enemies;
+  }
+  
+  const enemies = getEnemies();
 
   const handleBattleEnd = (result, enemies) => {
     enemies.forEach((enemy) => {
@@ -42,6 +61,6 @@ export default function ForestBattle() {
   };
 
   return (
-    <Battle players={party} enemies={[enemy]} onBattleEnd={handleBattleEnd} />
+    <Battle players={party} enemies={enemies} onBattleEnd={handleBattleEnd} />
   );
 }

@@ -39,7 +39,7 @@ export function DannyProvider({ children }) {
     type: 'player',
     level: 1,
     xp: 0,
-    hp: 50,
+    hp: 45,
     strength: 4,
     defense: 8,
     speed: 2,
@@ -164,7 +164,7 @@ export function DannyProvider({ children }) {
               if ((item.quantity || 1) > 1) {
                 return { ...item, quantity: item.quantity - 1 };
               }
-              return null; // Removal
+              return null;
             }
             return item;
           })
@@ -211,43 +211,11 @@ export function DannyProvider({ children }) {
     }
   };
 
-  // const [wolfKills, setWolfKills] = useState(0);
-  // const [gold, setGold] = useState(0);
-  // const [inventory, setInventory] = useState([]);
-  // const [party, setParty] = useState([Danny, ethan, javon]);
-  // const [goatState, setGoatState] = useState({
-  //   sightings: 0,
-  // });
-  // const [questFlags, setQuestFlags] = useState({
-  //   hasParty: false,
-  //   edenGroveQuestGiven: false,
-  //   edenGroveCleansed: false,
-  // });
-
   const [state, dispatch] = useReducer(DannyReducer, {
     ...initialState,
   });
 
   // Level Up Function
-  // const levelUp = (name, classData) => {
-  //   setParty((prevParty) =>
-  //     prevParty.map((member) => {
-  //       if (member.name === name && member.xp >= 100 * member.level) {
-  //         return {
-  //           ...member,
-  //           xp: 0,
-  //           level: member.level + 1,
-  //           hp: member.hp + classData.statGrowth.hp,
-  //           strength: member.strength + classData.statGrowth.strength,
-  //           defense: member.defense + classData.statGrowth.defense,
-  //           speed: member.speed + classData.statGrowth.speed,
-  //           rizz: member.rizz + classData.statGrowth.rizz,
-  //         };
-  //       }
-  //       return member;
-  //     }),
-  //   );
-  // };
   const levelUp = (name, classData) => {
     dispatch({
       type: 'LEVEL_UP',
@@ -258,13 +226,6 @@ export function DannyProvider({ children }) {
   console.log('party', state.party);
 
   // Spend gold
-  // const spendGold = (amount) => {
-  //   if (gold >= amount) {
-  //     setGold((prev) => prev - amount);
-  //     return true;
-  //   }
-  //   return false;
-  // };
   const spendGold = (amount) => {
     if (state.gold >= amount) {
       dispatch({
@@ -283,18 +244,6 @@ export function DannyProvider({ children }) {
   };
 
   // Add item to party inventory
-  // const addItem = (item) => {
-  //   setInventory((prev) => {
-  //     const existingItem = prev.find((i) => i.name === item.name);
-  //     if (existingItem) {
-  //       return prev.map((i) =>
-  //         i.name === item.name ? { ...i, quantity: (i.quantity || 1) + 1 } : i,
-  //       );
-  //     } else {
-  //       return [...prev, { ...item, quantity: 1 }];
-  //     }
-  //   });
-  // };
   const addItem = (item) => {
     dispatch({
       type: 'ADD_ITEM',
@@ -311,9 +260,6 @@ export function DannyProvider({ children }) {
   };
 
   // Add a party member
-  // const addPartyMember = (newMember) => {
-  //   setParty((prev) => [...prev, newMember]);
-  // };
   const addPartyMember = (newMember) => {
     dispatch({
       type: 'ADD_PARTY_MEMBER',
@@ -322,9 +268,6 @@ export function DannyProvider({ children }) {
   };
 
   // Function to keep track of wolf kills
-  // const incrementWolfKills = () => {
-  //   setWolfKills((prev) => prev + 1);
-  // };
   const incrementWolfKills = () => {
     dispatch({
       type: 'INCREMENT_WOLF_KILLS',
@@ -332,9 +275,6 @@ export function DannyProvider({ children }) {
   };
 
   // Keep track of the Goat sightings
-  // const incrementGoatSightings = () => {
-  //   setGoatState((prev) => prev + 1);
-  // };
   const incrementGoatSightings = () => {
     dispatch({
       type: 'INCREMENT_GOAT',
@@ -350,17 +290,6 @@ export function DannyProvider({ children }) {
   };
 
   // Update everyone in the party's xp
-  // const updateXP = (xpGained) => {
-  //   setParty((prevParty) =>
-  //     prevParty.map((member) => {
-  //       return {
-  //         ...member,
-  //         xp: member.xp + xpGained,
-  //       };
-  //     }),
-  //   );
-  //   console.log('updated party xp', party);
-  // };
   const updateXP = (xpGained) => {
     dispatch({
       type: 'UPDATE_XP',

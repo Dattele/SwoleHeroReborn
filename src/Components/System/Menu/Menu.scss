@@ -10,6 +10,13 @@
 .Menu-Header {
   display: flex;
   justify-content: center;
+
+  .GameUI-Btn.Active {
+    color: #00bfff;
+    border: 2px solid #f3e8ee;
+    border-radius: 0.5rem;
+    transition: color 0.3s;
+  }
 }
 
 .Menu-Content {
