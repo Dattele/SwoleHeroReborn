@@ -24,7 +24,7 @@ import './Battle.scss';
 import '../../scss/All.scss';
 
 export default function Battle({ players, enemies, onBattleEnd = null }) {
-  const { updateXP } = useDanny();
+  const { updateXP, updateHP } = useDanny();
 
   const deathSounds = [
     death,
@@ -564,6 +564,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const BattleEnd = (result, xp) => {
     console.log('xp gained from battle', xp);
     updateXP(xp);
+    updateHP(state.turnOrder);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
   };

@@ -4,6 +4,7 @@ const Classes = {
     description:
       'A warrior of strength and gains. Prioritizes brute force over finesse.',
     statGrowth: {
+      maxHP: 10, // Gains 10 HP per level
       hp: 10, // Gains 10 HP per level
       strength: 6, // Gains 6 Strength per level
       defense: 2, // Gains 2 Defense per level
@@ -37,6 +38,7 @@ const Classes = {
     description:
       'A brutal warrior with fists of steel and a heart full of rage.',
     statGrowth: {
+      maxHP: 15,
       hp: 15,
       strength: 3,
       defense: 5,
@@ -63,6 +65,7 @@ const Classes = {
     description:
       'A disciplined warrior trained in swordplay and honor. Fights with elegance, defends with pride, and flirts with nobility.',
     statGrowth: {
+      maxHP: 11,
       hp: 11,
       strength: 3,
       defense: 3,

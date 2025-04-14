@@ -20,6 +20,7 @@ export function DannyProvider({ children }) {
     type: 'player',
     level: 1,
     xp: 0,
+    maxHP: 35,
     hp: 35,
     strength: 8,
     defense: 4,
@@ -39,6 +40,7 @@ export function DannyProvider({ children }) {
     type: 'player',
     level: 1,
     xp: 0,
+    maxHP: 45,
     hp: 45,
     strength: 4,
     defense: 8,
@@ -57,6 +59,7 @@ export function DannyProvider({ children }) {
     type: 'player',
     level: 1,
     xp: 0,
+    maxHP: 35,
     hp: 35,
     strength: 5,
     defense: 5,
@@ -92,6 +95,19 @@ export function DannyProvider({ children }) {
             return {
               ...member,
               xp: member.xp + xpGained,
+            };
+          }),
+        };
+      }
+      case 'UPDATE_HP': {
+        const players = action.payload;
+        return {
+          ...state,
+          party: state.party.map((member) => {
+            const player = players.find((p) => p.name === member.name);
+            return {
+              ...member,
+              hp: player.hp,
             };
           }),
         };
@@ -298,6 +314,16 @@ export function DannyProvider({ children }) {
     console.log('updated party xp', state.party);
   };
 
+    // Update everyone in the party's hp
+    const updateHP = (combatants) => {
+      const players = combatants.filter(e => e.type === 'player');
+      dispatch({
+        type: 'UPDATE_HP',
+        payload: players,
+      });
+      console.log('updated party hp', state.party);
+    };
+
   return (
     <DannyContext.Provider
       value={{
@@ -311,6 +337,7 @@ export function DannyProvider({ children }) {
         addPartyMember,
         incrementGoatSightings,
         updateXP,
+        updateHP,
         updateQuestFlag,
       }}
     >
