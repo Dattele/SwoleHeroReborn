@@ -1,0 +1,17 @@
+.Forest-Battle {
+  .Choices-Container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 25;
+    padding: 0.5rem;
+    background-color: #555;
+
+    .Choices {
+      .Next-Btn {
+        background-color: #2e2c2f;
+      }
+    }
+  }
+}

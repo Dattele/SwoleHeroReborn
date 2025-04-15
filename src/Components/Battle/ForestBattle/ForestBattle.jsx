@@ -1,17 +1,25 @@
-import React from 'react';
+import React,  { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDanny } from '../../../Context/DannyContext';
 
 import Battle from '../Battle';
+import Choices from '../../Choices';
 import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
-// import dannyImage from '../../../assets/images/Daniel.jpeg';
+
+import './ForestBattle.scss';
 
 export default function ForestBattle() {
   const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
   console.log('party', party);
   const navigate = useNavigate();
+  const [ battleEnd, setBattleEnd ] = useState(false);
   //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
+  
+  const choices = [
+    { text: 'Stay in EdenGrove Forest', nextScene: '/forest' },
+    { text: 'Retreat to Bronzebell', nextScene: '/bronzebell' },
+  ];
 
   // Get the amount of enemies
   const NumberOfEnemies = () => {
@@ -46,10 +54,15 @@ export default function ForestBattle() {
 
     return enemies;
   }
+
+  // Sets a timeout to wait before performing any other actions
+  const sleep = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
   
   const enemies = getEnemies();
 
-  const handleBattleEnd = (result, enemies) => {
+  const handleBattleEnd = async (result, enemies) => {
     enemies.forEach((enemy) => {
       if (enemy.name === 'Forest Wolf' && result === 'win') {
         incrementWolfKills(); // Count wolf kills
@@ -57,10 +70,19 @@ export default function ForestBattle() {
       }
     });
     console.log('Handling battle end', wolfKills);
-    setTimeout(wolfKills >= 3 && navigate('/forest-boss'), 3000);
+    await sleep(2000); // Wait 2 seconds
+    wolfKills >= 3 && navigate('/forest-boss');
+    setBattleEnd(true);
   };
 
   return (
-    <Battle players={party} enemies={enemies} onBattleEnd={handleBattleEnd} />
+    <div className='Forest-Battle'>
+      <Battle players={party} enemies={enemies} onBattleEnd={handleBattleEnd} />
+      {battleEnd && (
+        <div className='Choices-Container'>
+          <Choices options={choices} onChoiceSelected={navigate} />
+        </div>
+      )}
+    </div>
   );
 }

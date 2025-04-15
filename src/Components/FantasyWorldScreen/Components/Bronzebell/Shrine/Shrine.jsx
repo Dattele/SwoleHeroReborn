@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 
@@ -10,8 +11,11 @@ import './Shrine.scss';
 import '../../../../../scss/All.scss';
 
 export default function Shrine() {
+  const { party } = useDanny();
+
   const navigate = useNavigate();
   const [eventIndex, setEventIndex] = useState(0);
+  const [stage, setStage] = useState('giveQuest');
 
   const bobbyDialogue = {
     notReady: [
@@ -31,7 +35,7 @@ export default function Shrine() {
       "Ja'von: 'I've heard legends of Wes. He could bend light, time, and shadow itself.'",
       "Bobby nods solemnly. 'He was corrupted. Twisted by the Demon King. Now he whispers madness into the ears of kings.'",
       "Ethan: 'Sounds like a wizard with daddy issues.'",
-      "Bobby ignores the comment. 'There is something worse. The forests are dying. EdenGrove has begun to rot from within.'",
+      "Bobby ignores the comment. 'There is a more pressing concern. The forest of EdenGrove has fallen under a dark shadow.'",
       "'The corruption must be cleansed. Return there. Find its heart. Purge the darkness before it spreads further.'",
       '**[ New Quest: Cleanse EdenGrove Forest 🌿 ]**',
     ],
@@ -64,10 +68,33 @@ export default function Shrine() {
   const choices = [{ text: 'Head back', nextScene: '/bronzebell' }];
 
   const handleNextEvent = () => {
-    if (eventIndex < bobbyDialogue.giveQuest.length - 1) {
+    if (eventIndex < bobbyDialogue[stage].length - 1) {
       setEventIndex(eventIndex + 1);
-    }
+    } 
   };
+
+  // UseEffect that sets the stage for the interaction with Bobby
+  useEffect(() => {
+    const ethan = party.find((member) => member.name === 'Ethan, the Brute');
+    const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
+    if (!ethan || !javon) {
+      setStage('notReady');
+    } else if (localStorage.getItem('bobbyQuest') === 'received') {
+      setStage('stillCorrupted');
+    } else if (localStorage.getItem('bobbyQuest') === 'completed') {
+      setStage('completed');
+    }
+  }, []);
+
+  // Checks for when the giveQuest dialogue is complete
+  useEffect(() => {
+    if (
+      stage === 'giveQuest' &&
+      eventIndex === bobbyDialogue.giveQuest.length - 1
+    ) {
+      localStorage.setItem('bobbyQuest', 'received');
+    }
+  }, [eventIndex]);
 
   return (
     <div
@@ -79,9 +106,9 @@ export default function Shrine() {
         backgroundPosition: 'center',
       }}
     >
-      <TextBox text={bobbyDialogue.giveQuest[eventIndex]} />
+      <TextBox text={bobbyDialogue[stage][eventIndex]} />
 
-      {eventIndex === bobbyDialogue.giveQuest.length - 1 ? (
+      {eventIndex === bobbyDialogue[stage].length - 1 ? (
         <Choices options={choices} onChoiceSelected={navigate} />
       ) : (
         <button className='Next-Btn' onClick={handleNextEvent}>

@@ -13,8 +13,6 @@ export default function ForestScreen() {
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
 
-  const visited = localStorage.getItem('visitedEdenGrove') === 'true';
-
   const forestEvents = [
     'Danny steps into the forest, the air thick with the scent of moss and damp earth.',
     'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.',
@@ -45,7 +43,7 @@ export default function ForestScreen() {
   ];
 
   const handleNextEvent = () => {
-    if (eventIndex < forestEvents.length - 1) {
+    if (eventIndex < forestEvents.length - 2) {
       setEventIndex(eventIndex + 1);
     } else if (stage !== 'options') {
       console.log('Final dialogue reached. Showing options...');
@@ -53,6 +51,14 @@ export default function ForestScreen() {
       localStorage.setItem('visitedEdenGrove', 'true');
     }
   };
+
+  // Skip straight to choices if user has been to Ironhide
+  useEffect(() => {
+    const visited = localStorage.getItem('visitedEdenGrove') === 'true';
+    if (visited) {
+      setStage('options');
+    }
+  }, []);
 
   return (
     <div
@@ -64,7 +70,7 @@ export default function ForestScreen() {
         backgroundPosition: 'center',
       }}
     >
-      {!visited ? (
+      {stage !== 'options' ? (
         <>
           <TextBox text={forestEvents[eventIndex]} />
 
