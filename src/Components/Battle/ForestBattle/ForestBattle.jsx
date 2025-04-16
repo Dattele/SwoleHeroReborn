@@ -13,7 +13,7 @@ export default function ForestBattle() {
   const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
   console.log('party', party);
   const navigate = useNavigate();
-  const [ battleEnd, setBattleEnd ] = useState(false);
+  const [battleEnd, setBattleEnd] = useState(false);
   //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
   
   const choices = [

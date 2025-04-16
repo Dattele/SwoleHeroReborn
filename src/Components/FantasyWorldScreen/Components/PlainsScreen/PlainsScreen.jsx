@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
-import plainsBackground from '../../../../assets/images/plains.png';
+import plainsBackground from '../../../../assets/images/plains2.png';
 
 //import './PlainsScreen.scss';
 import '../../../../scss/All.scss';

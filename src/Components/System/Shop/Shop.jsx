@@ -1,9 +1,23 @@
 import React from 'react';
 
+import { useDanny } from '../../../Context/DannyContext';
+
 import './Shop.scss';
 import '../../../scss/All.scss';
 
-export default function Shop({ title, items, onClose, onBuy }) {
+export default function Shop({ title, items, onClose }) {
+  const { spendGold, addItem } = useDanny();
+
+  const handleBuy = (item) => {
+    if (spendGold(item.price)) {
+      addItem(item);
+      console.log(`Bought ${item.name}`);
+    } else {
+      console.log('Not enough gold!');
+      alert('Not enough gold!')
+    }
+  };
+
   return (
     <div className='Screen Full-Screen Shop-Screen'>
       <h2>{title}</h2>
@@ -16,7 +30,7 @@ export default function Shop({ title, items, onClose, onBuy }) {
               <span className='Item-Title'>{item.name}</span>
               <span className='Item-Text'>{item.description}</span>
             </div>
-            <button onClick={() => onBuy(item)} className='Btn'>
+            <button onClick={() => handleBuy(item)} className='Btn'>
               Buy - {item.price} Gold
             </button>
           </div>

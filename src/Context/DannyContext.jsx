@@ -76,7 +76,7 @@ export function DannyProvider({ children }) {
     wolfKills: 0,
     gold: 0,
     inventory: [],
-    party: [Danny, ethan, javon],
+    party: [Danny],
     goatState: { sightings: 0 },
     questFlags: {
       hasParty: false,
@@ -112,16 +112,40 @@ export function DannyProvider({ children }) {
           }),
         };
       }
+      case 'DECREASE_HP': {
+        const { player, amount } = action.payload;
+        return {
+          ...state,
+          party: state.party.map((member) => {
+            if (member.name === player.name) {
+              return {
+                ...member,
+                hp: member.hp - amount,
+              };
+            } else return member
+          }),
+        };
+      }
+      case 'RESTORE_PARTY_HP': {
+        return {
+          ...state,
+          party: state.party.map((member) => ({
+            ...member,
+            hp: member.maxHP,
+          })),
+        };
+      }
       case 'LEVEL_UP': {
         return {
           ...state,
           party: state.party.map((member) =>
             member.name === action.payload.name &&
-            member.xp >= 100 * member.level
+            member.xp >= 50 * member.level
               ? {
                   ...member,
                   xp: 0,
                   level: member.level + 1,
+                  maxHP: member.maxHP + action.payload.classData.statGrowth.maxHP,
                   hp: member.hp + action.payload.classData.statGrowth.hp,
                   strength:
                     member.strength +
@@ -231,6 +255,9 @@ export function DannyProvider({ children }) {
     ...initialState,
   });
 
+  console.log('party', state.party);
+  console.log('gold', state.gold);
+
   // Level Up Function
   const levelUp = (name, classData) => {
     dispatch({
@@ -238,8 +265,6 @@ export function DannyProvider({ children }) {
       payload: { name, classData },
     });
   };
-
-  console.log('party', state.party);
 
   // Spend gold
   const spendGold = (amount) => {
@@ -257,6 +282,7 @@ export function DannyProvider({ children }) {
       type: 'GAIN_GOLD',
       payload: amount,
     });
+    console.log('party has gained gold -', amount)
   };
 
   // Add item to party inventory
@@ -312,17 +338,38 @@ export function DannyProvider({ children }) {
       payload: xpGained,
     });
     console.log('updated party xp', state.party);
+    
+    // state.party.forEach((member) => {
+    //   levelUp(member.name, member.classData)
+    // })
+    levelUp("Danny", bodyBuilderClass);
+    levelUp("Ja'von, the Rizzler", knightClass);
+    levelUp("Ethan, the Brute", barbarianClass);
   };
 
-    // Update everyone in the party's hp
-    const updateHP = (combatants) => {
-      const players = combatants.filter(e => e.type === 'player');
-      dispatch({
-        type: 'UPDATE_HP',
-        payload: players,
-      });
-      console.log('updated party hp', state.party);
-    };
+  // Update everyone in the party's hp
+  const updateHP = (combatants) => {
+    const players = combatants.filter(e => e.type === 'player');
+    dispatch({
+      type: 'UPDATE_HP',
+      payload: players,
+    });
+    console.log('updated party hp', state.party);
+  };
+
+  const decreaseHP = (player, amount) => {
+    dispatch({
+      type: 'DECREASE_HP',
+      payload: { player, amount },
+    })
+    console.log("decreasing part member's hp", state.party);
+  }
+
+  const restorePartyHP = () => {
+    dispatch({
+      type: 'RESTORE_PARTY_HP',
+    })
+  }
 
   return (
     <DannyContext.Provider
@@ -338,6 +385,8 @@ export function DannyProvider({ children }) {
         incrementGoatSightings,
         updateXP,
         updateHP,
+        decreaseHP,
+        restorePartyHP,
         updateQuestFlag,
       }}
     >

@@ -24,7 +24,7 @@ import './Battle.scss';
 import '../../scss/All.scss';
 
 export default function Battle({ players, enemies, onBattleEnd = null }) {
-  const { updateXP, updateHP } = useDanny();
+  const { updateXP, updateHP, gainGold } = useDanny();
 
   const deathSounds = [
     death,
@@ -73,6 +73,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     isTargetingEnemy: false,
     selectedAttack: {},
     xpGained: 0,
+    goldGained: 0,
     deadEnemies: [],
     isEnemyTurn: null,
     battleOutcome: null,
@@ -164,14 +165,17 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         }
 
         // Add an xp log and add to xp if an enemy died
+        // Also add the gold gained to the party and to the xpLog
         let xpLog;
         let xp = state.xpGained;
+        let gold = state.goldGained;
         if (
           updatedTurnOrder.length < state.turnOrder.length &&
           target.type === 'enemy'
         ) {
           xp += Math.floor(target.xp / players.length);
-          xpLog = `Party members have gained ${Math.floor(target.xp / players.length)} xp!`;
+          gold += target.gold;
+          xpLog = `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`;
         }
 
         return {
@@ -182,6 +186,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             ? [...state.battleLog, newLog, deathLog, xpLog]
             : [...state.battleLog, newLog],
           xpGained: xp,
+          goldGained: gold,
         };
       }
       case 'HANDLE_BUFF': {
@@ -561,10 +566,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /* Helper function for when the battle ends
    * Calls onBattleEnd with the result and the enemies
    */
-  const BattleEnd = (result, xp) => {
+  const BattleEnd = (result, xp, gold) => {
     console.log('xp gained from battle', xp);
+    console.log('gold gained from battle', gold);   
     updateXP(xp);
     updateHP(state.turnOrder);
+    gainGold(gold);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
     //navigate('/battle-results', { state: { result, xp } });
   };
@@ -572,7 +579,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   // Check for when the battle ends
   useEffect(() => {
     if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
-      BattleEnd(state.battleOutcome, state.xpGained);
+      BattleEnd(state.battleOutcome, state.xpGained, state.goldGained);
   }, [state.battleOutcome]);
 
   // Smooth scroll to newest battleLog entry

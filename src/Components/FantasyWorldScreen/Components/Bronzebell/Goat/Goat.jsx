@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../TextBox';
@@ -14,6 +14,7 @@ export default function Goat() {
   const [showAttack, setShowAttack] = useState(false);
   const [showIgnore, setShowIgnore] = useState(false);
   const [showChoices, setShowChoices] = useState(false);
+  const [stage, setStage] = useState('intro');
   const navigate = useNavigate();
 
   const goatDialogue = [
@@ -51,6 +52,8 @@ export default function Goat() {
   ];
 
   const choices = [{ text: 'Scream and run', nextScene: '/bronzebell' }];
+
+  const secondTimeChoices = [{ text: 'Head back to safety', nextScene: '/bronzebell' }];
 
   // Get the current dialogue
   const getCurrentDialogue = () => {
@@ -92,6 +95,22 @@ export default function Goat() {
     }
   };
 
+  // Skip straight to choices if user has been to Ironhide
+  useEffect(() => {
+    const visited = localStorage.getItem('visitedGoat') === 'true';
+    if (visited) {
+      setStage('options');
+    }
+  }, []);
+
+  // Checks for when the current dialogue is complete
+  useEffect(() => {
+    const dialogue = getCurrentDialogue();
+    if (eventIndex === dialogue.length - 1) {
+      localStorage.setItem('visitedGoat', 'true');
+    }
+  }, [eventIndex]);
+
   return (
     <div
       className='Screen Full-Screen Goat-Screen'
@@ -102,41 +121,48 @@ export default function Goat() {
         backgroundPosition: 'center',
       }}
     >
-      {showAttack ? (
-        <>
-          <TextBox text={attackDialogue[eventIndex]} />
+      { stage !== 'options' ? (
+        showAttack ? (
+          <>
+            <TextBox text={attackDialogue[eventIndex]} />
 
-          {eventIndex === attackDialogue.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={navigate} />
-          ) : (
-            <button className='Next-Btn' onClick={handleNextEvent}>
-              Next
-            </button>
-          )}
-        </>
-      ) : showIgnore ? (
-        <>
-          <TextBox text={ignoreDialogue[eventIndex]} />
+            {eventIndex === attackDialogue.length - 1 ? (
+              <Choices options={choices} onChoiceSelected={navigate} />
+            ) : (
+              <button className='Next-Btn' onClick={handleNextEvent}>
+                Next
+              </button>
+            )}
+          </>
+        ) : showIgnore ? (
+          <>
+            <TextBox text={ignoreDialogue[eventIndex]} />
 
-          {eventIndex === ignoreDialogue.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={navigate} />
-          ) : (
-            <button className='Next-Btn' onClick={handleNextEvent}>
-              Next
-            </button>
-          )}
-        </>
+            {eventIndex === ignoreDialogue.length - 1 ? (
+              <Choices options={choices} onChoiceSelected={navigate} />
+            ) : (
+              <button className='Next-Btn' onClick={handleNextEvent}>
+                Next
+              </button>
+            )}
+          </>
+        ) : (
+          <>
+            <TextBox text={goatDialogue[eventIndex]} />
+
+            {showChoices ? (
+              <NPCChoices options={npcChoices} onChoiceSelected={handleChoice} />
+            ) : (
+              <button className='Next-Btn' onClick={handleNextEvent}>
+                Next
+              </button>
+            )}
+          </>
+        )
       ) : (
         <>
-          <TextBox text={goatDialogue[eventIndex]} />
-
-          {showChoices ? (
-            <NPCChoices options={npcChoices} onChoiceSelected={handleChoice} />
-          ) : (
-            <button className='Next-Btn' onClick={handleNextEvent}>
-              Next
-            </button>
-          )}
+          <TextBox text={"You shiver as if someone.. or something is watching you"} />
+          <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}
     </div>

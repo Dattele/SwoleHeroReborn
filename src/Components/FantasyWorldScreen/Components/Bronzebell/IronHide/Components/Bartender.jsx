@@ -13,7 +13,7 @@ import IronhideBartender from '../../../../../../assets/images/IronhideBartender
 import '../../../../../../scss/All.scss';
 
 export default function Bartender() {
-  const { spendGold, addItemToInventory, party } = useDanny();
+  const { spendGold, addItemToInventory, party, decreaseHP } = useDanny();
   const navigate = useNavigate();
 
   const [showShop, setShowShop] = useState(false);
@@ -75,10 +75,6 @@ export default function Bartender() {
     }
   };
 
-  const handleRest = (item) => {
-    console.log('handling rest');
-  };
-
   const handleRizz = (rizz) => {
     if (rizz >= 8) {
       // if (!alreadyRizzedLisa) {
@@ -100,12 +96,13 @@ export default function Bartender() {
       ]);
     } else {
       //Terrible
-      //decreaseHP(1);
       setRizzText([
         "Danny: 'Did it hurt when you fell from the protein shelf?'",
         "Lisa just stares. 'Wow. That pickup line just made me file for worker's comp.'",
         'You lose 1 HP from emotional damage.',
       ]);
+      const danny = party.find((member) => member.name === 'Danny');
+      decreaseHP(danny, 1);
     }
   };
 
@@ -134,7 +131,6 @@ export default function Bartender() {
         <Rest
           title='🛏 Ironhide Inn'
           text="Beds so sturdy, even Ethan hasn't broken one… yet."
-          onRest={handleRest}
           onClose={() => setShowRest(false)}
         />
       ) : showDemonKing ? (

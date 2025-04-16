@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
-import forestBackground from '../../../../assets/images/forest.webp';
+import forestBackground from '../../../../assets/images/EdenGrove.png';
 
 import '../../../../scss/All.scss';
 
@@ -43,13 +43,9 @@ export default function ForestScreen() {
   ];
 
   const handleNextEvent = () => {
-    if (eventIndex < forestEvents.length - 2) {
+    if (eventIndex < forestEvents.length - 1) {
       setEventIndex(eventIndex + 1);
-    } else if (stage !== 'options') {
-      console.log('Final dialogue reached. Showing options...');
-      setStage('options');
-      localStorage.setItem('visitedEdenGrove', 'true');
-    }
+    } 
   };
 
   // Skip straight to choices if user has been to Ironhide
@@ -59,6 +55,15 @@ export default function ForestScreen() {
       setStage('options');
     }
   }, []);
+
+  // Checks for when the forestEvents dialogue is complete
+  useEffect(() => {
+    if (
+      eventIndex === forestEvents.length - 1
+    ) {
+      localStorage.setItem('visitedEdenGrove', 'true');
+    }
+  }, [eventIndex]);
 
   return (
     <div

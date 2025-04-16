@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../TextBox';
@@ -12,14 +12,15 @@ import '../../../../../scss/All.scss';
 export default function Mayor() {
   const navigate = useNavigate();
 
-  const [visited, setVisited] = useState(() => {
-    return localStorage.getItem('visitedMayorHall') === 'true';
-  });
+  // const [visited, setVisited] = useState(() => {
+  //   return localStorage.getItem('visitedMayorHall') === 'true';
+  // });
   const [eventIndex, setEventIndex] = useState(0);
+  const [stage, setStage] = useState('intro');
 
-  const edenGroveCleansed =
-    localStorage.getItem('edenGroveCleansed') === 'true';
-  const hasParty = localStorage.getItem('hasParty') === 'true';
+  // const edenGroveCleansed =
+  //   localStorage.getItem('edenGroveCleansed') === 'true';
+  // const hasParty = localStorage.getItem('hasParty') === 'true';
 
   const firstVisitDialogue = [
     "You enter the Mayor's Hall — it smells like stress and burnt ink.",
@@ -29,43 +30,45 @@ export default function Mayor() {
     "'Bronzebell's barely hanging on. Trade routes are closed, EdenGrove was rotting, and don't get me started on the economy.'",
     "'We used to be a hub for travelers, you know. Before the corruption, before the King fell silent, before...' he sighs. 'Before the fear set in.'",
     "He leans back in his chair. 'Just... be careful out there. People are starting to believe the Demon King can't be stopped.'",
-    'Danny flexes silently. Paperwork flutters off the desk.',
+    'Danny flexes silently as paperwork flutters off the desk.',
     "'...Right. Try not to break anything on your way out.'",
   ];
 
   // const midQuestDialogue = [
-  //   "'Back again, hero?' the mayor says, this time with a hint less sarcasm.",
-  //   "'Word's gotten around. Your crew is pretty powerful. Some folks are even starting to feel… hopeful. Weird, right?'",
-  //   "'I've still got paperwork up to my ears and the goat's chewing on last week's taxes, but... thank you. Keep pushing.'",
-  //   "'If you really want to help Bronzebell — cleanse that forest. It's eating us from the roots up.'",
-  //   "'And if you see Wes — punch him in the face for me. Politely.'"
+  //   "'Back again?' Mayor Guffin mutters without looking up.",
+  //   "'We're still alive, so I assume you're doing something right. Or at least not causing property damage.'",
+  //   "'If you find a way to tax goats, let me know. That beast owes this town three benches and one identity crisis.'",
   // ];
-
-  const midQuestDialogue = [
-    "'Back again?' Mayor Guffin mutters without looking up.",
-    "'We're still alive, so I assume you're doing something right. Or at least not causing property damage.'",
-    "'If you find a way to tax goats, let me know. That beast owes this town three benches and one identity crisis.'",
-  ];
 
   const choices = [{ text: 'Return to Town Square', nextScene: '/bronzebell' }];
 
-  let currentDialogue;
-  if (!visited) {
-    currentDialogue = firstVisitDialogue;
-  } else {
-    currentDialogue = midQuestDialogue;
-  }
+  // let currentDialogue;
+  // if (!visited) {
+  //   currentDialogue = firstVisitDialogue;
+  // } else {
+  //   currentDialogue = midQuestDialogue;
+  // }
 
   const handleNextEvent = () => {
-    if (eventIndex < currentDialogue.length - 1) {
+    if (eventIndex < firstVisitDialogue.length - 1) {
       setEventIndex(eventIndex + 1);
-    } else {
-      if (!visited) {
-        setVisited(true);
-        localStorage.setItem('visitedMayorHall', 'true');
-      }
-    }
+    } 
   };
+
+  // Skip straight to choices if user has been to the Mayor Hall
+  useEffect(() => {
+    const visited = localStorage.getItem('visitedMayorHall') === 'true';
+    if (visited) {
+      setStage('options');
+    }
+  }, []);
+
+  // Checks for when the firstVisit dialogue is complete
+  useEffect(() => {
+    if (eventIndex === firstVisitDialogue.length - 1) {
+      localStorage.setItem('visitedMayorHall', 'true');
+    }
+  }, [eventIndex]);
 
   return (
     <div
@@ -77,15 +80,25 @@ export default function Mayor() {
         backgroundPosition: 'center',
       }}
     >
-      <TextBox text={currentDialogue[eventIndex]} />
+      {stage !== 'options' ? (
+        <>
+          <TextBox text={firstVisitDialogue[eventIndex]} />
 
-      {eventIndex === currentDialogue.length - 1 ? (
-        <Choices options={choices} onChoiceSelected={navigate} />
+          {eventIndex === firstVisitDialogue.length - 1 ? (
+            <Choices options={choices} onChoiceSelected={navigate} />
+          ) : (
+            <button className='Next-Btn' onClick={handleNextEvent}>
+              Next
+            </button>
+          )}
+        </>
       ) : (
-        <button className='Next-Btn' onClick={handleNextEvent}>
-          Next
-        </button>
+        <>
+          <TextBox text={"What are you doing back here? Go talk to Bobby if you haven't already"} />
+          <Choices options={choices} onChoiceSelected={navigate} />
+        </>
       )}
+      
     </div>
   );
 }

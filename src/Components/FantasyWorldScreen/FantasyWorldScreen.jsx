@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../TextBox';
-import fantasyBackground from '../../assets/images/map.webp';
+import fantasyBackground from '../../assets/images/Eldoria.png';
 
 //import './FantasyWorldScreen.scss';
 import '../../scss/All.scss';

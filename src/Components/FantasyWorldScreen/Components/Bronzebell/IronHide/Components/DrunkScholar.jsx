@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../../TextBox';
@@ -10,6 +10,7 @@ import '../../../../../../scss/All.scss';
 
 export default function DrunkScholar() {
   const [eventIndex, setEventIndex] = useState(0);
+  const [stage, setStage] = useState('intro');
   const navigate = useNavigate();
 
   const drunkScholarDialogue = [
@@ -22,7 +23,7 @@ export default function DrunkScholar() {
     "'There are no victories, only death, like they never existed.'",
     "Danny laughs - 'Sounds like my dating history.'",
     "The scholar starts slamming his head against the table. 'You're all gonna burn! We're already dead! You just don't know it yet!'",
-    "Danny looks around in shock - 'Well that guy needs to take a chill pill. I'm outta here!'",
+    "Danny looks around in shock - 'Well that guy needs to take a chill pill!'",
   ];
 
   const choices = [
@@ -30,11 +31,30 @@ export default function DrunkScholar() {
     { text: 'Leave at once', nextScene: '/bronzebell/ironhide' },
   ];
 
+  const secondTimeChoices = [
+    { text: 'Beer, biceps, and bad decisions await', nextScene: '/bronzebell/ironhide' },
+  ];
+
   const handleNextEvent = () => {
     if (eventIndex < drunkScholarDialogue.length - 1) {
       setEventIndex(eventIndex + 1);
     }
   };
+
+  // Skip straight to choices if user has been to the Drunk Scholar
+  useEffect(() => {
+    const visited = localStorage.getItem('visitedDrunkScholar') === 'true';
+    if (visited) {
+      setStage('options');
+    }
+  }, []);
+
+  // Checks for when the drunkScholar dialogue is complete
+  useEffect(() => {
+    if (eventIndex === drunkScholarDialogue.length - 1) {
+      localStorage.setItem('visitedDrunkScholar', 'true');
+    }
+  }, [eventIndex]);
 
   return (
     <div
@@ -46,14 +66,23 @@ export default function DrunkScholar() {
         backgroundPosition: 'center',
       }}
     >
-      <TextBox text={drunkScholarDialogue[eventIndex]} />
+      {stage !== 'options' ? (
+        <>
+          <TextBox text={drunkScholarDialogue[eventIndex]} />
 
-      {eventIndex === drunkScholarDialogue.length - 1 ? (
-        <Choices options={choices} onChoiceSelected={navigate} />
+          {eventIndex === drunkScholarDialogue.length - 1 ? (
+            <Choices options={choices} onChoiceSelected={navigate} />
+          ) : (
+            <button className='Next-Btn' onClick={handleNextEvent}>
+              Next
+            </button>
+          )}
+        </>
       ) : (
-        <button className='Next-Btn' onClick={handleNextEvent}>
-          Next
-        </button>
+        <>
+          <TextBox text={"The scholar mutters something about cheese wheels and teleportation. Best not to ask."} />
+          <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
+        </>
       )}
     </div>
   );
