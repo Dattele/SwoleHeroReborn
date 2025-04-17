@@ -35,7 +35,7 @@ This phase includes:
 
 ### Quest & Progress Tracking
 - Quest logic using `localStorage`
-- `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc. flags
+- `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc.
 - Quest stages update dynamically based on game state
 
 ### Party System
