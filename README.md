@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# Swole Hero Reborn: The Quest for Gains and Girlfriends - Phase 1
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+**Swole Hero Reborn** is a text-based fantasy RPG where you play as Danny — a gym bro reincarnated into the magical world **Eldoria**, filled with monsters, dungeons, and the occasional romantic hope. 
 
-In the project directory, you can run:
+This phase includes:
+- The **Forest of EdenGrove** and **Bronzebell Town**
+- Encounters with monsters
+- Recruiting party members
+- Introduction to Eldoria and the Demon King's Generals
+- Facing Edengrove's boss **Fangborn**, the Alpha Werewolf
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
+- **React.js**
+- **React Router**
+- **Custom useReducer + Context API**
+- **SCSS for styling**
+- **Custom Sound Assets + AI Generated Art**
+- **Modular Components**
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+---
 
-### `npm test`
+## Game Systems Implemented
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Complex Battle System
+- `useReducer` logic handles turn order, abilties (current abilities: attacks, heals, buffs, group-buffs, smash attacks, & life-drain), & enemy AI
+- Speed-based combat turn order
+- Supports 1–3 enemies & 1-3 players per encounter
+- Death sound effects on kills
+- XP and gold from each kill
+- Random enemy abilities
 
-### `npm run build`
+### Quest & Progress Tracking
+- Quest logic using `localStorage`
+- `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc. flags
+- Quest stages update dynamically based on game state
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Party System
+- Add party members
+- Display stats, portraits, and level
+- Level-up system with class-based stat growth
+- Uses `Context` for global access and updates
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Inventory System
+- Items stored in reducer-managed inventory
+- Dynamic item addition and removal
+- Tracks the quantity of items
+- Gold system integrated with shop and battles
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Dialogue & Choices
+- Dynamic dialogue trees
+- Branching logic based on quest flags, location, and party
+- Uses `localStorage` to check if the party has been to the location before
+- Story interactions with town NPCs like:
+  - Bobby the Monk (EdenGrove Quest)
+  - Lisa the Bartender
+  - Drunk Scholar
+  - The Goat
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Current Game Map
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+| Region | Status |
+|--------|--------|
+| EdenGrove Forest | Explorable, Battle-ready |
+| Bronzebell Town | Town Hub |
+  | Rizz & Bits Market | Shop |
+  | Ironhide Tavern | NPCs, Party, Shop, & Rest |
+  | Bobby's Shrine | Quest |
+  | Training Grounds | Party |
+  | Mayor's Hall | NPC |
+  | Goat | NPC |
+  | World Map | Travel |
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Running the Game
 
-## Learn More
+### Install dependencies
+npm install
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Start development server
+npm start
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+## Plans for Phase II
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Add **Spire Mountains**, **Emberfall Ruins**, and **Lustralis Kingdom**
+- Create a save file using `localStorage`
+- More side quests and branching dialogues
+- Expand on the lore of **Eldoria**
+- Get more info on the Demon King's armies/generals
+- Create a boss for **Spire Mountains** and create a main questline boss for the **Emberfall Ruins** 
+- Full **prophecy arc** with Danny’s fate unfolding
+- Flesh out **Lustralis Kingdom** as the World's central hub
