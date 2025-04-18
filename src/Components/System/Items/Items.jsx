@@ -42,7 +42,7 @@ const Items = [
     // 5
     name: 'Limited Edition Rizz Band',
     type: 'wrist-band',
-    description: 'Band for cool kids',
+    description: 'Band for cool kids - +1 Rizz',
     price: 100,
     effect: '+1 rizz',
   },
@@ -66,7 +66,8 @@ const Items = [
     // 8
     name: 'Flex Tape',
     type: 'item',
-    description: 'Flex tape can fix anything - Fully Restores HP',
+    description: 'Flex tape can fix anything - Restores 30 HP',
+    heal: 30,
     price: 50,
   },
 ];

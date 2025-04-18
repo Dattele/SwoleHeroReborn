@@ -8,12 +8,11 @@ import '../../../scss/All.scss';
 export default function Rest({ title, text, onClose }) {
   const { gold, spendGold, restorePartyHP} = useDanny();
 
-  const handleRest = (item) => {
-    console.log('handling rest');
+  const handleRest = () => {
     if (gold >= 5) {
       spendGold(5);
-      console.log('party gold', gold);
       restorePartyHP();
+      alert('Your party is now rested!');
     } else {
       alert('Not enough Gold!');
     }

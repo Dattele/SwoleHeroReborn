@@ -13,7 +13,7 @@ import IronhideBartender from '../../../../../../assets/images/IronhideBartender
 import '../../../../../../scss/All.scss';
 
 export default function Bartender() {
-  const { spendGold, addItemToInventory, party, decreaseHP } = useDanny();
+  const { party, decreaseHP } = useDanny();
   const navigate = useNavigate();
 
   const [showShop, setShowShop] = useState(false);
@@ -63,15 +63,6 @@ export default function Bartender() {
         break;
       default:
         break;
-    }
-  };
-
-  const handleBuy = (item) => {
-    if (spendGold(item.price)) {
-      addItemToInventory(item);
-      console.log(`Bought ${item.name}`);
-    } else {
-      console.log('Not enough gold!');
     }
   };
 
@@ -125,7 +116,6 @@ export default function Bartender() {
           title='🍻 Ironhide Inn & Tavern'
           items={shopItems}
           onClose={() => setShowShop(false)}
-          onBuy={handleBuy}
         />
       ) : showRest ? (
         <Rest

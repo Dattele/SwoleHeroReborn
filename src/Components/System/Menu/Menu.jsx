@@ -1,11 +1,30 @@
 import React, { useState } from 'react';
 import { useDanny } from '../../../Context/DannyContext';
 
+import TargetSelectionAlly from '../../Battle/TargetSelectionAlly';
+
 import './Menu.scss';
 
 export default function Menu({ isOpen, onClose }) {
-  const { party, inventory, gold } = useDanny();
+  const { party, inventory, gold, useItem } = useDanny();
   const [activeTab, setActiveTab] = useState('party');
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [isTargetingAlly, setIsTargetingAlly] = useState(false);
+
+  // Handling using an item
+  const handleItem = (item) => {
+    console.log('handleItem received:', item);
+    setIsTargetingAlly(true);
+    setSelectedItem(item);
+  }
+
+  // Selecting which ally to use the item on
+  const HandleTargetSelection = (target) => {
+    console.log('Target selected', target);
+    console.log('item selected', selectedItem);
+    setIsTargetingAlly(false);
+    useItem(target, selectedItem);
+  }
 
   return (
     <div className={`Menu-Overlay ${!isOpen && 'Closed'}`}>
@@ -63,9 +82,14 @@ export default function Menu({ isOpen, onClose }) {
               <div className='Inventory-Items-Wrapper'>
                 {inventory.length > 0 ? (
                   inventory.map((item, index) => (
-                    <div className='Inventory-Item' key={index}>
-                      <strong>{item.name}</strong> (x{item.quantity})
-                      <p>{item.description}</p>
+                    <div className='Inventory-Container' key={index}>
+                      <div className='Inventory-Item'>
+                        <strong>{item.name}</strong> (x{item.quantity})
+                        <p>{item.description}</p>
+                      </div>
+                      <button className='Inventory-Btn Btn' onClick={() => handleItem(item)}>
+                        Use Item
+                      </button>
                     </div>
                   ))
                 ) : (
@@ -73,6 +97,14 @@ export default function Menu({ isOpen, onClose }) {
                 )}
               </div>
             </div>
+          )}
+
+          {/* Pop-up for selecting ally */}
+          {isTargetingAlly && (
+            <TargetSelectionAlly
+              allies={party.filter((player) => player.type === 'player')}
+              onSelectTarget={HandleTargetSelection}
+            />
           )}
         </div>
       </div>

@@ -25,11 +25,11 @@ export default function WorldMap() {
       path: '/bronzebell',
     },
     {
-      name: 'Iron-Spire Mountains',
+      name: 'Spire Mountains',
       top: '25%',
       left: '52%',
       unlocked: false,
-      path: '/ironspire',
+      path: '/spire',
     },
     {
       name: 'Emberfall Ruins',

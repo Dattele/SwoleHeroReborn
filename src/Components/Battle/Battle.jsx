@@ -261,8 +261,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         return {
           ...state,
-          // playerHPs: updatedPlayers,
-          // enemyHPs: updatedEnemies,
           turnOrder: updatedTurnOrder,
           battleLog: [
             ...state.battleLog,

@@ -54,11 +54,23 @@
     .Inventory-Items-Wrapper {
       display: grid;
       grid-template-columns: repeat(2, 1fr); // Two equal columns
-      gap: 10px;
+      gap: 1.5rem;
+
+      .Inventory-Item {
+        margin-right: 1rem;
+      }
 
       p {
         margin-top: 10px;
         margin-bottom: 0;
+      }
+    }
+
+    .Inventory-Container {
+      display: flex;
+
+      .Inventory-Btn {
+        margin-left: auto;
       }
     }
 

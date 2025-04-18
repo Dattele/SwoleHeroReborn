@@ -74,7 +74,7 @@ export function DannyProvider({ children }) {
 
   const initialState = {
     wolfKills: 0,
-    gold: 0,
+    gold: 50,
     inventory: [],
     party: [Danny],
     goatState: { sightings: 0 },
@@ -109,6 +109,23 @@ export function DannyProvider({ children }) {
               ...member,
               hp: player.hp,
             };
+          }),
+        };
+      }
+      case 'INCREASE_HP': {
+        const { player, amount } = action.payload;
+        console.log('player and amount', player, amount);
+        return {
+          ...state,
+          party: state.party.map((member) => {
+            if (member.name === player.name) {
+              const newHP = Math.min(member.maxHP, member.hp + amount);
+              console.log('newHP', newHP);
+              return {
+                ...member,
+                hp: newHP,
+              };
+            } else return member
           }),
         };
       }
@@ -293,12 +310,21 @@ export function DannyProvider({ children }) {
     });
   };
 
-  // Removing an item - typically from using it
-  const removeItem = (item) => {
+  // Using an item
+  const useItem = (player, item) => {
+    console.log('use item - player and item', player, item);
     dispatch({
       type: 'REMOVE_ITEM',
       payload: item,
     });
+    if (item.hasOwnProperty('heal')) {
+      const amount = item.heal;    
+      console.log('heal', amount);
+      dispatch({
+        type: 'INCREASE_HP',
+        payload: { player, amount },
+      })
+    }
   };
 
   // Add a party member
@@ -378,7 +404,7 @@ export function DannyProvider({ children }) {
         levelUp,
         incrementWolfKills,
         addItem,
-        removeItem,
+        useItem,
         spendGold,
         gainGold,
         addPartyMember,

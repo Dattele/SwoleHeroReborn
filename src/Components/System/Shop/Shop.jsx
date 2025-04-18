@@ -6,14 +6,14 @@ import './Shop.scss';
 import '../../../scss/All.scss';
 
 export default function Shop({ title, items, onClose }) {
-  const { spendGold, addItem } = useDanny();
+  const { gold, spendGold, addItem } = useDanny();
 
   const handleBuy = (item) => {
-    if (spendGold(item.price)) {
+    if (gold >= item.price) {
+      spendGold(item.price)
       addItem(item);
-      console.log(`Bought ${item.name}`);
+      alert(`${item.name} has been purchased for ${item.price}`);
     } else {
-      console.log('Not enough gold!');
       alert('Not enough gold!')
     }
   };
