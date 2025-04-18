@@ -53,7 +53,9 @@ export default function Goat() {
 
   const choices = [{ text: 'Scream and run', nextScene: '/bronzebell' }];
 
-  const secondTimeChoices = [{ text: 'Head back to safety', nextScene: '/bronzebell' }];
+  const secondTimeChoices = [
+    { text: 'Head back to safety', nextScene: '/bronzebell' },
+  ];
 
   // Get the current dialogue
   const getCurrentDialogue = () => {
@@ -121,7 +123,7 @@ export default function Goat() {
         backgroundPosition: 'center',
       }}
     >
-      { stage !== 'options' ? (
+      {stage !== 'options' ? (
         showAttack ? (
           <>
             <TextBox text={attackDialogue[eventIndex]} />
@@ -151,7 +153,10 @@ export default function Goat() {
             <TextBox text={goatDialogue[eventIndex]} />
 
             {showChoices ? (
-              <NPCChoices options={npcChoices} onChoiceSelected={handleChoice} />
+              <NPCChoices
+                options={npcChoices}
+                onChoiceSelected={handleChoice}
+              />
             ) : (
               <button className='Next-Btn' onClick={handleNextEvent}>
                 Next
@@ -161,7 +166,9 @@ export default function Goat() {
         )
       ) : (
         <>
-          <TextBox text={"You shiver as if someone.. or something is watching you"} />
+          <TextBox
+            text={'You shiver as if someone.. or something is watching you'}
+          />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}

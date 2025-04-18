@@ -45,7 +45,7 @@ export default function ForestScreen() {
   const handleNextEvent = () => {
     if (eventIndex < forestEvents.length - 1) {
       setEventIndex(eventIndex + 1);
-    } 
+    }
   };
 
   // Skip straight to choices if user has been to Ironhide
@@ -58,9 +58,7 @@ export default function ForestScreen() {
 
   // Checks for when the forestEvents dialogue is complete
   useEffect(() => {
-    if (
-      eventIndex === forestEvents.length - 1
-    ) {
+    if (eventIndex === forestEvents.length - 1) {
       localStorage.setItem('visitedEdenGrove', 'true');
     }
   }, [eventIndex]);

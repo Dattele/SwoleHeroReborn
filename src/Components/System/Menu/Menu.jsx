@@ -16,7 +16,7 @@ export default function Menu({ isOpen, onClose }) {
     console.log('handleItem received:', item);
     setIsTargetingAlly(true);
     setSelectedItem(item);
-  }
+  };
 
   // Selecting which ally to use the item on
   const HandleTargetSelection = (target) => {
@@ -24,7 +24,7 @@ export default function Menu({ isOpen, onClose }) {
     console.log('item selected', selectedItem);
     setIsTargetingAlly(false);
     useItem(target, selectedItem);
-  }
+  };
 
   return (
     <div className={`Menu-Overlay ${!isOpen && 'Closed'}`}>
@@ -55,7 +55,11 @@ export default function Menu({ isOpen, onClose }) {
               {party.map((member, index) => (
                 <div className='Party-Member' key={index}>
                   <div className='Party-Image-Wrapper'>
-                    <img src={member.imageFace} alt={member.name} className='Party-Image' />
+                    <img
+                      src={member.imageFace}
+                      alt={member.name}
+                      className='Party-Image'
+                    />
                   </div>
                   <div>
                     <h3>{member.name}</h3>
@@ -87,7 +91,10 @@ export default function Menu({ isOpen, onClose }) {
                         <strong>{item.name}</strong> (x{item.quantity})
                         <p>{item.description}</p>
                       </div>
-                      <button className='Inventory-Btn Btn' onClick={() => handleItem(item)}>
+                      <button
+                        className='Inventory-Btn Btn'
+                        onClick={() => handleItem(item)}
+                      >
                         Use Item
                       </button>
                     </div>

@@ -1,4 +1,4 @@
-import React,  { useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useDanny } from '../../../Context/DannyContext';
@@ -15,7 +15,7 @@ export default function ForestBattle() {
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState(false);
   //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
-  
+
   const choices = [
     { text: 'Stay in EdenGrove Forest', nextScene: '/forest' },
     { text: 'Retreat to Bronzebell', nextScene: '/bronzebell' },
@@ -23,9 +23,9 @@ export default function ForestBattle() {
 
   // Get the amount of enemies
   const NumberOfEnemies = () => {
-    const number = Math.floor((Math.random() * 3) + 1);
+    const number = Math.floor(Math.random() * 3 + 1);
     return number;
-  }
+  };
 
   // Get the enemy
   const GetRandomMonsters = () => {
@@ -53,13 +53,13 @@ export default function ForestBattle() {
     }
 
     return enemies;
-  }
+  };
 
   // Sets a timeout to wait before performing any other actions
   const sleep = (ms) => {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
-  
+
   const enemies = getEnemies();
 
   const handleBattleEnd = async (result, enemies) => {

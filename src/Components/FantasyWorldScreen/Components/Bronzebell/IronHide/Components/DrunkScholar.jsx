@@ -32,7 +32,10 @@ export default function DrunkScholar() {
   ];
 
   const secondTimeChoices = [
-    { text: 'Beer, biceps, and bad decisions await', nextScene: '/bronzebell/ironhide' },
+    {
+      text: 'Beer, biceps, and bad decisions await',
+      nextScene: '/bronzebell/ironhide',
+    },
   ];
 
   const handleNextEvent = () => {
@@ -80,7 +83,11 @@ export default function DrunkScholar() {
         </>
       ) : (
         <>
-          <TextBox text={"The scholar mutters something about cheese wheels and teleportation. Best not to ask."} />
+          <TextBox
+            text={
+              'The scholar mutters something about cheese wheels and teleportation. Best not to ask.'
+            }
+          />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}

@@ -6,7 +6,7 @@ import './Rest.scss';
 import '../../../scss/All.scss';
 
 export default function Rest({ title, text, onClose }) {
-  const { gold, spendGold, restorePartyHP} = useDanny();
+  const { gold, spendGold, restorePartyHP } = useDanny();
 
   const handleRest = () => {
     if (gold >= 5) {

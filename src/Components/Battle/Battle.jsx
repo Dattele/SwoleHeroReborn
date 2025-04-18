@@ -102,9 +102,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // Increase player index if the fighter was a player
         let playerIndex = state.activePlayerIndex;
         if (nextFighter.type === 'player') {
-          const alivePlayers = state.turnOrder.filter(p => p.type === 'player' && p.hp > 0);
+          const alivePlayers = state.turnOrder.filter(
+            (p) => p.type === 'player' && p.hp > 0,
+          );
           //playerIndex = (playerIndex + 1) % alivePlayers.length;
-          playerIndex = alivePlayers.findIndex(p => p.id === nextFighter.id);
+          playerIndex = alivePlayers.findIndex((p) => p.id === nextFighter.id);
         }
 
         return {
@@ -145,9 +147,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let nextTurnIndex = state.turnIndex;
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
-        const targetIndex = updatedTurnOrder.findIndex(e => e.id === target.id);
+        const targetIndex = updatedTurnOrder.findIndex(
+          (e) => e.id === target.id,
+        );
         if (target.hp - damage <= 0 && targetIndex < nextTurnIndex) {
-          nextTurnIndex = state.turnIndex - 1;          
+          nextTurnIndex = state.turnIndex - 1;
           console.log('target died and next turnIndex is now', nextTurnIndex);
         }
 
@@ -566,7 +570,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
    */
   const BattleEnd = (result, xp, gold) => {
     console.log('xp gained from battle', xp);
-    console.log('gold gained from battle', gold);   
+    console.log('gold gained from battle', gold);
     updateXP(xp);
     updateHP(state.turnOrder);
     gainGold(gold);

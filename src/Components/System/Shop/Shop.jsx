@@ -10,11 +10,11 @@ export default function Shop({ title, items, onClose }) {
 
   const handleBuy = (item) => {
     if (gold >= item.price) {
-      spendGold(item.price)
+      spendGold(item.price);
       addItem(item);
       alert(`${item.name} has been purchased for ${item.price}`);
     } else {
-      alert('Not enough gold!')
+      alert('Not enough gold!');
     }
   };
 

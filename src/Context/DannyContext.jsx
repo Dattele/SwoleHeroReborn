@@ -125,7 +125,7 @@ export function DannyProvider({ children }) {
                 ...member,
                 hp: newHP,
               };
-            } else return member
+            } else return member;
           }),
         };
       }
@@ -139,7 +139,7 @@ export function DannyProvider({ children }) {
                 ...member,
                 hp: member.hp - amount,
               };
-            } else return member
+            } else return member;
           }),
         };
       }
@@ -162,7 +162,8 @@ export function DannyProvider({ children }) {
                   ...member,
                   xp: 0,
                   level: member.level + 1,
-                  maxHP: member.maxHP + action.payload.classData.statGrowth.maxHP,
+                  maxHP:
+                    member.maxHP + action.payload.classData.statGrowth.maxHP,
                   hp: member.hp + action.payload.classData.statGrowth.hp,
                   strength:
                     member.strength +
@@ -299,7 +300,7 @@ export function DannyProvider({ children }) {
       type: 'GAIN_GOLD',
       payload: amount,
     });
-    console.log('party has gained gold -', amount)
+    console.log('party has gained gold -', amount);
   };
 
   // Add item to party inventory
@@ -318,12 +319,12 @@ export function DannyProvider({ children }) {
       payload: item,
     });
     if (item.hasOwnProperty('heal')) {
-      const amount = item.heal;    
+      const amount = item.heal;
       console.log('heal', amount);
       dispatch({
         type: 'INCREASE_HP',
         payload: { player, amount },
-      })
+      });
     }
   };
 
@@ -364,18 +365,18 @@ export function DannyProvider({ children }) {
       payload: xpGained,
     });
     console.log('updated party xp', state.party);
-    
+
     // state.party.forEach((member) => {
     //   levelUp(member.name, member.classData)
     // })
-    levelUp("Danny", bodyBuilderClass);
+    levelUp('Danny', bodyBuilderClass);
     levelUp("Ja'von, the Rizzler", knightClass);
-    levelUp("Ethan, the Brute", barbarianClass);
+    levelUp('Ethan, the Brute', barbarianClass);
   };
 
   // Update everyone in the party's hp
   const updateHP = (combatants) => {
-    const players = combatants.filter(e => e.type === 'player');
+    const players = combatants.filter((e) => e.type === 'player');
     dispatch({
       type: 'UPDATE_HP',
       payload: players,
@@ -387,15 +388,15 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'DECREASE_HP',
       payload: { player, amount },
-    })
+    });
     console.log("decreasing part member's hp", state.party);
-  }
+  };
 
   const restorePartyHP = () => {
     dispatch({
       type: 'RESTORE_PARTY_HP',
-    })
-  }
+    });
+  };
 
   return (
     <DannyContext.Provider

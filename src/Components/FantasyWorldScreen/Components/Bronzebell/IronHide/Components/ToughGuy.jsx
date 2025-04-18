@@ -38,7 +38,10 @@ export default function ToughGuy() {
   ];
 
   const secondTimeChoices = [
-    { text: 'You decide to give him some space when he starts crying..', nextScene: '/bronzebell/ironhide' },
+    {
+      text: 'You decide to give him some space when he starts crying..',
+      nextScene: '/bronzebell/ironhide',
+    },
   ];
 
   const handleNextEvent = () => {
@@ -76,7 +79,7 @@ export default function ToughGuy() {
         backgroundPosition: 'center',
       }}
     >
-      { stage !== 'options' ? (
+      {stage !== 'options' ? (
         <>
           <TextBox text={toughGuyDialogue[eventIndex]} />
 
@@ -90,8 +93,8 @@ export default function ToughGuy() {
         </>
       ) : (
         <>
-         <TextBox text={"Let's go cheer him up (by reminding him who won)."} />
-         <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
+          <TextBox text={"Let's go cheer him up (by reminding him who won)."} />
+          <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}
     </div>

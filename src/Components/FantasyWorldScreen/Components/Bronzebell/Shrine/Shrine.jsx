@@ -70,7 +70,7 @@ export default function Shrine() {
   const handleNextEvent = () => {
     if (eventIndex < bobbyDialogue[stage].length - 1) {
       setEventIndex(eventIndex + 1);
-    } 
+    }
   };
 
   // UseEffect that sets the stage for the interaction with Bobby

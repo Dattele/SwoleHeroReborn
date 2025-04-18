@@ -52,7 +52,7 @@ export default function Mayor() {
   const handleNextEvent = () => {
     if (eventIndex < firstVisitDialogue.length - 1) {
       setEventIndex(eventIndex + 1);
-    } 
+    }
   };
 
   // Skip straight to choices if user has been to the Mayor Hall
@@ -94,11 +94,14 @@ export default function Mayor() {
         </>
       ) : (
         <>
-          <TextBox text={"What are you doing back here? Go talk to Bobby if you haven't already"} />
+          <TextBox
+            text={
+              "What are you doing back here? Go talk to Bobby if you haven't already"
+            }
+          />
           <Choices options={choices} onChoiceSelected={navigate} />
         </>
       )}
-      
     </div>
   );
 }
