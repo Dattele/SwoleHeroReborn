@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import NPCChoices from '../../../../System/NPCChoices';
 import Choices from '../../../../Choices';
@@ -10,6 +11,8 @@ import './Goat.scss';
 import '../../../../../scss/All.scss';
 
 export default function Goat() {
+  const { party } = useDanny();
+
   const [eventIndex, setEventIndex] = useState(0);
   const [showAttack, setShowAttack] = useState(false);
   const [showIgnore, setShowIgnore] = useState(false);
@@ -97,10 +100,15 @@ export default function Goat() {
     }
   };
 
-  // Skip straight to choices if user has been to Ironhide
+  // Sets the stage for the interaction with the Goat
   useEffect(() => {
+    const ethan = party.find((member) => member.name === 'Ethan, the Brute');
+    const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
     const visited = localStorage.getItem('visitedGoat') === 'true';
-    if (visited) {
+
+    if (!ethan || !javon) {
+      setStage('notReady');
+    } else if (visited) {
       setStage('options');
     }
   }, []);
@@ -123,7 +131,14 @@ export default function Goat() {
         backgroundPosition: 'center',
       }}
     >
-      {stage !== 'options' ? (
+      {stage === 'notReady' ? (
+        <>
+          <TextBox
+            text={"You feel uneasy - as if you aren't ready to continue onwards"}
+          />
+          <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
+        </>
+      ) : stage !== 'options' ? (
         showAttack ? (
           <>
             <TextBox text={attackDialogue[eventIndex]} />

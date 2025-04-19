@@ -59,9 +59,9 @@ export default function Shrine() {
       "Danny: 'Wait, that sounds like me! Right guys? Right?'",
       "Ja'von and Ethan glance at each other, slowly shaking their heads.",
       "Bobby smiles. 'Perhaps. Or perhaps the prophecy meant someone a little less sweaty..'",
-      "'Go now. Your journey begins anew. And the fate of Eldoria... may just rest on your absurdly large shoulders.'",
+      "'Go now. Your journey begins anew. And the fate of Eldoria rests upon your absurdly large shoulders.'",
       "He returns to meditation. 'May your strength remain... and your squats remain deep.'",
-      // '**[ Quest Complete: EdenGrove Forest ✅ ]**',
+      // '**[ Quest Complete: Cleanse EdenGrove Forest ✅ ]**',
     ],
   };
 

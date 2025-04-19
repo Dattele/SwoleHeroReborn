@@ -32,7 +32,7 @@ export default function ForestBossBattle() {
       <Battle players={party} enemies={[enemy]} onBattleEnd={handleBattleEnd} />
       {battleEnd && (
         <div className='Choices-Container'>
-          <TextBox text={'**[ Quest Complete: EdenGrove Forest ✅ ]**'} />
+          <TextBox text={'**[ Quest Complete: Cleanse EdenGrove Forest ✅ ]**'} />
           <Choices options={choices} onChoiceSelected={navigate} />
         </div>
       )}
