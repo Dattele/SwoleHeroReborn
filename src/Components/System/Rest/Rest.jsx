@@ -20,6 +20,7 @@ export default function Rest({ title, text, onClose }) {
 
   return (
     <div className='Screen Full-Screen Rest-Screen'>
+      <h2>💰 Gold: {gold}</h2>
       <h2>{title}</h2>
       <p>{text}</p>
       <p>Resting restores your parties HP</p>

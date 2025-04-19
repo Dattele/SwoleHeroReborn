@@ -11,10 +11,8 @@ import './ForestBattle.scss';
 
 export default function ForestBattle() {
   const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
-  console.log('party', party);
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState(false);
-  //const forestBossEvent = wolfKills >= 0; // Triggers at 3+ wolf kills
 
   const choices = [
     { text: 'Stay in EdenGrove Forest', nextScene: '/forest' },
@@ -62,6 +60,7 @@ export default function ForestBattle() {
 
   const enemies = getEnemies();
 
+  // Increase the wolf kill count for each wolf killed
   const handleBattleEnd = async (result, enemies) => {
     enemies.forEach((enemy) => {
       if (enemy.name === 'Forest Wolf' && result === 'win') {

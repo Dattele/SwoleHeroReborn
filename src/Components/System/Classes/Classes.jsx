@@ -65,8 +65,8 @@ const Classes = {
     description:
       'A disciplined warrior trained in swordplay and honor. Fights with elegance, defends with pride, and flirts with nobility.',
     statGrowth: {
-      maxHP: 11,
-      hp: 11,
+      maxHP: 12,
+      hp: 12,
       strength: 3,
       defense: 3,
       speed: 2,

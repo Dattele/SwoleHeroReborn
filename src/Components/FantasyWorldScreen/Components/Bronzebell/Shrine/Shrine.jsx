@@ -61,7 +61,7 @@ export default function Shrine() {
       "Bobby smiles. 'Perhaps. Or perhaps the prophecy meant someone a little less sweaty..'",
       "'Go now. Your journey begins anew. And the fate of Eldoria... may just rest on your absurdly large shoulders.'",
       "He returns to meditation. 'May your strength remain... and your squats remain deep.'",
-      '**[ Quest Complete: EdenGrove Purified ✅ ]**',
+      // '**[ Quest Complete: EdenGrove Forest ✅ ]**',
     ],
   };
 
@@ -79,9 +79,9 @@ export default function Shrine() {
     const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
     if (!ethan || !javon) {
       setStage('notReady');
-    } else if (localStorage.getItem('bobbyQuest') === 'received') {
+    } else if (localStorage.getItem('Cleanse EdenGrove Forest') === 'received') {
       setStage('stillCorrupted');
-    } else if (localStorage.getItem('bobbyQuest') === 'completed') {
+    } else if (localStorage.getItem('Cleanse EdenGrove Forest') === 'completed') {
       setStage('completed');
     }
   }, []);
@@ -92,7 +92,7 @@ export default function Shrine() {
       stage === 'giveQuest' &&
       eventIndex === bobbyDialogue.giveQuest.length - 1
     ) {
-      localStorage.setItem('bobbyQuest', 'received');
+      localStorage.setItem('Cleanse EdenGrove Forest', 'received');
     }
   }, [eventIndex]);
 

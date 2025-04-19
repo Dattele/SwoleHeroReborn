@@ -8,6 +8,9 @@ import '../../../scss/All.scss';
 export default function Shop({ title, items, onClose }) {
   const { gold, spendGold, addItem } = useDanny();
 
+  /* If the player has enough gold then buy the item
+   * Spend the partys gold and add the item to their inventory
+   */
   const handleBuy = (item) => {
     if (gold >= item.price) {
       spendGold(item.price);
@@ -20,6 +23,7 @@ export default function Shop({ title, items, onClose }) {
 
   return (
     <div className='Screen Full-Screen Shop-Screen'>
+      <h2>💰 Gold: {gold}</h2>
       <h2>{title}</h2>
       <p>Looking for gains? We've got 'em — for the right price.</p>
 

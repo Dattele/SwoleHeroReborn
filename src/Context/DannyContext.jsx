@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer } from 'react';
+import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import Classes from '../Components/System/Classes';
 
 import Daniel from '../assets/images/Daniel.jpeg';
@@ -74,7 +74,7 @@ export function DannyProvider({ children }) {
 
   const initialState = {
     wolfKills: 0,
-    gold: 50,
+    gold: 0,
     inventory: [],
     party: [Danny],
     goatState: { sightings: 0 },
@@ -384,6 +384,7 @@ export function DannyProvider({ children }) {
     console.log('updated party hp', state.party);
   };
 
+  // Decrease the specified player's HP
   const decreaseHP = (player, amount) => {
     dispatch({
       type: 'DECREASE_HP',
@@ -392,11 +393,29 @@ export function DannyProvider({ children }) {
     console.log("decreasing part member's hp", state.party);
   };
 
+  // Restore every party member to full HP
   const restorePartyHP = () => {
     dispatch({
       type: 'RESTORE_PARTY_HP',
     });
   };
+
+  // Creating a useEffect to pass my functions into the window to be used for testing
+  useEffect(() => {
+    window.levelUp = levelUp;
+    window.spendGold = spendGold;
+    window.gainGold = gainGold;
+    window.addItem = addItem;
+    window.useItem = useItem;
+    window.addPartyMember = addPartyMember;
+    window.incrementWolfKills = incrementWolfKills;
+    window.updateQuestFlag = updateQuestFlag;
+    window.updateXP = updateXP;
+    window.updateHP = updateHP;
+    window.decreaseHP = decreaseHP;
+    window.restorePartyHP = restorePartyHP;
+    window.Classes = Classes;
+  }, []);
 
   return (
     <DannyContext.Provider

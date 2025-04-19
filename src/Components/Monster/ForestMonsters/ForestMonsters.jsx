@@ -111,7 +111,7 @@ export const ForestBoss = [
     image: alphawolf,
     description:
       'A massive, battle-scarred wolf that rules the forest. It only acknowledges the strongest challengers.',
-    hp: 80,
+    hp: 100,
     strength: 14,
     defense: 8,
     speed: 12,
