@@ -4,20 +4,25 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../Context/DannyContext';
 
 import Battle from '../Battle';
+import TextBox from '../../TextBox';
 import Choices from '../../Choices';
 import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
 
 import './ForestBattle.scss';
 
 export default function ForestBattle() {
-  const { party, wolfKills, incrementWolfKills } = useDanny(); // Pulling in Danny's stats
+  const { party, wolfKills, incrementWolfKills, gold } = useDanny(); // Pulling in Danny's stats
   const navigate = useNavigate();
-  const [battleEnd, setBattleEnd] = useState(false);
+  const [battleEnd, setBattleEnd] = useState('');
 
   const choices = [
     { text: 'Stay in EdenGrove Forest', nextScene: '/forest' },
     { text: 'Retreat to Bronzebell', nextScene: '/bronzebell' },
   ];
+
+  const loseChoices = [
+    { text: 'Hurry to Bronzebell', nextScene: '/bronzebell' },
+  ]
 
   // Get the amount of enemies
   const NumberOfEnemies = () => {
@@ -68,18 +73,32 @@ export default function ForestBattle() {
         console.log('incrementing wolf kills by 1');
       }
     });
+
     console.log('Handling battle end', wolfKills);
     await sleep(2000); // Wait 2 seconds
-    wolfKills >= 3 && navigate('/forest-boss');
-    setBattleEnd(true);
+    if (wolfKills >= 3 && localStorage.getItem('Cleanse EdenGrove Forest') === 'received') {
+      navigate('/forest-boss');
+    }
+    
+    setBattleEnd(result);
   };
 
   return (
     <div className='Forest-Battle'>
-      <Battle players={party} enemies={enemies} onBattleEnd={handleBattleEnd} />
-      {battleEnd && (
+      <Battle players={party.filter(p => p.hp > 0)} enemies={enemies} onBattleEnd={handleBattleEnd} />
+      {battleEnd === 'win' && (
         <div className='Choices-Container'>
           <Choices options={choices} onChoiceSelected={navigate} />
+        </div>
+      )}
+      {battleEnd === 'lose' && (
+        <div className='Choices-Container'>
+          <TextBox text={'Your party has fallen. Hopefully you have at least 5 gold.. or else this is goodbye loser'}/>
+          {gold >= 5 ? (
+            <Choices options={loseChoices} onChoiceSelected={navigate} />
+          ) : (
+            <TextBox text={'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'}/>
+          )}
         </div>
       )}
     </div>

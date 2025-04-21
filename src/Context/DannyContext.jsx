@@ -76,7 +76,7 @@ export function DannyProvider({ children }) {
     wolfKills: 0,
     gold: 0,
     inventory: [],
-    party: [Danny],
+    party: [Danny, ethan, javon],
     goatState: { sightings: 0 },
     questFlags: {
       hasParty: false,
@@ -101,13 +101,15 @@ export function DannyProvider({ children }) {
       }
       case 'UPDATE_HP': {
         const players = action.payload;
+        console.log('playerrs passed in at end of battle', players);
         return {
           ...state,
           party: state.party.map((member) => {
             const player = players.find((p) => p.name === member.name);
+            console.log('player found', player);
             return {
               ...member,
-              hp: player.hp,
+              hp: player?.hp ?? 0,
             };
           }),
         };
@@ -135,9 +137,10 @@ export function DannyProvider({ children }) {
           ...state,
           party: state.party.map((member) => {
             if (member.name === player.name) {
+              const newHP = Math.max(member.hp - amount, 0);
               return {
                 ...member,
-                hp: member.hp - amount,
+                hp: newHP,
               };
             } else return member;
           }),

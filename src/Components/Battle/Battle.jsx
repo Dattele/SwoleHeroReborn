@@ -88,13 +88,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'NEXT_TURN': {
         if (state.battleOutcome) return state; // Stop turn progression
 
-        //const aliveTurnOrder = state.turnOrder.filter(c => c.hp > 0); // Get the alive combatants
         console.log('next turn alive turn order', state.turnOrder);
-        // const currentFighter = state.turnOrder[state.turnIndex];
-        // console.log('next turn current fighter', currentFighter);
 
-        // const nextTurnIndex = (state.turnIndex + 1) % aliveTurnOrder.length;
-        // const nextFighter = aliveTurnOrder[nextTurnIndex];
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
         const nextFighter = state.turnOrder[nextTurnIndex];
         console.log('next turn combatant:', state.turnOrder[nextTurnIndex]);
@@ -105,7 +100,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           const alivePlayers = state.turnOrder.filter(
             (p) => p.type === 'player' && p.hp > 0,
           );
-          //playerIndex = (playerIndex + 1) % alivePlayers.length;
           playerIndex = alivePlayers.findIndex((p) => p.id === nextFighter.id);
         }
 
@@ -595,15 +589,17 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
    * Checks for when its the enemy's turn
    */
   useEffect(() => {
-    const attacker = state.turnOrder[state.turnIndex];
+    if (state.battleOutcome === null) {
+      const attacker = state.turnOrder[state.turnIndex];
 
-    if (attacker.type === 'enemy') {
-      const enemysMove = async () => {
-        await sleep(2500); // wait 2.5 seconds
-        EnemyTurn(attacker);
-      };
+      if (attacker.type === 'enemy') {
+        const enemysMove = async () => {
+          await sleep(2500); // wait 2.5 seconds
+          EnemyTurn(attacker);
+        };
 
-      enemysMove();
+        enemysMove();
+      }
     }
   }, [state.isEnemyTurn, state.turnIndex]);
 
