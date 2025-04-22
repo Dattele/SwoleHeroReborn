@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
-import ForestBossIntro from '../../../../assets/images/ForestBossIntro.webp';
+import ForestBossImage from '../../../../assets/images/EdenGroveBoss.png';
 
 import '../../../../scss/All.scss';
 
@@ -40,7 +40,7 @@ const ForestBossScreen = () => {
     <div
       className='Screen Full-Screen Forest-Boss-Screen'
       style={{
-        backgroundImage: `url(${ForestBossIntro})`,
+        backgroundImage: `url(${ForestBossImage})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',

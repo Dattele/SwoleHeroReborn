@@ -11,7 +11,7 @@ import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
 import './ForestBattle.scss';
 
 export default function ForestBattle() {
-  const { party, wolfKills, incrementWolfKills, gold } = useDanny(); // Pulling in Danny's stats
+  const { party, wolfKills, incrementWolfKills, gold, questFlags } = useDanny(); // Pulling in Danny's stats
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
 
@@ -76,7 +76,7 @@ export default function ForestBattle() {
 
     console.log('Handling battle end', wolfKills);
     await sleep(2000); // Wait 2 seconds
-    if (wolfKills >= 3 && localStorage.getItem('Cleanse EdenGrove Forest') === 'received') {
+    if (wolfKills >= 3 && questFlags['edenGrove'] === 'in-progress') {
       navigate('/forest-boss');
     }
     
