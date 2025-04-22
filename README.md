@@ -34,9 +34,10 @@ This phase includes:
 - Random enemy abilities
 
 ### Quest & Progress Tracking
-- Quest logic using `localStorage`
-- `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc.
-- Quest stages update dynamically based on game state
+- Quest logic
+  - Quest stages update dynamically based on game state
+- Progress tracking through `localStorage`
+  - `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc.
 
 ### Party System
 - Add party members
@@ -64,17 +65,17 @@ This phase includes:
 
 ## Current Game Map
 
-| Region | Status |
+| Region | Actions |
 |--------|--------|
 | EdenGrove Forest | Explorable, Battle-ready |
 | Bronzebell Town | Town Hub |
-  | Rizz & Bits Market | Shop |
-  | Ironhide Tavern | NPCs, Party, Shop, & Rest |
-  | Bobby's Shrine | Quest |
-  | Training Grounds | Party |
-  | Mayor's Hall | NPC |
-  | Goat | NPC |
-  | World Map | Travel |
+| Rizz & Bits Market | Shop |
+| Ironhide Tavern | NPCs, Party, Shop, & Rest |
+| Bobby's Shrine | Quest |
+| Training Grounds | Party |
+| Mayor's Hall | NPC |
+| Goat | NPC |
+| World Map | Travel |
 
 ---
 
