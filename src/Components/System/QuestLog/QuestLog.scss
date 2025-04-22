@@ -1,0 +1,21 @@
+.Quest-Overlay.Closed {
+  display: none;
+}
+
+.Quest-Overlay {
+  max-width: 800px;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.Quest-Content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #f3e8ee;
+  font-size: 1.25rem;
+
+  h2 {
+    align-self: center;
+  }
+}

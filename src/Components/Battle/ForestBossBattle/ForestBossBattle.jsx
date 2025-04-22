@@ -10,7 +10,7 @@ import { ForestBoss } from '../../Monster/ForestMonsters/ForestMonsters';
 import './ForestBossBattle.scss';
 
 export default function ForestBossBattle() {
-  const { party, gold } = useDanny(); // Pulling in the party
+  const { party, gold, updateQuestFlag } = useDanny(); // Pulling in the party
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
 
@@ -27,8 +27,8 @@ export default function ForestBossBattle() {
   // After defeating Fangborn, set the quest to complete
   const handleBattleEnd = async (result, enemies) => {
     setBattleEnd(result);
-    localStorage.setItem('Cleanse EdenGrove Forest', 'completed');
-  };
+    updateQuestFlag('edenGrove', 'completed');
+  }; 
 
   return (
     <div className='Forest-Boss-Battle'>

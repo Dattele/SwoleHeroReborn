@@ -78,11 +78,7 @@ export function DannyProvider({ children }) {
     inventory: [],
     party: [Danny, ethan, javon],
     goatState: { sightings: 0 },
-    questFlags: {
-      hasParty: false,
-      edenGroveQuestGiven: false,
-      edenGroveCleansed: false,
-    },
+    questFlags: {},
   };
 
   const DannyReducer = (state, action) => {
@@ -258,11 +254,12 @@ export function DannyProvider({ children }) {
         };
       }
       case 'UPDATE_QUEST_FLAG': {
+        const { flag, value } = action.payload;
         return {
           ...state,
           questFlags: {
             ...state.questFlags,
-            [action.payload.flag]: action.payload.value,
+            [flag]: value,
           },
         };
       }

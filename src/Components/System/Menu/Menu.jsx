@@ -27,7 +27,7 @@ export default function Menu({ isOpen, onClose }) {
   };
 
   return (
-    <div className={`Menu-Overlay ${!isOpen && 'Closed'}`}>
+    <div className={`Menu-Overlay ${!isOpen ? 'Closed' : ''}`}>
       <div className='Menu'>
         <div className='Menu-Header'>
           <div className='Tabs'>

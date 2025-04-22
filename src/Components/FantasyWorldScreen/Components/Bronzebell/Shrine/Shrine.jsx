@@ -11,7 +11,7 @@ import './Shrine.scss';
 import '../../../../../scss/All.scss';
 
 export default function Shrine() {
-  const { party } = useDanny();
+  const { party, questFlags, updateQuestFlag } = useDanny();
 
   const navigate = useNavigate();
   const [eventIndex, setEventIndex] = useState(0);
@@ -61,7 +61,6 @@ export default function Shrine() {
       "Bobby smiles. 'Perhaps. Or perhaps the prophecy meant someone a little less sweaty..'",
       "'Go now. Your journey begins anew. And the fate of Eldoria rests upon your absurdly large shoulders.'",
       "He returns to meditation. 'May your strength remain... and your squats remain deep.'",
-      // '**[ Quest Complete: Cleanse EdenGrove Forest ✅ ]**',
     ],
   };
 
@@ -72,16 +71,16 @@ export default function Shrine() {
       setEventIndex(eventIndex + 1);
     }
   };
-
+  console.log(questFlags);
   // UseEffect that sets the stage for the interaction with Bobby
   useEffect(() => {
     const ethan = party.find((member) => member.name === 'Ethan, the Brute');
     const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
     if (!ethan || !javon) {
       setStage('notReady');
-    } else if (localStorage.getItem('Cleanse EdenGrove Forest') === 'received') {
+    } else if (questFlags['edenGrove'] === 'in-progress') {
       setStage('stillCorrupted');
-    } else if (localStorage.getItem('Cleanse EdenGrove Forest') === 'completed') {
+    } else if (questFlags['edenGrove'] === 'completed') {
       setStage('completed');
     }
   }, []);
@@ -92,7 +91,7 @@ export default function Shrine() {
       stage === 'giveQuest' &&
       eventIndex === bobbyDialogue.giveQuest.length - 1
     ) {
-      localStorage.setItem('Cleanse EdenGrove Forest', 'received');
+      updateQuestFlag('edenGrove', 'in-progress');
     }
   }, [eventIndex]);
 
