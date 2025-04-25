@@ -76,9 +76,81 @@ export function DannyProvider({ children }) {
     wolfKills: 0,
     gold: 0,
     inventory: [],
-    party: [Danny, ethan, javon],
+    party: [Danny],
     goatState: { sightings: 0 },
     questFlags: {},
+    locations: [
+      {
+        name: 'EdenGrove Forest',
+        top: '23%',
+        left: '23%',
+        unlocked: true,
+        path: '/forest',
+      },
+      {
+        name: 'Bronzebell Town',
+        top: '37%',
+        left: '37%',
+        unlocked: true,
+        path: '/bronzebell',
+      },
+      {
+        name: 'Spire Mountains',
+        top: '25%',
+        left: '52%',
+        unlocked: false,
+        path: '/spire',
+      },
+      {
+        name: 'Emberfall Ruins',
+        top: '45%',
+        left: '58%',
+        unlocked: false,
+        path: '/emberfall',
+      },
+      {
+        name: 'Lustralis Kingdom',
+        top: '34%',
+        left: '73%',
+        unlocked: false,
+        path: '/lustralis',
+      },
+      {
+        name: 'Gloamreach Hollow',
+        top: '64%',
+        left: '25%',
+        unlocked: false,
+        path: '/gloamreach',
+      },
+      {
+        name: 'Stonejaw Hold',
+        top: '50%',
+        left: '38%',
+        unlocked: false,
+        path: '/stonejaw',
+      },
+      {
+        name: 'Dreadmire Swamp',
+        top: '59%',
+        left: '50%',
+        unlocked: false,
+        path: '/dreadmire',
+      },
+      {
+        name: 'Ruins of Feymere',
+        top: '78%',
+        left: '21%',
+        unlocked: false,
+        path: '/feymere',
+      },
+      {
+        name: "Demon King's Citadel",
+        top: '79%',
+        left: '75%',
+        unlocked: false,
+        path: '/citadel',
+      },
+    ],
   };
 
   const DannyReducer = (state, action) => {
@@ -263,6 +335,17 @@ export function DannyProvider({ children }) {
           },
         };
       }
+      case 'UNLOCK_LOCATION': {
+        const { name } = action.payload;
+        const updateLocations = state.locations.map((loc) => 
+          loc.name === name ? { ...loc, unlocked: true } : loc
+        );
+
+        return {
+          ...state,
+          locations: updateLocations,
+        }
+      }
       default: {
         return state;
       }
@@ -400,6 +483,14 @@ export function DannyProvider({ children }) {
     });
   };
 
+  // Unlock a location on the map
+  const unlockLocation = (name) => {
+    dispatch({
+      type: 'UNLOCK_LOCATION',
+      payload: { name },
+    })
+  }
+
   // Creating a useEffect to pass my functions into the window to be used for testing
   useEffect(() => {
     window.levelUp = levelUp;
@@ -415,6 +506,7 @@ export function DannyProvider({ children }) {
     window.decreaseHP = decreaseHP;
     window.restorePartyHP = restorePartyHP;
     window.Classes = Classes;
+    window.unlockLocation = unlockLocation;
   }, []);
 
   return (
@@ -434,6 +526,7 @@ export function DannyProvider({ children }) {
         decreaseHP,
         restorePartyHP,
         updateQuestFlag,
+        unlockLocation,
       }}
     >
       {children}

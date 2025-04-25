@@ -9,6 +9,7 @@ export default function QuestLog({ isOpen }) {
   function formatQuestName(id) {
     const titles = {
       edenGrove: 'Cleanse EdenGrove Forest',
+      spire: 'Travel through the Spire Mountains to EmberFall Ruins',
     };
     return titles[id] || id;
   }
@@ -26,7 +27,7 @@ export default function QuestLog({ isOpen }) {
       <div className='Quest-Content'>
         <h2>Quests</h2>
         {Object.entries(questFlags).map(([quest, status]) => (
-          <p>
+          <p key={quest}>
             {formatQuestName(quest)}: {formatStatus(status)}
           </p>
         ))}

@@ -11,7 +11,7 @@ import './Shrine.scss';
 import '../../../../../scss/All.scss';
 
 export default function Shrine() {
-  const { party, questFlags, updateQuestFlag } = useDanny();
+  const { party, questFlags, updateQuestFlag, unlockLocation } = useDanny();
 
   const navigate = useNavigate();
   const [eventIndex, setEventIndex] = useState(0);
@@ -71,7 +71,7 @@ export default function Shrine() {
       setEventIndex(eventIndex + 1);
     }
   };
-  console.log(questFlags);
+
   // UseEffect that sets the stage for the interaction with Bobby
   useEffect(() => {
     const ethan = party.find((member) => member.name === 'Ethan, the Brute');
@@ -86,12 +86,21 @@ export default function Shrine() {
   }, []);
 
   // Checks for when the giveQuest dialogue is complete
+  // Add the Spire location and quest when the completed dialogue is complete
   useEffect(() => {
     if (
       stage === 'giveQuest' &&
       eventIndex === bobbyDialogue.giveQuest.length - 1
     ) {
       updateQuestFlag('edenGrove', 'in-progress');
+    }
+
+    if ( 
+      stage === 'completed' && 
+      eventIndex === bobbyDialogue.completed.length - 1
+    ) { 
+      updateQuestFlag('spire', 'in-progress');
+      unlockLocation('Spire Mountains');
     }
   }, [eventIndex]);
 

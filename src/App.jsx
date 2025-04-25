@@ -25,6 +25,7 @@ import Shrine from './Components/FantasyWorldScreen/Components/Bronzebell/Shrine
 import Mayor from './Components/FantasyWorldScreen/Components/Bronzebell/MayorHall/MayorHall';
 import WorldMap from './Components/System/WorldMap/WorldMap';
 import GameWrapper from './Components/GameWrapper';
+import SpireScreen from './Components/FantasyWorldScreen/Components/SpireScreen';
 
 export default function App() {
   return (
@@ -59,6 +60,7 @@ export default function App() {
           <Route path='/bronzebell/mayor' element={<Mayor />} />
           <Route path='/bronzebell/goat' element={<Goat />} />
           <Route path='/world-map' element={<WorldMap />} />
+          <Route path='/spire' element={<SpireScreen />} />
         </Routes>
       </Router>
     </DannyProvider>

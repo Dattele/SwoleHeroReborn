@@ -241,16 +241,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           ? enemies.find((e) => e?.name === target?.name)
           : players.find((p) => p?.name === target?.name);
 
-        // const updatedEnemies = state.enemyHPs.map((enemy) =>
-        //   enemy.id === target.id
-        //     ? { ...enemy, hp: Math.min(originalHP.hp, target.hp + heal) }
-        //     : enemy,
-        // );
-        // const updatedPlayers = state.playerHPs.map((player) =>
-        //   player.id === target.id
-        //     ? { ...player, hp: Math.min(originalHP.hp, target.hp + heal) }
-        //     : player,
-        // );
         const updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
             ? { ...element, hp: Math.min(originalHP.hp, target.hp + heal) }
