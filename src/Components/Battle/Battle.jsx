@@ -1,5 +1,4 @@
 import React, { useEffect, useReducer, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useDanny } from '../../Context/DannyContext';
@@ -41,7 +40,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     werehogDeath,
   ];
 
-  let navigate = useNavigate();
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
 
@@ -294,7 +292,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'ADD_ENEMY': {
         const newEnemy = action.payload;
-        console.log(newEnemy);
+        newEnemy.id = uuidv4();
+        console.log('new enemy with ID', newEnemy);
 
         const updatedTurnOrder = [...state.turnOrder, newEnemy].sort(
           (a, b) => b.speed - a.speed,

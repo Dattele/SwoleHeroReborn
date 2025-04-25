@@ -51,7 +51,7 @@ const Classes = {
         {
           name: '🍻 Bottoms Up',
           type: 'chug',
-          heal: 20,
+          heal: 10,
           effect: '+2 strength',
         },
         { name: 'Cleaver', type: 'aoe', damage: '10' },

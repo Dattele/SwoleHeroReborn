@@ -224,27 +224,32 @@ export function DannyProvider({ children }) {
         };
       }
       case 'LEVEL_UP': {
+        const { name, classData } = action.payload;
         return {
           ...state,
           party: state.party.map((member) =>
-            member.name === action.payload.name &&
-            member.xp >= 50 * member.level
+            member.name === name &&
+            member.xp >= 75 * member.level
               ? {
                   ...member,
                   xp: 0,
                   level: member.level + 1,
                   maxHP:
-                    member.maxHP + action.payload.classData.statGrowth.maxHP,
-                  hp: member.hp + action.payload.classData.statGrowth.hp,
+                    member.maxHP + classData.statGrowth.maxHP,
+                  hp: member.hp + classData.statGrowth.hp,
                   strength:
                     member.strength +
-                    action.payload.classData.statGrowth.strength,
+                    classData.statGrowth.strength,
                   defense:
                     member.defense +
-                    action.payload.classData.statGrowth.defense,
+                    classData.statGrowth.defense,
                   speed:
-                    member.speed + action.payload.classData.statGrowth.speed,
-                  rizz: member.rizz + action.payload.classData.statGrowth.rizz,
+                    member.speed + classData.statGrowth.speed,
+                  rizz: member.rizz + classData.statGrowth.rizz,
+                  abilities: [
+                    ...member.abilities,
+                    ...(classData?.abilities?.[member.level + 1] || [])
+                  ],
                 }
               : member,
           ),
