@@ -26,6 +26,7 @@ export default function ForestBossBattle() {
 
   // After defeating Fangborn, set the quest to complete
   const handleBattleEnd = async (result, enemies) => {
+    console.log(result);
     setBattleEnd(result);
     updateQuestFlag('edenGrove', 'completed');
   }; 
