@@ -293,7 +293,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'ADD_ENEMY': {
         const newEnemy = action.payload;
         newEnemy.id = uuidv4();
-        console.log('new enemy with ID', newEnemy);
 
         const updatedTurnOrder = [...state.turnOrder, newEnemy].sort(
           (a, b) => b.speed - a.speed,
