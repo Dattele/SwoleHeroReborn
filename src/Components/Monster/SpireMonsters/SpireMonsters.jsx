@@ -8,7 +8,7 @@ import MoltenCrawler from '../../../assets/images/MoltenCrawler.png';
 import Balrog from '../../../assets/images/Balrog.png';
 
 const SpireMonsters = [
-  {
+  { // 0
     name: 'Molten Crawler',
     type: 'enemy',
     image: MoltenCrawler,
@@ -26,7 +26,7 @@ const SpireMonsters = [
       { name: 'Molten Slap', type: 'attack-all', damage: 6 },
     ],
   },
-  {
+  { // 1
     name: 'Frost-Bitten Dwarf',
     type: 'enemy',
     image: FrostDwarf,
@@ -44,7 +44,7 @@ const SpireMonsters = [
       { name: 'Bitter Grudge', type: 'buff', effect: '+3 strength, +3 defense' },
     ],
   },
-  {
+  { // 2
     name: 'Goat Minotaur',
     type: 'enemy',
     image: GoatMinotaur,
@@ -61,7 +61,7 @@ const SpireMonsters = [
       { name: 'Rampage', type: 'attack', damage: 16 },
     ],
   },
-  {
+  { // 3
     name: 'Glacial Hound',
     type: 'enemy',
     image: FrostWolf,
@@ -78,7 +78,7 @@ const SpireMonsters = [
       { name: 'Frostbite Chomp', type: 'smash', damage: 10, effect: '-2 speed' },
     ],
   },
-  {
+  { // 4
     name: 'Troll',
     type: 'enemy',
     image: Troll,
@@ -96,7 +96,7 @@ const SpireMonsters = [
       { name: 'Rock Concert', type: 'group-buff', effect: '+4 defense' },
     ],
   },
-  {
+  { // 5
     name: 'Dwarven Juggernaut',
     type: 'enemy',
     image: DwarvenJuggernaut,
@@ -114,7 +114,7 @@ const SpireMonsters = [
       { name: 'Reinforced Will', type: 'buff', effect: '+6 defense' },
     ],
   },
-  {
+  { // 6
     name: 'Frost Widow',
     type: 'enemy',
     image: FrostWidow,
