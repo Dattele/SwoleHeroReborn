@@ -37,7 +37,7 @@ export default function Shrine() {
       "Ethan: 'Sounds like a wizard with daddy issues.'",
       "Bobby ignores the comment. 'There is a more pressing concern. The forest of EdenGrove has fallen under a dark shadow.'",
       "'The corruption must be cleansed. Return there. Find its heart. Purge the darkness before it spreads further.'",
-      '**[ New Quest: Cleanse EdenGrove Forest 🌿 ]**',
+      '**[ Quest Received: Cleanse EdenGrove Forest 🌿 ]**',
     ],
 
     stillCorrupted: [
@@ -50,7 +50,11 @@ export default function Shrine() {
       "Bobby steps forward, a rare look of hope in his eyes. 'It is done.'",
       "'The corruption is purged. EdenGrove breathes once more. You have done a great thing... though you still smell like gym socks.'",
       "'Now, your path leads beyond Bronzebell. Beyond the familiar. Toward the broken edge of Eldoria - Emberfall Ruins. Climb through the Spire Mountains, and you shall arive.'",
+      "He pauses - 'The Spire is no ordinary climb. It is a cursed place - one where the mountains themselves reject the unworthy. Many have tried to cross... few have returned.'",
+      "'Legends speak of a flame that sleeps beneath the peaks. A force so ancient and furious, it melted the bones of those who dared disturb it.'",
+      "'To survive the Spire, you'll need more than just bulging biceps. You'll need heart, grit, and a squad that can actually spot you without dropping the bar.'",
       "'The world trembles. But perhaps... just perhaps... it trembles in your favor.'",
+      "**[ Quest Received: The Spire's Crucible ]**",
       "He pauses... then speaks with a gravity you haven't heard before.",
       "'There is one more truth I've held back. A prophecy. As old as the roots of the world.'",
       "'It tells of a time where Eldoria falls — when darkness consumes light, and gains must be made.'",

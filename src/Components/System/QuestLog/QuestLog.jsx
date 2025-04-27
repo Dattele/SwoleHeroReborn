@@ -9,7 +9,7 @@ export default function QuestLog({ isOpen }) {
   function formatQuestName(id) {
     const titles = {
       edenGrove: 'Cleanse EdenGrove Forest',
-      spire: 'Travel through the Spire Mountains to EmberFall Ruins',
+      spire: "The Spire's Crucible",
     };
     return titles[id] || id;
   }

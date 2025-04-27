@@ -38,7 +38,7 @@ export default function SpireScreen() {
   const spireChoices = [
     {
       text: '💪 Press onwards',
-      nextScene: '/spire-battle',
+      nextScene: '/spire-entrance',
     },
     {
       text: '🍖 Head back to Bronzebell (hot meat and warm company)',
@@ -49,7 +49,7 @@ export default function SpireScreen() {
   const secondTimeChoices = [
     {
       text: '💪 Climb deeper into the cold (Face more mountain monsters)',
-      nextScene: '/spire-battle',
+      nextScene: '/spire-entrance',
     },
     {
       text: "🔥 'Bros, I miss warm food and warmer taverns.' - Ethan",

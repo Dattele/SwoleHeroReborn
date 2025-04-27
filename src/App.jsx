@@ -27,6 +27,8 @@ import WorldMap from './Components/System/WorldMap/WorldMap';
 import GameWrapper from './Components/GameWrapper';
 import SpireScreen from './Components/FantasyWorldScreen/Components/SpireScreen';
 import SpireBattle from './Components/Battle/SpireBattle';
+import SpireEntrance from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireEntrance';
+import SpireFloor1 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor1';
 
 export default function App() {
   return (
@@ -63,6 +65,11 @@ export default function App() {
           <Route path='/world-map' element={<WorldMap />} />
           <Route path='/spire' element={<SpireScreen />} />
           <Route path='/spire-battle' element={<SpireBattle />} />
+          <Route path='/spire-entrance' element={<SpireEntrance />} />
+          <Route path="/spire-floor-1" element={<SpireFloor1 />} />
+          <Route path="/spire-floor-2" element={<SpireFloor1 />} />
+          <Route path="/spire-floor-3" element={<SpireFloor1 />} />
+          <Route path="/spire-floor-4" element={<SpireFloor1 />} />
         </Routes>
       </Router>
     </DannyProvider>
