@@ -1,5 +1,10 @@
 .Spire-Entrance-Screen {
-  .Choices {
+  .Choices,
+  .Next-Btn {
     margin-bottom: 30rem;
+  }
+
+  .Choices .Next-Btn {
+    margin-bottom: unset;
   }
 }

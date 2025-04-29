@@ -3,20 +3,16 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
-import Battle from '../../../../Battle';
+import SpireBattle from '../../../../Battle/SpireBattle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
-import { useDanny } from '../../../../../Context/DannyContext';
 
 import spireFloor2 from '../../../../../assets/images/SpireFloor2.png'
 
 import '../../../../../scss/All.scss';
 
 export default function SpireFloor2() {
-  const { party } = useDanny();
   const navigate = useNavigate();
-
-  const [battleWon, setBattleWon] = useState(false);
-  const [showDialogue, setShowDialogue] = useState(false);
+  const [battleEnd, setBattleEnd] = useState('');
 
   const continueChoices = [
     {
@@ -24,13 +20,6 @@ export default function SpireFloor2() {
       nextScene: '/spire-floor-3',
     }
   ];
-
-  const handleBattleEnd = async (result, enemies) => {
-    if (result === 'win') {
-      setBattleWon(true);
-      setShowDialogue(true);
-    }
-  };
 
   return (
     <div
@@ -42,14 +31,14 @@ export default function SpireFloor2() {
         backgroundPosition: 'center',
       }}
     >
-      {!battleWon && (
-        <Battle 
-          players={party.filter(p => p.hp > 0)}
-          enemies={[SpireMonsters[3], SpireMonsters[3], SpireMonsters[6]]} 
-          onBattleEnd={handleBattleEnd} 
+      {battleEnd !== 'win' && (
+        <SpireBattle 
+          enemies={[SpireMonsters[3], SpireMonsters[3], SpireMonsters[6]]}
+          battleEnd={battleEnd}
+          setBattleEnd={setBattleEnd}
         />
       )}
-      {showDialogue && (
+      {battleEnd === 'win' && (
         <>
           <TextBox text="Ethan: 'Bro, once we survive this, we're gonna be so jacked even the statues will look jealous.'" />
           <Choices options={continueChoices} onChoiceSelected={navigate} />

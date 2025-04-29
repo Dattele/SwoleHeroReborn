@@ -2,9 +2,10 @@
 
 ## Overview
 
-**Swole Hero Reborn** is a text-based fantasy RPG where you play as Danny — a gym bro reincarnated into the magical world **Eldoria**, filled with monsters, dungeons, and the occasional romantic hope. 
+**Swole Hero Reborn** is a text-based fantasy RPG where you play as Danny — a gym bro reincarnated into the magical world **Eldoria**, filled with monsters, dungeons, and the occasional romantic hope.
 
 This phase includes:
+
 - The **Forest of EdenGrove** and **Bronzebell Town**
 - Encounters with monsters
 - Recruiting party members
@@ -14,6 +15,7 @@ This phase includes:
 ---
 
 ## Technologies Used
+
 - **React.js**
 - **React Router**
 - **Custom useReducer + Context API**
@@ -26,6 +28,7 @@ This phase includes:
 ## Game Systems Implemented
 
 ### Complex Battle System
+
 - `useReducer` logic handles turn order, abilties (current abilities: attacks, heals, buffs, group-buffs, smash attacks, & life-drain), & enemy AI
 - Speed-based combat turn order
 - Supports 1–3 enemies & 1-3 players per encounter
@@ -34,24 +37,28 @@ This phase includes:
 - Random enemy abilities
 
 ### Quest & Progress Tracking
+
 - Quest logic
   - Quest stages update dynamically based on game state
 - Progress tracking through `localStorage`
   - `receivedQuest`, `visitedEdenGrove`, `edenGroveCleansed`, etc.
 
 ### Party System
+
 - Add party members
 - Display stats, portraits, and level
 - Level-up system with class-based stat growth
 - Uses `Context` for global access and updates
 
 ### Inventory System
+
 - Items stored in reducer-managed inventory
 - Dynamic item addition and removal
 - Tracks the quantity of items
 - Gold system integrated with shop and battles
 
 ### Dialogue & Choices
+
 - Dynamic dialogue trees
 - Branching logic based on quest flags, location, and party
 - Uses `localStorage` to check if the party has been to the location before
@@ -65,26 +72,28 @@ This phase includes:
 
 ## Current Game Map
 
-| Region | Actions |
-|--------|--------|
-| EdenGrove Forest | Explorable, Battle-ready |
-| Bronzebell Town | Town Hub |
-| Rizz & Bits Market | Shop |
-| Ironhide Tavern | NPCs, Party, Shop, & Rest |
-| Bobby's Shrine | Quest |
-| Training Grounds | Party |
-| Mayor's Hall | NPC |
-| Goat | NPC |
-| World Map | Travel |
+| Region             | Actions                   |
+| ------------------ | ------------------------- |
+| EdenGrove Forest   | Explorable, Battle-ready  |
+| Bronzebell Town    | Town Hub                  |
+| Rizz & Bits Market | Shop                      |
+| Ironhide Tavern    | NPCs, Party, Shop, & Rest |
+| Bobby's Shrine     | Quest                     |
+| Training Grounds   | Party                     |
+| Mayor's Hall       | NPC                       |
+| Goat               | NPC                       |
+| World Map          | Travel                    |
 
 ---
 
 ## Running the Game
 
 ### Install dependencies
+
 npm install
 
 ### Start development server
+
 npm start
 
 ---
@@ -93,9 +102,10 @@ npm start
 
 - Add **Spire Mountains**, **Emberfall Ruins**, and **Lustralis Kingdom**
 - Create a save file using `localStorage`
+- Add a prop for the dialogue images, so that the images change based off who's talking
 - More side quests and branching dialogues
 - Expand on the lore of **Eldoria**
 - Get more info on the Demon King's armies/generals
-- Create a boss for **Spire Mountains** and create a main questline boss for the **Emberfall Ruins** 
+- Create a boss for **Spire Mountains** and create a main questline boss for the **Emberfall Ruins**
 - Full **prophecy arc** with Danny’s fate unfolding
 - Flesh out **Lustralis Kingdom** as the World's central hub

@@ -16,10 +16,10 @@ export default function SpireEntrance() {
   const [stage, setStage] = useState('intro');
 
   const spireEntranceEvents = [
-    'The party pushes through a biting wind tunnel between two crags - and there stands a crumbled stone archway carved into the mountain face.',
+    'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.',
     "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'",
     "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'",
-    "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage — and better insulation.'",
+    "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'",
     "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'",
   ];
 

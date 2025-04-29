@@ -1,0 +1,24 @@
+.Spire-Battle {
+  .Choices-Container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 25;
+    padding: 0.5rem;
+    background-color: #555;
+
+    .Choices {
+      .Next-Btn {
+        background-color: #2e2c2f;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .Text-Box {
+      background-color: #555;
+      color: #ffffff;
+    }
+  }
+}
