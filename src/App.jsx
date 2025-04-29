@@ -29,6 +29,9 @@ import SpireScreen from './Components/FantasyWorldScreen/Components/SpireScreen'
 import SpireBattle from './Components/Battle/SpireBattle';
 import SpireEntrance from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireEntrance';
 import SpireFloor1 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor1';
+import SpireFloor2 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor2';
+import SpireFloor3 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor3';
+import SpireFloor4 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor4';
 
 export default function App() {
   return (
@@ -67,9 +70,9 @@ export default function App() {
           <Route path='/spire-battle' element={<SpireBattle />} />
           <Route path='/spire-entrance' element={<SpireEntrance />} />
           <Route path="/spire-floor-1" element={<SpireFloor1 />} />
-          <Route path="/spire-floor-2" element={<SpireFloor1 />} />
-          <Route path="/spire-floor-3" element={<SpireFloor1 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor1 />} />
+          <Route path="/spire-floor-2" element={<SpireFloor2 />} />
+          <Route path="/spire-floor-3" element={<SpireFloor3 />} />
+          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
         </Routes>
       </Router>
     </DannyProvider>

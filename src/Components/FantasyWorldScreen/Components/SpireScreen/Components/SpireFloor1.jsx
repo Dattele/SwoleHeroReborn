@@ -23,7 +23,7 @@ export default function SpireFloor1() {
       text: 'Continue Climbing',
       nextScene: '/spire-floor-2',
     }
-  ]
+  ];
 
   const handleBattleEnd = async (result, enemies) => {
     if (result === 'win') {

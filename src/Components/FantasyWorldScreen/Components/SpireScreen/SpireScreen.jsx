@@ -48,7 +48,7 @@ export default function SpireScreen() {
 
   const secondTimeChoices = [
     {
-      text: '💪 Climb deeper into the cold (Face more mountain monsters)',
+      text: '💪 Climb deeper into the cold',
       nextScene: '/spire-entrance',
     },
     {

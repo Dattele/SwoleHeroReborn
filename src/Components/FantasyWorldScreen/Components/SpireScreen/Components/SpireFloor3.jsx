@@ -7,11 +7,11 @@ import Battle from '../../../../Battle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
 import { useDanny } from '../../../../../Context/DannyContext';
 
-import spireFloor2 from '../../../../../assets/images/SpireFloor2.png'
+import spireFloor3 from '../../../../../assets/images/SpireFloor3.png'
 
 import '../../../../../scss/All.scss';
 
-export default function SpireFloor2() {
+export default function SpireFloor3() {
   const { party } = useDanny();
   const navigate = useNavigate();
 
@@ -20,8 +20,8 @@ export default function SpireFloor2() {
 
   const continueChoices = [
     {
-      text: 'Next Floor: More Gains',
-      nextScene: '/spire-floor-3',
+      text: 'Flex Onward',
+      nextScene: '/spire-floor-4',
     }
   ];
 
@@ -36,7 +36,7 @@ export default function SpireFloor2() {
     <div
       className='Screen Full-Screen Spire-Floor-Screen'
       style={{
-        backgroundImage: `url(${spireFloor2})`,
+        backgroundImage: `url(${spireFloor3})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -45,7 +45,7 @@ export default function SpireFloor2() {
       {!battleWon && (
         <Battle 
           players={party.filter(p => p.hp > 0)}
-          enemies={[SpireMonsters[3], SpireMonsters[3], SpireMonsters[6]]} 
+          enemies={[SpireMonsters[2], SpireMonsters[2], SpireMonsters[2]]} 
           onBattleEnd={handleBattleEnd} 
         />
       )}

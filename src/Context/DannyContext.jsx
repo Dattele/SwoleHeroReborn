@@ -512,6 +512,8 @@ export function DannyProvider({ children }) {
     window.restorePartyHP = restorePartyHP;
     window.Classes = Classes;
     window.unlockLocation = unlockLocation;
+    window.javon = javon;
+    window.ethan = ethan;
   }, []);
 
   return (
