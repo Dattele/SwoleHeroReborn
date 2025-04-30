@@ -14,7 +14,7 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
   const navigate = useNavigate();
 
   const loseChoices = [
-    { text: 'Fall to the bottom', nextScene: '/spire-entrance' },
+    { text: 'Fall to the bottom', nextScene: '/bronzebell' },
   ]
 
   // Sets a timeout to wait before performing any other actions
@@ -37,7 +37,7 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
       <Battle players={party.filter(p => p.hp > 0)} enemies={enemies} onBattleEnd={handleBattleEnd} />
       {battleEnd === 'lose' && (
         <div className='Choices-Container'>
-          <TextBox text={'Your party has fallen down to the bottom of the mountain. Better luck next time!'} />
+          <TextBox text={'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell'} />
           <Choices options={loseChoices} onChoiceSelected={navigate} />
         </div>
       )}

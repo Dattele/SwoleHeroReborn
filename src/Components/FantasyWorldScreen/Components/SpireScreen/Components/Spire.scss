@@ -1,4 +1,7 @@
-.Spire-Entrance-Screen {
+.Spire-Entrance-Screen,
+.Spire-Floor-3-Screen {
+  transition: transform 0.6s ease-in-out;
+
   .Choices,
   .Next-Btn {
     margin-bottom: 30rem;
@@ -6,5 +9,12 @@
 
   .Choices .Next-Btn {
     margin-bottom: unset;
+  }
+}
+
+.Spire-Floor-3-Screen.Zoom-Center,
+.Spire-Floor-3-Screen.Zoom-Right {
+  .Next-Btn {
+    margin-bottom: 18rem;
   }
 }

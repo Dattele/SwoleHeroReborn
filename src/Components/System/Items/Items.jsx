@@ -70,6 +70,13 @@ const Items = [
     heal: 30,
     price: 50,
   },
+  {
+    // 9
+    name: 'Dwarven Wrist Straps',
+    type: 'armor',
+    description: 'Never skip bench day - +2 strength',
+    effect: '+2 strength',
+  }
 ];
 
 export default Items;

@@ -55,7 +55,7 @@ const SpireMonsters = [
     defense: 1,
     speed: 12,
     rizz: 5,
-    xp: 27,
+    xp: 30,
     gold: 6,
     abilities: [
       { name: 'Rampage', type: 'attack', damage: 16 },

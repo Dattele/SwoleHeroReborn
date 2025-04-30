@@ -26,9 +26,7 @@
   font-family: 'Pixelify Sans';
   font-weight: bold;
   width: fit-content;
-  transition:
-    color 0.3s,
-    border-color 0.3s;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;
@@ -46,9 +44,7 @@
   background: transparent;
   padding: 0.25rem;
   margin: 0.5rem;
-  transition:
-    border 0.3s,
-    border-radius 0.3s;
+  transition: border 0.3s, border-radius 0.3s;
 
   &:hover {
     border: 2px solid #f3e8ee;
@@ -66,9 +62,7 @@
   font-family: 'Roboto';
   font-weight: bold;
   width: fit-content;
-  transition:
-    color 0.3s,
-    border-color 0.3s;
+  transition: color 0.3s, border-color 0.3s;
 
   &:hover {
     color: #bacdb0;
@@ -84,4 +78,21 @@
 
 .Max-Width {
   max-width: 1000px;
+}
+
+.Zoom-Center {
+  transform: scale(1.75);
+  transform-origin: center;
+  transition: transform 0.6s ease-in-out;
+}
+
+.Zoom-Right {
+  transform: scale(1.75);
+  transform-origin: right;
+  transition: transform 0.6s ease-in-out;
+
+  .Text-Box,
+  .Next-Btn:first-of-type {
+    margin-left: 35rem;
+  }
 }
