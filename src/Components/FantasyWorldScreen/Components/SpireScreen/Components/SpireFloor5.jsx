@@ -6,18 +6,18 @@ import Choices from '../../../../Choices';
 import SpireBattle from '../../../../Battle/SpireBattle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
 
-import spireFloor4 from '../../../../../assets/images/SpireFloor4.png';
+import spireFloor5 from '../../../../../assets/images/SpireFloor5.png';
 
 import '../../../../../scss/All.scss';
 
-export default function SpireFloor4() {
+export default function SpireFloor5() {
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
 
   const continueChoices = [
     {
-      text: 'Flex Onward',
-      nextScene: '/spire-floor-5',
+      text: 'Head out of the cave',
+      nextScene: '/spire-floor-6',
     }
   ];
 
@@ -25,7 +25,7 @@ export default function SpireFloor4() {
     <div
       className='Screen Full-Screen Spire-Floor-Screen'
       style={{
-        backgroundImage: `url(${spireFloor4})`,
+        backgroundImage: `url(${spireFloor5})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',
@@ -33,7 +33,7 @@ export default function SpireFloor4() {
     >
       {battleEnd !== 'win' && (
         <SpireBattle 
-          enemies={[SpireMonsters[2], SpireMonsters[2], SpireMonsters[2]]}
+          enemies={[SpireMonsters[4], SpireMonsters[4]]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}
         />

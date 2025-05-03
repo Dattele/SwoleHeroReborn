@@ -6,7 +6,7 @@ import NPCChoices from '../../../../System/NPCChoices';
 import Items from '../../../../System/Items';
 import { useDanny } from '../../../../../Context/DannyContext';
 
-import spireFloor3 from '../../../../../assets/images/SpireFloor4.png'
+import spireFloor3 from '../../../../../assets/images/SpireFloor3.png';
 
 import '../../../../../scss/All.scss';
 

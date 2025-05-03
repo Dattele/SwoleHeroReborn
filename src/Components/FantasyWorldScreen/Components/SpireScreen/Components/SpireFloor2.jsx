@@ -6,7 +6,7 @@ import Choices from '../../../../Choices';
 import SpireBattle from '../../../../Battle/SpireBattle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
 
-import spireFloor2 from '../../../../../assets/images/SpireFloor2.png'
+import spireFloor2 from '../../../../../assets/images/SpireFloor2.png';
 
 import '../../../../../scss/All.scss';
 
