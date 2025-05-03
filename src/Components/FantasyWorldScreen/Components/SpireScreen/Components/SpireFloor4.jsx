@@ -16,7 +16,7 @@ export default function SpireFloor4() {
 
   const continueChoices = [
     {
-      text: 'Flex Onward',
+      text: 'Head out of the cave',
       nextScene: '/spire-floor-5',
     }
   ];

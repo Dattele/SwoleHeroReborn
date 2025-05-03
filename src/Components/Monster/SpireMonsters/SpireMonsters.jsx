@@ -129,7 +129,7 @@ const SpireMonsters = [
     gold: 6,
     abilities: [
       { name: 'Venom Fang', type: 'attack', damage: 10 },
-      { name: 'Icy Thread', type: 'buff', effect: '-2 speed, -2 rizz' },
+      { name: 'Icy Thread', type: 'debuff', effect: '-2 speed, -2 rizz' },
     ],
   },
 ];
