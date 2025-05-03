@@ -198,7 +198,7 @@ export default function SpireFloor3() {
           {openChest ? (
             <> 
               <TextBox text={`You pry open the frost-covered lid.
-              \n** Item Received: ${Items[9].description} **
+              \n** Item Received: ${Items[9].name} - +2 strength **
               \n** Gold Received: 50 **`} />
               <NPCChoices options={openChestChoices} onChoiceSelected={handleChoice} />
             </>

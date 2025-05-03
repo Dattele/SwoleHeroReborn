@@ -19,7 +19,7 @@ const SpireMonsters = [
     defense: 4,
     speed: 6,
     rizz: 2,
-    xp: 22,
+    xp: 25,
     gold: 5,
     abilities: [
       { name: 'Sear Bite', type: 'attack', damage: 11 },
@@ -75,7 +75,7 @@ const SpireMonsters = [
     xp: 27,
     gold: 6,
     abilities: [
-      { name: 'Frostbite Chomp', type: 'smash', damage: 10, effect: '-2 speed' },
+      { name: 'Frostbite Chomp', type: 'smash', damage: 10, effect: '-2 defense' },
     ],
   },
   { // 4
@@ -129,7 +129,7 @@ const SpireMonsters = [
     gold: 6,
     abilities: [
       { name: 'Venom Fang', type: 'attack', damage: 10 },
-      { name: 'Icy Thread', type: 'debuff', effect: '-2 speed, -2 rizz' },
+      { name: 'Icy Thread', type: 'debuff', effect: '-2 defense, -2 rizz' },
     ],
   },
 ];

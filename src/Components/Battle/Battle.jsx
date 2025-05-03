@@ -192,9 +192,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let updatedTurnOrder = [...state.turnOrder];
         let nextTurnIndex = state.turnIndex;
         let logs = [];
-        // let newLog;
-        // let xpLog;
-        // let deathLog;
         let xp = state.xpGained;
         let gold = state.goldGained;
 
@@ -301,13 +298,116 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         return {
           ...state,
-          // playerHPs: isEnemy ? state.playerHPs : updatedList,
-          // enemyHPs: isEnemy ? updatedList : state.enemyHPs,
           turnOrder: updatedTurnOrder,
           battleLog: [
             ...state.battleLog,
             `${target.name} has received a buff of ${attack.effect} from ${attacker.name}`,
           ],
+        };
+      }
+      case 'HANDLE_SMASH': {
+        const { attacker, attack, target } = action.payload;
+
+        // Initializing the log, xp, gold, nextTurnIndex, and turnOrder variables
+        let updatedTurnOrder = [...state.turnOrder];
+        let nextTurnIndex = state.turnIndex;
+        let logs = [];
+        let xp = state.xpGained;
+        let gold = state.goldGained;
+
+        // Calculate damage
+        let damage = attack.damage;
+        const addDamage =
+          Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
+        damage += addDamage;
+
+        // Critical hit chance
+        const critChance = 2 + attacker.rizz;
+        const isCrit = Math.random() * 100 < critChance;
+
+        if (isCrit) {
+          damage = Math.floor(damage * 1.5);
+          logs.push(`🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`);
+        } else {
+          logs.push(`${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`);
+        }
+
+        // Update the HP of the target that got hit
+        const updatedHP = Math.max(0, target.hp - damage)
+        updatedTurnOrder = updatedTurnOrder.map((element) =>
+          element.id === target.id
+            ? { ...element, hp: updatedHP }
+            : element,
+        );
+
+        // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
+        const targetIndex = updatedTurnOrder.findIndex(
+          (e) => e.id === target.id,
+        );
+        if (updatedHP === 0 && targetIndex < nextTurnIndex) {
+          nextTurnIndex = state.turnIndex - 1;
+          console.log('target died and next turnIndex is now', nextTurnIndex);
+        }
+
+        // Remove the dead enemies/players
+        updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
+
+        // Peform these actions when target has been killed
+        if (updatedHP === 0) {
+          playRandomDeathSound();
+
+          // Add to deathLog
+          if (attacker.name === 'Danny') {
+            logs.push(`${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`);
+          } else {
+            logs.push(`${target.name} has been slaughtered by ${attacker.name}! 💀`);
+          }
+
+          // If target is an enemy, gain xp and gold
+          if (target.type === 'enemy') {
+            xp += Math.floor(target.xp / players.length);
+            gold += target.gold;
+            logs.push(`Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`);
+          }
+        }
+
+        // Apply the debuff if target survived
+        if (updatedHP > 0) {
+          const effects = attack.effect.split(',').map((e) => e.trim());
+
+          const applyBuff = (ally) => {
+            let newStats = { ...ally };
+
+            effects.forEach((effect) => {
+              if (effect.includes('strength'))
+                newStats.strength +=
+                  parseInt(effect.replace('strength', ',', '').trim()) || 0;
+              if (effect.includes('defense'))
+                newStats.defense +=
+                  parseInt(effect.replace('defense', ',', '').trim()) || 0;
+              if (effect.includes('speed'))
+                newStats.speed +=
+                  parseInt(effect.replace('speed', ',', '').trim()) || 0;
+              if (effect.includes('rizz'))
+                newStats.rizz +=
+                  parseInt(effect.replace('rizz', ',', '').trim()) || 0;
+            });
+
+            return newStats;
+          };
+
+          updatedTurnOrder = updatedTurnOrder.map((element) =>
+            element.id === target.id ? applyBuff(element) : element,
+          );
+        }
+
+        return {
+          ...state,
+          turnOrder: updatedTurnOrder,
+          turnIndex: nextTurnIndex,
+          battleLog: [...state.battleLog, ...logs],
+          xpGained: xp,
+          goldGained: gold,
         };
       }
       case 'HANDLE_HEAL': {
@@ -535,15 +635,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Dispatching an attack then a debuff on target
     dispatch({
-      type: 'HANDLE_ATTACK',
+      type: 'HANDLE_SMASH',
       payload: { attacker, attack, target },
     });
-    if (target?.hp > 0) {
-      dispatch({
-        type: 'HANDLE_BUFF',
-        payload: { attacker, attack, target },
-      });
-    }
   };
 
   const HandleAttackAll = (attack) => {
