@@ -22,6 +22,7 @@ export default function SpireFloor3() {
   const [openChest, setOpenChest] = useState(false);
   const [drinkWater, setDrinkWater] = useState(false);
   const [batheWater, setBatheWater] = useState(false);
+  const [openedChest, setOpenedChest] = useState(localStorage.getItem('floor3Chest') === 'true');
 
   const spireFloor3Events = [
     'The stone floor dips gently into a shattered sanctuary. At its center, a strange frost-covered fountain emits a soft blue glow.',
@@ -62,10 +63,16 @@ export default function SpireFloor3() {
       text: 'Bathe in the Fountain',
       action: 'fountain',
     },
-    {
-      text: 'Open the Chest',
-      action: 'chest',
-    },
+    ...(!openedChest ? 
+      [{ 
+        text: 'Open the Chest',
+        action: 'chest',
+      }]
+      : [{
+        text: 'Chest has been Opened',
+        action: 'nothing',
+      }]
+    ),
     {
       text: 'No Rest for the Swole',
       action: 'continue',
@@ -146,6 +153,8 @@ export default function SpireFloor3() {
         setOpenChest(true);
         addItem(Items[9]);
         gainGold(50);
+        setOpenedChest(true);
+        localStorage.setItem('floor3Chest', true);
         break;
       case 'leave':
         // Resetting the states
