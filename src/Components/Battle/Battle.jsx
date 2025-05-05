@@ -792,7 +792,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         enemysMove();
       }
     }
-  }, [state.isEnemyTurn, state.turnIndex]);
+  }, [state.isEnemyTurn, state.turnIndex, state.turnOrder]);
 
   return (
     <div className='Screen Battle-Screen Full-Screen'>
