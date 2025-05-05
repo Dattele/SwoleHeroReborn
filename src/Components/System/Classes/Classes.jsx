@@ -54,10 +54,10 @@ const Classes = {
           heal: 10,
           effect: '+2 strength',
         },
-        { name: 'Cleaver', type: 'aoe', damage: '10' },
+        { name: 'Cleaver', type: 'attack-all', damage: 8 },
       ],
-      5: [{ name: 'Skull Bash', type: 'smash', damage: '16' }],
-      7: [{ name: 'Fury Slame', type: 'strength', damage: '25' }],
+      5: [{ name: 'Skull Bash', type: 'smash', damage: 16 }],
+      7: [{ name: 'Fury Slame', type: 'strength', damage: 25 }],
     },
   },
   Knight: {
@@ -80,7 +80,7 @@ const Classes = {
       3: [
         {
           name: 'Radiant Slash',
-          type: 'rizz-attack',
+          type: 'smash',
           damage: 14,
           effect: '+2 rizz',
         },
@@ -89,7 +89,7 @@ const Classes = {
         {
           name: 'Royal Decree',
           type: 'group-buff',
-          effect: '+2 strength, +2 rizz',
+          effect: '+5 strength, +5 rizz',
         },
       ],
       7: [

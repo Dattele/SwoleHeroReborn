@@ -84,8 +84,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         return { ...state, battleOutcome: action.payload };
       }
       case 'NEXT_TURN': {
-        if (state.battleOutcome) return state; // Stop turn progression
-
         console.log('next turn alive turn order', state.turnOrder);
 
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
@@ -523,7 +521,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Get selected attack
     dispatch({ type: 'SELECT_ATTACK', payload: attack });
 
-    if (attack.type === 'attack') {
+    if (attack.type === 'attack' || attack.type === 'smash' || attack.type === 'drain' || attack.type === 'attack-all') {
       dispatch({
         type: 'SET_TARGETING',
         payload: { enemy: true, ally: false },
@@ -551,6 +549,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleBuff(selectedAttack, target);
     } else if (selectedAttack.type === 'heal' && target) {
       HandleHeal(selectedAttack, target);
+    } else if (selectedAttack.type === 'smash' && target) {
+      HandleSmash(selectedAttack, target);
     }
 
     // Reset attack state
@@ -744,6 +744,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     });
   };
 
+  // Check to see if the battle end conditions have been met
   const CheckBattleEnd = () => {
     dispatch({
       type: 'CHECK_WIN_CONDITIONS',
