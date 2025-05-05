@@ -17,7 +17,7 @@ const Classes = {
         {
           name: 'Bicep Flex',
           type: 'buff',
-          effect: '+4 strength, +2 rizz, -1 speed',
+          effect: '+4 strength, +3 rizz, -1 speed',
         },
       ],
       3: [
@@ -75,7 +75,7 @@ const Classes = {
     abilities: {
       1: [
         { name: 'Riposte', type: 'attack', damage: 10 },
-        { name: 'Stand Firm', type: 'buff', effect: '+4 defense' },
+        { name: 'Stand Firm', type: 'group-buff', effect: '+3 defense' },
       ],
       3: [
         {

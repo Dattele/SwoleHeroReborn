@@ -5,7 +5,7 @@ import GameUI from '../GameUI';
 export default function GameWrapper() {
   const location = useLocation();
 
-  const showMenuRoutes = ['/forest', '/bronzebell', '/lustralis'];
+  const showMenuRoutes = ['/forest', '/bronzebell', '/lustralis', '/spire-floor-3', '/spire-entrance', '/spire'];
 
   const showMenu = showMenuRoutes.includes(location.pathname);
 

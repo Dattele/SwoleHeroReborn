@@ -536,7 +536,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   // Handling clicking on a target
   const HandleTargetSelection = (target) => {
-    console.log('target', target);
     // Close pop-up
     dispatch({ type: 'SET_TARGETING', payload: { enemy: false, ally: false } });
 
@@ -551,6 +550,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleHeal(selectedAttack, target);
     } else if (selectedAttack.type === 'smash' && target) {
       HandleSmash(selectedAttack, target);
+    } else if (selectedAttack.type === 'group-buff') {
+      state.turnOrder
+        .filter((player) => player.type === 'player')
+        .forEach((playerTarget) => {
+          HandleBuff(selectedAttack, playerTarget);
+        });
+    } else if (selectedAttack.tyoe === 'chug' && target) {
+      HandleChug(selectedAttack, target);
     }
 
     // Reset attack state
@@ -636,6 +643,23 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Dispatching an attack then a debuff on target
     dispatch({
       type: 'HANDLE_SMASH',
+      payload: { attacker, attack, target },
+    });
+  };
+
+  const HandleChug = (attack, target) => {
+    const { turnOrder, turnIndex } = state;
+    const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+    if (!attacker) return;
+
+    // Dispatching an heal then a buff on target
+    dispatch({
+      type: 'HANDLE_HEAL',
+      payload: { attacker, attack, target },
+    });
+    dispatch({
+      type: 'HANDLE_BUFF',
       payload: { attacker, attack, target },
     });
   };
@@ -764,6 +788,26 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     //navigate('/battle-results', { state: { result, xp } });
   };
 
+  // Get the attack description for the players attack buttons
+  const getAttackDescription = (attack) => {
+    switch (attack.type) {
+      case 'attack':
+        return `${attack.damage} DMG`;
+      case 'attack-all':
+        return `${attack.damage} DMG to all`;
+      case 'smash':
+        return `${attack.damage} DMG & ${attack.effect}`;
+      case 'heal':
+        return `${attack.heal} HP`;
+      case 'chug':
+        return `${attack.heal} HP & ${attack.effect}`;
+      case 'group-buff':
+        return `${attack.effect} to all`;
+      default:
+        return attack.effect;
+    }
+  };
+
   // Check for when the battle ends
   useEffect(() => {
     if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
@@ -874,13 +918,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                       className='Attack-Btn'
                       onClick={() => SelectTarget(attack)}
                     >
-                      {attack.name} (
-                      {attack.type === 'attack'
-                        ? `${attack.damage} DMG`
-                        : attack.type === 'heal'
-                          ? attack.heal
-                          : attack.effect}
-                      )
+                      {attack.name} ({getAttackDescription(attack)})
                     </button>
                   ))}
                 </div>
