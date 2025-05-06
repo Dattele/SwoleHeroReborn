@@ -649,6 +649,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_SMASH',
       payload: { attacker, attack, target },
     });
+
+    // Check if battle has ended
+    CheckBattleEnd();
   };
 
   const HandleChug = (attack, target) => {
@@ -679,6 +682,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_ATTACK_ALL',
       payload: { attacker, attack },
     });
+
+    // Check if battle has ended
+    CheckBattleEnd();
   }
 
   // Enemy turn logic
@@ -789,7 +795,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     updateHP(state.turnOrder);
     gainGold(gold);
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
-    //navigate('/battle-results', { state: { result, xp } });
   };
 
   // Get the attack description for the players attack buttons
