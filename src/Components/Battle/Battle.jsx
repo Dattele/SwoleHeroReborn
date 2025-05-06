@@ -318,6 +318,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const addDamage =
           Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
         damage += addDamage;
+        damage = Math.max(0, damage); // Ensure attack doesn't go below 0 damage
 
         // Critical hit chance
         const critChance = 2 + attacker.rizz;
@@ -329,6 +330,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         } else {
           logs.push(`${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`);
         }
+        logs.push(`${attacker.name} receives ${attack.effect}!`);
 
         // Update the HP of the target that got hit
         const updatedHP = Math.max(0, target.hp - damage)
@@ -558,6 +560,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         });
     } else if (selectedAttack.tyoe === 'chug' && target) {
       HandleChug(selectedAttack, target);
+    } else if (selectedAttack.tyoe === 'attack-all') {
+      HandleAttackAll(selectedAttack);
     }
 
     // Reset attack state
@@ -812,7 +816,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   useEffect(() => {
     if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
       BattleEnd(state.battleOutcome, state.xpGained, state.goldGained);
-  }, [state.battleOutcome]);
+  }, [state.battleOutcome, state.xpGained, state.goldGained]);
 
   // Smooth scroll to newest battleLog entry
   useEffect(() => {
