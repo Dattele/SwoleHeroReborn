@@ -33,6 +33,8 @@ import SpireFloor2 from './Components/FantasyWorldScreen/Components/SpireScreen/
 import SpireFloor3 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor3';
 import SpireFloor4 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor4';
 import SpireFloor5 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor5';
+import SpireFloor6 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor6';
+import SpireFloor7 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor7';
 
 export default function App() {
   return (
@@ -75,8 +77,8 @@ export default function App() {
           <Route path="/spire-floor-3" element={<SpireFloor3 />} />
           <Route path="/spire-floor-4" element={<SpireFloor4 />} />
           <Route path="/spire-floor-5" element={<SpireFloor5 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
+          <Route path="/spire-floor-6" element={<SpireFloor6 />} />
+          <Route path="/spire-floor-7" element={<SpireFloor7 />} />
           <Route path="/spire-floor-4" element={<SpireFloor4 />} />
           <Route path="/spire-floor-4" element={<SpireFloor4 />} />
           <Route path="/spire-floor-4" element={<SpireFloor4 />} />

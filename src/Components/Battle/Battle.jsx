@@ -330,7 +330,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         } else {
           logs.push(`${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`);
         }
-        logs.push(`${attacker.name} receives ${attack.effect}!`);
+        logs.push(`${target.name} receives a debuff of ${attack.effect}!`);
 
         // Update the HP of the target that got hit
         const updatedHP = Math.max(0, target.hp - damage)
