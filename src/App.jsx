@@ -35,6 +35,7 @@ import SpireFloor4 from './Components/FantasyWorldScreen/Components/SpireScreen/
 import SpireFloor5 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor5';
 import SpireFloor6 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor6';
 import SpireFloor7 from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireFloor7';
+import SpireBoss from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireBoss';
 
 export default function App() {
   return (
@@ -79,9 +80,7 @@ export default function App() {
           <Route path="/spire-floor-5" element={<SpireFloor5 />} />
           <Route path="/spire-floor-6" element={<SpireFloor6 />} />
           <Route path="/spire-floor-7" element={<SpireFloor7 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
+          <Route path="/spire-boss" element={<SpireBoss />} />
         </Routes>
       </Router>
     </DannyProvider>

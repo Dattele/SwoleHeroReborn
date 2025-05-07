@@ -134,7 +134,7 @@ const SpireMonsters = [
   },
 ];
 
-export const SpireBoss = [
+export const SpireBossMonster = [
   {
     name: 'Balrog, Flame of the Spire',
     type: 'enemy',
@@ -148,13 +148,12 @@ export const SpireBoss = [
     rizz: 20,
     xp: 150,
     gold: 50,
-    loot: ['Alpha Fang', 'Rare Hide', 'Strength Potion'],
     abilities: [
       {
         name: 'Infernal Whip',
         type: 'smash-all',
         damage: 10,
-        effect: '-2 defense',
+        effect: '-4 defense',
       },
       {
         name: 'Dark Descent',
@@ -163,8 +162,8 @@ export const SpireBoss = [
       },
       { 
         name: 'Molten Roar', 
-        type: 'group-buff', 
-        effect: '+4 strength',
+        type: 'buff', 
+        effect: '+8 strength',
       },
     ],
   },

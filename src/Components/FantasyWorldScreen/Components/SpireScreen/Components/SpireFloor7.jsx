@@ -62,7 +62,7 @@ export default function SpireFloor7() {
       case 'leave':
         // Navigate to the next floor after restoring HP
         restorePartyHP();
-        navigate('/spire-floor-8');
+        navigate('/spire-boss');
         break;
       default:
         break;
