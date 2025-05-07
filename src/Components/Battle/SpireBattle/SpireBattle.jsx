@@ -15,7 +15,7 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
 
   const loseChoices = [
     { text: 'Fall to the bottom', nextScene: '/bronzebell' },
-  ]
+  ];
 
   // Sets a timeout to wait before performing any other actions
   const sleep = (ms) => {
@@ -24,7 +24,7 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
 
   // Handling the end of the battle
   const handleBattleEnd = async (result, enemies) => {
-    await sleep(2000) // Wait two seconds;
+    await sleep(2000); // Wait two seconds;
     if (result === 'win') {
       setBattleEnd('win');
     } else if (result === 'lose') {
@@ -34,10 +34,18 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
 
   return (
     <div className='Spire-Battle'>
-      <Battle players={party.filter(p => p.hp > 0)} enemies={enemies} onBattleEnd={handleBattleEnd} />
+      <Battle
+        players={party.filter((p) => p.hp > 0)}
+        enemies={enemies}
+        onBattleEnd={handleBattleEnd}
+      />
       {battleEnd === 'lose' && (
         <div className='Choices-Container'>
-          <TextBox text={'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell'} />
+          <TextBox
+            text={
+              'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell'
+            }
+          />
           <Choices options={loseChoices} onChoiceSelected={navigate} />
         </div>
       )}

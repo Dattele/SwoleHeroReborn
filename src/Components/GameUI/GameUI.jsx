@@ -16,13 +16,17 @@ export default function GameUI({ showMenu = false }) {
         <div className='GameUI-Btn-Container'>
           <button
             className='GameUI-Btn'
-            onClick={() => setModalOpen((prev) => (prev === true ? false : true))}
+            onClick={() =>
+              setModalOpen((prev) => (prev === true ? false : true))
+            }
           >
             📦 Party / Inventory
           </button>
           <button
             className='GameUI-Btn'
-            onClick={() => setQuestOpen((prev) => (prev === true ? false : true))}
+            onClick={() =>
+              setQuestOpen((prev) => (prev === true ? false : true))
+            }
           >
             📜 Quest Log
           </button>

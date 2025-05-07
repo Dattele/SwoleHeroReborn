@@ -18,7 +18,7 @@ export default function SpireFloor5() {
     {
       text: 'Flex Onward',
       nextScene: '/spire-floor-6',
-    }
+    },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function SpireFloor5() {
       }}
     >
       {battleEnd !== 'win' && (
-        <SpireBattle 
+        <SpireBattle
           enemies={[SpireMonsters[4], SpireMonsters[4]]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}

@@ -195,14 +195,17 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         // Determine if attacking the players or the enemies
         const isTargetingPlayers = attacker.type === 'enemy';
-        const targets = updatedTurnOrder.filter(target =>
-          isTargetingPlayers ? target.type === 'player' : target.type === 'enemy'
+        const targets = updatedTurnOrder.filter((target) =>
+          isTargetingPlayers
+            ? target.type === 'player'
+            : target.type === 'enemy',
         );
 
         for (const target of targets) {
           // Calculate damage
           let damage = attack.damage;
-          const addDamage = Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
+          const addDamage =
+            Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
           damage += addDamage;
 
           // Critical hit chance
@@ -211,9 +214,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
           if (isCrit) {
             damage = Math.floor(damage * 1.5);
-            logs.push(`🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`);
+            logs.push(
+              `🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`,
+            );
           } else {
-            logs.push(`${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`);
+            logs.push(
+              `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`,
+            );
           }
 
           // Update the HP of the target that got hit
@@ -233,15 +240,21 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           }
 
           // Remove the dead enemies/players
-          updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
+          updatedTurnOrder = updatedTurnOrder.filter(
+            (element) => element.hp > 0,
+          );
 
           // Add to deathLog
           if (updatedTurnOrder.length < state.turnOrder.length) {
             playRandomDeathSound();
             if (attacker.name === 'Danny') {
-              logs.push(`${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`);
+              logs.push(
+                `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`,
+              );
             } else {
-              logs.push(`${target.name} has been slaughtered by ${attacker.name}! 💀`);
+              logs.push(
+                `${target.name} has been slaughtered by ${attacker.name}! 💀`,
+              );
             }
           }
 
@@ -252,7 +265,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           ) {
             xp += Math.floor(target.xp / players.length);
             gold += target.gold;
-            logs.push(`Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`);
+            logs.push(
+              `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
+            );
           }
         }
 
@@ -326,18 +341,20 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         if (isCrit) {
           damage = Math.floor(damage * 1.5);
-          logs.push(`🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`);
+          logs.push(
+            `🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`,
+          );
         } else {
-          logs.push(`${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`);
+          logs.push(
+            `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`,
+          );
         }
         logs.push(`${target.name} receives a debuff of ${attack.effect}!`);
 
         // Update the HP of the target that got hit
-        const updatedHP = Math.max(0, target.hp - damage)
+        const updatedHP = Math.max(0, target.hp - damage);
         updatedTurnOrder = updatedTurnOrder.map((element) =>
-          element.id === target.id
-            ? { ...element, hp: updatedHP }
-            : element,
+          element.id === target.id ? { ...element, hp: updatedHP } : element,
         );
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
@@ -358,16 +375,22 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
           // Add to deathLog
           if (attacker.name === 'Danny') {
-            logs.push(`${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`);
+            logs.push(
+              `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`,
+            );
           } else {
-            logs.push(`${target.name} has been slaughtered by ${attacker.name}! 💀`);
+            logs.push(
+              `${target.name} has been slaughtered by ${attacker.name}! 💀`,
+            );
           }
 
           // If target is an enemy, gain xp and gold
           if (target.type === 'enemy') {
             xp += Math.floor(target.xp / players.length);
             gold += target.gold;
-            logs.push(`Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`);
+            logs.push(
+              `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
+            );
           }
         }
 
@@ -523,7 +546,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Get selected attack
     dispatch({ type: 'SELECT_ATTACK', payload: attack });
 
-    if (attack.type === 'attack' || attack.type === 'smash' || attack.type === 'drain' || attack.type === 'attack-all') {
+    if (
+      attack.type === 'attack' ||
+      attack.type === 'smash' ||
+      attack.type === 'drain' ||
+      attack.type === 'attack-all'
+    ) {
       dispatch({
         type: 'SET_TARGETING',
         payload: { enemy: true, ally: false },
@@ -685,7 +713,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Check if battle has ended
     CheckBattleEnd();
-  }
+  };
 
   // Enemy turn logic
   const EnemyTurn = (enemy) => {

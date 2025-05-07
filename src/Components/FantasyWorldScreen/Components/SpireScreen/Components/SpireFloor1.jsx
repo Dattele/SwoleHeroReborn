@@ -18,7 +18,7 @@ export default function SpireFloor1() {
     {
       text: 'Continue Climbing',
       nextScene: '/spire-floor-2',
-    }
+    },
   ];
 
   return (

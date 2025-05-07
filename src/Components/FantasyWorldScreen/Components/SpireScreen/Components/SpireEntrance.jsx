@@ -79,7 +79,11 @@ export default function SpireEntrance() {
         </>
       ) : (
         <>
-          <TextBox text={"The mountains groan under their own weight. The cold bites harder this time."} />
+          <TextBox
+            text={
+              'The mountains groan under their own weight. The cold bites harder this time.'
+            }
+          />
           <Choices options={choices} onChoiceSelected={navigate} />
         </>
       )}

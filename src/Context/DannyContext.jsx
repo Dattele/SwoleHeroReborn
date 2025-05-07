@@ -228,27 +228,20 @@ export function DannyProvider({ children }) {
         return {
           ...state,
           party: state.party.map((member) =>
-            member.name === name &&
-            member.xp >= 75 * member.level
+            member.name === name && member.xp >= 75 * member.level
               ? {
                   ...member,
                   xp: 0,
                   level: member.level + 1,
-                  maxHP:
-                    member.maxHP + classData.statGrowth.maxHP,
+                  maxHP: member.maxHP + classData.statGrowth.maxHP,
                   hp: member.hp + classData.statGrowth.hp,
-                  strength:
-                    member.strength +
-                    classData.statGrowth.strength,
-                  defense:
-                    member.defense +
-                    classData.statGrowth.defense,
-                  speed:
-                    member.speed + classData.statGrowth.speed,
+                  strength: member.strength + classData.statGrowth.strength,
+                  defense: member.defense + classData.statGrowth.defense,
+                  speed: member.speed + classData.statGrowth.speed,
                   rizz: member.rizz + classData.statGrowth.rizz,
                   abilities: [
                     ...member.abilities,
-                    ...(classData?.abilities?.[member.level + 1] || [])
+                    ...(classData?.abilities?.[member.level + 1] || []),
                   ],
                 }
               : member,
@@ -342,14 +335,14 @@ export function DannyProvider({ children }) {
       }
       case 'UNLOCK_LOCATION': {
         const { name } = action.payload;
-        const updateLocations = state.locations.map((loc) => 
-          loc.name === name ? { ...loc, unlocked: true } : loc
+        const updateLocations = state.locations.map((loc) =>
+          loc.name === name ? { ...loc, unlocked: true } : loc,
         );
 
         return {
           ...state,
           locations: updateLocations,
-        }
+        };
       }
       default: {
         return state;
@@ -493,8 +486,8 @@ export function DannyProvider({ children }) {
     dispatch({
       type: 'UNLOCK_LOCATION',
       payload: { name },
-    })
-  }
+    });
+  };
 
   // Creating a useEffect to pass my functions into the window to be used for testing
   useEffect(() => {

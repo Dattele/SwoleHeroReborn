@@ -73,14 +73,14 @@ export default function App() {
           <Route path='/spire' element={<SpireScreen />} />
           <Route path='/spire-battle' element={<SpireBattle />} />
           <Route path='/spire-entrance' element={<SpireEntrance />} />
-          <Route path="/spire-floor-1" element={<SpireFloor1 />} />
-          <Route path="/spire-floor-2" element={<SpireFloor2 />} />
-          <Route path="/spire-floor-3" element={<SpireFloor3 />} />
-          <Route path="/spire-floor-4" element={<SpireFloor4 />} />
-          <Route path="/spire-floor-5" element={<SpireFloor5 />} />
-          <Route path="/spire-floor-6" element={<SpireFloor6 />} />
-          <Route path="/spire-floor-7" element={<SpireFloor7 />} />
-          <Route path="/spire-boss" element={<SpireBoss />} />
+          <Route path='/spire-floor-1' element={<SpireFloor1 />} />
+          <Route path='/spire-floor-2' element={<SpireFloor2 />} />
+          <Route path='/spire-floor-3' element={<SpireFloor3 />} />
+          <Route path='/spire-floor-4' element={<SpireFloor4 />} />
+          <Route path='/spire-floor-5' element={<SpireFloor5 />} />
+          <Route path='/spire-floor-6' element={<SpireFloor6 />} />
+          <Route path='/spire-floor-7' element={<SpireFloor7 />} />
+          <Route path='/spire-boss' element={<SpireBoss />} />
         </Routes>
       </Router>
     </DannyProvider>

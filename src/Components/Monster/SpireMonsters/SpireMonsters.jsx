@@ -8,7 +8,8 @@ import MoltenCrawler from '../../../assets/images/MoltenCrawler.png';
 import Balrog from '../../../assets/images/Balrog.png';
 
 const SpireMonsters = [
-  { // 0
+  {
+    // 0
     name: 'Molten Crawler',
     type: 'enemy',
     image: MoltenCrawler,
@@ -26,7 +27,8 @@ const SpireMonsters = [
       { name: 'Molten Slap', type: 'attack-all', damage: 6 },
     ],
   },
-  { // 1
+  {
+    // 1
     name: 'Frost-Bitten Dwarf',
     type: 'enemy',
     image: FrostDwarf,
@@ -41,15 +43,20 @@ const SpireMonsters = [
     gold: 6,
     abilities: [
       { name: 'Pickaxe Throw', type: 'attack', damage: 13 },
-      { name: 'Bitter Grudge', type: 'buff', effect: '+3 strength, +3 defense' },
+      {
+        name: 'Bitter Grudge',
+        type: 'buff',
+        effect: '+3 strength, +3 defense',
+      },
     ],
   },
-  { // 2
+  {
+    // 2
     name: 'Goat Minotaur',
     type: 'enemy',
     image: GoatMinotaur,
     description:
-      "A wild, bipedal goat creature with horns sharp enough to split boulders. Mad from altitude sickness and rage.",
+      'A wild, bipedal goat creature with horns sharp enough to split boulders. Mad from altitude sickness and rage.',
     hp: 20,
     strength: 12,
     defense: 1,
@@ -57,16 +64,15 @@ const SpireMonsters = [
     rizz: 5,
     xp: 30,
     gold: 6,
-    abilities: [
-      { name: 'Rampage', type: 'attack', damage: 16 },
-    ],
+    abilities: [{ name: 'Rampage', type: 'attack', damage: 16 }],
   },
-  { // 3
+  {
+    // 3
     name: 'Glacial Hound',
     type: 'enemy',
     image: FrostWolf,
     description:
-      "A spectral hound born of howling snowstorms. Tracks heat with eerie precision and disappears into ice fog.",
+      'A spectral hound born of howling snowstorms. Tracks heat with eerie precision and disappears into ice fog.',
     hp: 45,
     strength: 9,
     defense: 4,
@@ -75,10 +81,16 @@ const SpireMonsters = [
     xp: 27,
     gold: 6,
     abilities: [
-      { name: 'Frostbite Chomp', type: 'smash', damage: 10, effect: '-2 defense' },
+      {
+        name: 'Frostbite Chomp',
+        type: 'smash',
+        damage: 10,
+        effect: '-2 defense',
+      },
     ],
   },
-  { // 4
+  {
+    // 4
     name: 'Troll',
     type: 'enemy',
     image: Troll,
@@ -96,12 +108,13 @@ const SpireMonsters = [
       { name: 'Rock Concert', type: 'group-buff', effect: '+4 defense' },
     ],
   },
-  { // 5
+  {
+    // 5
     name: 'Dwarven Juggernaut',
     type: 'enemy',
     image: DwarvenJuggernaut,
     description:
-      "A former champion of the forge, now a living battering ram. Covered head to toe in enchanted dwarven steel.",
+      'A former champion of the forge, now a living battering ram. Covered head to toe in enchanted dwarven steel.',
     hp: 55,
     strength: 11,
     defense: 8,
@@ -114,12 +127,13 @@ const SpireMonsters = [
       { name: 'Reinforced Will', type: 'buff', effect: '+6 defense' },
     ],
   },
-  { // 6
+  {
+    // 6
     name: 'Frost Widow',
     type: 'enemy',
     image: FrostWidow,
     description:
-      "A venomous spider the size of a carriage wheel. Its webs are laced with frost magic and paralytic poison.",
+      'A venomous spider the size of a carriage wheel. Its webs are laced with frost magic and paralytic poison.',
     hp: 30,
     strength: 6,
     defense: 2,
@@ -160,9 +174,9 @@ export const SpireBossMonster = [
         type: 'drain',
         damage: 20,
       },
-      { 
-        name: 'Molten Roar', 
-        type: 'buff', 
+      {
+        name: 'Molten Roar',
+        type: 'buff',
         effect: '+8 strength',
       },
     ],

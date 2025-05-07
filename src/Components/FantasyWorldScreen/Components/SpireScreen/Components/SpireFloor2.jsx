@@ -18,7 +18,7 @@ export default function SpireFloor2() {
     {
       text: 'Next Floor: More Gains',
       nextScene: '/spire-floor-3',
-    }
+    },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function SpireFloor2() {
       }}
     >
       {battleEnd !== 'win' && (
-        <SpireBattle 
+        <SpireBattle
           enemies={[SpireMonsters[3], SpireMonsters[3], SpireMonsters[6]]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}

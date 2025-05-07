@@ -33,7 +33,7 @@ export default function SpireScreen() {
       "Ja'von: 'Eyes sharp. I've read about ambushes in places like this. The cold isn't the only thing that bites up here.'",
       "Danny: 'Alright, bros. Are we pressing on or heading back for hot meat and warmer company?'",
     ],
-  }
+  };
 
   const spireChoices = [
     {
@@ -67,7 +67,7 @@ export default function SpireScreen() {
   const handleNextDialogue = () => {
     setStage(stage === 'spireEvents' && 'spireInteriorEvents');
     setEventIndex(0);
-  }
+  };
 
   // Skip straight to choices if user has been to the Spire Mountains
   useEffect(() => {
@@ -80,7 +80,7 @@ export default function SpireScreen() {
   // Checks for when the spireInteriorEvents dialogue is complete
   useEffect(() => {
     if (
-      eventIndex === spireDialogue.spireInteriorEvents.length - 1 && 
+      eventIndex === spireDialogue.spireInteriorEvents.length - 1 &&
       stage === 'spireInteriorEvents'
     ) {
       localStorage.setItem('visitedSpire', 'true');
@@ -117,7 +117,11 @@ export default function SpireScreen() {
         </>
       ) : (
         <>
-          <TextBox text={"The mountains groan under their own weight. The cold bites harder this time."} />
+          <TextBox
+            text={
+              'The mountains groan under their own weight. The cold bites harder this time.'
+            }
+          />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}

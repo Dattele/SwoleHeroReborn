@@ -76,7 +76,7 @@ const Items = [
     type: 'armor',
     description: 'Never skip bench day - +2 strength',
     effect: '+2 strength',
-  }
+  },
 ];
 
 export default Items;

@@ -18,7 +18,7 @@ export default function SpireFloor4() {
     {
       text: 'Head out of the cave',
       nextScene: '/spire-floor-5',
-    }
+    },
   ];
 
   return (
@@ -32,7 +32,7 @@ export default function SpireFloor4() {
       }}
     >
       {battleEnd !== 'win' && (
-        <SpireBattle 
+        <SpireBattle
           enemies={[SpireMonsters[2], SpireMonsters[2], SpireMonsters[2]]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}

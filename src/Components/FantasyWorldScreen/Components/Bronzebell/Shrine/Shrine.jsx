@@ -99,10 +99,10 @@ export default function Shrine() {
       updateQuestFlag('edenGrove', 'in-progress');
     }
 
-    if ( 
-      stage === 'completed' && 
+    if (
+      stage === 'completed' &&
       eventIndex === bobbyDialogue.completed.length - 1
-    ) { 
+    ) {
       updateQuestFlag('spire', 'in-progress');
       unlockLocation('Spire Mountains');
     }

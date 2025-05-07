@@ -25,29 +25,29 @@ export default function SpireFloor7() {
     "Ethan: 'I can't feel my face... or my legs... or anything below my neck.'",
     "Ja'von: 'Look ahead - there's shadows in the storm. Figures... unmoving.'",
     "Danny: 'Yooo! You guys guarding a gym up there or just getting snowed on for fun!?'",
-    "The shapes remain still, yet breathing. Two armored dwarves, massive and ancient, flanking a frost-bitten figure clutching a battle-worn axe.",
+    'The shapes remain still, yet breathing. Two armored dwarves, massive and ancient, flanking a frost-bitten figure clutching a battle-worn axe.',
     "Ethan: 'Okay... I don't think they're the chatty type.'",
     "Ja'von: 'No words. Just duty. These are the last sentinels. If we pass them... there is no turning back.'",
     "Danny: 'Then let's make this quick. I've got a date with a Demon King and a dumbbell!'",
-    "** The dwarves raise their weapons in silence. Prepare for battle. **",
+    '** The dwarves raise their weapons in silence. Prepare for battle. **',
   ];
 
   const continueChoices = [
     {
       text: 'Flex your way to the top (Restores Party HP)',
       action: 'leave',
-    }
+    },
   ];
 
   const battleChoices = [
     {
       text: 'Begin the Battle!',
       action: 'battle',
-    }
+    },
   ];
 
   const handleNextEvent = (event, setIndex) => {
-    setIndex(prev => {
+    setIndex((prev) => {
       if (prev < event.length - 1) return prev + 1;
     });
   };
@@ -57,7 +57,7 @@ export default function SpireFloor7() {
     switch (choice.action) {
       case 'battle':
         // Begin the battle
-        setBeginBattle(true)
+        setBeginBattle(true);
         break;
       case 'leave':
         // Navigate to the next floor after restoring HP
@@ -88,7 +88,7 @@ export default function SpireFloor7() {
       {beginBattle ? (
         <>
           {battleEnd !== 'win' && (
-            <SpireBattle 
+            <SpireBattle
               enemies={[SpireMonsters[5], SpireMonsters[5], SpireMonsters[1]]}
               battleEnd={battleEnd}
               setBattleEnd={setBattleEnd}
@@ -97,7 +97,10 @@ export default function SpireFloor7() {
           {battleEnd === 'win' && (
             <>
               <TextBox text="Ja'von: 'I have a bad feeling about this.'" />
-              <NPCChoices options={continueChoices} onChoiceSelected={handleChoice} />
+              <NPCChoices
+                options={continueChoices}
+                onChoiceSelected={handleChoice}
+              />
             </>
           )}
         </>
@@ -106,9 +109,15 @@ export default function SpireFloor7() {
           <TextBox text={spireFloor7Events[eventIndex]} />
 
           {eventIndex === spireFloor7Events.length - 1 ? (
-            <NPCChoices options={battleChoices} onChoiceSelected={handleChoice} />
+            <NPCChoices
+              options={battleChoices}
+              onChoiceSelected={handleChoice}
+            />
           ) : (
-            <button className='Next-Btn' onClick={() => handleNextEvent(spireFloor7Events, setEventIndex)}>
+            <button
+              className='Next-Btn'
+              onClick={() => handleNextEvent(spireFloor7Events, setEventIndex)}
+            >
               Next
             </button>
           )}

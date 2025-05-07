@@ -67,7 +67,9 @@ export default function Menu({ isOpen, onClose }) {
                     <p>
                       Level: {member.level} / XP: {member.xp}
                     </p>
-                    <p>HP: {member.hp}/{member.maxHP}</p>
+                    <p>
+                      HP: {member.hp}/{member.maxHP}
+                    </p>
                     <p>
                       STR: {member.strength} / DEF: {member.defense}
                     </p>

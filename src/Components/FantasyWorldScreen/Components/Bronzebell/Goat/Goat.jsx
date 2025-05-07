@@ -134,7 +134,9 @@ export default function Goat() {
       {stage === 'notReady' ? (
         <>
           <TextBox
-            text={"You feel uneasy - as if you aren't ready to continue onwards"}
+            text={
+              "You feel uneasy - as if you aren't ready to continue onwards"
+            }
           />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>

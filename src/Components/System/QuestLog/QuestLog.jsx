@@ -17,7 +17,7 @@ export default function QuestLog({ isOpen }) {
   function formatStatus(status) {
     const statuses = {
       'in-progress': '🟡 In Progress',
-      'completed': '✅ Completed',
+      completed: '✅ Completed',
     };
     return statuses[status] || status;
   }

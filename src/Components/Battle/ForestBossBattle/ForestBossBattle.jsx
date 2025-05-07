@@ -29,24 +29,38 @@ export default function ForestBossBattle() {
     console.log(result);
     setBattleEnd(result);
     updateQuestFlag('edenGrove', 'completed');
-  }; 
+  };
 
   return (
     <div className='Forest-Boss-Battle'>
-      <Battle players={party.filter(p => p.hp > 0)} enemies={[enemy]} onBattleEnd={handleBattleEnd} />
+      <Battle
+        players={party.filter((p) => p.hp > 0)}
+        enemies={[enemy]}
+        onBattleEnd={handleBattleEnd}
+      />
       {battleEnd === 'win' && (
         <div className='Choices-Container'>
-          <TextBox text={'**[ Quest Complete: Cleanse EdenGrove Forest ✅ ]**'} />
+          <TextBox
+            text={'**[ Quest Complete: Cleanse EdenGrove Forest ✅ ]**'}
+          />
           <Choices options={choices} onChoiceSelected={navigate} />
         </div>
       )}
       {battleEnd === 'lose' && (
         <div className='Choices-Container'>
-          <TextBox text={'Your party has fallen. Hopefully you have at least 5 gold.. or else this is goodbye loser'}/>
+          <TextBox
+            text={
+              'Your party has fallen. Hopefully you have at least 5 gold.. or else this is goodbye loser'
+            }
+          />
           {gold >= 5 ? (
             <Choices options={loseChoices} onChoiceSelected={navigate} />
           ) : (
-            <TextBox text={'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'}/>
+            <TextBox
+              text={
+                'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'
+              }
+            />
           )}
         </div>
       )}

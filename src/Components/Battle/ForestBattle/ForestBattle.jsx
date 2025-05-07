@@ -22,7 +22,7 @@ export default function ForestBattle() {
 
   const loseChoices = [
     { text: 'Hurry to Bronzebell', nextScene: '/bronzebell' },
-  ]
+  ];
 
   // Get the amount of enemies
   const NumberOfEnemies = () => {
@@ -79,13 +79,17 @@ export default function ForestBattle() {
     if (wolfKills >= 3 && questFlags['edenGrove'] === 'in-progress') {
       navigate('/forest-boss');
     }
-    
+
     setBattleEnd(result);
   };
 
   return (
     <div className='Forest-Battle'>
-      <Battle players={party.filter(p => p.hp > 0)} enemies={enemies} onBattleEnd={handleBattleEnd} />
+      <Battle
+        players={party.filter((p) => p.hp > 0)}
+        enemies={enemies}
+        onBattleEnd={handleBattleEnd}
+      />
       {battleEnd === 'win' && (
         <div className='Choices-Container'>
           <Choices options={choices} onChoiceSelected={navigate} />
@@ -93,11 +97,19 @@ export default function ForestBattle() {
       )}
       {battleEnd === 'lose' && (
         <div className='Choices-Container'>
-          <TextBox text={'Your party has fallen. Hopefully you have at least 5 gold.. or else this is goodbye loser'}/>
+          <TextBox
+            text={
+              'Your party has fallen. Hopefully you have at least 5 gold.. or else this is goodbye loser'
+            }
+          />
           {gold >= 5 ? (
             <Choices options={loseChoices} onChoiceSelected={navigate} />
           ) : (
-            <TextBox text={'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'}/>
+            <TextBox
+              text={
+                'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'
+              }
+            />
           )}
         </div>
       )}
