@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 import NPCChoices from '../../../../System/NPCChoices';
 import SpireBattle from '../../../../Battle/SpireBattle';
+import { useDanny } from '../../../../../Context/DannyContext';
 import { SpireBossMonster } from '../../../../Monster/SpireMonsters/SpireMonsters';
 
 import ascendScene from '../../../../../assets/images/AscendScene.png';
@@ -13,6 +14,7 @@ import balrogScene from '../../../../../assets/images/BalrogScene.png';
 import '../../../../../scss/All.scss';
 
 export default function SpireBoss() {
+  const { updateQuestFlag } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -53,7 +55,7 @@ export default function SpireBoss() {
 
   const leaveChoices = [
     {
-      text: 'Head back to Bobby',
+      text: 'Inform Bobby',
       action: '/bronzebell',
     },
   ];
@@ -90,6 +92,13 @@ export default function SpireBoss() {
     if (stage === 'ascend') return ascendScene;
     return balrogScene;
   };
+
+  // When the battle ends and the party win then set the spire quest to complete
+  useEffect(() => {
+    if (battleEnd === 'win') {
+      updateQuestFlag('spire', 'completed');
+    }
+  }, [battleEnd])
 
   return (
     <div
@@ -137,7 +146,7 @@ export default function SpireBoss() {
           )}
           {battleEnd === 'win' && (
             <>
-              <TextBox text="The Balrog collapses in fire and fury. The summit belongs to the swole.'" />
+              <TextBox text="The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**" />
               <Choices options={leaveChoices} onChoiceSelected={navigate} />
             </>
           )}
