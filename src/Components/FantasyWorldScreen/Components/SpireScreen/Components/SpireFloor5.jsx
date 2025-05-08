@@ -40,7 +40,7 @@ export default function SpireFloor5() {
       )}
       {battleEnd === 'win' && (
         <>
-          <TextBox text="Ethan: 'Bro, once we survive this, we're gonna be so jacked even the statues will look jealous.'" />
+          <TextBox text="Ethan: 'I'm getting tired guys.. can we head back to Ironhide..?'" />
           <Choices options={continueChoices} onChoiceSelected={navigate} />
         </>
       )}

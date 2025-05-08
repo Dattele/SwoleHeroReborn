@@ -10,8 +10,10 @@ export default function GameWrapper() {
     '/bronzebell',
     '/lustralis',
     '/spire-floor-3',
+    '/spire-floor-6',
     '/spire-entrance',
     '/spire',
+    '/emberfall',
   ];
 
   const showMenu = showMenuRoutes.includes(location.pathname);

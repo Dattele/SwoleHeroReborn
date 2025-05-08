@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
+
 import Bronzebell from '../../../../assets/images/Bronzebell.webp';
 import BronzebellGate from '../../../../assets/images/BronzebellGate.webp';
 
@@ -26,22 +27,6 @@ export default function BronzebellScreen() {
     "Danny nods to himself. 'They are probably just intimidated by my gains.'",
     'He adjusts his lifting belt unnecessarily tight and struts deeper into town, confident in his delusion.',
     'Somewhere nearby, a goat bleats menacingly.',
-  ];
-
-  const spireCompleted = [
-    "Bobby stands at the edge of town - turned away from the party, as if he felt the Balrog's fall from miles away.",
-    "Danny: 'We bench-pressed a demon made of fire, bro.'",
-    "Ethan: 'I nearly died of heatstroke, snowburn, and self-doubt - in that order.'",
-    "Ja'von: 'But we endured. The Spire bows to no one... and yet it was still no match for us.'",
-    "Bobby opens one eye, smiling faintly. 'Then the legend is true. You've passed the Crucible. You've proven your strength. It's time.'",
-    "Danny: 'Umm... time for what, old man?'",
-    "Bobby: 'Time for you to take back the kingdom that burned from within - a ruin left behind by the Demon King himself.'",
-    "Bobby kneels and traces a strange sigil into the earth. A shimmer pulses outward, revealing a cracked, glowing trail leading beyond the mountains.",
-    "Bobby: 'Follow the path. Through ash and ruin. Through memory and mistake. To where your real journey begins'",
-    "Danny: 'Is there at least protein in Emberfall?'",
-    "Bobby: 'No, but there will be answers... and pain. A lot of pain.'",
-    "He stands, eyes steady. 'Go now, before the fire sleeps again. The next rep awaits.'",
-    "**[ New Area Unlocked: Emberfall Ruins ]**",
   ];
 
   const locationChoices = [

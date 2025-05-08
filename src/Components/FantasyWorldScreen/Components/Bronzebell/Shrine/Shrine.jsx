@@ -71,6 +71,26 @@ export default function Shrine() {
       "Bobby greets you with a heavy gaze. 'Eldoria still suffers.'",
       "'You carry strength, but Eldoria runs out of time. You must move quickly!'",
     ],
+
+    spireCompleted: [
+      "Bobby stands at the edge of the shrine - turned away from the party, as if he felt the Balrog's fall from miles away.",
+      "Danny: 'We bench-pressed a demon made of fire, bro.'",
+      "Ethan: 'I nearly died of heatstroke, snowburn, and self-doubt - in that order.'",
+      "Ja'von: 'But we endured. The Spire bows to no one... and yet it was still no match for us.'",
+      "Bobby turns towards the party, smiling faintly. 'Then the legend is true. You've passed the Crucible. You've proven your strength. It's time.'",
+      "Danny: 'Umm... time for what, old man?'",
+      "Bobby: 'Time for you to take back the kingdom that burned from within - a ruin left behind by the Demon King himself.'",
+      "Bobby: 'Follow the path. Through ash and ruin. Through memory and mistake. To where your real journey begins'",
+      "Danny: 'Is there at least protein in Emberfall?'",
+      "Bobby: 'No, but there will be answers... and pain. A lot of pain.'",
+      "He stands, eyes steady. 'Go now, before the flame awakes again. Your next rep awaits.'",
+      "**[ New Area Unlocked: Emberfall Ruins ]**",
+      '**[ Quest Received: Explore the Ruins of Emberfall ]**',
+    ],
+
+    emberfallStarted: [
+      "Bobby: 'The time for you to leave has arrived. GO. NOW.'",
+    ],
   };
 
   const choices = [{ text: 'Head back', nextScene: '/bronzebell' }];
@@ -87,15 +107,23 @@ export default function Shrine() {
     const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
     if (!ethan || !javon) {
       setStage('notReady');
-    } else if (questFlags['edenGrove'] === 'in-progress') {
+    } else if (questFlags['emberfall'] === 'in-progress') {
+      setStage('emberfallStarted');
+    } else if (questFlags['spire'] === 'in-progress') {
+      setStage('spireStarted');
+    } else if (questFlags['spire'] === 'completed') {
+      setStage('spireCompleted');
+    }else if (questFlags['edenGrove'] === 'in-progress') {
       setStage('stillCorrupted');
     } else if (questFlags['edenGrove'] === 'completed') {
       setStage('edenGroveCompleted');
-    }
+    } 
   }, []);
 
-  // Checks for when the giveQuest dialogue is complete
-  // Add the Spire location and quest when the edenGroveCompleted dialogue is complete
+  /* Checks for when the giveQuest dialogue is complete
+   * Add the Spire location and quest when the edenGroveCompleted dialogue is complete
+   * Unlock Emberfall Ruins and start the quest when the Spire quest is completed
+   */
   useEffect(() => {
     if (
       stage === 'giveQuest' &&
@@ -110,6 +138,14 @@ export default function Shrine() {
     ) {
       updateQuestFlag('spire', 'in-progress');
       unlockLocation('Spire Mountains');
+    }
+
+    if (
+      stage === 'spireCompleted' &&
+      eventIndex === bobbyDialogue.spireCompleted.length - 1
+    ) {
+      updateQuestFlag('emberfall', 'in-progress');
+      unlockLocation('Emberfall Ruins');
     }
   }, [eventIndex]);
 

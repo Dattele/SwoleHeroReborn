@@ -10,6 +10,7 @@ export default function QuestLog({ isOpen }) {
     const titles = {
       edenGrove: 'Cleanse EdenGrove Forest',
       spire: "The Spire's Crucible",
+      emberfall: "Explore the Ruins of Emberfall"
     };
     return titles[id] || id;
   }
