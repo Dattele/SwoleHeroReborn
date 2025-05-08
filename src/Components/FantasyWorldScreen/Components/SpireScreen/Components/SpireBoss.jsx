@@ -56,7 +56,7 @@ export default function SpireBoss() {
   const leaveChoices = [
     {
       text: 'Inform Bobby',
-      action: '/bronzebell',
+      nextScene: '/bronzebell',
     },
   ];
 

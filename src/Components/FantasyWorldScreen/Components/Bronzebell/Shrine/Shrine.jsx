@@ -46,7 +46,7 @@ export default function Shrine() {
       "'The trees are whispering, and they do not sound hopeful.'",
     ],
 
-    completed: [
+    edenGroveCompleted: [
       "Bobby steps forward, a rare look of hope in his eyes. 'It is done.'",
       "'The corruption is purged. EdenGrove breathes once more. You have done a great thing... though you still smell like gym socks.'",
       "'Now, your path leads beyond Bronzebell. Beyond the familiar. Toward the broken edge of Eldoria - Emberfall Ruins. Climb through the Spire Mountains, and you shall arive.'",
@@ -65,6 +65,11 @@ export default function Shrine() {
       "Bobby smiles. 'Perhaps. Or perhaps the prophecy meant someone a little less sweaty..'",
       "'Go now. Your journey begins anew. And the fate of Eldoria rests upon your absurdly large shoulders.'",
       "He returns to meditation. 'May your strength remain... and your squats remain deep.'",
+    ],
+
+    spireStarted: [
+      "Bobby greets you with a heavy gaze. 'Eldoria still suffers.'",
+      "'You carry strength, but Eldoria runs out of time. You must move quickly!'",
     ],
   };
 
@@ -85,12 +90,12 @@ export default function Shrine() {
     } else if (questFlags['edenGrove'] === 'in-progress') {
       setStage('stillCorrupted');
     } else if (questFlags['edenGrove'] === 'completed') {
-      setStage('completed');
+      setStage('edenGroveCompleted');
     }
   }, []);
 
   // Checks for when the giveQuest dialogue is complete
-  // Add the Spire location and quest when the completed dialogue is complete
+  // Add the Spire location and quest when the edenGroveCompleted dialogue is complete
   useEffect(() => {
     if (
       stage === 'giveQuest' &&
@@ -100,8 +105,8 @@ export default function Shrine() {
     }
 
     if (
-      stage === 'completed' &&
-      eventIndex === bobbyDialogue.completed.length - 1
+      stage === 'edenGroveCompleted' &&
+      eventIndex === bobbyDialogue.edenGroveCompleted.length - 1
     ) {
       updateQuestFlag('spire', 'in-progress');
       unlockLocation('Spire Mountains');
