@@ -321,6 +321,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'HANDLE_SMASH': {
         const { attacker, attack, target } = action.payload;
 
+        // If the attack is a debuff then set true - else false
+        const debuff = attack.effect.includes('-');
+
         // Initializing the log, xp, gold, nextTurnIndex, and turnOrder variables
         let updatedTurnOrder = [...state.turnOrder];
         let nextTurnIndex = state.turnIndex;
@@ -349,7 +352,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`,
           );
         }
-        logs.push(`${target.name} receives a debuff of ${attack.effect}!`);
+
+        // If its a debuff log the action to the enemy, if buff log the action to yourself
+        if (debuff) {
+          logs.push(`${target.name} receives a debuff of ${attack.effect}!`);
+        } else {
+          logs.push(`${attacker.name} receives a buff of ${attack.effect}!`);
+        }
 
         // Update the HP of the target that got hit
         const updatedHP = Math.max(0, target.hp - damage);
@@ -365,9 +374,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           nextTurnIndex = state.turnIndex - 1;
           console.log('target died and next turnIndex is now', nextTurnIndex);
         }
-
-        // Remove the dead enemies/players
-        updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
 
         // Peform these actions when target has been killed
         if (updatedHP === 0) {
@@ -394,35 +400,44 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           }
         }
 
-        // Apply the debuff if target survived
-        if (updatedHP > 0) {
-          const effects = attack.effect.split(',').map((e) => e.trim());
+        // Apply the debuff to the target/attacker
+        const effects = attack.effect.split(',').map((e) => e.trim());
 
-          const applyBuff = (ally) => {
-            let newStats = { ...ally };
+        const applyBuff = (ally) => {
+          let newStats = { ...ally };
 
-            effects.forEach((effect) => {
-              if (effect.includes('strength'))
-                newStats.strength +=
-                  parseInt(effect.replace('strength', ',', '').trim()) || 0;
-              if (effect.includes('defense'))
-                newStats.defense +=
-                  parseInt(effect.replace('defense', ',', '').trim()) || 0;
-              if (effect.includes('speed'))
-                newStats.speed +=
-                  parseInt(effect.replace('speed', ',', '').trim()) || 0;
-              if (effect.includes('rizz'))
-                newStats.rizz +=
-                  parseInt(effect.replace('rizz', ',', '').trim()) || 0;
-            });
+          effects.forEach((effect) => {
+            if (effect.includes('strength'))
+              newStats.strength +=
+                parseInt(effect.replace('strength', ',', '').trim()) || 0;
+            if (effect.includes('defense'))
+              newStats.defense +=
+                parseInt(effect.replace('defense', ',', '').trim()) || 0;
+            if (effect.includes('speed'))
+              newStats.speed +=
+                parseInt(effect.replace('speed', ',', '').trim()) || 0;
+            if (effect.includes('rizz'))
+              newStats.rizz +=
+                parseInt(effect.replace('rizz', ',', '').trim()) || 0;
+          });
 
-            return newStats;
-          };
+          return newStats;
+        };
 
+        // If debuff apply the effect to the enemy, if buff apply to attacker
+        if (debuff) {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
             element.id === target.id ? applyBuff(element) : element,
           );
+        } else {
+          updatedTurnOrder = updatedTurnOrder.map((element) =>
+            element.id === attacker.id ? applyBuff(element) : element,
+          );
         }
+        console.log('updatedTurnOrder after buff/debuff', updatedTurnOrder);
+
+         // Remove the dead enemies/players
+         updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
 
         return {
           ...state,

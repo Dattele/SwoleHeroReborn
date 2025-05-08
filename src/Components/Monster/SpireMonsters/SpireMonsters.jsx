@@ -155,13 +155,13 @@ export const SpireBossMonster = [
     image: Balrog,
     description:
       "A cursed flame elemental sealed deep in the Spire's heart. Its roar melts steel, and its hatred fuels its rebirth",
-    hp: 150,
-    strength: 14,
-    defense: 8,
-    speed: 12,
-    rizz: 20,
+    hp: 200,
+    strength: 25,
+    defense: 14,
+    speed: 18,
+    rizz: 25,
     xp: 150,
-    gold: 50,
+    gold: 100,
     abilities: [
       {
         name: 'Infernal Whip',
@@ -173,6 +173,7 @@ export const SpireBossMonster = [
         name: 'Dark Descent',
         type: 'drain',
         damage: 20,
+        heal: 20,
       },
       {
         name: 'Molten Roar',

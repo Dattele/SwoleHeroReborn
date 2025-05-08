@@ -51,6 +51,13 @@ export default function SpireBoss() {
     },
   ];
 
+  const leaveChoices = [
+    {
+      text: 'Head back to Bobby',
+      action: '/bronzebell',
+    },
+  ];
+
   const handleNextEvent = (event, setIndex) => {
     setIndex((prev) => {
       if (prev < event.length - 1) return prev + 1;
@@ -131,7 +138,7 @@ export default function SpireBoss() {
           {battleEnd === 'win' && (
             <>
               <TextBox text="The Balrog collapses in fire and fury. The summit belongs to the swole.'" />
-              <Choices options={choices} onChoiceSelected={navigate} />
+              <Choices options={leaveChoices} onChoiceSelected={navigate} />
             </>
           )}
         </>
