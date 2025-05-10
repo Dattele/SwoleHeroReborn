@@ -16,10 +16,22 @@ export default function ForestScreen() {
   const [stage, setStage] = useState('intro');
 
   const forestEvents = [
-    {text: 'Danny steps into the forest, the air thick with the scent of moss and damp earth.', image: DanielFace},
-    {text: 'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.', image: DanielFace},
-    {text: "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...", image: DanielFace},
-    {text: "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'", image: DanielFace},
+    {
+      text: 'Danny steps into the forest, the air thick with the scent of moss and damp earth.',
+      image: DanielFace,
+    },
+    {
+      text: 'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.',
+      image: DanielFace,
+    },
+    {
+      text: "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...",
+      image: DanielFace,
+    },
+    {
+      text: "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'",
+      image: DanielFace,
+    },
   ];
 
   const choices = [
@@ -89,7 +101,12 @@ export default function ForestScreen() {
         </>
       ) : (
         <>
-          <TextBox textBox={{ text: "The boys are back in the woods - What's the move?", image: DanielFace }} />
+          <TextBox
+            textBox={{
+              text: "The boys are back in the woods - What's the move?",
+              image: DanielFace,
+            }}
+          />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}

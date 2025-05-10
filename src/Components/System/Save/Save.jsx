@@ -12,20 +12,21 @@ export default function Save({ isOpen }) {
   //console.log(lastSave);
 
   // Get the user's location
-  const location = window.location.pathname.split('/').filter(Boolean).pop() || 'Unknown';
+  const location =
+    window.location.pathname.split('/').filter(Boolean).pop() || 'Unknown';
 
   // Get the current Date
   const timestamp = Date.now();
   const date = new Date(timestamp).toLocaleDateString('en-US', {
     year: 'numeric',
     month: 'long',
-    day: 'numeric'
+    day: 'numeric',
   });
 
   // Get the active quest
-  const activeQuest = Object.keys(questFlags).find(
-    key => questFlags[key] === 'in-progress'
-  ) || "No Active Quests";
+  const activeQuest =
+    Object.keys(questFlags).find((key) => questFlags[key] === 'in-progress') ||
+    'No Active Quests';
 
   // Format the playTime into hrs, mins, and secs
   function formatPlayTime(seconds) {
@@ -35,12 +36,12 @@ export default function Save({ isOpen }) {
     return `${hrs}h ${mins}m ${secs}s`;
   }
 
-  // Format the quest name to match the quest log 
+  // Format the quest name to match the quest log
   function formatQuestName(id) {
     const titles = {
       edenGrove: 'Cleanse EdenGrove Forest',
       spire: "The Spire's Crucible",
-      emberfall: "Explore the Ruins of Emberfall"
+      emberfall: 'Explore the Ruins of Emberfall',
     };
     return titles[id] || id;
   }
@@ -50,26 +51,48 @@ export default function Save({ isOpen }) {
       <div className='Content Save-Content'>
         <h2>💾 Save File</h2>
 
-        <div className="Save-Snapshot">
-          <p className='Save-Location-Text'><strong>📍 Location:</strong> {location || "Unknown"}</p>
-          <p><strong>🎯 Quest:</strong> {formatQuestName(activeQuest) || "None"}</p>
-          <p><strong>🕒 Playtime:</strong> {formatPlayTime(playTime) || "00:00"}</p>
-          <p><strong>🗓️ Date:</strong> {date}</p>
+        <div className='Save-Snapshot'>
+          <p className='Save-Location-Text'>
+            <strong>📍 Location:</strong> {location || 'Unknown'}
+          </p>
+          <p>
+            <strong>🎯 Quest:</strong> {formatQuestName(activeQuest) || 'None'}
+          </p>
+          <p>
+            <strong>🕒 Playtime:</strong> {formatPlayTime(playTime) || '00:00'}
+          </p>
+          <p>
+            <strong>🗓️ Date:</strong> {date}
+          </p>
         </div>
 
-        <button className='Btn' onClick={saveGame}>💾 Create Save</button>
+        <button className='Btn' onClick={saveGame}>
+          💾 Create Save
+        </button>
       </div>
       <div className='Content Load-Content'>
         <h2>💾 Load Save</h2>
 
-        <div className="Load-Snapshot">
-          <p className='Save-Location-Text'><strong>📍 Location:</strong> {lastSave?.location || "Unknown"}</p>
-          <p><strong>🎯 Quest:</strong> {formatQuestName(lastSave?.activeQuest) || "None"}</p>
-          <p><strong>🕒 Playtime:</strong> {formatPlayTime(lastSave?.playTime) || "00:00"}</p>
-          <p><strong>🗓️ Date:</strong> {lastSave?.date}</p>
+        <div className='Load-Snapshot'>
+          <p className='Save-Location-Text'>
+            <strong>📍 Location:</strong> {lastSave?.location || 'Unknown'}
+          </p>
+          <p>
+            <strong>🎯 Quest:</strong>{' '}
+            {formatQuestName(lastSave?.activeQuest) || 'None'}
+          </p>
+          <p>
+            <strong>🕒 Playtime:</strong>{' '}
+            {formatPlayTime(lastSave?.playTime) || '00:00'}
+          </p>
+          <p>
+            <strong>🗓️ Date:</strong> {lastSave?.date}
+          </p>
         </div>
 
-        <button className='Btn' onClick={loadGame}>💾 Load Save</button>
+        <button className='Btn' onClick={loadGame}>
+          💾 Load Save
+        </button>
       </div>
     </div>
   );

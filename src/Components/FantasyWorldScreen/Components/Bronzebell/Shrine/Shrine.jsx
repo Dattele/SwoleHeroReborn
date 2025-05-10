@@ -84,7 +84,7 @@ export default function Shrine() {
       "Danny: 'Is there at least protein in Emberfall?'",
       "Bobby: 'No, but there will be answers... and pain. A lot of pain.'",
       "He stands, eyes steady. 'Go now, before the flame awakes again. Your next rep awaits.'",
-      "**[ New Area Unlocked: Emberfall Ruins ]**",
+      '**[ New Area Unlocked: Emberfall Ruins ]**',
       '**[ Quest Received: Explore the Ruins of Emberfall ]**',
     ],
 
@@ -113,11 +113,11 @@ export default function Shrine() {
       setStage('spireStarted');
     } else if (questFlags['spire'] === 'completed') {
       setStage('spireCompleted');
-    }else if (questFlags['edenGrove'] === 'in-progress') {
+    } else if (questFlags['edenGrove'] === 'in-progress') {
       setStage('stillCorrupted');
     } else if (questFlags['edenGrove'] === 'completed') {
       setStage('edenGroveCompleted');
-    } 
+    }
   }, []);
 
   /* Checks for when the giveQuest dialogue is complete

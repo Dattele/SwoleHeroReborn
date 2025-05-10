@@ -26,29 +26,68 @@ export default function Goat() {
   const navigate = useNavigate();
 
   const goatDialogue = [
-    {text: 'As you approach the Town Square, a bone-chilling bleat echoes through the air.', image: goatFace },
-    {text: 'A Goat is standing in the middle of the street. Menacing. Still. Unblinking.', image: goatFace },
-    {text: "Townfolk whisper in terror — 'Don't make eye contact...' 'It's got plans...' 'It once snuck into the inn and stole a beer.'", image: goatFace },
-    {text: 'Something deep inside you says this Goat is not normal. This Goat is trouble.', image: goatFace },
-    {text: "A desperate farmer rushes up. 'Good sirs - please. That creature has haunted our lives long enough!'", image: danielFace },
-    {text: '**Quest: Remove the Goat**', image: danielFace },
+    {
+      text: 'As you approach the Town Square, a bone-chilling bleat echoes through the air.',
+      image: goatFace,
+    },
+    {
+      text: 'A Goat is standing in the middle of the street. Menacing. Still. Unblinking.',
+      image: goatFace,
+    },
+    {
+      text: "Townfolk whisper in terror — 'Don't make eye contact...' 'It's got plans...' 'It once snuck into the inn and stole a beer.'",
+      image: goatFace,
+    },
+    {
+      text: 'Something deep inside you says this Goat is not normal. This Goat is trouble.',
+      image: goatFace,
+    },
+    {
+      text: "A desperate farmer rushes up. 'Good sirs - please. That creature has haunted our lives long enough!'",
+      image: danielFace,
+    },
+    { text: '**Quest: Remove the Goat**', image: danielFace },
   ];
 
   const attackDialogue = [
-    {text: "Danny, Ja'von, and Ethan charge forward. Danny leads with a fist full of vengeance.", image: danielFace },
-    {text: "The Goat locks eyes with Danny, lets out a menacing 'BLEEEAAT' — and sidesteps like a master.", image: goatFace },
-    {text: "It stomps on Danny's foot causing him to fall onto the ground, then it *launches* itself at Ja'von and Ethan, kicking them both in the face.", image: goatFace },
-    {text: 'They hit the ground with a grunt. The Goat lands, flicks its tail, and vanishes into the crowd.', image: goatFace },
-    {text: "Danny: 'What the hell was that!?'", image: danielFace },
-    {text: "Ja'von: 'That was no ordinary goat.'", image: javonFace },
+    {
+      text: "Danny, Ja'von, and Ethan charge forward. Danny leads with a fist full of vengeance.",
+      image: danielFace,
+    },
+    {
+      text: "The Goat locks eyes with Danny, lets out a menacing 'BLEEEAAT' — and sidesteps like a master.",
+      image: goatFace,
+    },
+    {
+      text: "It stomps on Danny's foot causing him to fall onto the ground, then it *launches* itself at Ja'von and Ethan, kicking them both in the face.",
+      image: goatFace,
+    },
+    {
+      text: 'They hit the ground with a grunt. The Goat lands, flicks its tail, and vanishes into the crowd.',
+      image: goatFace,
+    },
+    { text: "Danny: 'What the hell was that!?'", image: danielFace },
+    { text: "Ja'von: 'That was no ordinary goat.'", image: javonFace },
   ];
 
   const ignoreDialogue = [
-    {text: 'The group looks at the Goat… then at each other.', image: danielFace },
-    {text: "Danny: 'Nah. We're heroes. We don't have time for barnyard drama.'", image: danielFace },
-    {text: 'They laugh and walk off — but Danny pauses. He turns around slowly and the Goat is no longer there.', image: danielFace },
-    {text: "Danny stares in disbelief - '...Guys? It was just staring at me a second ago and now its gone. I swear.'", image: danielFace },
-    {text: "Ethan: 'You're just dehydrated.. Again.'", image: ethanFace },
+    {
+      text: 'The group looks at the Goat… then at each other.',
+      image: danielFace,
+    },
+    {
+      text: "Danny: 'Nah. We're heroes. We don't have time for barnyard drama.'",
+      image: danielFace,
+    },
+    {
+      text: 'They laugh and walk off — but Danny pauses. He turns around slowly and the Goat is no longer there.',
+      image: danielFace,
+    },
+    {
+      text: "Danny stares in disbelief - '...Guys? It was just staring at me a second ago and now its gone. I swear.'",
+      image: danielFace,
+    },
+    { text: "Ethan: 'You're just dehydrated.. Again.'", image: ethanFace },
   ];
 
   const npcChoices = [
@@ -190,7 +229,10 @@ export default function Goat() {
       ) : (
         <>
           <TextBox
-            textBox={{ text: 'You shiver as if someone.. or something is watching you', image: goatFace }}
+            textBox={{
+              text: 'You shiver as if someone.. or something is watching you',
+              image: goatFace,
+            }}
           />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>

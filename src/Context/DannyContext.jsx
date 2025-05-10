@@ -508,21 +508,23 @@ export function DannyProvider({ children }) {
   // Save the game
   const saveGame = () => {
     // Get the active quest
-    const activeQuest = Object.keys(state.questFlags).find(
-      key => state.questFlags[key] === 'in-progress'
-    ) || "No Active Quests";
+    const activeQuest =
+      Object.keys(state.questFlags).find(
+        (key) => state.questFlags[key] === 'in-progress',
+      ) || 'No Active Quests';
 
     // Get the user's location
-    const location = window.location.pathname.split('/').filter(Boolean).pop() || 'Unknown';
+    const location =
+      window.location.pathname.split('/').filter(Boolean).pop() || 'Unknown';
 
     // Get the current Date
     const timestamp = Date.now();
     const date = new Date(timestamp).toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
-      day: 'numeric'
+      day: 'numeric',
     });
-  
+
     // Save all of the user's data
     const saveData = {
       timestamp: Date.now(),
@@ -532,7 +534,7 @@ export function DannyProvider({ children }) {
       date,
       stateSnapshot: { ...state },
     };
-  
+
     // Creating the save slot
     localStorage.setItem('saveSlot1', JSON.stringify(saveData));
     alert('Game saved. 💾 Your gains are now safe!');
@@ -545,10 +547,10 @@ export function DannyProvider({ children }) {
       alert('No saved game found.');
       return;
     }
-  
+
     const saveData = JSON.parse(saved);
     console.log('Loaded Save:', saveData);
-  
+
     // Update the state values
     dispatch({
       type: 'LOAD_GAME',
@@ -563,7 +565,7 @@ export function DannyProvider({ children }) {
     const interval = setInterval(() => {
       dispatch({ type: 'INCREMENT_PLAYTIME' });
     }, 1000);
-  
+
     return () => clearInterval(interval);
   }, []);
 

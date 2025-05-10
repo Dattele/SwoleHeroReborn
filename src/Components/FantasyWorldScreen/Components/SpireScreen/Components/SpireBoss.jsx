@@ -98,7 +98,7 @@ export default function SpireBoss() {
     if (battleEnd === 'win') {
       updateQuestFlag('spire', 'completed');
     }
-  }, [battleEnd])
+  }, [battleEnd]);
 
   return (
     <div

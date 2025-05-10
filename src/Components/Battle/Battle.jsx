@@ -436,8 +436,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         }
         console.log('updatedTurnOrder after buff/debuff', updatedTurnOrder);
 
-         // Remove the dead enemies/players
-         updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
+        // Remove the dead enemies/players
+        updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0);
 
         return {
           ...state,
