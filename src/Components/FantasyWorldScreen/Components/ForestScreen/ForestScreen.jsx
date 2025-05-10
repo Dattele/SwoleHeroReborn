@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
+
+import DanielFace from '../../../../assets/images/DanielFace.png';
 import forestBackground from '../../../../assets/images/EdenGrove.png';
 
 import '../../../../scss/All.scss';
@@ -14,10 +16,10 @@ export default function ForestScreen() {
   const [stage, setStage] = useState('intro');
 
   const forestEvents = [
-    'Danny steps into the forest, the air thick with the scent of moss and damp earth.',
-    'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.',
-    "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...",
-    "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'",
+    {text: 'Danny steps into the forest, the air thick with the scent of moss and damp earth.', image: DanielFace},
+    {text: 'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.', image: DanielFace},
+    {text: "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...", image: DanielFace},
+    {text: "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'", image: DanielFace},
   ];
 
   const choices = [
@@ -75,7 +77,7 @@ export default function ForestScreen() {
     >
       {stage !== 'options' ? (
         <>
-          <TextBox text={forestEvents[eventIndex]} />
+          <TextBox textBox={forestEvents[eventIndex]} />
 
           {eventIndex === forestEvents.length - 1 ? (
             <Choices options={choices} onChoiceSelected={navigate} />
@@ -87,7 +89,7 @@ export default function ForestScreen() {
         </>
       ) : (
         <>
-          <TextBox text={"The boys are back in the woods - What's the move?"} />
+          <TextBox textBox={{ text: "The boys are back in the woods - What's the move?", image: DanielFace }} />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}

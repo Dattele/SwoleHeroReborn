@@ -9,6 +9,7 @@ import { useDanny } from '../../../../../Context/DannyContext';
 import Ironhide from '../../../../../assets/images/Ironhide.webp';
 import IronhideIntro from '../../../../../assets/images/IronhideIntro.webp';
 
+import DanielFace from '../../../../../assets/images/DanielFace.png';
 import Ethan from '../../../../../assets/images/Ethan.png';
 import EthanFace from '../../../../../assets/images/EthanFace.png';
 
@@ -41,26 +42,26 @@ export default function IronHide() {
   };
 
   const ethanIntro = [
-    'You walk into the tavern and chaos surrounds you. Two men are flying across a table. A third is unconscious in the corner.',
-    'A huge man slams another patron head-first into a plate of boiled potatoes.',
-    "'THAT'S FOR INSULTING MY ARM HAIR!' he roars.",
-    "The bartender sighs. 'Ethan, that's the third table today.'",
-    "Ethan shrugs. 'Build stronger tables then.'",
-    "Danny approaches cautiously. 'Hey, you single? Asking for a friend..'",
-    "Ethan turns to you, red-faced and towering. 'Who are you and why do you smell like chalk?'",
-    "'Danny. Hero. Lifter. Looking for a hot girlfriend.'",
-    "Ethan raises an eyebrow. 'You look like a protein shake with abandonment issues.'",
-    "Danny grins. 'And you look like a keg with daddy issues.'",
-    "Ethan lets out a loud laugh. 'Alright, you've got guts, I will give you that'",
-    "He drops into a chair and gestures for you to sit. 'You ever watch everything you love burn?'",
-    "'My homeland's gone. The Demon King took it. All I've got left now are my fists and my liver.'",
-    "Danny nods. 'Same. Except I lost my gym membership, not my homeland.'",
-    "Ethan stares at you. '...Man you really are an idiot, aren't you?'",
-    "Danny - 'And yet... here you are - standing in front of a living legend with beer breath and trauma issues.'",
-    "Ethan just stares at Danny then lets out a short laugh - 'you are insane'",
-    "Danny shrugs - 'Insanity is just confidence without limits. Now Come with me - I'll need someone to spot me while I out-bench the Demon King.'",
-    "Ethan sighs. 'Fine. I guess it will be fun watching you die.'",
-    '[ Ethan has joined your party! 🎉 ]',
+    { text: 'You walk into the tavern and chaos surrounds you. Two men are flying across a table. A third is unconscious in the corner.', image: EthanFace }, 
+    { text: 'A huge man slams another patron head-first into a plate of boiled potatoes.', image: EthanFace },
+    { text: "'THAT'S FOR INSULTING MY ARM HAIR!' he roars.", image: EthanFace },
+    { text: "The bartender sighs. 'Ethan, that's the third table today.'", image: EthanFace },
+    { text: "Ethan shrugs. 'Build stronger tables then.'", image: EthanFace },
+    { text: "Danny approaches cautiously. 'Hey, you single? Asking for a friend..'", image: DanielFace },
+    { text: "Ethan turns to you, red-faced and towering. 'Who are you and why do you smell like chalk?'", image: EthanFace },
+    { text: "'Danny. Hero. Lifter. Looking for a hot girlfriend.'", image: DanielFace },
+    { text: "Ethan raises an eyebrow. 'You look like a protein shake with abandonment issues.'", image: EthanFace },
+    { text: "Danny grins. 'And you look like a keg with daddy issues.'", image: DanielFace },
+    { text: "Ethan lets out a loud laugh. 'Alright, you've got guts, I will give you that'",  image: EthanFace },
+    { text: "He drops into a chair and gestures for you to sit. 'You ever watch everything you love burn?'", image: EthanFace },
+    { text: "'My homeland's gone. The Demon King took it. All I've got left now are my fists and my liver.'", image: EthanFace },
+    { text: "Danny nods. 'Same. Except I lost my gym membership, not my homeland.'", image: DanielFace },
+    { text: "Ethan stares at you. '...Man you really are an idiot, aren't you?'", image: EthanFace },
+    { text: "Danny - 'And yet... here you are - standing in front of a living legend with beer breath and trauma issues.'", image: DanielFace },
+    { text: "Ethan just stares at Danny then lets out a short laugh - 'you are insane'", image: EthanFace },
+    { text: "Danny shrugs - 'Insanity is just confidence without limits. Now Come with me - I'll need someone to spot me while I out-bench the Demon King.'", image: DanielFace },
+    { text: "Ethan sighs. 'Fine. I guess it will be fun watching you die.'", image: EthanFace },
+    { text: '[ Ethan has joined your party! 🎉 ]', image: EthanFace },
   ];
 
   const ironhideNPCs = [
@@ -109,7 +110,7 @@ export default function IronHide() {
     >
       {stage !== 'options' ? (
         <>
-          <TextBox text={ethanIntro[eventIndex]} />
+          <TextBox textBox={ethanIntro[eventIndex]} />
           <button className='Next-Btn' onClick={handleNextEvent}>
             Next
           </button>
@@ -117,9 +118,10 @@ export default function IronHide() {
       ) : (
         <>
           <TextBox
-            text={
-              "Danny looks around the tavern - 'All right, who should I grace with my presence.'"
-            }
+            textBox={{
+              text: "Danny looks around the tavern - 'All right, who should I grace with my presence.'",
+              image:  DanielFace,
+            }}
           />
           <Choices options={ironhideNPCs} onChoiceSelected={navigate} />
         </>

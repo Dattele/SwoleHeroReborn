@@ -63,10 +63,10 @@ export default function Save({ isOpen }) {
         <h2>💾 Load Save</h2>
 
         <div className="Load-Snapshot">
-          <p className='Save-Location-Text'><strong>📍 Location:</strong> {lastSave.location || "Unknown"}</p>
-          <p><strong>🎯 Quest:</strong> {formatQuestName(lastSave.activeQuest) || "None"}</p>
-          <p><strong>🕒 Playtime:</strong> {formatPlayTime(lastSave.playTime) || "00:00"}</p>
-          <p><strong>🗓️ Date:</strong> {lastSave.date}</p>
+          <p className='Save-Location-Text'><strong>📍 Location:</strong> {lastSave?.location || "Unknown"}</p>
+          <p><strong>🎯 Quest:</strong> {formatQuestName(lastSave?.activeQuest) || "None"}</p>
+          <p><strong>🕒 Playtime:</strong> {formatPlayTime(lastSave?.playTime) || "00:00"}</p>
+          <p><strong>🗓️ Date:</strong> {lastSave?.date}</p>
         </div>
 
         <button className='Btn' onClick={loadGame}>💾 Load Save</button>

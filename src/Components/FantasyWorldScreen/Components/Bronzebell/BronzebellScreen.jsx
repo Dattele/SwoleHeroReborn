@@ -6,6 +6,8 @@ import Choices from '../../../Choices/Choices';
 
 import Bronzebell from '../../../../assets/images/Bronzebell.webp';
 import BronzebellGate from '../../../../assets/images/BronzebellGate.webp';
+import bronzeGuard from '../../../../assets/images/BronzeGuard.png';
+import danielFace from '../../../../assets/images/DanielFace.png';
 
 import '../../../../scss/All.scss';
 
@@ -16,17 +18,17 @@ export default function BronzebellScreen() {
   const [eventIndex, setEventIndex] = useState(0);
 
   const bronzebellIntro = [
-    'After surviving EdenGrove Forest and somehow getting even sweatier, Danny finally arrives at the edge of a fortified town.',
-    'The gates open without question, and the scent of roasted meat, steel, and slightly questionable herbal supplements fill the air.',
-    'A guard gives Danny a quick once-over, then immediately looks away, as if unsure if he just saw a hero or a fever dream.',
+    { text: 'After surviving EdenGrove Forest and somehow getting even sweatier, Danny finally arrives at the edge of a fortified town.', image: danielFace },
+    { text: 'The gates open without question, and the scent of roasted meat, steel, and slightly questionable herbal supplements fill the air.', image: bronzeGuard },
+    { text: 'A guard gives Danny a quick once-over, then immediately looks away, as if unsure if he just saw a hero or a fever dream.', image: bronzeGuard },
   ];
 
   const bronzebellEvents = [
-    "'Welcome to Bronzebell... maybe I'll finally find a girlfriend here,' Danny says - flexing at absolutely no one.",
-    'The people in town just stop and stare at him - wondering if he is clinically insane',
-    "Danny nods to himself. 'They are probably just intimidated by my gains.'",
-    'He adjusts his lifting belt unnecessarily tight and struts deeper into town, confident in his delusion.',
-    'Somewhere nearby, a goat bleats menacingly.',
+    { text: "'Welcome to Bronzebell... maybe I'll finally find a girlfriend here,' Danny says - flexing at absolutely no one.", image: danielFace },
+    { text: 'The people in town just stop and stare at him - wondering if he is clinically insane', image: danielFace },
+    { text: "Danny nods to himself. 'They are probably just intimidated by my gains.'", image: danielFace },
+    { text: 'He adjusts his lifting belt unnecessarily tight and struts deeper into town, confident in his delusion.', image: danielFace },
+    { text: 'Somewhere nearby, a goat bleats menacingly.', image: danielFace },
   ];
 
   const locationChoices = [
@@ -80,7 +82,7 @@ export default function BronzebellScreen() {
       {stage !== 'options' ? (
         <>
           <TextBox
-            text={
+            textBox={
               stage === 'intro'
                 ? bronzebellIntro[eventIndex]
                 : bronzebellEvents[eventIndex]
@@ -92,7 +94,7 @@ export default function BronzebellScreen() {
         </>
       ) : (
         <>
-          <TextBox text={'What would you like to check out?'} />
+          <TextBox textBox={{ text: 'What would you like to check out?', image: danielFace }} />
           <Choices options={locationChoices} onChoiceSelected={navigate} />
         </>
       )}

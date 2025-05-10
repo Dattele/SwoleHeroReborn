@@ -4,11 +4,11 @@ import DanielFace from '../../assets/images/DanielFace.png';
 
 import './TextBox.scss';
 
-export default function TextBox({ text, image = DanielFace }) {
+export default function TextBox({ textBox }) {
   return (
     <div className='Text-Box'>
-      <img src={image} alt="Daniel's Face" />
-      <p>{text}</p>
+      <img src={textBox.image} alt="Daniel's Face" />
+      <p>{textBox.text}</p>
     </div>
   );
 }
