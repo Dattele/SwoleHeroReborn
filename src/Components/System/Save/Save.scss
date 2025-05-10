@@ -1,0 +1,32 @@
+.Save-Overlay.Closed {
+  display: none;
+}
+
+.Save-Overlay {
+  max-width: 800px;
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  color: #f3e8ee;
+  font-size: 1.25rem;
+
+  h2 {
+    align-self: center;
+  }
+
+  .Btn {
+    align-self: center;
+  }
+
+  &:not(:last-child) {
+    margin-right: 2rem;
+  }
+}
+
+.Save-Location-Text {
+  text-transform: capitalize;
+}

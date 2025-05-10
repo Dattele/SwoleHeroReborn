@@ -10,6 +10,7 @@ import Javon from '../assets/images/Javon.png';
 import JavonFace from '../assets/images/JavonFace.png';
 
 const DannyContext = createContext();
+const lastSave = JSON.parse(localStorage?.getItem('saveSlot1')); // User's last save
 
 // Provide Context to the App
 export function DannyProvider({ children }) {
@@ -73,13 +74,14 @@ export function DannyProvider({ children }) {
   };
 
   const initialState = {
-    wolfKills: 0,
-    gold: 0,
-    inventory: [],
-    party: [Danny],
-    goatState: { sightings: 0 },
-    questFlags: {},
-    locations: [
+    wolfKills: lastSave?.stateSnapshot?.wolfKills || 0,
+    gold: lastSave?.stateSnapshot?.gold || 0,
+    inventory: lastSave?.stateSnapshot?.inventory || [],
+    party: lastSave?.stateSnapshot?.party || [Danny],
+    goatState: lastSave?.stateSnapshot?.goatState || { sightings: 0 },
+    questFlags: lastSave?.stateSnapshot?.questFlags || {},
+    playTime: lastSave?.stateSnapshot?.playTime || 0,
+    locations: lastSave?.stateSnapshot?.locations || [
       {
         name: 'EdenGrove Forest',
         top: '23%',
@@ -344,6 +346,16 @@ export function DannyProvider({ children }) {
           locations: updateLocations,
         };
       }
+      case 'INCREMENT_PLAYTIME': {
+        const newPlayTime = state.playTime + 1;
+        localStorage.setItem('playTime', newPlayTime);
+        return {
+          ...state,
+          playTime: newPlayTime,
+        };
+      }
+      case 'SAVE_GAME':
+        return { ...state };
       default: {
         return state;
       }
@@ -353,9 +365,6 @@ export function DannyProvider({ children }) {
   const [state, dispatch] = useReducer(DannyReducer, {
     ...initialState,
   });
-
-  console.log('party', state.party);
-  console.log('gold', state.gold);
 
   // Level Up Function
   const levelUp = (name, classData) => {
@@ -489,6 +498,48 @@ export function DannyProvider({ children }) {
     });
   };
 
+  // Save the game
+  const saveGame = () => {
+    // Get the active quest
+    const activeQuest = Object.keys(state.questFlags).find(
+      key => state.questFlags[key] === 'in-progress'
+    ) || "No Active Quests";
+
+    // Get the user's location
+    const location = window.location.pathname.split('/').filter(Boolean).pop() || 'Unknown';
+
+    // Get the current Date
+    const timestamp = Date.now();
+    const date = new Date(timestamp).toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  
+    // Save all of the user's data
+    const saveData = {
+      timestamp: Date.now(),
+      location,
+      playTime: state.playTime,
+      activeQuest,
+      date,
+      stateSnapshot: { ...state },
+    };
+  
+    // Creating the save slot
+    localStorage.setItem('saveSlot1', JSON.stringify(saveData));
+    alert('Game saved. 💾 Your gains are now safe!');
+  };
+
+  // Updating the timer
+  useEffect(() => {
+    const interval = setInterval(() => {
+      dispatch({ type: 'INCREMENT_PLAYTIME' });
+    }, 1000);
+  
+    return () => clearInterval(interval);
+  }, []);
+
   // Creating a useEffect to pass my functions into the window to be used for testing
   useEffect(() => {
     window.levelUp = levelUp;
@@ -527,6 +578,7 @@ export function DannyProvider({ children }) {
         restorePartyHP,
         updateQuestFlag,
         unlockLocation,
+        saveGame
       }}
     >
       {children}
