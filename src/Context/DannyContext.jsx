@@ -354,8 +354,15 @@ export function DannyProvider({ children }) {
           playTime: newPlayTime,
         };
       }
-      case 'SAVE_GAME':
+      case 'SAVE_GAME': {
         return { ...state };
+      }
+      case 'LOAD_GAME': {
+        return {
+          ...state,
+          ...action.payload,
+        };
+      }
       default: {
         return state;
       }
@@ -531,6 +538,26 @@ export function DannyProvider({ children }) {
     alert('Game saved. 💾 Your gains are now safe!');
   };
 
+  // Load the last save file
+  const loadGame = () => {
+    const saved = localStorage.getItem('saveSlot1');
+    if (!saved) {
+      alert('No saved game found.');
+      return;
+    }
+  
+    const saveData = JSON.parse(saved);
+    console.log('Loaded Save:', saveData);
+  
+    // Update the state values
+    dispatch({
+      type: 'LOAD_GAME',
+      payload: saveData.stateSnapshot,
+    });
+
+    alert('Game loaded!');
+  };
+
   // Updating the timer
   useEffect(() => {
     const interval = setInterval(() => {
@@ -578,7 +605,8 @@ export function DannyProvider({ children }) {
         restorePartyHP,
         updateQuestFlag,
         unlockLocation,
-        saveGame
+        saveGame,
+        loadGame,
       }}
     >
       {children}

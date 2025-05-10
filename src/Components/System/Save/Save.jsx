@@ -5,7 +5,7 @@ import { useDanny } from '../../../Context/DannyContext';
 import './Save.scss';
 
 export default function Save({ isOpen }) {
-  const { playTime, questFlags, saveGame } = useDanny();
+  const { playTime, questFlags, saveGame, loadGame } = useDanny();
 
   // Get the user's last save if it exists
   const lastSave = JSON.parse(localStorage?.getItem('saveSlot1'));
@@ -69,7 +69,7 @@ export default function Save({ isOpen }) {
           <p><strong>🗓️ Date:</strong> {lastSave.date}</p>
         </div>
 
-        <button className='Btn' onClick={saveGame}>💾 Load Save</button>
+        <button className='Btn' onClick={loadGame}>💾 Load Save</button>
       </div>
     </div>
   );
