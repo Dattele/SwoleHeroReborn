@@ -8,7 +8,9 @@ import Rest from '../../../../../System/Rest';
 import Items from '../../../../../System/Items';
 import { useDanny } from '../../../../../../Context/DannyContext';
 
-import IronhideBartender from '../../../../../../assets/images/IronhideBartender.webp';
+import Lisa from '../../../../../../assets/images/Lisa.png';
+import LisaFace from '../../../../../../assets/images/LisaFace.png';
+import DanielFace from '../../../../../../assets/images/DanielFace.png';
 
 import '../../../../../../scss/All.scss';
 
@@ -31,7 +33,6 @@ export default function Bartender() {
     { text: '🪑 Go back to your seat', action: 'leave' },
   ];
 
-  console.log('partyy', party);
   const danny = party?.find((member) => member.name === 'Danny');
   const dannyRizz = danny?.rizz ?? 0;
 
@@ -74,23 +75,44 @@ export default function Bartender() {
       // }
       //Smooth talker
       setRizzText([
-        "You lean in with the confidence of a man who curls his emotions - 'One drink from you and I'm already dizzy.'",
-        "Lisa pauses, smirks, and says, 'Careful. I might just like idiots with big biceps.'",
-        "You feel your confidence swell as your aura surges outward - It's glowing... and kind of swole? (+1 rizz)",
+        {
+          text: "You lean in with the confidence of a man who curls his emotions - 'One drink from you and I'm already dizzy.'",
+          image: DanielFace,
+        },
+        {
+          text: "Lisa pauses, smirks, and says, 'Careful. I might just like idiots with big biceps.'",
+          image: LisaFace,
+        },
+        {
+          text: "You feel your confidence swell as your aura surges outward - It's glowing... and kind of swole? (+1 rizz)",
+          image: DanielFace,
+        },
       ]);
       //changeRizz(1)
     } else if (rizz >= 4) {
       //Awkward
       setRizzText([
-        'Bartenders like strong drinks, right? Good thing I come in bulk.',
-        "Lisa hands him a glass of water - 'Hydrate. That was painful.'",
+        {
+          text: 'Bartenders like strong drinks, right? Good thing I come in bulk.',
+          image: DanielFace,
+        },
+        {
+          text: "Lisa hands him a glass of water - 'Hydrate. That was painful.'",
+          image: LisaFace,
+        },
       ]);
     } else {
       //Terrible
       setRizzText([
-        "Danny: 'Did it hurt when you fell from the protein shelf?'",
-        "Lisa just stares. 'Wow. That pickup line just made me file for worker's comp.'",
-        'You lose 1 HP from emotional damage.',
+        {
+          text: "Danny: 'Did it hurt when you fell from the protein shelf?'",
+          image: DanielFace,
+        },
+        {
+          text: "Lisa just stares. 'Wow. That pickup line just made me file for worker's comp.'",
+          image: LisaFace,
+        },
+        { text: 'Danny loses 1 HP from emotional damage.', image: DanielFace },
       ]);
       const danny = party.find((member) => member.name === 'Danny');
       decreaseHP(danny, 1);
@@ -127,16 +149,17 @@ export default function Bartender() {
         <div
           className='Screen Full-Screen Bartender-Screen'
           style={{
-            backgroundImage: `url(${IronhideBartender})`,
+            backgroundImage: `url(${Lisa})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
           }}
         >
           <TextBox
-            text={
-              "The Demon King? Word is he just took Caldrith Port - one of Eldoria's last strongholds. You want my advice, tough guy? Stay out of it - Dead men don't lift"
-            }
+            textBox={{
+              text: "The Demon King? Word is he just took Caldrith Port - one of Eldoria's last strongholds. You want my advice, tough guy? Stay out of it - Dead men don't lift",
+              image: LisaFace,
+            }}
           />
           <button className='Btn' onClick={() => setShowDemonKing(false)}>
             I am scared of no man.. I can bench 225!
@@ -146,13 +169,13 @@ export default function Bartender() {
         <div
           className='Screen Full-Screen Bartender-Screen'
           style={{
-            backgroundImage: `url(${IronhideBartender})`,
+            backgroundImage: `url(${Lisa})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
           }}
         >
-          <TextBox text={rizzText[rizzIndex]} />
+          <TextBox textBox={rizzText[rizzIndex]} />
           {rizzIndex === rizzText.length - 1 ? (
             <button className='Btn' onClick={() => resetRizz()}>
               Go back
@@ -167,13 +190,18 @@ export default function Bartender() {
         <div
           className='Screen Full-Screen Bartender-Screen'
           style={{
-            backgroundImage: `url(${IronhideBartender})`,
+            backgroundImage: `url(${Lisa})`,
             backgroundSize: 'contain',
             backgroundRepeat: 'no-repeat',
             backgroundPosition: 'center',
           }}
         >
-          <TextBox text={'Welcome to Ironhide, what can I do for you?'} />
+          <TextBox
+            textBox={{
+              text: 'Welcome to Ironhide, what can I do for you?',
+              image: LisaFace,
+            }}
+          />
           <NPCChoices options={choices} onChoiceSelected={handleChoice} />
         </div>
       )}

@@ -59,7 +59,8 @@ export default function Save({ isOpen }) {
             <strong>🎯 Quest:</strong> {formatQuestName(activeQuest) || 'None'}
           </p>
           <p>
-            <strong>🕒 Playtime:</strong> {playTime ? formatPlayTime(playTime) : '00:00'}
+            <strong>🕒 Playtime:</strong>{' '}
+            {playTime ? formatPlayTime(playTime) : '00:00'}
           </p>
           <p>
             <strong>🗓️ Date:</strong> {date || 'None'}
@@ -83,7 +84,9 @@ export default function Save({ isOpen }) {
           </p>
           <p>
             <strong>🕒 Playtime:</strong>{' '}
-            {lastSave?.playTime ? formatPlayTime(lastSave?.playTime) : '0h 0m 0s'}
+            {lastSave?.playTime
+              ? formatPlayTime(lastSave?.playTime)
+              : '0h 0m 0s'}
           </p>
           <p>
             <strong>🗓️ Date:</strong> {lastSave?.date || 'None'}

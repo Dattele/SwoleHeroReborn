@@ -4,7 +4,10 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../../../../Context/DannyContext';
 import TextBox from '../../../../../TextBox';
 import Choices from '../../../../../Choices';
+
+import DanielFace from '../../../../../../assets/images/DanielFace.png';
 import ToughGuyScene from '../../../../../../assets/images/ToughGuyScene.png';
+import ToughGuyFace from '../../../../../../assets/images/ToughGuyFace.png';
 
 import './Components.scss';
 import '../../../../../../scss/All.scss';
@@ -17,13 +20,34 @@ export default function ToughGuy() {
   const navigate = useNavigate();
 
   const toughGuyDialogue = [
-    'You spot a bulky man at the end of the bar, cracking his knuckles and glaring at a mug like it owes him money.',
-    "'You look like trouble,' he growls. 'Wanna lose in an arm wrestle to someone with calluses older than you?'",
-    "Danny just laughs - 'Buddy, my biceps have biceps. Let's go.'",
-    "You lock arms. 'Three... two... one—GO!' There's tension. Sweat. And dramatic grunts.",
-    'A loud THWACK echoes as Danny slams the guys hand down through the table',
-    "Tough Guy grimaces in pain as Danny stands up - 'I train arms every day that ends in Y.'",
-    'The man groans and tosses you a small coin pouch. [ You earned 5 gold 💰 ]',
+    {
+      text: 'You spot a bulky man at the end of the bar, cracking his knuckles and glaring at a mug like it owes him money.',
+      image: DanielFace,
+    },
+    {
+      text: "'You look like trouble,' he growls. 'Wanna lose in an arm wrestle to someone with calluses older than you?'",
+      image: ToughGuyFace,
+    },
+    {
+      text: "Danny just laughs - 'Buddy, my biceps have biceps. Let's go.'",
+      image: DanielFace,
+    },
+    {
+      text: "You lock arms. 'Three... two... one—GO!' There's tension. Sweat. And dramatic grunts.",
+      image: DanielFace,
+    },
+    {
+      text: 'A loud THWACK echoes as Danny slams the guys hand down through the table',
+      image: DanielFace,
+    },
+    {
+      text: "Tough Guy grimaces in pain as Danny stands up - 'I train arms every day that ends in Y.'",
+      image: DanielFace,
+    },
+    {
+      text: 'The man groans and tosses you a small coin pouch. [ You earned 5 gold 💰 ]',
+      image: ToughGuyFace,
+    },
   ];
 
   const choices = [
@@ -81,7 +105,7 @@ export default function ToughGuy() {
     >
       {stage !== 'options' ? (
         <>
-          <TextBox text={toughGuyDialogue[eventIndex]} />
+          <TextBox textBox={toughGuyDialogue[eventIndex]} />
 
           {eventIndex === toughGuyDialogue.length - 1 ? (
             <Choices options={choices} onChoiceSelected={navigate} />
@@ -93,7 +117,12 @@ export default function ToughGuy() {
         </>
       ) : (
         <>
-          <TextBox text={"Let's go cheer him up (by reminding him who won)."} />
+          <TextBox
+            textBox={{
+              text: "Let's go cheer him up (by reminding him who won).",
+              image: DanielFace,
+            }}
+          />
           <Choices options={secondTimeChoices} onChoiceSelected={navigate} />
         </>
       )}
