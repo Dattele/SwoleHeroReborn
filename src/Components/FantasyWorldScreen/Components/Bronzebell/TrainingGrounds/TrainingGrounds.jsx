@@ -6,6 +6,7 @@ import Choices from '../../../../Choices/Choices';
 import Classes from '../../../../System/Classes';
 import { useDanny } from '../../../../../Context/DannyContext';
 
+import DanielFace from '../../../../../assets/images/DanielFace.png';
 import Grounds from '../../../../../assets/images/TrainingGrounds.webp';
 import Javon from '../../../../../assets/images/Javon.png';
 import JavonFace from '../../../../../assets/images/JavonFace.png';
@@ -13,7 +14,7 @@ import JavonFace from '../../../../../assets/images/JavonFace.png';
 import '../../../../../scss/All.scss';
 
 export default function TrainingGrounds() {
-  const { party, addPartyMember } = useDanny();
+  const { addPartyMember } = useDanny();
   const navigate = useNavigate();
 
   const [stage, setStage] = useState('intro');
@@ -38,35 +39,75 @@ export default function TrainingGrounds() {
     imageFace: JavonFace,
   };
 
-  const context = useDanny();
-  //console.log('context', context);
-  const ethan = party.find((member) => member.name === 'Ethan, the Brute');
-  //console.log('ethan', ethan);
-
   const trainingGroundsIntro = [
-    'You arrive at the Bronzebell Training Grounds - you hear the clashing of steel and the shouts of a small crowd.',
-    'Two fighters circle each other - one in battered armor, the other moving with regal precision.',
-    "The armored figure lunges - but in a flash, he's disarmed. His weapon clatters to the ground. The crowd gasps.",
-    "'And that is why posture matters,' the victor says, smoothly sheathing his blade.",
-    "He turns towards you - tall, poised, and disgustingly attractive. 'Ja'von, Prince of Feymere. And you are?'",
-    "You step forward. 'Danny. Professional lifter. Big time hero. On a quest to defeat the Demon King... and maybe get a girlfriend out of it.'",
+    {
+      text: 'You arrive at the Bronzebell Training Grounds - you hear the clashing of steel and the shouts of a small crowd.',
+      image: DanielFace,
+    },
+    {
+      text: 'Two fighters circle each other - one in battered armor, the other moving with regal precision.',
+      image: JavonFace,
+    },
+    {
+      text: "The armored figure lunges - but in a flash, he's disarmed. His weapon clatters to the ground. The crowd gasps.",
+      image: JavonFace,
+    },
+    {
+      text: "'And that is why posture matters,' the victor says, smoothly sheathing his blade.",
+      image: JavonFace,
+    },
+    {
+      text: "He turns towards you - tall, poised, and disgustingly attractive. 'Ja'von, Prince of Feymere. And you are?'",
+      image: JavonFace,
+    },
+    {
+      text: "You step forward. 'Danny. Professional lifter. Big time hero. On a quest to defeat the Demon King... and maybe get a girlfriend out of it.'",
+      image: DanielFace,
+    },
   ];
 
-  const ethanLine =
-    "Ethan snorts. 'This guy looks like he moisturizes with perfume and confidence.'";
-
   const javonDialogue = [
-    "'A noble mission,' Ja'von says with a slight smirk. 'Even if your fashion sense is... outdated.'",
-    "Danny flexes. 'What about it? Flexing is universal anyways.'",
-    "'So is courage,' Ja'von replies, stepping into the dueling circle. 'But strength without refinement is meaningless. Shall we see if you are more than just muscle?'",
-    "Danny cracks his neck. 'Just a warning - I once broke a squat rack with emotional baggage alone.'",
-    "They square off. A few light clashes - Ja'von's blade precise, Danny's power unrelenting.",
-    "Eventually, Ja'von disarms Danny… but Danny managed to make him step back twice throughout the fight.",
-    "'You fight like a storm in a tavern,' Ja'von says, lowering his blade. 'Chaotic and loud, but effective.'",
-    "'Feymere fell to the Demon King. My people are gone, my throne is ash - but my sword is still mine, and I will lend it to your cause.'",
-    "'Let me fight beside you, that monster needs to be taken down. I offer strength... and Rizz.'",
-    "Danny hesitates for a second - scared that he will take all the girls - 'Fine, just know I can still out-bench you though'",
-    "[ Ja'von has joined your party! 🗡️✨ ]",
+    {
+      text: "'A noble mission,' Ja'von says with a slight smirk. 'Even if your fashion sense is... outdated.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny flexes. 'What about it? Flexing is universal anyways.'",
+      image: DanielFace,
+    },
+    {
+      text: "'So is courage,' Ja'von replies, stepping into the dueling circle. 'But strength without refinement is meaningless. Shall we see if you are more than just muscle?'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny cracks his neck. 'Just a warning - I once broke a squat rack with emotional baggage alone.'",
+      image: DanielFace,
+    },
+    {
+      text: "They square off. A few light clashes - Ja'von's blade precise, Danny's power unrelenting.",
+      image: DanielFace,
+    },
+    {
+      text: "Eventually, Ja'von disarms Danny… but Danny managed to make him step back twice throughout the fight.",
+      image: DanielFace,
+    },
+    {
+      text: "'You fight like a storm in a tavern,' Ja'von says, lowering his blade. 'Chaotic and loud, but effective.'",
+      image: JavonFace,
+    },
+    {
+      text: "'Feymere fell to the Demon King. My people are gone, my throne is ash - but my sword is still mine, and I will lend it to your cause.'",
+      image: JavonFace,
+    },
+    {
+      text: "'Let me fight beside you, that monster needs to be taken down. I offer strength... and Rizz.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny hesitates for a second - scared that he will take all the girls - 'Fine, just know I can still out-bench you though'",
+      image: DanielFace,
+    },
+    { text: "[ Ja'von has joined your party! 🗡️✨ ]", image: JavonFace },
   ];
 
   const fullDialogue = [
@@ -108,16 +149,13 @@ export default function TrainingGrounds() {
     >
       {stage !== 'options' ? (
         <>
-          <TextBox text={fullDialogue[eventIndex]} />
+          <TextBox textBox={fullDialogue[eventIndex]} />
           <button className='Next-Btn' onClick={handleNextEvent}>
             Next
           </button>
         </>
       ) : (
-        <>
-          {/* <TextBox text={"Danny looks around the tavern - 'All right, who should I grace with my presence.'"} /> */}
-          <Choices options={choices} onChoiceSelected={navigate} />
-        </>
+        <Choices options={choices} onChoiceSelected={navigate} />
       )}
     </div>
   );
