@@ -5,6 +5,9 @@ import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 
 import spireEntrance from '../../../../../assets/images/SpireEntrance.png';
+import DanielFace from '../../../../../assets/images/DanielFace.png';
+import EthanFace from '../../../../../assets/images/EthanFace.png';
+import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
 import './Spire.scss';
@@ -16,11 +19,11 @@ export default function SpireEntrance() {
   const [stage, setStage] = useState('intro');
 
   const spireEntranceEvents = [
-    'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.',
-    "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'",
-    "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'",
-    "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'",
-    "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'",
+    { text: 'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.', image: DanielFace },
+    { text: "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'", image: DanielFace },
+    { text: "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'", image: EthanFace },
+    { text: "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'", image: JavonFace },
+    { text: "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'", image: DanielFace },
   ];
 
   const choices = [
@@ -67,7 +70,7 @@ export default function SpireEntrance() {
     >
       {stage !== 'options' ? (
         <>
-          <TextBox text={spireEntranceEvents[eventIndex]} />
+          <TextBox textBox={spireEntranceEvents[eventIndex]} />
 
           {eventIndex === spireEntranceEvents.length - 1 ? (
             <Choices options={choices} onChoiceSelected={navigate} />
@@ -80,9 +83,10 @@ export default function SpireEntrance() {
       ) : (
         <>
           <TextBox
-            text={
-              'The mountains groan under their own weight. The cold bites harder this time.'
-            }
+            textBox={{
+              text: 'The mountains groan under their own weight. The cold bites harder this time.',
+              image: DanielFace,
+            }}
           />
           <Choices options={choices} onChoiceSelected={navigate} />
         </>

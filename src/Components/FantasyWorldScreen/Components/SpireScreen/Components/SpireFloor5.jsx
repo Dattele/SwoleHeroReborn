@@ -7,6 +7,7 @@ import SpireBattle from '../../../../Battle/SpireBattle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
 
 import spireFloor5 from '../../../../../assets/images/SpireFloor5.png';
+import EthanFace from '../../../../../assets/images/EthanFace.png';
 
 import '../../../../../scss/All.scss';
 
@@ -40,7 +41,7 @@ export default function SpireFloor5() {
       )}
       {battleEnd === 'win' && (
         <>
-          <TextBox text="Ethan: 'I'm getting tired guys.. can we head back to Ironhide..?'" />
+          <TextBox textBox={{ text: "Ethan: 'I'm getting tired guys.. can we head back to Ironhide..?'", image: EthanFace }} />
           <Choices options={continueChoices} onChoiceSelected={navigate} />
         </>
       )}

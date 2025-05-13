@@ -7,6 +7,9 @@ import Items from '../../../../System/Items';
 import { useDanny } from '../../../../../Context/DannyContext';
 
 import spireFloor3 from '../../../../../assets/images/SpireFloor3.png';
+import DanielFace from '../../../../../assets/images/DanielFace.png';
+import EthanFace from '../../../../../assets/images/EthanFace.png';
+import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
 
@@ -27,33 +30,33 @@ export default function SpireFloor3() {
   );
 
   const spireFloor3Events = [
-    'The stone floor dips gently into a shattered sanctuary. At its center, a strange frost-covered fountain emits a soft blue glow.',
-    "Ethan: 'Whoa... you guys seeing this? It's like an ice bath made by angels.'",
-    "Ja'von: 'A place of healing. The old dwarves believed strength was sacred — and the body had to be honored.'",
-    "Danny: 'You had me at ice bath. Let's soak, heal, and maybe flex a little on these ancient ghosts.'",
+    { text: 'The stone floor dips gently into a shattered sanctuary. At its center, a strange frost-covered fountain emits a soft blue glow.', image: DanielFace },
+    { text: "Ethan: 'Whoa... you guys seeing this? It's like an ice bath made by angels.'", image: EthanFace },
+    { text: "Ja'von: 'A place of healing. The old dwarves believed strength was sacred — and the body had to be honored.'", image: JavonFace },
+    { text: "Danny: 'You had me at ice bath. Let's soak, heal, and maybe flex a little on these ancient ghosts.'", image: DanielFace },
   ];
 
   const drinkEvents = [
-    'You cup the freezing water and take a cautious sip. It stings your throat—then spreads warmth through your entire body. You feel refreshed and focused.',
-    "Ja'von: 'A sacred spring... the dwarves did not build this for thirst alone.'",
-    "** The Party's HP has been restored **",
+    { text: 'You cup the freezing water and take a cautious sip. It stings your throat—then spreads warmth through your entire body. You feel refreshed and focused.', image: DanielFace },
+    { text: "Ja'von: 'A sacred spring... the dwarves did not build this for thirst alone.'", image: JavonFace },
+    { text: "** The Party's HP has been restored **", image: DanielFace },
   ];
 
   const batheEvents = [
-    'Danny cannonballs in without warning, splashing icy water everywhere. The cold burns like fire, but your muscles stop aching. You emerge... stronger somehow.',
-    "Ethan: 'Coldest bath of my life... but my spine feels aligned again.'",
-    "** The Party's HP has been restored **",
+    { text: 'Danny cannonballs in without warning, splashing icy water everywhere. The cold burns like fire, but your muscles stop aching. You emerge... stronger somehow.', image: DanielFace },
+    { text: "Ethan: 'Coldest bath of my life... but my spine feels aligned again.'", image: EthanFace },
+    { text: "** The Party's HP has been restored **", image: DanielFace },
   ];
 
   const chestEvents = [
-    'In the corner of the sanctuary sits a lone chest - as if the mountain itself forgot it.',
-    "Ethan: 'Hold up... that's not a mimic, is it? I read a scroll once that said if it blinks, run.'",
-    "Danny: 'Nah, bro. That's not a mimic. It's worse... it's a mime.'",
-    "Ja'von: 'A... mime?'",
-    "Danny: 'Yeah. Just silently judging your form while you die.'",
-    "Ethan: '...Now I'm actually scared.'",
-    "Ja'von: 'Be wary. But if the dwarves left this behind, it may hold more than coin.'",
-    "Danny: 'Alright, let's open this thing. If it kills us, at least my last words will be “Chest Day.”'",
+    { text: 'In the corner of the sanctuary sits a lone chest - as if the mountain itself forgot it.', image: DanielFace },
+    { text: "Ethan: 'Hold up... that's not a mimic, is it? I read a scroll once that said if it blinks, run.'", image: EthanFace },
+    { text: "Danny: 'Nah, bro. That's not a mimic. It's worse... it's a mime.'", image: DanielFace },
+    { text: "Ja'von: 'A... mime?'", image: JavonFace },
+    { text: "Danny: 'Yeah. Just silently judging your form while you die.'", image: DanielFace },
+    { text: "Ethan: '...Now I'm actually scared.'", image: EthanFace },
+    { text: "Ja'von: 'Be wary. But if the dwarves left this behind, it may hold more than coin.'", image: JavonFace },
+    { text: "Danny: 'Alright, let's open this thing. If it kills us, at least my last words will be “Chest Day.”'", image: DanielFace },
   ];
 
   const choices = [

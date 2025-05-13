@@ -7,6 +7,7 @@ import SpireBattle from '../../../../Battle/SpireBattle';
 import SpireMonsters from '../../../../Monster/SpireMonsters';
 
 import spireFloor1 from '../../../../../assets/images/SpireFloor1.png';
+import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
 
@@ -40,7 +41,7 @@ export default function SpireFloor1() {
       )}
       {battleEnd === 'win' && (
         <>
-          <TextBox text="Ja'von: 'At this rate, we'll be more shredded than Danny's shorts.'" />
+          <TextBox textBox={{ text: "Ja'von: 'At this rate, we'll be more shredded than Danny's shorts.'", image: JavonFace }} />
           <Choices options={continueChoices} onChoiceSelected={navigate} />
         </>
       )}
