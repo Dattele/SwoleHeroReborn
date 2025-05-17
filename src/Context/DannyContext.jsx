@@ -1,9 +1,9 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
+
 import Classes from '../Components/System/Classes';
 
 import Daniel from '../assets/images/Daniel.jpeg';
 import DanielFace from '../assets/images/DanielFace.png';
-
 import Ethan from '../assets/images/Ethan.png';
 import EthanFace from '../assets/images/EthanFace.png';
 import Javon from '../assets/images/Javon.png';
@@ -171,7 +171,7 @@ export function DannyProvider({ children }) {
       }
       case 'UPDATE_HP': {
         const players = action.payload;
-        console.log('playerrs passed in at end of battle', players);
+        console.log('players passed in at end of battle', players);
         return {
           ...state,
           party: state.party.map((member) => {
