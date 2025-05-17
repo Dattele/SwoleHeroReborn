@@ -153,6 +153,7 @@ export function DannyProvider({ children }) {
         path: '/citadel',
       },
     ],
+    visited: lastSave?.stateSnapshot?.visited || [],
   };
 
   const DannyReducer = (state, action) => {
@@ -346,6 +347,16 @@ export function DannyProvider({ children }) {
           locations: updateLocations,
         };
       }
+      case 'VISITED_LOCATION': {
+        const { newLocation } = action.payload;
+        
+        if (state.visited.includes(newLocation)) return state; // Prevent duplicates
+        
+        return {
+          ...state,
+          visited: [...state.visited, newLocation],
+        };
+      }
       case 'INCREMENT_PLAYTIME': {
         const newPlayTime = state.playTime + 1;
         localStorage.setItem('playTime', newPlayTime);
@@ -505,6 +516,14 @@ export function DannyProvider({ children }) {
     });
   };
 
+  // Keep track of when a user has visited a location
+  const visitedLocation = (newLocation) => {
+    dispatch({
+      type: 'VISITED_LOCATION',
+      payload: { newLocation },
+    });
+  };
+
   // Save the game
   const saveGame = () => {
     // Get the active quest
@@ -607,6 +626,7 @@ export function DannyProvider({ children }) {
         restorePartyHP,
         updateQuestFlag,
         unlockLocation,
+        visitedLocation,
         saveGame,
         loadGame,
       }}

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
+import { useDanny } from '../../../../Context/DannyContext';
 
 import DanielFace from '../../../../assets/images/DanielFace.png';
 import forestBackground from '../../../../assets/images/EdenGrove.png';
@@ -10,6 +11,7 @@ import forestBackground from '../../../../assets/images/EdenGrove.png';
 import '../../../../scss/All.scss';
 
 export default function ForestScreen() {
+  const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -64,8 +66,8 @@ export default function ForestScreen() {
 
   // Skip straight to choices if user has been to Ironhide
   useEffect(() => {
-    const visited = localStorage.getItem('visitedEdenGrove') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedEdenGrove');
+    if (userVisited) {
       setStage('options');
     }
   }, []);
@@ -73,7 +75,7 @@ export default function ForestScreen() {
   // Checks for when the forestEvents dialogue is complete
   useEffect(() => {
     if (eventIndex === forestEvents.length - 1) {
-      localStorage.setItem('visitedEdenGrove', 'true');
+      visitedLocation('visitedEdenGrove');
     }
   }, [eventIndex]);
 
