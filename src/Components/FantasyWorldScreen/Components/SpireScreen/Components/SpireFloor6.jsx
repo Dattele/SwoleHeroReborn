@@ -19,15 +19,42 @@ export default function SpireFloor6() {
   const [eventIndex, setEventIndex] = useState(0);
 
   const spireFloor6Events = [
-    { text: 'The wind eases. The air, though cold, feels calm. The path levels out into a quiet ridge - a rare plateau near the summit.', image: DanielFace },
-    { text: "Ethan: 'This snow's getting deeper… at this rate we'll be buried before we reach the top.'", image: EthanFace },
-    { text: "Danny: 'Good. Maybe it'll freeze off my soreness.'", image: DanielFace },
-    { text: "Ja'von: 'Strange... the wind carries no threat here. It's as if the mountain itself lets us rest.'", image: JavonFace },
-    { text: "Danny: 'Or it's just catching its breath before our bench-off'", image: DanielFace },
-    { text: "Danny stretches with a loud groan. 'Alright boys. Quick break. We eat some protein, then finish this climb and crush whatever's waiting up there.'", image: DanielFace },
-    { text: "Ethan: 'Please let it be a women's spa. Or a planet fitness. Or a women's spa inside a planet fitness!'", image: EthanFace },
-    { text: "Ja'von: 'Unlikely. But let us enjoy one last silence before the storm.'", image: JavonFace },
-    { text: '** The party starts a fire and rests overnight after Danny defeated Ethan in an arm-wrestling match for the right to sleep on the bench. **', image: DanielFace },
+    {
+      text: 'The wind eases. The air, though cold, feels calm. The path levels out into a quiet ridge - a rare plateau near the summit.',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'This snow's getting deeper… at this rate we'll be buried before we reach the top.'",
+      image: EthanFace,
+    },
+    {
+      text: "Danny: 'Good. Maybe it'll freeze off my soreness.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ja'von: 'Strange... the wind carries no threat here. It's as if the mountain itself lets us rest.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Or it's just catching its breath before our bench-off'",
+      image: DanielFace,
+    },
+    {
+      text: "Danny stretches with a loud groan. 'Alright boys. Quick break. We eat some protein, then finish this climb and crush whatever's waiting up there.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Please let it be a women's spa. Or a planet fitness. Or a women's spa inside a planet fitness!'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Unlikely. But let us enjoy one last silence before the storm.'",
+      image: JavonFace,
+    },
+    {
+      text: '** The party starts a fire and rests overnight after Danny defeated Ethan in an arm-wrestling match for the right to sleep on the bench. **',
+      image: DanielFace,
+    },
     { text: '** Party HP has been restored. **', image: DanielFace },
   ];
 

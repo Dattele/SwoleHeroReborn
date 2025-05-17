@@ -24,15 +24,42 @@ export default function SpireFloor7() {
   const [beginBattle, setBeginBattle] = useState(false);
 
   const spireFloor7Events = [
-    { text: 'Snow lashes their faces as the party pushes forward through the blinding blizzard. The wind howls like a beast unchained.', image: DanielFace },
-    { text: "Ethan: 'I can't feel my face... or my legs... or anything below my neck.'", image: EthanFace },
-    { text: "Ja'von: 'Look ahead - there's shadows in the storm. Figures... unmoving.'", image: DanielFace },
-    { text: "Danny: 'Yooo! You guys guarding a gym up there or just getting snowed on for fun!?'", image: JavonFace },
-    { text: 'The shapes remain still, yet breathing. Two armored dwarves, massive and ancient, flanking a frost-bitten figure clutching a battle-worn axe.', image: DanielFace },
-    { text: "Ethan: 'Okay... I don't think they're the chatty type.'", image: EthanFace },
-    { text: "Ja'von: 'No words. Just duty. These are the last sentinels. If we pass them... there is no turning back.'", image: JavonFace },
-    { text: "Danny: 'Then let's make this quick. I've got a date with a Demon King and a dumbbell!'", image: DanielFace },
-    { text: '** The dwarves raise their weapons in silence. Prepare for battle. **', image: DanielFace },
+    {
+      text: 'Snow lashes their faces as the party pushes forward through the blinding blizzard. The wind howls like a beast unchained.',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'I can't feel my face... or my legs... or anything below my neck.'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Look ahead - there's shadows in the storm. Figures... unmoving.'",
+      image: DanielFace,
+    },
+    {
+      text: "Danny: 'Yooo! You guys guarding a gym up there or just getting snowed on for fun!?'",
+      image: JavonFace,
+    },
+    {
+      text: 'The shapes remain still, yet breathing. Two armored dwarves, massive and ancient, flanking a frost-bitten figure clutching a battle-worn axe.',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Okay... I don't think they're the chatty type.'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'No words. Just duty. These are the last sentinels. If we pass them... there is no turning back.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Then let's make this quick. I've got a date with a Demon King and a dumbbell!'",
+      image: DanielFace,
+    },
+    {
+      text: '** The dwarves raise their weapons in silence. Prepare for battle. **',
+      image: DanielFace,
+    },
   ];
 
   const continueChoices = [
@@ -99,7 +126,12 @@ export default function SpireFloor7() {
           )}
           {battleEnd === 'win' && (
             <>
-              <TextBox textBox={{ text: "Ja'von: 'I have a bad feeling about this.'", image: JavonFace }}/>
+              <TextBox
+                textBox={{
+                  text: "Ja'von: 'I have a bad feeling about this.'",
+                  image: JavonFace,
+                }}
+              />
               <NPCChoices
                 options={continueChoices}
                 onChoiceSelected={handleChoice}

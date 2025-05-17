@@ -41,7 +41,12 @@ export default function SpireFloor1() {
       )}
       {battleEnd === 'win' && (
         <>
-          <TextBox textBox={{ text: "Ja'von: 'At this rate, we'll be more shredded than Danny's shorts.'", image: JavonFace }} />
+          <TextBox
+            textBox={{
+              text: "Ja'von: 'At this rate, we'll be more shredded than Danny's shorts.'",
+              image: JavonFace,
+            }}
+          />
           <Choices options={continueChoices} onChoiceSelected={navigate} />
         </>
       )}

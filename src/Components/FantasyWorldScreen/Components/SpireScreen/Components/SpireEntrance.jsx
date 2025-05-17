@@ -19,11 +19,26 @@ export default function SpireEntrance() {
   const [stage, setStage] = useState('intro');
 
   const spireEntranceEvents = [
-    { text: 'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.', image: DanielFace },
-    { text: "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'", image: DanielFace },
-    { text: "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'", image: EthanFace },
-    { text: "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'", image: JavonFace },
-    { text: "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'", image: DanielFace },
+    {
+      text: 'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.',
+      image: DanielFace,
+    },
+    {
+      text: "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'",
+      image: DanielFace,
+    },
   ];
 
   const choices = [

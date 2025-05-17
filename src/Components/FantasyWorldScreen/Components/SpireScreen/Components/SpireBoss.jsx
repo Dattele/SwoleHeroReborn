@@ -26,24 +26,69 @@ export default function SpireBoss() {
   const [stage, setStage] = useState('ascend');
 
   const finalAscendEvents = [
-    { text: 'The blizzard fades. The wind dies. A stillness settles over the mountain - unnatural, heavy, almost... afraid.', image: DanielFace },
-    { text: "Ethan: 'Why'd the snow stop? I don't like that... Snow doesn't just quit.'", image: EthanFace },
-    { text: "Danny: 'Either we reached the summit... or we're about to get grilled harder than my protein steaks.'", image: DanielFace },
-    { text: "Ja'von: 'The air itself recoils. This silence... it is not peace. It is fear.'", image: JavonFace },
-    { text: 'A faint red glow pulses beyond the final ridge — like a heartbeat beneath stone.', image: DanielFace },
-    { text: "Danny: 'Alright. Deep breath, boys. One last climb. One last rep!'", image: DanielFace },
+    {
+      text: 'The blizzard fades. The wind dies. A stillness settles over the mountain - unnatural, heavy, almost... afraid.',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Why'd the snow stop? I don't like that... Snow doesn't just quit.'",
+      image: EthanFace,
+    },
+    {
+      text: "Danny: 'Either we reached the summit... or we're about to get grilled harder than my protein steaks.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ja'von: 'The air itself recoils. This silence... it is not peace. It is fear.'",
+      image: JavonFace,
+    },
+    {
+      text: 'A faint red glow pulses beyond the final ridge — like a heartbeat beneath stone.',
+      image: DanielFace,
+    },
+    {
+      text: "Danny: 'Alright. Deep breath, boys. One last climb. One last rep!'",
+      image: DanielFace,
+    },
   ];
 
   const balrogEvents = [
-    { text: 'The party reaches the summit... and the world changes.', image: DanielFace },
-    { text: 'Flames crack through the cracked stone beneath them. The air shimmers. Heat blisters the frost-bitten rocks. There is no snow — only scorched earth.', image: DanielFace },
-    { text: 'A colossal shadow rises from the crater ahead, wreathed in fire with eyes like molten coals.', image: BalrogFace },
-    { text: "Ethan: 'Uhhh... did anyone else just involuntarily flex in fear?'", image: EthanFace },
-    { text: "Ja'von: 'A Balrog. A flame of the ancient world - forged in rage and shadow.'", image: JavonFace },
-    { text: "Danny: 'That's... that's a LOT of gym memberships worth of muscle.'", image: DanielFace },
-    { text: 'The creature steps forward. The mountain trembles.', image: BalrogFace },
-    { text: 'The Balrog roars - not a sound, but a force - and the flames behind it rise like a curtain unveiling death.', image: BalrogFace },
-    { text: '** Boss Battle: Balrog, Flame of the Spire - BEGIN ! **', image: BalrogFace },
+    {
+      text: 'The party reaches the summit... and the world changes.',
+      image: DanielFace,
+    },
+    {
+      text: 'Flames crack through the cracked stone beneath them. The air shimmers. Heat blisters the frost-bitten rocks. There is no snow — only scorched earth.',
+      image: DanielFace,
+    },
+    {
+      text: 'A colossal shadow rises from the crater ahead, wreathed in fire with eyes like molten coals.',
+      image: BalrogFace,
+    },
+    {
+      text: "Ethan: 'Uhhh... did anyone else just involuntarily flex in fear?'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'A Balrog. A flame of the ancient world - forged in rage and shadow.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'That's... that's a LOT of gym memberships worth of muscle.'",
+      image: DanielFace,
+    },
+    {
+      text: 'The creature steps forward. The mountain trembles.',
+      image: BalrogFace,
+    },
+    {
+      text: 'The Balrog roars - not a sound, but a force - and the flames behind it rise like a curtain unveiling death.',
+      image: BalrogFace,
+    },
+    {
+      text: '** Boss Battle: Balrog, Flame of the Spire - BEGIN ! **',
+      image: BalrogFace,
+    },
   ];
 
   const choices = [
@@ -150,7 +195,12 @@ export default function SpireBoss() {
           )}
           {battleEnd === 'win' && (
             <>
-              <TextBox textBox={{ text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**", image: DanielFace }} />
+              <TextBox
+                textBox={{
+                  text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**",
+                  image: DanielFace,
+                }}
+              />
               <Choices options={leaveChoices} onChoiceSelected={navigate} />
             </>
           )}
