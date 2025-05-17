@@ -10,7 +10,6 @@ import JavonFace from '../../../../assets/images/JavonFace.png';
 import spireBackground from '../../../../assets/images/Spire.png';
 
 import '../../../../scss/All.scss';
-import './SpireScreen.scss';
 
 export default function SpireScreen() {
   const navigate = useNavigate();
