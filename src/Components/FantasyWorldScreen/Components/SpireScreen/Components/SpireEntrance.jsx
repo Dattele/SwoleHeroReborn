@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 
@@ -13,6 +14,7 @@ import '../../../../../scss/All.scss';
 import './Spire.scss';
 
 export default function SpireEntrance() {
+  const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -60,8 +62,8 @@ export default function SpireEntrance() {
 
   // Skip straight to choices if user has been to the Spire Entrance
   useEffect(() => {
-    const visited = localStorage.getItem('visitedSpireEntrance') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedSpireEntrance');
+    if (userVisited) {
       setStage('options');
     }
   }, []);
@@ -69,7 +71,7 @@ export default function SpireEntrance() {
   // Checks for when the spireEntranceEvents dialogue is complete
   useEffect(() => {
     if (eventIndex === spireEntranceEvents.length - 1) {
-      localStorage.setItem('visitedSpireEntrance', 'true');
+      visitedLocation('visitedSpireEntrance');
     }
   }, [eventIndex]);
 

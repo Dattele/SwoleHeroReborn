@@ -14,7 +14,7 @@ import JavonFace from '../../../../../assets/images/JavonFace.png';
 import '../../../../../scss/All.scss';
 
 export default function TrainingGrounds() {
-  const { addPartyMember } = useDanny();
+  const { addPartyMember, visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [stage, setStage] = useState('intro');
@@ -125,14 +125,14 @@ export default function TrainingGrounds() {
       console.log('setting local storage to visited the training grounds');
       addPartyMember(javon);
       setStage('options');
-      localStorage.setItem('visitedTrainingGrounds', 'true'); // Save the visit
+     visitedLocation('visitedTrainingGrounds'); // Save the visit
     }
   };
 
   // Skip straight to choices if user has been to Training Grounds
   useEffect(() => {
-    const visited = localStorage.getItem('visitedTrainingGrounds') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedTrainingGrounds') === 'true';
+    if (userVisited) {
       setStage('options');
     }
   }, []);

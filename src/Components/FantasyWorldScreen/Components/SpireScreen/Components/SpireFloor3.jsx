@@ -14,7 +14,7 @@ import JavonFace from '../../../../../assets/images/JavonFace.png';
 import '../../../../../scss/All.scss';
 
 export default function SpireFloor3() {
-  const { addItem, gainGold, restorePartyHP } = useDanny();
+  const { addItem, gainGold, restorePartyHP, visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -25,9 +25,7 @@ export default function SpireFloor3() {
   const [openChest, setOpenChest] = useState(false);
   const [drinkWater, setDrinkWater] = useState(false);
   const [batheWater, setBatheWater] = useState(false);
-  const [openedChest, setOpenedChest] = useState(
-    localStorage.getItem('floor3Chest') === 'true',
-  );
+  const [openedChest, setOpenedChest] = useState(visited.includes('floor3Chest'));
 
   const spireFloor3Events = [
     {
@@ -204,7 +202,7 @@ export default function SpireFloor3() {
         addItem(Items[9]);
         gainGold(50);
         setOpenedChest(true);
-        localStorage.setItem('floor3Chest', true);
+        visitedLocation('floor3Chest');
         break;
       case 'leave':
         // Resetting the states

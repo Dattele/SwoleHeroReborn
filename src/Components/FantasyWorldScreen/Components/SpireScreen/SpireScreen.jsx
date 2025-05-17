@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDanny } from '../../../../Context/DannyContext';
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
 
@@ -12,6 +13,7 @@ import spireBackground from '../../../../assets/images/Spire.png';
 import '../../../../scss/All.scss';
 
 export default function SpireScreen() {
+  const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -113,8 +115,8 @@ export default function SpireScreen() {
 
   // Skip straight to choices if user has been to the Spire Mountains
   useEffect(() => {
-    const visited = localStorage.getItem('visitedSpire') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedSpire');
+    if (userVisited) {
       setStage('options');
     }
   }, []);
@@ -125,7 +127,7 @@ export default function SpireScreen() {
       eventIndex === spireDialogue.spireInteriorEvents.length - 1 &&
       stage === 'spireInteriorEvents'
     ) {
-      localStorage.setItem('visitedSpire', 'true');
+      visitedLocation('visitedSpire');
     }
   }, [eventIndex]);
 
