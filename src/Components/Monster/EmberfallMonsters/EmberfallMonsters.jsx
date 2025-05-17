@@ -8,7 +8,7 @@ import SoulBinder from '../../../assets/images/SoulBinder.png';
 import HellForgedBrute from '../../../assets/images/HellForgedBrute.png';
 import MoltenImp from '../../../assets/images/MoltenImp.png';
 
-const SpireMonsters = [
+const EmberfallMonsters = [
   {
     // 0
     name: 'Ashborne Knight',
@@ -49,7 +49,7 @@ const SpireMonsters = [
         type: 'heal',
         heal: 20,
       },
-      { name: 'Malefic Chant', type: 'debuff-all', effect: '-3 strength' },
+      { name: 'Malefic Chant', type: 'group-debuff', effect: '-3 strength' },
     ],
   },
   {
@@ -179,7 +179,7 @@ const SpireMonsters = [
       { name: 'Blazing Fury', type: 'attack-all', damage: 16 },
       {
         name: 'Demonic Roar',
-        type: 'debuff-all',
+        type: 'group-debuff',
         effect: '-3 strength, -1 rizz',
       },
     ],
@@ -192,40 +192,39 @@ const SpireMonsters = [
   },
 ];
 
-export const SpireBossMonster = [
+export const EmberfallBossMonster = [
   {
-    name: 'Balrog, Flame of the Spire',
+    name: 'Lord Malak, Tyrant of Emberfall',
     type: 'enemy',
     image: LordMalak,
     description:
-      "A cursed flame elemental sealed deep in the Spire's heart. Its roar melts steel, and its hatred fuels its rebirth",
-    hp: 200,
-    strength: 25,
-    defense: 14,
+      "A Demon noble that rose from the ashes alongside the Demon King, he now rules over the ruins of Emberfall",
+    hp: 340,
+    strength: 30,
+    defense: 18,
     speed: 18,
-    rizz: 25,
-    xp: 150,
-    gold: 100,
+    rizz: 12,
+    xp: 300,
+    gold: 200,
     abilities: [
       {
-        name: 'Infernal Whip',
-        type: 'smash-all',
-        damage: 10,
-        effect: '-4 defense',
+        name: 'Blazebinder',
+        type: 'attack',
+        damage: 38,
       },
       {
-        name: 'Dark Descent',
-        type: 'drain',
-        damage: 20,
-        heal: 20,
+        name: 'Ashen Weave',
+        type: 'attack-all',
+        damage: 22,
       },
       {
-        name: 'Molten Roar',
-        type: 'buff',
-        effect: '+8 strength',
+        name: 'Slash of Destruction',
+        type: 'attack-weakest',
+        damage: 22,
       },
     ],
+    passive: { name: 'Volcanic Authority', type: 'debuff', effect: '-2 rizz' },
   },
 ];
 
-export default SpireMonsters;
+export default EmberfallMonsters;
