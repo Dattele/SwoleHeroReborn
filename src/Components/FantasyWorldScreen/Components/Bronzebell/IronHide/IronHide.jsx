@@ -16,7 +16,7 @@ import EthanFace from '../../../../../assets/images/EthanFace.png';
 import '../../../../../scss/All.scss';
 
 export default function IronHide() {
-  const { party, addPartyMember } = useDanny();
+  const { party, addPartyMember, visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [stage, setStage] = useState('intro');
@@ -137,14 +137,14 @@ export default function IronHide() {
       console.log('setting local storage to visited Ironhide');
       addPartyMember(ethan);
       setStage('options');
-      localStorage.setItem('visitedIronhide', 'true'); // Save the visit
+      visitedLocation('visitedIronhide'); // Save the visit
     }
   };
 
   // Skip straight to choices if user has been to Ironhide
   useEffect(() => {
-    const visited = localStorage.getItem('visitedIronhide') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedIronhide');
+    if (userVisited) {
       setStage('options');
     }
   }, []);

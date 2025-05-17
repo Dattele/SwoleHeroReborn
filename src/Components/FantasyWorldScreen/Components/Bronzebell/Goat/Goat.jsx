@@ -16,7 +16,7 @@ import './Goat.scss';
 import '../../../../../scss/All.scss';
 
 export default function Goat() {
-  const { party } = useDanny();
+  const { party, visited, visitedLocation } = useDanny();
 
   const [eventIndex, setEventIndex] = useState(0);
   const [showAttack, setShowAttack] = useState(false);
@@ -148,11 +148,11 @@ export default function Goat() {
   useEffect(() => {
     const ethan = party.find((member) => member.name === 'Ethan, the Brute');
     const javon = party.find((member) => member.name === "Ja'von, the Rizzler");
-    const visited = localStorage.getItem('visitedGoat') === 'true';
+    const userVisited = visited.includes('visitedGoat');
 
     if (!ethan || !javon) {
       setStage('notReady');
-    } else if (visited) {
+    } else if (userVisited) {
       setStage('options');
     }
   }, []);
@@ -161,7 +161,7 @@ export default function Goat() {
   useEffect(() => {
     const dialogue = getCurrentDialogue();
     if (eventIndex === dialogue.length - 1) {
-      localStorage.setItem('visitedGoat', 'true');
+      visitedLocation('visitedGoat');
     }
   }, [eventIndex]);
 

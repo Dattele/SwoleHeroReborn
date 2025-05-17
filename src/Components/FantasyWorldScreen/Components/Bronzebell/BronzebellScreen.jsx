@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { useDanny } from '../../../../Context/DannyContext';
 import TextBox from '../../../TextBox';
 import Choices from '../../../Choices/Choices';
 
@@ -12,6 +13,7 @@ import danielFace from '../../../../assets/images/DanielFace.png';
 import '../../../../scss/All.scss';
 
 export default function BronzebellScreen() {
+  const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [stage, setStage] = useState('intro');
@@ -72,7 +74,7 @@ export default function BronzebellScreen() {
         setEventIndex(0);
       } else if (stage === 'events') {
         setStage('options');
-        localStorage.setItem('visitedBronzebell', 'true'); // Save the visit
+        visitedLocation('visitedBronzebell');
       }
     }
   };
@@ -84,8 +86,8 @@ export default function BronzebellScreen() {
 
   // Skip straight to choices if user has been to Bronzebell
   useEffect(() => {
-    const visited = localStorage.getItem('visitedBronzebell') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedBronzebell');
+    if (userVisited) {
       setStage('options');
     }
   }, []);

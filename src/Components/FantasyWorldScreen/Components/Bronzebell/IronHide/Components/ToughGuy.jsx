@@ -13,7 +13,7 @@ import './Components.scss';
 import '../../../../../../scss/All.scss';
 
 export default function ToughGuy() {
-  const { gainGold } = useDanny();
+  const { gainGold, visited, visitedLocation } = useDanny();
 
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
@@ -80,8 +80,8 @@ export default function ToughGuy() {
 
   // Skip straight to choices if user has been to the Tough Guy
   useEffect(() => {
-    const visited = localStorage.getItem('visitedToughGuy') === 'true';
-    if (visited) {
+    const userVisited = visited.includes('visitedToughGuy');
+    if (userVisited) {
       setStage('options');
     }
   }, []);
@@ -89,7 +89,7 @@ export default function ToughGuy() {
   // Checks for when the toughGuy dialogue is complete
   useEffect(() => {
     if (eventIndex === toughGuyDialogue.length - 1) {
-      localStorage.setItem('visitedToughGuy', 'true');
+      visitedLocation('visitedToughGuy');
     }
   }, [eventIndex]);
 
