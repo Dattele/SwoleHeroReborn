@@ -125,7 +125,7 @@ export default function TrainingGrounds() {
       console.log('setting local storage to visited the training grounds');
       addPartyMember(javon);
       setStage('options');
-     visitedLocation('visitedTrainingGrounds'); // Save the visit
+      visitedLocation('visitedTrainingGrounds'); // Save the visit
     }
   };
 

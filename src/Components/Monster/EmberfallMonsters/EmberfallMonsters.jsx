@@ -198,7 +198,7 @@ export const EmberfallBossMonster = [
     type: 'enemy',
     image: LordMalak,
     description:
-      "A Demon noble that rose from the ashes alongside the Demon King, he now rules over the ruins of Emberfall",
+      'A Demon noble that rose from the ashes alongside the Demon King, he now rules over the ruins of Emberfall',
     hp: 340,
     strength: 30,
     defense: 18,

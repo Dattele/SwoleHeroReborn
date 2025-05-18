@@ -349,9 +349,9 @@ export function DannyProvider({ children }) {
       }
       case 'VISITED_LOCATION': {
         const { newLocation } = action.payload;
-        
+
         if (state.visited.includes(newLocation)) return state; // Prevent duplicates
-        
+
         return {
           ...state,
           visited: [...state.visited, newLocation],
