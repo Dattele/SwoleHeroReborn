@@ -6,7 +6,7 @@ import TextBox from '../../../../../TextBox';
 import Choices from '../../../../../Choices';
 
 import DanielFace from '../../../../../../assets/images/DanielFace.png';
-import drunkScholar from '../../../../../../assets/images/DrunkScholar.png';
+import drunkScholar from '../../../../../../assets/images/drunkscholar.png';
 import drunkScholarFace from '../../../../../../assets/images/DrunkScholarFace.png';
 
 import './Components.scss';
