@@ -88,6 +88,14 @@ This phase includes:
 
 ## Running the Game
 
+### Clone the repo
+
+git clone [url]
+
+### Navigate to repository
+
+cd swole-hero-rpg-game
+
 ### Install dependencies
 
 npm install
