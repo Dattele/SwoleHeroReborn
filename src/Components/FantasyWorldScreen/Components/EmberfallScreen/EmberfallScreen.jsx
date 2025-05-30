@@ -7,6 +7,13 @@ import NPCChoices from '../../../System/NPCChoices';
 import Choices from '../../../Choices';
 
 import EmberfallEntrance from '../../../../assets/images/EmberfallEntrance.png';
+import EmberfallTent from '../../../../assets/images/EmberfallTent.png';
+import EmberfallNote1 from '../../../../assets/images/EmberfallNote1.png';
+import EmberfallNote2 from '../../../../assets/images/EmberfallNote2.png';
+import EmberfallNote3 from '../../../../assets/images/EmberfallNote3.png';
+import EmberfallNote4 from '../../../../assets/images/EmberfallNote4.png';
+import EmberfallNote5 from '../../../../assets/images/EmberfallNote5.png';
+import EmberfallNote6 from '../../../../assets/images/EmberfallNote6.png';
 import DanielFace from '../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../assets/images/JavonFace.png';
@@ -15,12 +22,13 @@ import '../../../../scss/All.scss';
 import './EmberfallScreen.scss';
 
 export default function EmberfallScreen() {
-  const { visited, visitedLocation } = useDanny();
+  const { visited, visitedLocation, restorePartyHP } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
   const [visitTent, setVisitTent] = useState(false);
   const [visitCrates, setVisitCrates] = useState(false);
+  const [readNotes, setReadNotes] = useState(false);
   const [stage, setStage] = useState('intro');
 
   const emberfallEvents = [
@@ -70,9 +78,27 @@ export default function EmberfallScreen() {
     {
       text: 'Head into the ruins',
       action: 'ruins',
-    }
+    },
+    {
+      text: 'Head back',
+      action: 'map',
+    },
   ];
 
+  const tentChoices = [
+    {
+      text: 'Sleep like a BAKA',
+      action: 'sleep',
+    },
+    {
+      text: 'Read the notes',
+      action: 'notes',
+    },
+    {
+      text: 'Head back',
+      action: 'emberfall',
+    },
+  ];
 
   const handleNextEvent = () => {
     if (eventIndex < emberfallEvents.length - 1) {
@@ -81,8 +107,8 @@ export default function EmberfallScreen() {
   };
 
   // Handle the users action
-  const handleAction = (action) => {
-    switch (action) {
+  const handleAction = (choice) => {
+    switch (choice.action) {
       case 'tent': 
         setVisitTent(true);
         break;
@@ -90,6 +116,18 @@ export default function EmberfallScreen() {
         setVisitCrates(true);
         break;
       case 'ruins':
+        break;
+      case 'map':
+        navigate('/world-map');
+        break;
+      case 'sleep':
+        restorePartyHP();
+        alert('Your party is now rested!');
+        break;
+      case 'emberfall':
+        navigate('/emberfall');
+        break;
+      case 'notes':
         break;
       default:
         break;
@@ -113,38 +151,60 @@ export default function EmberfallScreen() {
   }, [eventIndex]);
 
   return (
-    <div
-      className='Screen Full-Screen Emberfall-Screen'
-      style={{
-        backgroundImage: `url(${EmberfallEntrance})`,
-        backgroundSize: 'contain',
-        backgroundRepeat: 'no-repeat',
-        backgroundPosition: 'center',
-      }}
-    >
-      {stage !== 'options' ? (
-        <>
-          <TextBox textBox={emberfallEvents[eventIndex]} />
-
-          {eventIndex === emberfallEvents.length - 1 ? (
-            <NPCChoices options={choices} onChoiceSelected={navigate} />
-          ) : (
-            <button className='Next-Btn' onClick={handleNextEvent}>
-              Next
-            </button>
-          )}
-        </>
-      ) : (
-        <>
-          <TextBox
+    <>
+      {visitTent ? (
+        <div
+          className='Screen Full-Screen Emberfall-Screen'
+          style={{
+            backgroundImage: `url(${EmberfallTent})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+        <TextBox
             textBox={{
-              text: "Ethan: 'Guys, can we take a nap in the tent.. please?'",
-              image: EthanFace,
+              text: "The party steps into the battered tent. Inside, there's a dirty cot, barely big enough for a post leg day nap, and some notes left behind",
+              image: DanielFace,
             }}
           />
-          <NPCChoices options={choices} onChoiceSelected={navigate} />
-        </>
+          <NPCChoices options={tentChoices} onChoiceSelected={handleAction} />
+        </div>
+      ) : (
+        <div
+        className='Screen Full-Screen Emberfall-Screen'
+        style={{
+          backgroundImage: `url(${EmberfallEntrance})`,
+          backgroundSize: 'contain',
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+        }}
+      >
+        {stage !== 'options' ? (
+          <>
+            <TextBox textBox={emberfallEvents[eventIndex]} />
+
+            {eventIndex === emberfallEvents.length - 1 ? (
+              <NPCChoices options={choices} onChoiceSelected={handleAction} />
+            ) : (
+              <button className='Next-Btn' onClick={handleNextEvent}>
+                Next
+              </button>
+            )}
+          </>
+        ) : (
+          <>
+            <TextBox
+              textBox={{
+                text: "Ethan: 'Guys, can we take a nap in the tent.. please?'",
+                image: EthanFace,
+              }}
+            />
+            <NPCChoices options={choices} onChoiceSelected={handleAction} />
+          </>
+        )}
+      </div>
       )}
-    </div>
+    </>
   );
 }
