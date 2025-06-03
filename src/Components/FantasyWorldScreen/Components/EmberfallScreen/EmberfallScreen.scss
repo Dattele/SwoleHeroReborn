@@ -3,4 +3,55 @@
     margin-bottom: 40rem;
     min-height: unset;
   }
+
+  .Notes-Gallery {
+    display: flex;
+    flex-direction: column;
+
+    .Notes {
+      display: flex;
+
+      .Note-Btn {
+        display: flex;
+        width: 2.5rem;
+        height: 2.5rem;
+        padding: 0;
+        align-self: center;
+        background: transparent;
+        border: none;
+
+        svg {
+          justify-self: center;
+        }
+
+        &-Prev svg {
+          transform: rotate(-90deg);
+        }
+
+        &-Next svg {
+          transform: rotate(90deg);
+        }
+
+        &:active,
+        &:hover {
+          svg {
+            fill: #b3b3b3 !important;
+          }
+        }
+      }
+
+      .Note-Image {
+        width: 500px;
+        margin: 0 1rem;
+      }
+    }
+
+    .NPC-Choices {
+      align-self: center;
+
+      .Next-Btn {
+        margin-bottom: 0;
+      }
+    }
+  }
 }

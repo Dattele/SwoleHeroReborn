@@ -77,6 +77,20 @@ const Items = [
     description: 'Never skip bench day - +2 strength',
     effect: '+2 strength',
   },
+  {
+    // 10
+    name: 'Half-Rotten Rations',
+    type: 'food',
+    description: 'Rations left laying around in crates',
+    heal: 3,
+  },
+  {
+    // 11
+    name: 'Water Flask',
+    type: 'drink',
+    description: 'Sealed flask filled with water from somewhere',
+    heal: 3,
+  }
 ];
 
 export default Items;

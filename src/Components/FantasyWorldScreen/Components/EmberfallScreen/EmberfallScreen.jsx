@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../../Context/DannyContext';
 import TextBox from '../../../TextBox';
 import NPCChoices from '../../../System/NPCChoices';
+import Items from '../../../System/Items';
 import Choices from '../../../Choices';
 
 import EmberfallEntrance from '../../../../assets/images/EmberfallEntrance.png';
@@ -13,21 +14,21 @@ import EmberfallNote2 from '../../../../assets/images/EmberfallNote2.png';
 import EmberfallNote3 from '../../../../assets/images/EmberfallNote3.png';
 import EmberfallNote4 from '../../../../assets/images/EmberfallNote4.png';
 import EmberfallNote5 from '../../../../assets/images/EmberfallNote5.png';
-import EmberfallNote6 from '../../../../assets/images/EmberfallNote6.png';
 import DanielFace from '../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../assets/images/JavonFace.png';
+import { ReactComponent as UpArrow } from '../../../../assets/images/UpArrow.svg';
 
 import '../../../../scss/All.scss';
 import './EmberfallScreen.scss';
 
 export default function EmberfallScreen() {
-  const { visited, visitedLocation, restorePartyHP } = useDanny();
+  const { addItem, visited, visitedLocation, restorePartyHP } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
+  const [noteIndex, setNoteIndex] = useState(0); 
   const [visitTent, setVisitTent] = useState(false);
-  const [visitCrates, setVisitCrates] = useState(false);
   const [readNotes, setReadNotes] = useState(false);
   const [stage, setStage] = useState('intro');
 
@@ -96,13 +97,20 @@ export default function EmberfallScreen() {
     },
     {
       text: 'Head back',
-      action: 'emberfall',
+      action: 'leaveTent',
     },
   ];
 
+  const noteChoices = [
+    {
+      text: 'Set the notes down',
+      action: 'leaveNotes',
+    }
+  ]
+
   const handleNextEvent = () => {
     if (eventIndex < emberfallEvents.length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     }
   };
 
@@ -113,9 +121,10 @@ export default function EmberfallScreen() {
         setVisitTent(true);
         break;
       case 'crates':
-        setVisitCrates(true);
+        visited.includes('emberfallCrates') ? alert('Nice try bud.') : addItemsToParty();
         break;
       case 'ruins':
+        navigate('/emberfall/entrance')
         break;
       case 'map':
         navigate('/world-map');
@@ -124,15 +133,51 @@ export default function EmberfallScreen() {
         restorePartyHP();
         alert('Your party is now rested!');
         break;
-      case 'emberfall':
-        navigate('/emberfall');
+      case 'leaveTent':
+        setVisitTent(false);
         break;
       case 'notes':
+        setReadNotes(true);
+        break;
+      case 'leaveNotes':
+        setReadNotes(false);
         break;
       default:
         break;
     }
+  }
 
+  // Go to the previous note - if not on the first
+  const goPrev = () => {
+    setNoteIndex((prev) => {
+      if (prev > 0) return prev - 1;
+      else return prev;
+    })
+  }
+
+  // Go to the next note - if not on the last
+  const goNext = () => {
+    setNoteIndex((prev) => {
+      if (prev < 4) return prev + 1;
+      else return prev;
+    })
+  }
+
+  // Get the current image based off the noteIndex
+  const currentNote = () => {
+    const noteImages = [ EmberfallNote1, EmberfallNote2, EmberfallNote3, EmberfallNote4, EmberfallNote5 ];
+    return noteImages[noteIndex];
+  }
+  
+  // Add three half-rotten rations and two water flasks
+  const addItemsToParty = () => {
+    addItem(Items[10]);
+    addItem(Items[10]);
+    addItem(Items[10]);
+    addItem(Items[11]);
+    addItem(Items[11]);
+    alert('The party has gained three Half-Rotten Rations and two Water Flasks');
+    visitedLocation('emberfallCrates');
   }
 
   // Skip straight to choices if user has been to Emberfall
@@ -162,13 +207,30 @@ export default function EmberfallScreen() {
             backgroundPosition: 'center',
           }}
         >
-        <TextBox
-            textBox={{
-              text: "The party steps into the battered tent. Inside, there's a dirty cot, barely big enough for a post leg day nap, and some notes left behind",
-              image: DanielFace,
-            }}
-          />
-          <NPCChoices options={tentChoices} onChoiceSelected={handleAction} />
+          {readNotes ? (
+            <div className='Notes-Gallery'>
+              <div className='Notes'>
+                <button onClick={goPrev} className='Note-Btn Note-Btn-Prev'>
+                  <UpArrow />
+                </button>
+                <img src={currentNote()} alt={`Note Entry - ${noteIndex + 1}`} className='Note-Image' />
+                <button onClick={goNext} className='Note-Btn Note-Btn-Next'>
+                  <UpArrow />
+                </button>
+              </div>
+              <NPCChoices options={noteChoices} onChoiceSelected={handleAction} />
+            </div>
+          ) : (
+            <>
+            <TextBox
+                textBox={{
+                  text: "The party steps into the battered tent. Inside, there's a dirty cot, barely big enough for a post leg day nap, and some notes left behind",
+                  image: DanielFace,
+                }}
+              />
+              <NPCChoices options={tentChoices} onChoiceSelected={handleAction} />
+            </>
+          )}
         </div>
       ) : (
         <div

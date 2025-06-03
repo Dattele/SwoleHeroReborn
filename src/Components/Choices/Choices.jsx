@@ -6,14 +6,14 @@ export default function Choices({ options, onChoiceSelected }) {
   const [buttonHeight, setButtonHeight] = useState('auto');
   const buttonRefs = useRef([]);
 
-  useEffect(() => {
-    if (buttonRefs.current.length > 0) {
-      const maxHeight = Math.max(
-        ...buttonRefs.current.map((btn) => btn?.offsetHeight || 0),
-      );
-      setButtonHeight(`${maxHeight}px`);
-    }
-  }, [options]);
+  // useEffect(() => {
+  //   if (buttonRefs.current.length > 0) {
+  //     const maxHeight = Math.max(
+  //       ...buttonRefs.current.map((btn) => btn?.offsetHeight || 0),
+  //     );
+  //     setButtonHeight(`${maxHeight}px`);
+  //   }
+  // }, [options]);
 
   return (
     <div className='Choices'>
