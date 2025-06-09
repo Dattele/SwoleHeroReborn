@@ -5,7 +5,8 @@ import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 
-import emberfallEntrance from '../../../../../assets/images/SpireEntrance.png';
+import emberfall1 from '../../../../../assets/images/Emberfall1.png';
+import emberfall1Clear from '../../../../../assets/images/Emberfall1Clear.png';
 import DanielFace from '../../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../../assets/images/JavonFace.png';
@@ -21,26 +22,46 @@ export default function EmberfallEntrance() {
 
   const emberfallEntranceEvents = [
     {
-      text: 'The party pushes through the freezing wind - and there stands a crumbled stone archway carved into the mountain face.',
+      text:`The party walks through the entrance and steps foot into Emberfall. 
+        Danny: 'So this is Emberfall? I have seen cleaner locker rooms than this place.`,
       image: DanielFace,
     },
     {
-      text: "Danny: 'Yo... who built this? Giants? Dwarves? Either way, they skipped leg day.'",
-      image: DanielFace,
-    },
-    {
-      text: "Ethan: 'Looks abandoned... but if we go in there, we're basically signing up for a cold, crunchy death.'",
-      image: EthanFace,
-    },
-    {
-      text: "Ja'von: 'Strength is forged in trials, not taverns. The path forward demands courage - and better insulation.'",
+      text: "Ja'von: 'Even the Demon King's armies couldn't destroy the stench of your socks, Danny.'",
       image: JavonFace,
     },
     {
-      text: "Danny: 'Then let's get it. Ice in the veins, gains on the brain.'",
+      text: "Ethan: 'This is really bad guys.. I can still taste the sand in my mouth.'",
+      image: EthanFace,
+    },
+    {
+      text: "Danny and Ja'von pause and look at each other then at Ethan. Ja'von: 'You good bro? Stop eating the sand'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Yoo lets focus up, take some pre-workout, and see what we can find around here.'",
+      image: DanielFace,
+    },
+    {
+      text: "*** Choose a party member for a perception check ***",
       image: DanielFace,
     },
   ];
+
+  const perceptionChoices = [
+    {
+      text: 'Ethan',
+      action: 'ethan',
+    },
+    {
+      text: 'Danny',
+      action: 'danny',
+    },
+    {
+      text: "Ja'von",
+      action: 'javon',
+    },
+  ]
 
   const choices = [
     {
@@ -58,6 +79,31 @@ export default function EmberfallEntrance() {
       setEventIndex(eventIndex + 1);
     }
   };
+
+  // Calulcate the chance of the perception succeeding 
+  const perceptionCheck = (bonusChance) => {
+    // 10% chance to start with each point adding 10%
+    const chance = 0.1 + bonusChance * 0.1; 
+
+    return Math.random() < chance;
+  }
+
+  // Handle the perception event
+  const handlePerception = (choice) => {
+    switch (choice.action) {
+      case 'ethan': {
+        const check = perceptionCheck(3.5);
+        break;
+      } case 'danny': {
+        const check = perceptionCheck(4);
+        break;
+      } case 'javon': {
+        const check = perceptionCheck(6.5);
+        break;
+      } default:
+        break;
+    }
+  }
 
   // Skip straight to choices if user has been to the Emberfall Entrance
   useEffect(() => {
@@ -78,7 +124,7 @@ export default function EmberfallEntrance() {
     <div
       className='Screen Full-Screen Spire-Entrance-Screen'
       style={{
-        backgroundImage: `url(${emberfallEntrance})`,
+        backgroundImage: `url(${emberfall1Clear})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
         backgroundPosition: 'center',

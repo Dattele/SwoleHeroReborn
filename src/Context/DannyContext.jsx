@@ -636,7 +636,7 @@ export function DannyProvider({ children }) {
   );
 }
 
-// Custom Hook to Use Danny’s Data
+// Custom Hook to the party's data
 export function useDanny() {
   return useContext(DannyContext);
 }
