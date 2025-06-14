@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
+import NPCChoices from '../../../../System/NPCChoices';
 
 import emberfall1 from '../../../../../assets/images/Emberfall1.png';
 import emberfall1Clear from '../../../../../assets/images/Emberfall1Clear.png';
@@ -13,53 +14,99 @@ import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
 
+const emberfallEntranceEvents = [
+  {
+    text:`The party walks through the entrance and steps foot into Emberfall. 
+      Danny: 'So this is Emberfall? I have seen cleaner locker rooms than this place.`,
+    image: DanielFace,
+  },
+  {
+    text: "Ja'von: 'Even the Demon King's armies couldn't destroy the stench of your socks, Danny.'",
+    image: JavonFace,
+  },
+  {
+    text: "Ethan: 'This is really bad guys.. I can still taste the sand in my mouth.'",
+    image: EthanFace,
+  },
+  {
+    text: "Danny and Ja'von pause and look at each other then at Ethan. Ja'von: 'You good bro? Stop eating the sand'",
+    image: JavonFace,
+  },
+  {
+    text: "Danny: 'Yoo lets focus up, take some pre-workout, and see what we can find around here.'",
+    image: DanielFace,
+  },
+  {
+    text: "*** Choose a party member for a perception check ***",
+    image: DanielFace,
+  },
+];
+
+const perceptionSuccessLines = {
+  ethan: [
+    "Ethan: 'Wait, you guys see that? There - behind those rocks! We've got company!'",
+    "Ja'von: 'Not bad, Ethan. Looks like your eyes finally woke up.'",
+    "Danny: 'For once, you spotted trouble before it smacked you in the face.'",
+    "*** Embrace for battle - enemies receive -2 defense",
+  ],
+  javon: [
+    "Ja'von: 'Hold up - there's movement by the rubble. Knights in the shadows, just waiting for us.'",
+    "Danny: 'Good catch, Ja'von!! You got the best eyes.. and face.. in the squad!'",
+    "Ethan: 'Glad you're here, man. I was just admiring the view' *** Note: Ethan is in the back of the group. ***",
+    "*** Embrace for battle - enemies receive -2 defense",
+  ],
+  danny: [
+    "Danny: 'Whoa, guys! There's something shiny over there. Is it a shiny pokemon?!",
+    "Ethan: 'Not unless those shiny things are armored and armed. Look out!'",
+    "Ja'von: 'Danny, focus. Not everything that glimmers is a prize.'",
+    "*** Embrace for battle - enemies receive -2 defense",
+  ],
+};
+
+const perceptionFailLines = {
+  ethan: [
+    "Ethan: WHOA - where did they come from?! I thought those were just statues or something!",
+    "Ja'von: 'Maybe if you hadn't been drinking all day, you would have been able to see them.'",
+    "Danny: 'Duck! Those arrows aren't made of rubber!'",
+    "*** Embrace for battle - players receive -5 HP",
+  ],
+  javon: [
+    "Gah! I didn't even hear them coming. I must be slipping.",
+    "Ethan: 'Even the best miss a beat sometimes, right?'",
+    "Danny: 'HAHA!! I knew I was the best in the squad! Loser!!'",
+    "*** Embrace for battle - players receive -5 HP",
+  ],
+  danny: [
+    "Danny is standing at the entrance of Emberfall flexing then all of a sudden undead Knights appear out of no-where",
+    "Ethan: Oh no guys, help!! I'm scared, they are charging us! Ja'von please!'",
+    "Ja'von: 'Maybe next time you should keep your eyes on the shadows instead of your biceps.'",
+    "*** Embrace for battle - players receive -5 HP",
+  ],
+};
+
 export default function EmberfallEntrance() {
   const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
+  const [currentDialogue, setCurrentDialogue] = useState(emberfallEntranceEvents);
 
-  const emberfallEntranceEvents = [
-    {
-      text:`The party walks through the entrance and steps foot into Emberfall. 
-        Danny: 'So this is Emberfall? I have seen cleaner locker rooms than this place.`,
-      image: DanielFace,
-    },
-    {
-      text: "Ja'von: 'Even the Demon King's armies couldn't destroy the stench of your socks, Danny.'",
-      image: JavonFace,
-    },
-    {
-      text: "Ethan: 'This is really bad guys.. I can still taste the sand in my mouth.'",
-      image: EthanFace,
-    },
-    {
-      text: "Danny and Ja'von pause and look at each other then at Ethan. Ja'von: 'You good bro? Stop eating the sand'",
-      image: JavonFace,
-    },
-    {
-      text: "Danny: 'Yoo lets focus up, take some pre-workout, and see what we can find around here.'",
-      image: DanielFace,
-    },
-    {
-      text: "*** Choose a party member for a perception check ***",
-      image: DanielFace,
-    },
-  ];
+  // The current dialogue
+  const getCurrentDialogue = emberfallEntranceEvents;
 
   const perceptionChoices = [
     {
       text: 'Ethan',
-      action: 'ethan',
+      action: 'Ethan',
     },
     {
       text: 'Danny',
-      action: 'danny',
+      action: 'Danny',
     },
     {
       text: "Ja'von",
-      action: 'javon',
+      action: "Ja'von",
     },
   ]
 
@@ -75,7 +122,7 @@ export default function EmberfallEntrance() {
   ];
 
   const handleNextEvent = () => {
-    if (eventIndex < emberfallEntranceEvents.length - 1) {
+    if (eventIndex < getCurrentDialogue.length - 1) {
       setEventIndex(eventIndex + 1);
     }
   };
@@ -88,37 +135,51 @@ export default function EmberfallEntrance() {
     return Math.random() < chance;
   }
 
-  // Handle the perception event
+  // Handle the perception check
   const handlePerception = (choice) => {
+    let check;
+    let selectedPlayer = '';
+    setEventIndex(0); // Set the index to 0
+
     switch (choice.action) {
-      case 'ethan': {
-        const check = perceptionCheck(3.5);
+      case 'Ethan': {
+        check = perceptionCheck(3.5);
+        selectedPlayer = 'ethan';
         break;
-      } case 'danny': {
-        const check = perceptionCheck(4);
+      } case "Ja'von": {
+        check = perceptionCheck(6.5);
+        selectedPlayer = 'javon';
         break;
-      } case 'javon': {
-        const check = perceptionCheck(6.5);
+      } case 'Danny': {
+        check = perceptionCheck(4);
+        selectedPlayer = 'danny';
         break;
       } default:
         break;
     }
+
+    if (check) {
+      setCurrentDialogue(perceptionSuccessLines[selectedPlayer])
+    } else {
+      setCurrentDialogue(perceptionFailLines[selectedPlayer])
+    }
+    setStage('perceptionResult');
   }
 
   // Skip straight to choices if user has been to the Emberfall Entrance
-  useEffect(() => {
-    const userVisited = visited.includes('visitedEmberfallEntrance');
-    if (userVisited) {
-      setStage('options');
-    }
-  }, []);
+  // useEffect(() => {
+  //   const userVisited = visited.includes('visitedEmberfallEntrance');
+  //   if (userVisited) {
+  //     setStage('options');
+  //   }
+  // }, []);
 
   // Checks for when the emberfallEntranceEvents dialogue is complete
-  useEffect(() => {
-    if (eventIndex === emberfallEntranceEvents.length - 1) {
-      visitedLocation('visitedEmberfallEntrance');
-    }
-  }, [eventIndex]);
+  // useEffect(() => {
+  //   if (eventIndex === emberfallEntranceEvents.length - 1) {
+  //     visitedLocation('visitedEmberfallEntrance');
+  //   }
+  // }, [eventIndex]);
 
   return (
     <div
@@ -130,18 +191,20 @@ export default function EmberfallEntrance() {
         backgroundPosition: 'center',
       }}
     >
-      {stage !== 'options' ? (
+      {stage === 'intro' ? (
         <>
-          <TextBox textBox={emberfallEntranceEvents[eventIndex]} />
+          <TextBox textBox={getCurrentDialogue[eventIndex]} />
 
-          {eventIndex === emberfallEntranceEvents.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={navigate} />
+          {eventIndex === getCurrentDialogue.length - 1 ? (
+            <NPCChoices options={perceptionChoices} onChoiceSelected={handlePerception}/>
           ) : (
-            <button className='Next-Btn' onClick={handleNextEvent}>
+            <button className='Next-Btn' onClick={handleNextEvent(emberfallEntranceEvents)}>
               Next
             </button>
           )}
         </>
+      ) : stage === 'perceptionResult' ? (
+        
       ) : (
         <>
           <TextBox
