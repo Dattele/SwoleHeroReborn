@@ -5,6 +5,8 @@ import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
 import NPCChoices from '../../../../System/NPCChoices';
+import EmberfallBattle from '../../../../Battle/EmberfallBattle';
+import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
 
 import emberfall1 from '../../../../../assets/images/Emberfall1.png';
 import emberfall1Clear from '../../../../../assets/images/Emberfall1Clear.png';
@@ -91,6 +93,8 @@ export default function EmberfallEntrance() {
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
   const [currentDialogue, setCurrentDialogue] = useState(emberfallEntranceEvents);
+  const [currentImage, setCurrentImage] = useState(emberfall1Clear);
+  const [battleEnd, setBattleEnd] = useState('');
 
   // The current dialogue
   const getCurrentDialogue = emberfallEntranceEvents;
@@ -160,6 +164,7 @@ export default function EmberfallEntrance() {
 
     if (check) {
       setCurrentDialogue(perceptionSuccessLines[selectedPlayer])
+      setCurrentImage(emberfall1);
     } else {
       setCurrentDialogue(perceptionFailLines[selectedPlayer])
     }
@@ -191,20 +196,28 @@ export default function EmberfallEntrance() {
         backgroundPosition: 'center',
       }}
     >
-      {stage === 'intro' ? (
+      {stage !== 'options' ? (
         <>
           <TextBox textBox={getCurrentDialogue[eventIndex]} />
 
           {eventIndex === getCurrentDialogue.length - 1 ? (
-            <NPCChoices options={perceptionChoices} onChoiceSelected={handlePerception}/>
+            <>
+              {stage === 'perceptionResult' ? (
+                <EmberfallBattle
+                  enemies={[EmberfallMonsters[0], EmberfallMonsters[0], EmberfallMonsters[0]]}
+                  battleEnd={battleEnd}
+                  setBattleEnd={setBattleEnd}
+                />
+              ) : (
+                <NPCChoices options={perceptionChoices} onChoiceSelected={handlePerception}/>
+              )}
+            </>
           ) : (
-            <button className='Next-Btn' onClick={handleNextEvent(emberfallEntranceEvents)}>
+            <button className='Next-Btn' onClick={handleNextEvent()}>
               Next
             </button>
           )}
         </>
-      ) : stage === 'perceptionResult' ? (
-        
       ) : (
         <>
           <TextBox
