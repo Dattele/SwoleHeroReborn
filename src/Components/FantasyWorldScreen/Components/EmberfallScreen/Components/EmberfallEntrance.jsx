@@ -8,7 +8,7 @@ import NPCChoices from '../../../../System/NPCChoices';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
 
-import emberfall1 from '../../../../../assets/images/Emberfall1.png';
+import emberfall1Enemies from '../../../../../assets/images/Emberfall1Enemies.png';
 import emberfall1Clear from '../../../../../assets/images/Emberfall1Clear.png';
 import DanielFace from '../../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../../assets/images/EthanFace.png';
@@ -87,7 +87,7 @@ const perceptionSuccessLines = {
       image: DanielFace,
     },
     {
-      text: "Ethan: 'Not unless those shiny things are armored and armed. Look out!'",
+      text: "Ethan: 'Not unless those shiny things are monsters trying to kill us. Look out!'",
       image: EthanFace,
     },
     {
@@ -140,16 +140,16 @@ const perceptionFailLines = {
   ],
   danny: [
     {
-      text: 'Danny is standing at the entrance of Emberfall flexing then all of a sudden undead Knights appear out of no-where',
+      text: 'Danny is standing at the entrance of Emberfall flexing then all of a sudden undead Knights appear',
       image: DanielFace,
-    },
-    {
-      text: "Ethan: Oh no guys, help!! I'm scared, they are charging us! Ja'von please!'",
-      image: EthanFace,
     },
     {
       text: "Ja'von: 'Maybe next time you should keep your eyes on the shadows instead of your biceps.'",
       image: JavonFace,
+    },
+    {
+      text: "Ethan: Oh no guys, help!! I'm scared, they are charging us! Ja'von please!'",
+      image: EthanFace,
     },
     {
       text: '*** Embrace for battle - players receive -5 HP ***',
@@ -238,7 +238,7 @@ export default function EmberfallEntrance() {
 
     if (check) {
       setCurrentDialogue(perceptionSuccessLines[selectedPlayer]);
-      setCurrentImage(emberfall1);
+      setCurrentImage(emberfall1Enemies);
     } else {
       setCurrentDialogue(perceptionFailLines[selectedPlayer]);
     }
@@ -275,7 +275,7 @@ export default function EmberfallEntrance() {
           enemies={[
             EmberfallMonsters[0],
             EmberfallMonsters[0],
-            EmberfallMonsters[0],
+            EmberfallMonsters[3],
           ]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}

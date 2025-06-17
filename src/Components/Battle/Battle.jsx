@@ -107,13 +107,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         };
       }
       case 'HANDLE_ATTACK': {
-        const { attacker, attack, target } = action.payload;
+        const { attacker, attack, target, ignoreDefense } = action.payload;
         let newLog;
 
         // Calculate damage
         let damage = attack.damage;
-        const addDamage =
-          Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
+        let addDamage = Math.floor(attacker.strength / 2);
+        if (!ignoreDefense) addDamage -= Math.floor(target.defense / 2);
         damage += addDamage;
 
         // Critical hit chance
@@ -620,7 +620,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /** Main Functions */
 
   // Handle player attack
-  const HandleAttack = (attack, target) => {
+  const HandleAttack = (attack, target, ignoreDefense = false) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -629,7 +629,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Dispatching an attack
     dispatch({
       type: 'HANDLE_ATTACK',
-      payload: { attacker, attack, target },
+      payload: { attacker, attack, target, ignoreDefense },
     });
 
     // Check if battle has ended
@@ -662,7 +662,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     });
   };
 
-  const HandleLifeDrain = (attack, target) => {
+  const HandleLifeDrain = (attack, target, ignoreDefense = false) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -673,7 +673,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Dispatching an attack and heal for Life Drain
     dispatch({
       type: 'HANDLE_ATTACK',
-      payload: { attacker, attack, target },
+      payload: { attacker, attack, target, ignoreDefense },
     });
     dispatch({
       type: 'HANDLE_HEAL',
@@ -744,7 +744,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       randomAttack.type === 'drain' ||
       randomAttack.type === 'smash' ||
       randomAttack.type === 'debuff' ||
-      randomAttack.type === 'attack-all'
+      randomAttack.type === 'attack-all' ||
+      randomAttack.type === 'attack-def'
     ) {
       targets = state.turnOrder.filter((element) => element.type === 'player'); // Attack or debuff players
     } else {
@@ -800,6 +801,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'debuff': {
         HandleBuff(randomAttack, randomTarget);
+        break;
+      }
+      case 'attack-def': {
+        HandleAttack(randomAttack, randomTarget, true);
         break;
       }
       default: {
