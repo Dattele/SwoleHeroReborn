@@ -27,14 +27,14 @@ export default function EmberfallScreen() {
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
-  const [noteIndex, setNoteIndex] = useState(0); 
+  const [noteIndex, setNoteIndex] = useState(0);
   const [visitTent, setVisitTent] = useState(false);
   const [readNotes, setReadNotes] = useState(false);
   const [stage, setStage] = useState('intro');
 
   const emberfallEvents = [
     {
-      text: "The party emerges onto plateau—crumbling pillars and weathered stone arches standing against the desert sky.",
+      text: 'The party emerges onto plateau—crumbling pillars and weathered stone arches standing against the desert sky.',
       image: DanielFace,
     },
     {
@@ -64,7 +64,7 @@ export default function EmberfallScreen() {
     {
       text: "Danny: 'Alright bros, let's loot some knowledge and find a protein stash.'",
       image: DanielFace,
-    }
+    },
   ];
 
   const choices = [
@@ -105,8 +105,8 @@ export default function EmberfallScreen() {
     {
       text: 'Set the notes down',
       action: 'leaveNotes',
-    }
-  ]
+    },
+  ];
 
   const handleNextEvent = () => {
     if (eventIndex < emberfallEvents.length - 1) {
@@ -117,14 +117,16 @@ export default function EmberfallScreen() {
   // Handle the users action
   const handleAction = (choice) => {
     switch (choice.action) {
-      case 'tent': 
+      case 'tent':
         setVisitTent(true);
         break;
       case 'crates':
-        visited.includes('emberfallCrates') ? alert('Nice try bud.') : addItemsToParty();
+        visited.includes('emberfallCrates')
+          ? alert('Nice try bud.')
+          : addItemsToParty();
         break;
       case 'ruins':
-        navigate('/emberfall/entrance')
+        navigate('/emberfall/entrance');
         break;
       case 'map':
         navigate('/world-map');
@@ -145,30 +147,36 @@ export default function EmberfallScreen() {
       default:
         break;
     }
-  }
+  };
 
   // Go to the previous note - if not on the first
   const goPrev = () => {
     setNoteIndex((prev) => {
       if (prev > 0) return prev - 1;
       else return prev;
-    })
-  }
+    });
+  };
 
   // Go to the next note - if not on the last
   const goNext = () => {
     setNoteIndex((prev) => {
       if (prev < 4) return prev + 1;
       else return prev;
-    })
-  }
+    });
+  };
 
   // Get the current image based off the noteIndex
   const currentNote = () => {
-    const noteImages = [ EmberfallNote1, EmberfallNote2, EmberfallNote3, EmberfallNote4, EmberfallNote5 ];
+    const noteImages = [
+      EmberfallNote1,
+      EmberfallNote2,
+      EmberfallNote3,
+      EmberfallNote4,
+      EmberfallNote5,
+    ];
     return noteImages[noteIndex];
-  }
-  
+  };
+
   // Add three half-rotten rations and two water flasks
   const addItemsToParty = () => {
     addItem(Items[10]);
@@ -176,9 +184,11 @@ export default function EmberfallScreen() {
     addItem(Items[10]);
     addItem(Items[11]);
     addItem(Items[11]);
-    alert('The party has gained three Half-Rotten Rations and two Water Flasks');
+    alert(
+      'The party has gained three Half-Rotten Rations and two Water Flasks',
+    );
     visitedLocation('emberfallCrates');
-  }
+  };
 
   // Skip straight to choices if user has been to Emberfall
   useEffect(() => {
@@ -213,59 +223,69 @@ export default function EmberfallScreen() {
                 <button onClick={goPrev} className='Note-Btn Note-Btn-Prev'>
                   <UpArrow />
                 </button>
-                <img src={currentNote()} alt={`Note Entry - ${noteIndex + 1}`} className='Note-Image' />
+                <img
+                  src={currentNote()}
+                  alt={`Note Entry - ${noteIndex + 1}`}
+                  className='Note-Image'
+                />
                 <button onClick={goNext} className='Note-Btn Note-Btn-Next'>
                   <UpArrow />
                 </button>
               </div>
-              <NPCChoices options={noteChoices} onChoiceSelected={handleAction} />
+              <NPCChoices
+                options={noteChoices}
+                onChoiceSelected={handleAction}
+              />
             </div>
           ) : (
             <>
-            <TextBox
+              <TextBox
                 textBox={{
                   text: "The party steps into the battered tent. Inside, there's a dirty cot, barely big enough for a post leg day nap, and some notes left behind",
                   image: DanielFace,
                 }}
               />
-              <NPCChoices options={tentChoices} onChoiceSelected={handleAction} />
+              <NPCChoices
+                options={tentChoices}
+                onChoiceSelected={handleAction}
+              />
             </>
           )}
         </div>
       ) : (
         <div
-        className='Screen Full-Screen Emberfall-Screen'
-        style={{
-          backgroundImage: `url(${EmberfallEntrance})`,
-          backgroundSize: 'contain',
-          backgroundRepeat: 'no-repeat',
-          backgroundPosition: 'center',
-        }}
-      >
-        {stage !== 'options' ? (
-          <>
-            <TextBox textBox={emberfallEvents[eventIndex]} />
+          className='Screen Full-Screen Emberfall-Screen'
+          style={{
+            backgroundImage: `url(${EmberfallEntrance})`,
+            backgroundSize: 'contain',
+            backgroundRepeat: 'no-repeat',
+            backgroundPosition: 'center',
+          }}
+        >
+          {stage !== 'options' ? (
+            <>
+              <TextBox textBox={emberfallEvents[eventIndex]} />
 
-            {eventIndex === emberfallEvents.length - 1 ? (
+              {eventIndex === emberfallEvents.length - 1 ? (
+                <NPCChoices options={choices} onChoiceSelected={handleAction} />
+              ) : (
+                <button className='Next-Btn' onClick={handleNextEvent}>
+                  Next
+                </button>
+              )}
+            </>
+          ) : (
+            <>
+              <TextBox
+                textBox={{
+                  text: "Ethan: 'Guys, can we take a nap in the tent.. please?'",
+                  image: EthanFace,
+                }}
+              />
               <NPCChoices options={choices} onChoiceSelected={handleAction} />
-            ) : (
-              <button className='Next-Btn' onClick={handleNextEvent}>
-                Next
-              </button>
-            )}
-          </>
-        ) : (
-          <>
-            <TextBox
-              textBox={{
-                text: "Ethan: 'Guys, can we take a nap in the tent.. please?'",
-                image: EthanFace,
-              }}
-            />
-            <NPCChoices options={choices} onChoiceSelected={handleAction} />
-          </>
-        )}
-      </div>
+            </>
+          )}
+        </div>
       )}
     </>
   );

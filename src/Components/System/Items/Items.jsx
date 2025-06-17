@@ -90,7 +90,7 @@ const Items = [
     type: 'drink',
     description: 'Sealed flask filled with water from somewhere',
     heal: 3,
-  }
+  },
 ];
 
 export default Items;

@@ -18,7 +18,7 @@ import '../../../../../scss/All.scss';
 
 const emberfallEntranceEvents = [
   {
-    text:`The party walks through the entrance and steps foot into Emberfall. 
+    text: `The party walks through the entrance and steps foot into Emberfall. 
       Danny: 'So this is Emberfall? I have seen cleaner locker rooms than this place.`,
     image: DanielFace,
   },
@@ -39,50 +39,122 @@ const emberfallEntranceEvents = [
     image: DanielFace,
   },
   {
-    text: "*** Choose a party member for a perception check ***",
+    text: '*** Choose a party member for a perception check ***',
     image: DanielFace,
   },
 ];
 
 const perceptionSuccessLines = {
   ethan: [
-    { text: "Ethan: 'Wait, you guys see that? There - behind those rocks! We've got company!'", image: EthanFace },
-    { text: "Ja'von: 'Not bad, Ethan. Looks like your eyes finally woke up.'", image: JavonFace },
-    { text: "Danny: 'For once, you spotted trouble before it smacked you in the face.'", image: DanielFace },
-    { text: "*** Embrace for battle - enemies receive -2 defense ***", image: DanielFace },
+    {
+      text: "Ethan: 'Wait, you guys see that? There - behind those rocks! We've got company!'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Not bad, Ethan. Looks like your eyes finally woke up.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'For once, you spotted trouble before it smacked you in the face.'",
+      image: DanielFace,
+    },
+    {
+      text: '*** Embrace for battle - enemies receive -2 defense ***',
+      image: DanielFace,
+    },
   ],
   javon: [
-    { text: "Ja'von: 'Hold up - there's movement by the rubble. Knights in the shadows, just waiting for us.'", image: JavonFace },
-    { text: "Danny: 'Good catch, Ja'von!! You got the best eyes.. and face.. in the squad!'", image: DanielFace },
-    { text: "Ethan: 'Glad you're here, man. I was just admiring the view' *** Note: Ethan is in the back of the group. ***", image: EthanFace },
-    { text: "*** Embrace for battle - enemies receive -2 defense ***", image: DanielFace },
+    {
+      text: "Ja'von: 'Hold up - there's movement by the rubble. Knights in the shadows, just waiting for us.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Good catch, Ja'von!! You got the best eyes.. and face.. in the squad!'",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Glad you're here, man. I was just admiring the view' *** Note: Ethan is in the back of the group. ***",
+      image: EthanFace,
+    },
+    {
+      text: '*** Embrace for battle - enemies receive -2 defense ***',
+      image: DanielFace,
+    },
   ],
   danny: [
-    { text: "Danny: 'Whoa, guys! There's something shiny over there. Is it a shiny pokemon?!", image: DanielFace },
-    { text: "Ethan: 'Not unless those shiny things are armored and armed. Look out!'", image: EthanFace },
-    { text: "Ja'von: 'Danny, focus. Not everything that glimmers is a prize.'", image: JavonFace },
-    { text: "*** Embrace for battle - enemies receive -2 defense ***", image: DanielFace },
+    {
+      text: "Danny: 'Whoa, guys! There's something shiny over there. Is it a shiny pokemon?!",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Not unless those shiny things are armored and armed. Look out!'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Danny, focus. Not everything that glimmers is a prize.'",
+      image: JavonFace,
+    },
+    {
+      text: '*** Embrace for battle - enemies receive -2 defense ***',
+      image: DanielFace,
+    },
   ],
 };
 
 const perceptionFailLines = {
   ethan: [
-    { text: "Ethan: WHOA - where did they come from?! I thought those were just statues or something!", image: DanielFace },
-    { text: "Ja'von: 'Maybe if you hadn't been drinking all day, you would have been able to see them.'", image: JavonFace },
-    { text: "Danny: 'Duck! Those arrows aren't made of rubber!'", image: DanielFace },
-    { text: "*** Embrace for battle - players receive -5 HP ***", image: DanielFace },
+    {
+      text: 'Ethan: WHOA - where did they come from?! I thought those were just statues or something!',
+      image: DanielFace,
+    },
+    {
+      text: "Ja'von: 'Maybe if you hadn't been drinking all day, you would have been able to see them.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Duck! Those arrows aren't made of rubber!'",
+      image: DanielFace,
+    },
+    {
+      text: '*** Embrace for battle - players receive -5 HP ***',
+      image: DanielFace,
+    },
   ],
   javon: [
-    { text: "Ja'von: Gah! I didn't even hear them coming. I must be slipping.", image: JavonFace },
-    { text: "Ethan: 'Even the best miss a beat sometimes, right?'", image: EthanFace },
-    { text: "Danny: 'HAHA!! I knew I was the best in the squad! Loser!!'", image: DanielFace },
-    { text: "*** Embrace for battle - players receive -5 HP ***", image: DanielFace },
+    {
+      text: "Ja'von: Gah! I didn't even hear them coming. I must be slipping.",
+      image: JavonFace,
+    },
+    {
+      text: "Ethan: 'Even the best miss a beat sometimes, right?'",
+      image: EthanFace,
+    },
+    {
+      text: "Danny: 'HAHA!! I knew I was the best in the squad! Loser!!'",
+      image: DanielFace,
+    },
+    {
+      text: '*** Embrace for battle - players receive -5 HP ***',
+      image: DanielFace,
+    },
   ],
   danny: [
-    { text: "Danny is standing at the entrance of Emberfall flexing then all of a sudden undead Knights appear out of no-where", image: DanielFace },
-    { text: "Ethan: Oh no guys, help!! I'm scared, they are charging us! Ja'von please!'", image: EthanFace },
-    { text: "Ja'von: 'Maybe next time you should keep your eyes on the shadows instead of your biceps.'", image: JavonFace },
-    { text: "*** Embrace for battle - players receive -5 HP ***", image: DanielFace },
+    {
+      text: 'Danny is standing at the entrance of Emberfall flexing then all of a sudden undead Knights appear out of no-where',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: Oh no guys, help!! I'm scared, they are charging us! Ja'von please!'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Maybe next time you should keep your eyes on the shadows instead of your biceps.'",
+      image: JavonFace,
+    },
+    {
+      text: '*** Embrace for battle - players receive -5 HP ***',
+      image: DanielFace,
+    },
   ],
 };
 
@@ -92,7 +164,9 @@ export default function EmberfallEntrance() {
 
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
-  const [currentDialogue, setCurrentDialogue] = useState(emberfallEntranceEvents);
+  const [currentDialogue, setCurrentDialogue] = useState(
+    emberfallEntranceEvents,
+  );
   const [currentImage, setCurrentImage] = useState(emberfall1Clear);
   const [battleEnd, setBattleEnd] = useState('');
 
@@ -109,7 +183,7 @@ export default function EmberfallEntrance() {
       text: "Ja'von",
       action: "Ja'von",
     },
-  ]
+  ];
 
   const choices = [
     {
@@ -128,13 +202,13 @@ export default function EmberfallEntrance() {
     }
   };
 
-  // Calulcate the chance of the perception succeeding 
+  // Calulcate the chance of the perception succeeding
   const perceptionCheck = (bonusChance) => {
     // 10% chance to start with each point adding 10%
-    const chance = 0.1 + bonusChance * 0.1; 
+    const chance = 0.1 + bonusChance * 0.1;
 
     return Math.random() < chance;
-  }
+  };
 
   // Handle the perception check
   const handlePerception = (choice) => {
@@ -147,26 +221,29 @@ export default function EmberfallEntrance() {
         check = perceptionCheck(3.5);
         selectedPlayer = 'ethan';
         break;
-      } case "Ja'von": {
+      }
+      case "Ja'von": {
         check = perceptionCheck(6.5);
         selectedPlayer = 'javon';
         break;
-      } case 'Danny': {
+      }
+      case 'Danny': {
         check = perceptionCheck(4);
         selectedPlayer = 'danny';
         break;
-      } default:
+      }
+      default:
         break;
     }
 
     if (check) {
-      setCurrentDialogue(perceptionSuccessLines[selectedPlayer])
+      setCurrentDialogue(perceptionSuccessLines[selectedPlayer]);
       setCurrentImage(emberfall1);
     } else {
-      setCurrentDialogue(perceptionFailLines[selectedPlayer])
+      setCurrentDialogue(perceptionFailLines[selectedPlayer]);
     }
     setStage('perceptionResult');
-  }
+  };
 
   // Skip straight to choices if user has been to the Emberfall Entrance
   // useEffect(() => {
@@ -195,7 +272,11 @@ export default function EmberfallEntrance() {
     >
       {stage === 'battle' ? (
         <EmberfallBattle
-          enemies={[EmberfallMonsters[0], EmberfallMonsters[0], EmberfallMonsters[0]]}
+          enemies={[
+            EmberfallMonsters[0],
+            EmberfallMonsters[0],
+            EmberfallMonsters[0],
+          ]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}
         />
@@ -206,9 +287,12 @@ export default function EmberfallEntrance() {
           {eventIndex === currentDialogue.length - 1 ? (
             <>
               {stage === 'perceptionResult' ? (
-               setStage('battle')
+                setStage('battle')
               ) : (
-                <NPCChoices options={perceptionChoices} onChoiceSelected={handlePerception}/>
+                <NPCChoices
+                  options={perceptionChoices}
+                  onChoiceSelected={handlePerception}
+                />
               )}
             </>
           ) : (
