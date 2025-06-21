@@ -6,13 +6,15 @@ import Battle from '../Battle';
 import TextBox from '../../TextBox';
 import Choices from '../../Choices';
 
+import DanielFace from '../../../assets/images/DanielFace.png';
+
 export default function EmberfallBattle({ enemies, battleEnd, setBattleEnd }) {
   const { party } = useDanny();
   const navigate = useNavigate();
 
-  // const loseChoices = [
-  //   { text: 'Fall to the bottom', nextScene: '/bronzebell' },
-  // ];
+  const loseChoices = [
+    { text: 'Retreat', nextScene: '/emberfall' },
+  ];
 
   // Sets a timeout to wait before performing any other actions
   const sleep = (ms) => {
@@ -30,22 +32,23 @@ export default function EmberfallBattle({ enemies, battleEnd, setBattleEnd }) {
   };
 
   return (
-    <div className='Spire-Battle'>
+    <div className='Emberfall-Battle'>
       <Battle
         players={party.filter((p) => p.hp > 0)}
         enemies={enemies}
         onBattleEnd={handleBattleEnd}
       />
-      {/* {battleEnd === 'lose' && (
+      {battleEnd === 'lose' && (
         <div className='Choices-Container'>
           <TextBox
-            text={
-              'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell'
-            }
+            textBox={{
+              text: "Your party has been defeated by the Demon King's army.",
+              image: DanielFace,
+            }}
           />
           <Choices options={loseChoices} onChoiceSelected={navigate} />
         </div>
-      )} */}
+      )}
     </div>
   );
 }

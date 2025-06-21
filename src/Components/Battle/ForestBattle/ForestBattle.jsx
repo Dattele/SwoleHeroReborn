@@ -8,6 +8,8 @@ import TextBox from '../../TextBox';
 import Choices from '../../Choices';
 import ForestMonsters from '../../Monster/ForestMonsters/ForestMonsters';
 
+import DanielFace from '../../../assets/images/DanielFace.png';
+
 import './ForestBattle.scss';
 
 export default function ForestBattle() {
@@ -106,9 +108,10 @@ export default function ForestBattle() {
             <Choices options={loseChoices} onChoiceSelected={navigate} />
           ) : (
             <TextBox
-              text={
-                'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.'
-              }
+              textBox={{
+                text: 'Loser! The Demon King will now conquer Eldoria and you will die single! Clear cache to try again.',
+                image: DanielFace,
+              }}
             />
           )}
         </div>

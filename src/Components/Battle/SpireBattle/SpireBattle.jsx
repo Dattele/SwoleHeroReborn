@@ -7,6 +7,8 @@ import Battle from '../Battle';
 import TextBox from '../../TextBox';
 import Choices from '../../Choices';
 
+import DanielFace from '../../../assets/images/DanielFace.png';
+
 import './SpireBattle.scss';
 
 export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
@@ -42,9 +44,10 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
       {battleEnd === 'lose' && (
         <div className='Choices-Container'>
           <TextBox
-            text={
-              'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell'
-            }
+            textBox={{
+              text: 'Your party has fallen down to the bottom of the mountain. They black out on the way to Bronzebell',
+              image: DanielFace,
+            }}
           />
           <Choices options={loseChoices} onChoiceSelected={navigate} />
         </div>
