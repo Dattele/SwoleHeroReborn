@@ -25,7 +25,13 @@ const EmberfallMonsters = [
     gold: 20,
     abilities: [
       { name: 'Flaming Slash', type: 'attack', damage: 20 },
-      { name: 'Sword Bash', type: 'attack-stun', damage: 12, chance: 25 },
+      {
+        name: 'Sword Bash',
+        type: 'attack-stun',
+        damage: 12,
+        chance: 0.25,
+        duration: 1,
+      },
     ],
   },
   {

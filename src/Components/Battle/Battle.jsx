@@ -46,10 +46,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const playersClone = structuredClone(players).map((player) => ({
     ...player,
     id: uuidv4(),
+    statusEffects: [],
   }));
   const enemiesClone = structuredClone(enemies).map((enemy) => ({
     ...enemy,
     id: uuidv4(),
+    statusEffects: [],
   }));
 
   // Play a death sound audio
@@ -76,6 +78,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     isEnemyTurn: null,
     battleOutcome: null,
     activePlayerIndex: 0,
+    skipTurn: false,
   };
 
   const BattleReducer = (state, action) => {
@@ -85,10 +88,38 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'NEXT_TURN': {
         console.log('next turn alive turn order', state.turnOrder);
-
         const nextTurnIndex = (state.turnIndex + 1) % state.turnOrder.length;
         const nextFighter = state.turnOrder[nextTurnIndex];
+        let updatedTurnOrder = [...state.turnOrder];
+        let logs = [];
+        let skipTurn = false;
         console.log('next turn combatant:', state.turnOrder[nextTurnIndex]);
+
+        // Check to see if the active fighter has the stun effect
+        const stunEffect = nextFighter.statusEffects.findIndex(
+          (e) => e.type === 'stun',
+        );
+
+        if (stunEffect !== -1) {
+          // Fighter is stunned: log it, then decrement/remove stun
+          logs.push(`${nextFighter.name} is stunned and can't move!`);
+
+          const newEffects = [...nextFighter.statusEffects];
+          if (newEffects[stunEffect].turns <= 1) {
+            newEffects.splice(stunEffect, 1);
+          } else {
+            newEffects[stunEffect].turns -= 1;
+          }
+
+          updatedTurnOrder = updatedTurnOrder.map((element, id) =>
+            id === nextTurnIndex
+              ? { ...element, statusEffects: newEffects }
+              : element,
+          );
+
+          // Update the skipTurn to true
+          skipTurn = true;
+        }
 
         // Increase player index if the fighter was a player
         let playerIndex = state.activePlayerIndex;
@@ -101,9 +132,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         return {
           ...state,
+          turnOrder: updatedTurnOrder,
           turnIndex: nextTurnIndex,
+          battleLog: [...state.battleLog, ...logs],
           isEnemyTurn: nextFighter.type === 'enemy',
           activePlayerIndex: playerIndex,
+          skipTurn: skipTurn,
         };
       }
       case 'HANDLE_ATTACK': {
@@ -111,9 +145,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let newLog;
 
         // Calculate damage
-        let damage = attack.damage;
-        let addDamage = Math.floor(attacker.strength / 2);
-        if (!ignoreDefense) addDamage -= Math.floor(target.defense / 2);
+        let damage = attack?.damage;
+        let addDamage = Math.floor(attacker?.strength / 2);
+        if (!ignoreDefense) addDamage -= Math.floor(target?.defense / 2);
         damage += addDamage;
 
         // Critical hit chance
@@ -203,9 +237,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         for (const target of targets) {
           // Calculate damage
-          let damage = attack.damage;
+          let damage = attack?.damage;
           const addDamage =
-            Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
+            Math.floor(attacker?.strength / 2) -
+            Math.floor(target?.defense / 2);
           damage += addDamage;
 
           // Critical hit chance
@@ -332,9 +367,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let gold = state.goldGained;
 
         // Calculate damage
-        let damage = attack.damage;
+        let damage = attack?.damage;
         const addDamage =
-          Math.floor(attacker.strength / 2) - Math.floor(target.defense / 2);
+          Math.floor(attacker?.strength / 2) - Math.floor(target?.defense / 2);
         damage += addDamage;
         damage = Math.max(0, damage); // Ensure attack doesn't go below 0 damage
 
@@ -477,6 +512,30 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           ],
         };
       }
+      case 'APPLY_STUN': {
+        const { target, duration } = action.payload;
+        // Adding the stun status effect to the target
+        const updatedTurnOrder = state.turnOrder.map((element) =>
+          element.id === target.id
+            ? {
+                ...element,
+                statusEffects: [
+                  ...target.statusEffects,
+                  { type: 'stun', turns: duration },
+                ],
+              }
+            : element,
+        );
+
+        // Add the stun to the logs
+        const log = `${target.name} has been put in a stun-lock for ${duration} turn. Good luck buddy!`;
+
+        return {
+          ...state,
+          turnOrder: updatedTurnOrder,
+          battleLog: [...state.battleLog, log],
+        };
+      }
       case 'SET_TARGETING': {
         return {
           ...state,
@@ -485,7 +544,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         };
       }
       case 'SELECT_ATTACK': {
-        return { ...state, selectedAttack: action.payload || {} };
+        const { attack } = action.payload;
+        return {
+          ...state,
+          selectedAttack: attack,
+        };
       }
       case 'CHECK_WIN_CONDITIONS': {
         const aliveCombatants = state.turnOrder.filter(
@@ -559,13 +622,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   // Select enemy to attack
   const SelectTarget = (attack) => {
     // Get selected attack
-    dispatch({ type: 'SELECT_ATTACK', payload: attack });
+    dispatch({ type: 'SELECT_ATTACK', payload: { attack } });
 
     if (
       attack.type === 'attack' ||
       attack.type === 'smash' ||
       attack.type === 'drain' ||
-      attack.type === 'attack-all'
+      attack.type === 'attack-all' ||
+      attack.type === 'attack-def' ||
+      attack.type === 'attack-stun'
     ) {
       dispatch({
         type: 'SET_TARGETING',
@@ -601,10 +666,19 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         .forEach((playerTarget) => {
           HandleBuff(selectedAttack, playerTarget);
         });
-    } else if (selectedAttack.tyoe === 'chug' && target) {
+    } else if (selectedAttack.type === 'chug' && target) {
       HandleChug(selectedAttack, target);
-    } else if (selectedAttack.tyoe === 'attack-all') {
+    } else if (selectedAttack.type === 'attack-all') {
       HandleAttackAll(selectedAttack);
+    } else if (selectedAttack.type === 'attack-def' && target) {
+      HandleAttack(selectedAttack, target, true);
+    } else if (selectedAttack.type === 'attack-stun' && target) {
+      HandleStunAttack(
+        selectedAttack,
+        target,
+        selectedAttack?.chance,
+        selectedAttack?.duration,
+      );
     }
 
     // Reset attack state
@@ -730,6 +804,31 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     CheckBattleEnd();
   };
 
+  const HandleStunAttack = (
+    attack,
+    target,
+    stunChance = 0.25,
+    duration = 1,
+  ) => {
+    const { turnOrder, turnIndex } = state;
+    const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+    if (!attacker) return;
+
+    // Dispatching an attack and heal for Life Drain
+    dispatch({
+      type: 'HANDLE_ATTACK',
+      payload: { attacker, attack, target },
+    });
+
+    // If stun succeeds, then apply the stun
+    if (Math.random() < stunChance)
+      dispatch({
+        type: 'APPLY_STUN',
+        payload: { target, duration },
+      });
+  };
+
   // Enemy turn logic
   const EnemyTurn = (enemy) => {
     // Selecting a random attack
@@ -745,7 +844,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       randomAttack.type === 'smash' ||
       randomAttack.type === 'debuff' ||
       randomAttack.type === 'attack-all' ||
-      randomAttack.type === 'attack-def'
+      randomAttack.type === 'attack-def' ||
+      randomAttack.type === 'attack-stun'
     ) {
       targets = state.turnOrder.filter((element) => element.type === 'player'); // Attack or debuff players
     } else {
@@ -805,6 +905,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'attack-def': {
         HandleAttack(randomAttack, randomTarget, true);
+        break;
+      }
+      case 'attack-stun': {
+        HandleStunAttack(
+          randomAttack,
+          randomTarget,
+          randomAttack?.chance,
+          randomAttack?.duration,
+        );
         break;
       }
       default: {
@@ -895,6 +1004,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
     }
   }, [state.isEnemyTurn, state.turnIndex, state.turnOrder]);
+
+  // Skip turn if current fighter is stunned
+  useEffect(() => {
+    if (state.skipTurn) {
+      setTimeout(() => {
+        dispatch({ type: 'NEXT_TURN' });
+      }, 1500);
+    }
+  }, [state.skipTurn, state.turnIndex]);
 
   return (
     <div className='Screen Battle-Screen Full-Screen'>

@@ -604,6 +604,7 @@ export function DannyProvider({ children }) {
     window.restorePartyHP = restorePartyHP;
     window.Classes = Classes;
     window.unlockLocation = unlockLocation;
+    window.danny = Danny;
     window.javon = javon;
     window.ethan = ethan;
   }, []);
