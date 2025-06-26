@@ -106,6 +106,26 @@ npm start
 
 ---
 
+## Updating the Game
+
+### Navigate to repository
+
+cd path/to/swole-hero-rpg-game
+
+### Pull in the updates
+
+git pull
+
+### Update dependencies
+
+npm install
+
+### Start development server
+
+npm start
+
+---
+
 ## Plans for Phase II
 
 - Add **Spire Mountains**, **Emberfall Ruins**, and **Lustralis Kingdom**
