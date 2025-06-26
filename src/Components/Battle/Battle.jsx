@@ -1024,9 +1024,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             .map((enemy, index) => (
               <div key={index} className='Enemy'>
                 <h3>
-                  {enemy.name} (HP: {enemy.hp})
+                  {enemy?.name} (HP: {enemy.hp})
                 </h3>
-                <img src={enemy.image} alt={enemy.name} />
+                <img src={enemy?.image} alt={enemy?.name} />
               </div>
             ))
         ) : (
@@ -1048,7 +1048,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         ) : (
           <div>
             <p>Begin Battle</p>
-            <p>{state.turnOrder[0].name} goes first</p>
+            <p>{state.turnOrder[0]?.name} goes first</p>
           </div>
         )}
       </div>
@@ -1072,36 +1072,36 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Player Display */}
       <div className='Section Player-Section'>
         {state.turnOrder
-          .filter((player) => player.type === 'player')
+          .filter((player) => player?.type === 'player')
           .map((player, index) => (
             <div key={index} className='Player'>
               <h3>
-                {player.name} (HP: {player.hp})
+                {player?.name} (HP: {player.hp})
               </h3>
               {console.log('active player index', state.activePlayerIndex)}
               {index === state.activePlayerIndex ? (
                 <div className='Attack-Buttons'>
                   <img
-                    src={player.imageFace}
-                    alt={player.name}
+                    src={player?.imageFace}
+                    alt={player?.name}
                     className='Attack-Image'
                   />
-                  {player.abilities.map((attack, i) => (
+                  {player?.abilities.map((attack, i) => (
                     <button
                       key={i}
                       disabled={state.isEnemyTurn}
                       className='Attack-Btn'
                       onClick={() => SelectTarget(attack)}
                     >
-                      {attack.name} ({getAttackDescription(attack)})
+                      {attack?.name} ({getAttackDescription(attack)})
                     </button>
                   ))}
                 </div>
               ) : (
                 <div className='Non-Attack-Images'>
                   <img
-                    src={player.imageFace}
-                    alt={player.name}
+                    src={player?.imageFace}
+                    alt={player?.name}
                     className='Attack-Image'
                   />
                 </div>

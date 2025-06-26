@@ -262,7 +262,7 @@ export default function EmberfallEntrance() {
 
   return (
     <div
-      className='Screen Full-Screen Spire-Entrance-Screen'
+      className='Screen Full-Screen Emberfall-Entrance-Screen'
       style={{
         backgroundImage: `url(${currentImage})`,
         backgroundSize: 'contain',
@@ -302,15 +302,7 @@ export default function EmberfallEntrance() {
           )}
         </>
       ) : (
-        <>
-          <TextBox
-            textBox={{
-              text: 'The mountains groan under their own weight. The cold bites harder this time.',
-              image: DanielFace,
-            }}
-          />
-          <Choices options={choices} onChoiceSelected={navigate} />
-        </>
+        null
       )}
     </div>
   );
