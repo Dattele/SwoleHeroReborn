@@ -474,9 +474,6 @@ export function DannyProvider({ children }) {
     });
     console.log('updated party xp', state.party);
 
-    // state.party.forEach((member) => {
-    //   levelUp(member.name, member.classData)
-    // })
     levelUp('Danny', bodyBuilderClass);
     levelUp("Ja'von, the Rizzler", knightClass);
     levelUp('Ethan, the Brute', barbarianClass);
@@ -590,7 +587,6 @@ export function DannyProvider({ children }) {
 
   // Creating a useEffect to pass my functions into the window to be used for testing
   useEffect(() => {
-    window.levelUp = levelUp;
     window.spendGold = spendGold;
     window.gainGold = gainGold;
     window.addItem = addItem;
@@ -602,7 +598,7 @@ export function DannyProvider({ children }) {
     window.updateHP = updateHP;
     window.decreaseHP = decreaseHP;
     window.restorePartyHP = restorePartyHP;
-    window.Classes = Classes;
+    window.classes = Classes;
     window.unlockLocation = unlockLocation;
     window.danny = Danny;
     window.javon = javon;

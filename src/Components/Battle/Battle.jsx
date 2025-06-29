@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useRef } from 'react';
+import React, { useCallback, useEffect, useReducer, useRef } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 
 import { useDanny } from '../../Context/DannyContext';
@@ -42,6 +42,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   const logRef = useRef(null);
   const lastEntryRef = useRef(null); // Ref for the last log entry
+  const hasEnded = useRef(false); // Ref for checking when the battle is over
 
   const playersClone = structuredClone(players).map((player) => ({
     ...player,
@@ -611,6 +612,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
+  // Function to advance turn
+  const NextTurn = useCallback(() => {
+    if (state.battleOutcome) return;
+
+    dispatch({
+      type: 'NEXT_TURN',
+    });
+  }, [state.battleOutcome]);
+
   // Adding an enemy to battle
   const AddEnemyToBattle = (newEnemy) => {
     dispatch({
@@ -694,7 +704,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /** Main Functions */
 
   // Handle player attack
-  const HandleAttack = (attack, target, ignoreDefense = false) => {
+  const HandleAttack = useCallback((attack, target, ignoreDefense = false) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -708,9 +718,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Check if battle has ended
     CheckBattleEnd();
-  };
+  }, [state]);
 
-  const HandleBuff = (attack, target) => {
+  const HandleBuff = useCallback((attack, target) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -721,9 +731,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_BUFF',
       payload: { attacker, attack, target },
     });
-  };
+  }, [state]);
 
-  const HandleHeal = (attack, target) => {
+  const HandleHeal = useCallback((attack, target) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -734,9 +744,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_HEAL',
       payload: { attacker, attack, target },
     });
-  };
+  }, [state]);
 
-  const HandleLifeDrain = (attack, target, ignoreDefense = false) => {
+  const HandleLifeDrain = useCallback((attack, target, ignoreDefense = false) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -753,9 +763,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_HEAL',
       payload: { attacker, attack, target: attackerCopy },
     });
-  };
+  }, [state]);
 
-  const HandleSmash = (attack, target) => {
+  const HandleSmash = useCallback((attack, target) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -769,9 +779,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Check if battle has ended
     CheckBattleEnd();
-  };
+  }, [state]);
 
-  const HandleChug = (attack, target) => {
+  const HandleChug = useCallback((attack, target) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -786,9 +796,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       type: 'HANDLE_BUFF',
       payload: { attacker, attack, target },
     });
-  };
+  }, [state]);
 
-  const HandleAttackAll = (attack) => {
+  const HandleAttackAll = useCallback((attack) => {
     const { turnOrder, turnIndex } = state;
     const attacker = turnOrder[turnIndex]; // Get the current attacker
 
@@ -802,9 +812,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Check if battle has ended
     CheckBattleEnd();
-  };
+  }, [state]);
 
-  const HandleStunAttack = (
+  const HandleStunAttack = useCallback((
     attack,
     target,
     stunChance = 0.25,
@@ -827,10 +837,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         type: 'APPLY_STUN',
         payload: { target, duration },
       });
-  };
+  }, [state]);
 
   // Enemy turn logic
-  const EnemyTurn = (enemy) => {
+  const EnemyTurn = useCallback((enemy) => {
     // Selecting a random attack
     const randomIndex = Math.floor(Math.random() * enemy.abilities.length);
     const randomAttack = enemy.abilities[randomIndex];
@@ -895,7 +905,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         break;
       }
       case 'attack-all': {
-        // Attack every player
         HandleAttackAll(randomAttack);
         break;
       }
@@ -924,16 +933,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
     // Move to next turn
     NextTurn();
-  };
-
-  // Function to advance turn
-  const NextTurn = () => {
-    if (state.battleOutcome) return;
-
-    dispatch({
-      type: 'NEXT_TURN',
-    });
-  };
+  }, [HandleAttack, HandleBuff, HandleHeal, HandleLifeDrain, HandleSmash, HandleAttackAll, HandleStunAttack, state.turnOrder, NextTurn]);
 
   // Check to see if the battle end conditions have been met
   const CheckBattleEnd = () => {
@@ -945,14 +945,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /* Helper function for when the battle ends
    * Calls onBattleEnd with the result and the enemies
    */
-  const BattleEnd = (result, xp, gold) => {
+  const BattleEnd = useCallback((result, xp, gold) => {
     console.log('xp gained from battle', xp);
     console.log('gold gained from battle', gold);
     updateXP(xp);
     updateHP(state.turnOrder);
     gainGold(gold);
+
     if (onBattleEnd !== null) onBattleEnd(result, enemies);
-  };
+  }, [updateHP, updateXP, gainGold, state.turnOrder, onBattleEnd, enemies]);
 
   // Get the attack description for the players attack buttons
   const getAttackDescription = (attack) => {
@@ -976,9 +977,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   // Check for when the battle ends
   useEffect(() => {
-    if (state.battleOutcome === 'win' || state.battleOutcome === 'lose')
+    if ((state.battleOutcome === 'win' || state.battleOutcome === 'lose') && !hasEnded.current) {
       BattleEnd(state.battleOutcome, state.xpGained, state.goldGained);
-  }, [state.battleOutcome, state.xpGained, state.goldGained]);
+      hasEnded.current = true;
+    }
+  }, [state.battleOutcome, state.xpGained, state.goldGained, BattleEnd]);
 
   // Smooth scroll to newest battleLog entry
   useEffect(() => {
@@ -1003,7 +1006,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         enemysMove();
       }
     }
-  }, [state.isEnemyTurn, state.turnIndex, state.turnOrder]);
+  }, [state.isEnemyTurn, state.turnIndex, state.turnOrder, state.battleOutcome, EnemyTurn]);
 
   // Skip turn if current fighter is stunned
   useEffect(() => {
