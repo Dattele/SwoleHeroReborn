@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useReducer, useEffect } from 'react';
+import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
 
 import Classes from '../Components/System/Classes';
 
@@ -12,9 +12,7 @@ import JavonFace from '../assets/images/JavonFace.png';
 const DannyContext = createContext();
 const lastSave = JSON.parse(localStorage?.getItem('saveSlot1')); // User's last save
 
-// Provide Context to the App
-export function DannyProvider({ children }) {
-  const bodyBuilderClass = Classes.Bodybuilder;
+const bodyBuilderClass = Classes.Bodybuilder;
 
   const Danny = {
     name: 'Danny',
@@ -73,6 +71,8 @@ export function DannyProvider({ children }) {
     imageFace: JavonFace,
   };
 
+// Provide Context to the App
+export function DannyProvider({ children }) {
   const initialState = {
     wolfKills: lastSave?.stateSnapshot?.wolfKills || 0,
     gold: lastSave?.stateSnapshot?.gold || 0,
@@ -393,14 +393,14 @@ export function DannyProvider({ children }) {
   };
 
   // Spend gold
-  const spendGold = (amount) => {
+  const spendGold = useCallback((amount) => {
     if (state.gold >= amount) {
       dispatch({
         type: 'SPEND_GOLD',
         payload: amount,
       });
     }
-  };
+  }, [state.gold]);
 
   // Gain gold
   const gainGold = (amount) => {
@@ -467,36 +467,34 @@ export function DannyProvider({ children }) {
   };
 
   // Update everyone in the party's xp
-  const updateXP = (xpGained) => {
+  const updateXP = useCallback((xpGained) => {
     dispatch({
       type: 'UPDATE_XP',
       payload: xpGained,
     });
-    console.log('updated party xp', state.party);
 
     levelUp('Danny', bodyBuilderClass);
     levelUp("Ja'von, the Rizzler", knightClass);
     levelUp('Ethan, the Brute', barbarianClass);
-  };
+  }, []);
 
   // Update everyone in the party's hp
-  const updateHP = (combatants) => {
+  const updateHP = useCallback((combatants) => {
     const players = combatants.filter((e) => e.type === 'player');
     dispatch({
       type: 'UPDATE_HP',
       payload: players,
     });
     console.log('updated party hp', state.party);
-  };
+  }, [state.party]);
 
   // Decrease the specified player's HP
-  const decreaseHP = (player, amount) => {
+  const decreaseHP = useCallback((player, amount) => {
     dispatch({
       type: 'DECREASE_HP',
       payload: { player, amount },
     });
-    console.log("decreasing part member's hp", state.party);
-  };
+  }, []);
 
   // Restore every party member to full HP
   const restorePartyHP = () => {
@@ -603,7 +601,7 @@ export function DannyProvider({ children }) {
     window.danny = Danny;
     window.javon = javon;
     window.ethan = ethan;
-  }, []);
+  }, [spendGold, decreaseHP, updateHP, updateXP]);
 
   return (
     <DannyContext.Provider
