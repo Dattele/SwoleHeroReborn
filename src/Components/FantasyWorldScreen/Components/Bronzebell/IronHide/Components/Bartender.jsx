@@ -14,8 +14,16 @@ import DanielFace from '../../../../../../assets/images/DanielFace.png';
 
 import '../../../../../../scss/All.scss';
 
+const choices = [
+  { text: '🍺 Buy Food or Drinks', action: 'shop' },
+  { text: '🛏 Rent a room', action: 'rest' },
+  { text: '💘 Rizz her Up', action: 'rizz' },
+  { text: '😈 Ask about the Demon King', action: 'demon-king' },
+  { text: '🪑 Go back to your seat', action: 'leave' },
+];
+
 export default function Bartender() {
-  const { party, decreaseHP } = useDanny();
+  const { party, decreaseHP, increaseRizz } = useDanny();
   const navigate = useNavigate();
 
   const [showShop, setShowShop] = useState(false);
@@ -24,14 +32,7 @@ export default function Bartender() {
   const [showRizz, setShowRizz] = useState(false);
   const [rizzIndex, setRizzIndex] = useState(0);
   const [rizzText, setRizzText] = useState([]);
-
-  const choices = [
-    { text: '🍺 Buy Food or Drinks', action: 'shop' },
-    { text: '🛏 Rent a room', action: 'rest' },
-    { text: '💘 Rizz her Up', action: 'rizz' },
-    { text: '😈 Ask about the Demon King', action: 'demon-king' },
-    { text: '🪑 Go back to your seat', action: 'leave' },
-  ];
+  const [rizzedLisa, setRizzedLisa] = useState(false);
 
   const danny = party?.find((member) => member.name === 'Danny');
   const dannyRizz = danny?.rizz ?? 0;
@@ -41,17 +42,17 @@ export default function Bartender() {
   const handleChoice = (choice) => {
     switch (choice.action) {
       case 'shop':
-        // Open shop modal, change mode, etc.
+        // Open shop
         setShowShop(true);
         console.log('Opening shop menu...');
         break;
       case 'rest':
-        // Show rest confirmation modal
+        // Open rest window
         setShowRest(true);
         console.log('Opening rest confirmation...');
         break;
       case 'rizz':
-        // Do rizz check
+        // Rizz check
         handleRizz(dannyRizz);
         setShowRizz(true);
         console.log('Attempting to Rizz Lisa...');
@@ -69,10 +70,10 @@ export default function Bartender() {
 
   const handleRizz = (rizz) => {
     if (rizz >= 8) {
-      // if (!alreadyRizzedLisa) {
-      //   incrementRizz(1);
-      //   setAlreadyRizzedLisa(true);
-      // }
+      if (!rizzedLisa) {
+        increaseRizz(danny, 1);
+        setRizzedLisa(true);
+      }
       //Smooth talker
       setRizzText([
         {
@@ -121,7 +122,7 @@ export default function Bartender() {
 
   const handleNextEvent = () => {
     if (rizzIndex < rizzText.length - 1) {
-      setRizzIndex(rizzIndex + 1);
+      setRizzIndex((prev) => prev + 1);
     }
   };
 

@@ -217,6 +217,22 @@ export function DannyProvider({ children }) {
           }),
         };
       }
+      case 'INCREASE_RIZZ': {
+        const { player, amount } = action.payload;
+        return {
+          ...state,
+          party: state.party.map((member) => {
+            if (member.name === player.name) {
+              const newRizz = member.rizz + amount;
+              console.log('newRizz', newRizz);
+              return {
+                ...member,
+                rizz: newRizz,
+              };
+            } else return member;
+          }),
+        };
+      }
       case 'RESTORE_PARTY_HP': {
         return {
           ...state,
@@ -496,6 +512,14 @@ export function DannyProvider({ children }) {
     });
   }, []);
 
+  // Increase the specified player's rizz
+  const increaseRizz = useCallback((player, amount) => {
+    dispatch({
+      type: 'INCREASE_RIZZ',
+      payload: { player, amount },
+    });
+  }, []);
+
   // Restore every party member to full HP
   const restorePartyHP = () => {
     dispatch({
@@ -618,6 +642,7 @@ export function DannyProvider({ children }) {
         updateXP,
         updateHP,
         decreaseHP,
+        increaseRizz,
         restorePartyHP,
         updateQuestFlag,
         unlockLocation,
