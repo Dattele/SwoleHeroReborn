@@ -50,7 +50,7 @@ export default function PlainsScreen() {
 
   const handleNextEvent = () => {
     if (eventIndex < plainsEvents.length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     }
   };
 

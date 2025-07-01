@@ -1,4 +1,10 @@
-import React, { createContext, useContext, useReducer, useEffect, useCallback } from 'react';
+import React, {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  useCallback,
+} from 'react';
 
 import Classes from '../Components/System/Classes';
 
@@ -14,62 +20,62 @@ const lastSave = JSON.parse(localStorage?.getItem('saveSlot1')); // User's last 
 
 const bodyBuilderClass = Classes.Bodybuilder;
 
-  const Danny = {
-    name: 'Danny',
-    type: 'player',
-    level: 1,
-    xp: 0,
-    maxHP: 35,
-    hp: 35,
-    strength: 8,
-    defense: 4,
-    speed: 4,
-    rizz: 2,
-    class: bodyBuilderClass.name,
-    description:
-      'A man who can deadlift 400 lbs but has never lifted a single date',
-    abilities: bodyBuilderClass.abilities[1],
-    image: Daniel,
-    imageFace: DanielFace,
-  };
+const Danny = {
+  name: 'Danny',
+  type: 'player',
+  level: 1,
+  xp: 0,
+  maxHP: 35,
+  hp: 35,
+  strength: 8,
+  defense: 4,
+  speed: 4,
+  rizz: 2,
+  class: bodyBuilderClass.name,
+  description:
+    'A man who can deadlift 400 lbs but has never lifted a single date',
+  abilities: bodyBuilderClass.abilities[1],
+  image: Daniel,
+  imageFace: DanielFace,
+};
 
-  const barbarianClass = Classes.Barbarian;
-  const ethan = {
-    name: 'Ethan, the Brute',
-    type: 'player',
-    level: 1,
-    xp: 0,
-    maxHP: 45,
-    hp: 45,
-    strength: 4,
-    defense: 8,
-    speed: 2,
-    rizz: 1,
-    class: barbarianClass.name,
-    description: 'Former Gladiator from Stonejaw Hold - Big, Muscular Beast',
-    abilities: barbarianClass.abilities[1],
-    image: Ethan,
-    imageFace: EthanFace,
-  };
+const barbarianClass = Classes.Barbarian;
+const ethan = {
+  name: 'Ethan, the Brute',
+  type: 'player',
+  level: 1,
+  xp: 0,
+  maxHP: 45,
+  hp: 45,
+  strength: 4,
+  defense: 8,
+  speed: 2,
+  rizz: 1,
+  class: barbarianClass.name,
+  description: 'Former Gladiator from Stonejaw Hold - Big, Muscular Beast',
+  abilities: barbarianClass.abilities[1],
+  image: Ethan,
+  imageFace: EthanFace,
+};
 
-  const knightClass = Classes.Knight;
-  const javon = {
-    name: "Ja'von, the Rizzler",
-    type: 'player',
-    level: 1,
-    xp: 0,
-    maxHP: 35,
-    hp: 35,
-    strength: 5,
-    defense: 5,
-    speed: 6,
-    rizz: 8,
-    class: knightClass.name,
-    description: 'Prince of the fallen Kingdom of Feymore - Oozes out Charisma',
-    abilities: knightClass.abilities[1],
-    image: Javon,
-    imageFace: JavonFace,
-  };
+const knightClass = Classes.Knight;
+const javon = {
+  name: "Ja'von, the Rizzler",
+  type: 'player',
+  level: 1,
+  xp: 0,
+  maxHP: 35,
+  hp: 35,
+  strength: 5,
+  defense: 5,
+  speed: 6,
+  rizz: 8,
+  class: knightClass.name,
+  description: 'Prince of the fallen Kingdom of Feymore - Oozes out Charisma',
+  abilities: knightClass.abilities[1],
+  image: Javon,
+  imageFace: JavonFace,
+};
 
 // Provide Context to the App
 export function DannyProvider({ children }) {
@@ -409,14 +415,17 @@ export function DannyProvider({ children }) {
   };
 
   // Spend gold
-  const spendGold = useCallback((amount) => {
-    if (state.gold >= amount) {
-      dispatch({
-        type: 'SPEND_GOLD',
-        payload: amount,
-      });
-    }
-  }, [state.gold]);
+  const spendGold = useCallback(
+    (amount) => {
+      if (state.gold >= amount) {
+        dispatch({
+          type: 'SPEND_GOLD',
+          payload: amount,
+        });
+      }
+    },
+    [state.gold],
+  );
 
   // Gain gold
   const gainGold = (amount) => {
@@ -495,14 +504,17 @@ export function DannyProvider({ children }) {
   }, []);
 
   // Update everyone in the party's hp
-  const updateHP = useCallback((combatants) => {
-    const players = combatants.filter((e) => e.type === 'player');
-    dispatch({
-      type: 'UPDATE_HP',
-      payload: players,
-    });
-    console.log('updated party hp', state.party);
-  }, [state.party]);
+  const updateHP = useCallback(
+    (combatants) => {
+      const players = combatants.filter((e) => e.type === 'player');
+      dispatch({
+        type: 'UPDATE_HP',
+        payload: players,
+      });
+      console.log('updated party hp', state.party);
+    },
+    [state.party],
+  );
 
   // Decrease the specified player's HP
   const decreaseHP = useCallback((player, amount) => {

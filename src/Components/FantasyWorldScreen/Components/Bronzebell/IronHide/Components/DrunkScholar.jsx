@@ -72,7 +72,7 @@ export default function DrunkScholar() {
 
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const handleNextEvent = () => {
     if (eventIndex < drunkScholarDialogue.length - 1) {
@@ -109,7 +109,10 @@ export default function DrunkScholar() {
           <TextBox textBox={drunkScholarDialogue[eventIndex]} />
 
           {eventIndex === drunkScholarDialogue.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={handleChoiceSelected} />
+            <Choices
+              options={choices}
+              onChoiceSelected={handleChoiceSelected}
+            />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next

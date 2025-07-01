@@ -161,7 +161,11 @@ export default function Goat() {
   // Checks for when the current dialogue is complete
   useEffect(() => {
     const dialogue = getCurrentDialogue();
-    if (eventIndex === dialogue.length - 1 && !visitedRef.current && dialogue !== goatDialogue) {
+    if (
+      eventIndex === dialogue.length - 1 &&
+      !visitedRef.current &&
+      dialogue !== goatDialogue
+    ) {
       visitedLocation('visitedGoat');
       visitedRef.current = true;
     }

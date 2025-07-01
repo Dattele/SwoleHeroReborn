@@ -12,9 +12,7 @@ export default function EmberfallBattle({ enemies, battleEnd, setBattleEnd }) {
   const { party } = useDanny();
   const navigate = useNavigate();
 
-  const loseChoices = [
-    { text: 'Retreat', nextScene: '/emberfall' },
-  ];
+  const loseChoices = [{ text: 'Retreat', nextScene: '/emberfall' }];
 
   // Sets a timeout to wait before performing any other actions
   const sleep = (ms) => {

@@ -78,11 +78,11 @@ export default function ToughGuy() {
     }
   };
 
-    // Track that the user has visited the Tough Guy
-    const handleChoiceSelected = (nextScene) => {
-      visitedLocation('visitedToughGuy');
-      navigate(nextScene);
-    };
+  // Track that the user has visited the Tough Guy
+  const handleChoiceSelected = (nextScene) => {
+    visitedLocation('visitedToughGuy');
+    navigate(nextScene);
+  };
 
   // Skip straight to choices if user has been to the Tough Guy
   useEffect(() => {
@@ -107,7 +107,10 @@ export default function ToughGuy() {
           <TextBox textBox={toughGuyDialogue[eventIndex]} />
 
           {eventIndex === toughGuyDialogue.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={handleChoiceSelected} />
+            <Choices
+              options={choices}
+              onChoiceSelected={handleChoiceSelected}
+            />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next

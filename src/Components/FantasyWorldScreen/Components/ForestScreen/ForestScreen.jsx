@@ -10,6 +10,47 @@ import forestBackground from '../../../../assets/images/EdenGrove.png';
 
 import '../../../../scss/All.scss';
 
+const forestEvents = [
+  {
+    text: 'Danny steps into the forest, the air thick with the scent of moss and damp earth.',
+    image: DanielFace,
+  },
+  {
+    text: 'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.',
+    image: DanielFace,
+  },
+  {
+    text: "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...",
+    image: DanielFace,
+  },
+  {
+    text: "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'",
+    image: DanielFace,
+  },
+];
+
+const choices = [
+  {
+    text: 'Explore deeper (Encounter a monster)',
+    nextScene: '/forest-battle',
+  },
+  {
+    text: "Head to town (Maybe there's a gym.. or girls)",
+    nextScene: '/bronzebell',
+  },
+];
+
+const secondTimeChoices = [
+  {
+    text: '⚔️ Clear the path ahead (Another round with forest freaks)',
+    nextScene: '/forest-battle',
+  },
+  {
+    text: "🍻 'Town's got ale and women. Just sayin.' - Ethan",
+    nextScene: '/bronzebell',
+  },
+];
+
 export default function ForestScreen() {
   const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
@@ -17,51 +58,16 @@ export default function ForestScreen() {
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
 
-  const forestEvents = [
-    {
-      text: 'Danny steps into the forest, the air thick with the scent of moss and damp earth.',
-      image: DanielFace,
-    },
-    {
-      text: 'Sunlight barely pierces through the dense canopy, casting eerie shadows along the winding path.',
-      image: DanielFace,
-    },
-    {
-      text: "A distant howl echoes through the trees. Maybe coming here wasn't his smartest idea...",
-      image: DanielFace,
-    },
-    {
-      text: "Danny cracks his knuckles. 'Alright, do I keep pushing forward and fight something, or should I just head to town before I get wrecked?'",
-      image: DanielFace,
-    },
-  ];
-
-  const choices = [
-    {
-      text: 'Explore deeper (Encounter a monster)',
-      nextScene: '/forest-battle',
-    },
-    {
-      text: "Head to town (Maybe there's a gym.. or girls)",
-      nextScene: '/bronzebell',
-    },
-  ];
-
-  const secondTimeChoices = [
-    {
-      text: '⚔️ Clear the path ahead (Another round with forest freaks)',
-      nextScene: '/forest-battle',
-    },
-    {
-      text: "🍻 'Town's got ale and women. Just sayin.' - Ethan",
-      nextScene: '/bronzebell',
-    },
-  ];
-
   const handleNextEvent = () => {
     if (eventIndex < forestEvents.length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     }
+  };
+
+  // Track that the user has visited the Mayor Hall
+  const handleChoiceSelected = (nextScene) => {
+    visitedLocation('visitedEdenGrove');
+    navigate(nextScene);
   };
 
   // Skip straight to choices if user has been to Ironhide
@@ -70,14 +76,7 @@ export default function ForestScreen() {
     if (userVisited) {
       setStage('options');
     }
-  }, []);
-
-  // Checks for when the forestEvents dialogue is complete
-  useEffect(() => {
-    if (eventIndex === forestEvents.length - 1) {
-      visitedLocation('visitedEdenGrove');
-    }
-  }, [eventIndex]);
+  }, [visited]);
 
   return (
     <div
@@ -94,7 +93,10 @@ export default function ForestScreen() {
           <TextBox textBox={forestEvents[eventIndex]} />
 
           {eventIndex === forestEvents.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={navigate} />
+            <Choices
+              options={choices}
+              onChoiceSelected={handleChoiceSelected}
+            />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next

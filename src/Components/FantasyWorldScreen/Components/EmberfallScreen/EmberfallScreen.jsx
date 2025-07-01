@@ -5,7 +5,6 @@ import { useDanny } from '../../../../Context/DannyContext';
 import TextBox from '../../../TextBox';
 import NPCChoices from '../../../System/NPCChoices';
 import Items from '../../../System/Items';
-import Choices from '../../../Choices';
 
 import EmberfallEntrance from '../../../../assets/images/EmberfallEntrance.png';
 import EmberfallTent from '../../../../assets/images/EmberfallTent.png';
@@ -22,6 +21,82 @@ import { ReactComponent as UpArrow } from '../../../../assets/images/UpArrow.svg
 import '../../../../scss/All.scss';
 import './EmberfallScreen.scss';
 
+const emberfallEvents = [
+  {
+    text: 'The party emerges onto plateau—crumbling pillars and weathered stone arches standing against the desert sky.',
+    image: DanielFace,
+  },
+  {
+    text: "Danny: 'So this is Emberfall? Looks like the gym closed a few hundred years ago.'",
+    image: DanielFace,
+  },
+  {
+    text: "Ethan brushes dust off a toppled crate. 'Looks like someone camped here recently, but they left in a hurry.'",
+    image: EthanFace,
+  },
+  {
+    text: "Ja'von: 'Abandoned supplies, maps, and notes in a language I don't know. Were they searching for something or running from something?'",
+    image: JavonFace,
+  },
+  {
+    text: "Danny grins and flexes. 'Whatever it is, it wont outrun these gains.'",
+    image: DanielFace,
+  },
+  {
+    text: "Ethan: 'Well, all I know is I'm not sleeping in that tent. I bet it's full of spiders the size of kettlebells.'",
+    image: EthanFace,
+  },
+  {
+    text: "Ja'von: 'You will be fine. Just keep your eyes sharp. The Demon King's forces could be lurking anywhere.'",
+    image: JavonFace,
+  },
+  {
+    text: "Danny: 'Alright bros, let's loot some knowledge and find a protein stash.'",
+    image: DanielFace,
+  },
+];
+
+const choices = [
+  {
+    text: 'Check out the tent',
+    action: 'tent',
+  },
+  {
+    text: 'Investigate the crates',
+    action: 'crates',
+  },
+  {
+    text: 'Head into the ruins',
+    action: 'ruins',
+  },
+  {
+    text: 'Head back',
+    action: 'map',
+  },
+];
+
+const tentChoices = [
+  {
+    text: 'Sleep like a BAKA',
+    action: 'sleep',
+  },
+  {
+    text: 'Read the notes',
+    action: 'notes',
+  },
+  {
+    text: 'Head back',
+    action: 'leaveTent',
+  },
+];
+
+const noteChoices = [
+  {
+    text: 'Set the notes down',
+    action: 'leaveNotes',
+  },
+];
+
 export default function EmberfallScreen() {
   const { addItem, visited, visitedLocation, restorePartyHP } = useDanny();
   const navigate = useNavigate();
@@ -31,82 +106,6 @@ export default function EmberfallScreen() {
   const [visitTent, setVisitTent] = useState(false);
   const [readNotes, setReadNotes] = useState(false);
   const [stage, setStage] = useState('intro');
-
-  const emberfallEvents = [
-    {
-      text: 'The party emerges onto plateau—crumbling pillars and weathered stone arches standing against the desert sky.',
-      image: DanielFace,
-    },
-    {
-      text: "Danny: 'So this is Emberfall? Looks like the gym closed a few hundred years ago.'",
-      image: DanielFace,
-    },
-    {
-      text: "Ethan brushes dust off a toppled crate. 'Looks like someone camped here recently, but they left in a hurry.'",
-      image: EthanFace,
-    },
-    {
-      text: "Ja'von: 'Abandoned supplies, maps, and notes in a language I don't know. Were they searching for something or running from something?'",
-      image: JavonFace,
-    },
-    {
-      text: "Danny grins and flexes. 'Whatever it is, it wont outrun these gains.'",
-      image: DanielFace,
-    },
-    {
-      text: "Ethan: 'Well, all I know is I'm not sleeping in that tent. I bet it's full of spiders the size of kettlebells.'",
-      image: EthanFace,
-    },
-    {
-      text: "Ja'von: 'You will be fine. Just keep your eyes sharp. The Demon King's forces could be lurking anywhere.'",
-      image: JavonFace,
-    },
-    {
-      text: "Danny: 'Alright bros, let's loot some knowledge and find a protein stash.'",
-      image: DanielFace,
-    },
-  ];
-
-  const choices = [
-    {
-      text: 'Check out the tent',
-      action: 'tent',
-    },
-    {
-      text: 'Investigate the crates',
-      action: 'crates',
-    },
-    {
-      text: 'Head into the ruins',
-      action: 'ruins',
-    },
-    {
-      text: 'Head back',
-      action: 'map',
-    },
-  ];
-
-  const tentChoices = [
-    {
-      text: 'Sleep like a BAKA',
-      action: 'sleep',
-    },
-    {
-      text: 'Read the notes',
-      action: 'notes',
-    },
-    {
-      text: 'Head back',
-      action: 'leaveTent',
-    },
-  ];
-
-  const noteChoices = [
-    {
-      text: 'Set the notes down',
-      action: 'leaveNotes',
-    },
-  ];
 
   const handleNextEvent = () => {
     if (eventIndex < emberfallEvents.length - 1) {
@@ -146,6 +145,10 @@ export default function EmberfallScreen() {
         break;
       default:
         break;
+    }
+
+    if (!visited.includes('visitedEmberfall')) {
+      visitedLocation('visitedEmberfall');
     }
   };
 
@@ -196,14 +199,7 @@ export default function EmberfallScreen() {
     if (userVisited) {
       setStage('options');
     }
-  }, []);
-
-  // Checks for when the emberfallEvents dialogue is complete
-  useEffect(() => {
-    if (eventIndex === emberfallEvents.length - 1) {
-      visitedLocation('visitedEmberfall');
-    }
-  }, [eventIndex]);
+  }, [visited]);
 
   return (
     <>

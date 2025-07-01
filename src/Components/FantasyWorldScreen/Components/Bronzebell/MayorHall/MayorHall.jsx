@@ -95,7 +95,10 @@ export default function Mayor() {
           <TextBox textBox={firstVisitDialogue[eventIndex]} />
 
           {eventIndex === firstVisitDialogue.length - 1 ? (
-            <Choices options={choices} onChoiceSelected={handleChoiceSelected} />
+            <Choices
+              options={choices}
+              onChoiceSelected={handleChoiceSelected}
+            />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next

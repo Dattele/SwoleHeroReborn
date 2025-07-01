@@ -704,236 +704,270 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /** Main Functions */
 
   // Handle player attack
-  const HandleAttack = useCallback((attack, target, ignoreDefense = false) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
+  const HandleAttack = useCallback(
+    (attack, target, ignoreDefense = false) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
 
-    if (!attacker) return;
+      if (!attacker) return;
 
-    // Dispatching an attack
-    dispatch({
-      type: 'HANDLE_ATTACK',
-      payload: { attacker, attack, target, ignoreDefense },
-    });
-
-    // Check if battle has ended
-    CheckBattleEnd();
-  }, [state]);
-
-  const HandleBuff = useCallback((attack, target) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatching a buff
-    dispatch({
-      type: 'HANDLE_BUFF',
-      payload: { attacker, attack, target },
-    });
-  }, [state]);
-
-  const HandleHeal = useCallback((attack, target) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatching a heal
-    dispatch({
-      type: 'HANDLE_HEAL',
-      payload: { attacker, attack, target },
-    });
-  }, [state]);
-
-  const HandleLifeDrain = useCallback((attack, target, ignoreDefense = false) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    const attackerCopy = { ...attacker };
-
-    if (!attacker) return;
-
-    // Dispatching an attack and heal for Life Drain
-    dispatch({
-      type: 'HANDLE_ATTACK',
-      payload: { attacker, attack, target, ignoreDefense },
-    });
-    dispatch({
-      type: 'HANDLE_HEAL',
-      payload: { attacker, attack, target: attackerCopy },
-    });
-  }, [state]);
-
-  const HandleSmash = useCallback((attack, target) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatching an attack then a debuff on target
-    dispatch({
-      type: 'HANDLE_SMASH',
-      payload: { attacker, attack, target },
-    });
-
-    // Check if battle has ended
-    CheckBattleEnd();
-  }, [state]);
-
-  const HandleChug = useCallback((attack, target) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatching an heal then a buff on target
-    dispatch({
-      type: 'HANDLE_HEAL',
-      payload: { attacker, attack, target },
-    });
-    dispatch({
-      type: 'HANDLE_BUFF',
-      payload: { attacker, attack, target },
-    });
-  }, [state]);
-
-  const HandleAttackAll = useCallback((attack) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatch an attack to every enemy
-    dispatch({
-      type: 'HANDLE_ATTACK_ALL',
-      payload: { attacker, attack },
-    });
-
-    // Check if battle has ended
-    CheckBattleEnd();
-  }, [state]);
-
-  const HandleStunAttack = useCallback((
-    attack,
-    target,
-    stunChance = 0.25,
-    duration = 1,
-  ) => {
-    const { turnOrder, turnIndex } = state;
-    const attacker = turnOrder[turnIndex]; // Get the current attacker
-
-    if (!attacker) return;
-
-    // Dispatching an attack and heal for Life Drain
-    dispatch({
-      type: 'HANDLE_ATTACK',
-      payload: { attacker, attack, target },
-    });
-
-    // If stun succeeds, then apply the stun
-    if (Math.random() < stunChance)
+      // Dispatching an attack
       dispatch({
-        type: 'APPLY_STUN',
-        payload: { target, duration },
+        type: 'HANDLE_ATTACK',
+        payload: { attacker, attack, target, ignoreDefense },
       });
-  }, [state]);
+
+      // Check if battle has ended
+      CheckBattleEnd();
+    },
+    [state],
+  );
+
+  const HandleBuff = useCallback(
+    (attack, target) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatching a buff
+      dispatch({
+        type: 'HANDLE_BUFF',
+        payload: { attacker, attack, target },
+      });
+    },
+    [state],
+  );
+
+  const HandleHeal = useCallback(
+    (attack, target) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatching a heal
+      dispatch({
+        type: 'HANDLE_HEAL',
+        payload: { attacker, attack, target },
+      });
+    },
+    [state],
+  );
+
+  const HandleLifeDrain = useCallback(
+    (attack, target, ignoreDefense = false) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      const attackerCopy = { ...attacker };
+
+      if (!attacker) return;
+
+      // Dispatching an attack and heal for Life Drain
+      dispatch({
+        type: 'HANDLE_ATTACK',
+        payload: { attacker, attack, target, ignoreDefense },
+      });
+      dispatch({
+        type: 'HANDLE_HEAL',
+        payload: { attacker, attack, target: attackerCopy },
+      });
+    },
+    [state],
+  );
+
+  const HandleSmash = useCallback(
+    (attack, target) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatching an attack then a debuff on target
+      dispatch({
+        type: 'HANDLE_SMASH',
+        payload: { attacker, attack, target },
+      });
+
+      // Check if battle has ended
+      CheckBattleEnd();
+    },
+    [state],
+  );
+
+  const HandleChug = useCallback(
+    (attack, target) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatching an heal then a buff on target
+      dispatch({
+        type: 'HANDLE_HEAL',
+        payload: { attacker, attack, target },
+      });
+      dispatch({
+        type: 'HANDLE_BUFF',
+        payload: { attacker, attack, target },
+      });
+    },
+    [state],
+  );
+
+  const HandleAttackAll = useCallback(
+    (attack) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatch an attack to every enemy
+      dispatch({
+        type: 'HANDLE_ATTACK_ALL',
+        payload: { attacker, attack },
+      });
+
+      // Check if battle has ended
+      CheckBattleEnd();
+    },
+    [state],
+  );
+
+  const HandleStunAttack = useCallback(
+    (attack, target, stunChance = 0.25, duration = 1) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Dispatching an attack and heal for Life Drain
+      dispatch({
+        type: 'HANDLE_ATTACK',
+        payload: { attacker, attack, target },
+      });
+
+      // If stun succeeds, then apply the stun
+      if (Math.random() < stunChance)
+        dispatch({
+          type: 'APPLY_STUN',
+          payload: { target, duration },
+        });
+    },
+    [state],
+  );
 
   // Enemy turn logic
-  const EnemyTurn = useCallback((enemy) => {
-    // Selecting a random attack
-    const randomIndex = Math.floor(Math.random() * enemy.abilities.length);
-    const randomAttack = enemy.abilities[randomIndex];
+  const EnemyTurn = useCallback(
+    (enemy) => {
+      // Selecting a random attack
+      const randomIndex = Math.floor(Math.random() * enemy.abilities.length);
+      const randomAttack = enemy.abilities[randomIndex];
 
-    // Select a random target from turnOrder
-    let targets;
-    let newEnemy;
-    if (
-      randomAttack.type === 'attack' ||
-      randomAttack.type === 'drain' ||
-      randomAttack.type === 'smash' ||
-      randomAttack.type === 'debuff' ||
-      randomAttack.type === 'attack-all' ||
-      randomAttack.type === 'attack-def' ||
-      randomAttack.type === 'attack-stun'
-    ) {
-      targets = state.turnOrder.filter((element) => element.type === 'player'); // Attack or debuff players
-    } else {
-      targets = state.turnOrder.filter((element) => element.type === 'enemy'); // Buff or heal enemies
-    }
-    const randomTarget = targets[Math.floor(Math.random() * targets.length)];
+      // Select a random target from turnOrder
+      let targets;
+      let newEnemy;
+      if (
+        randomAttack.type === 'attack' ||
+        randomAttack.type === 'drain' ||
+        randomAttack.type === 'smash' ||
+        randomAttack.type === 'debuff' ||
+        randomAttack.type === 'attack-all' ||
+        randomAttack.type === 'attack-def' ||
+        randomAttack.type === 'attack-stun'
+      ) {
+        targets = state.turnOrder.filter(
+          (element) => element.type === 'player',
+        ); // Attack or debuff players
+      } else {
+        targets = state.turnOrder.filter((element) => element.type === 'enemy'); // Buff or heal enemies
+      }
+      const randomTarget = targets[Math.floor(Math.random() * targets.length)];
 
-    if (randomAttack.type === 'summon') {
-      newEnemy = { ...randomAttack.effect };
-      console.log('new enemy added', newEnemy);
-    }
+      if (randomAttack.type === 'summon') {
+        newEnemy = { ...randomAttack.effect };
+        console.log('new enemy added', newEnemy);
+      }
 
-    console.log('random target selected', randomTarget);
-    console.log('random attack selected', randomAttack);
+      console.log('random target selected', randomTarget);
+      console.log('random attack selected', randomAttack);
 
-    switch (randomAttack.type) {
-      case 'attack': {
-        HandleAttack(randomAttack, randomTarget);
-        break;
+      switch (randomAttack.type) {
+        case 'attack': {
+          HandleAttack(randomAttack, randomTarget);
+          break;
+        }
+        case 'buff': {
+          HandleBuff(randomAttack, randomTarget);
+          break;
+        }
+        case 'heal': {
+          HandleHeal(randomAttack, enemy);
+          break;
+        }
+        case 'drain': {
+          HandleLifeDrain(randomAttack, randomTarget);
+          break;
+        }
+        case 'group-buff': {
+          state.turnOrder
+            .filter((enemy) => enemy.type === 'enemy')
+            .forEach((enemyTarget) => {
+              HandleBuff(randomAttack, enemyTarget);
+            });
+          break;
+        }
+        case 'smash': {
+          HandleSmash(randomAttack, randomTarget);
+          break;
+        }
+        case 'summon': {
+          AddEnemyToBattle(newEnemy);
+          break;
+        }
+        case 'attack-all': {
+          HandleAttackAll(randomAttack);
+          break;
+        }
+        case 'debuff': {
+          HandleBuff(randomAttack, randomTarget);
+          break;
+        }
+        case 'attack-def': {
+          HandleAttack(randomAttack, randomTarget, true);
+          break;
+        }
+        case 'attack-stun': {
+          HandleStunAttack(
+            randomAttack,
+            randomTarget,
+            randomAttack?.chance,
+            randomAttack?.duration,
+          );
+          break;
+        }
+        default: {
+          console.log('Unknown attack type:', randomAttack.type);
+          break;
+        }
       }
-      case 'buff': {
-        HandleBuff(randomAttack, randomTarget);
-        break;
-      }
-      case 'heal': {
-        HandleHeal(randomAttack, enemy);
-        break;
-      }
-      case 'drain': {
-        HandleLifeDrain(randomAttack, randomTarget);
-        break;
-      }
-      case 'group-buff': {
-        state.turnOrder
-          .filter((enemy) => enemy.type === 'enemy')
-          .forEach((enemyTarget) => {
-            HandleBuff(randomAttack, enemyTarget);
-          });
-        break;
-      }
-      case 'smash': {
-        HandleSmash(randomAttack, randomTarget);
-        break;
-      }
-      case 'summon': {
-        AddEnemyToBattle(newEnemy);
-        break;
-      }
-      case 'attack-all': {
-        HandleAttackAll(randomAttack);
-        break;
-      }
-      case 'debuff': {
-        HandleBuff(randomAttack, randomTarget);
-        break;
-      }
-      case 'attack-def': {
-        HandleAttack(randomAttack, randomTarget, true);
-        break;
-      }
-      case 'attack-stun': {
-        HandleStunAttack(
-          randomAttack,
-          randomTarget,
-          randomAttack?.chance,
-          randomAttack?.duration,
-        );
-        break;
-      }
-      default: {
-        console.log('Unknown attack type:', randomAttack.type);
-        break;
-      }
-    }
 
-    // Move to next turn
-    NextTurn();
-  }, [HandleAttack, HandleBuff, HandleHeal, HandleLifeDrain, HandleSmash, HandleAttackAll, HandleStunAttack, state.turnOrder, NextTurn]);
+      // Move to next turn
+      NextTurn();
+    },
+    [
+      HandleAttack,
+      HandleBuff,
+      HandleHeal,
+      HandleLifeDrain,
+      HandleSmash,
+      HandleAttackAll,
+      HandleStunAttack,
+      state.turnOrder,
+      NextTurn,
+    ],
+  );
 
   // Check to see if the battle end conditions have been met
   const CheckBattleEnd = () => {
@@ -945,15 +979,18 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   /* Helper function for when the battle ends
    * Calls onBattleEnd with the result and the enemies
    */
-  const BattleEnd = useCallback((result, xp, gold) => {
-    console.log('xp gained from battle', xp);
-    console.log('gold gained from battle', gold);
-    updateXP(xp);
-    updateHP(state.turnOrder);
-    gainGold(gold);
+  const BattleEnd = useCallback(
+    (result, xp, gold) => {
+      console.log('xp gained from battle', xp);
+      console.log('gold gained from battle', gold);
+      updateXP(xp);
+      updateHP(state.turnOrder);
+      gainGold(gold);
 
-    if (onBattleEnd !== null) onBattleEnd(result, enemies);
-  }, [updateHP, updateXP, gainGold, state.turnOrder, onBattleEnd, enemies]);
+      if (onBattleEnd !== null) onBattleEnd(result, enemies);
+    },
+    [updateHP, updateXP, gainGold, state.turnOrder, onBattleEnd, enemies],
+  );
 
   // Get the attack description for the players attack buttons
   const getAttackDescription = (attack) => {
@@ -977,7 +1014,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   // Check for when the battle ends
   useEffect(() => {
-    if ((state.battleOutcome === 'win' || state.battleOutcome === 'lose') && !hasEnded.current) {
+    if (
+      (state.battleOutcome === 'win' || state.battleOutcome === 'lose') &&
+      !hasEnded.current
+    ) {
       BattleEnd(state.battleOutcome, state.xpGained, state.goldGained);
       hasEnded.current = true;
     }
@@ -1006,7 +1046,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         enemysMove();
       }
     }
-  }, [state.isEnemyTurn, state.turnIndex, state.turnOrder, state.battleOutcome, EnemyTurn]);
+  }, [
+    state.isEnemyTurn,
+    state.turnIndex,
+    state.turnOrder,
+    state.battleOutcome,
+    EnemyTurn,
+  ]);
 
   // Skip turn if current fighter is stunned
   useEffect(() => {

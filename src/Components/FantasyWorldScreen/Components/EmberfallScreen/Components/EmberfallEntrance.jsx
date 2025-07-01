@@ -158,6 +158,32 @@ const perceptionFailLines = {
   ],
 };
 
+const perceptionChoices = [
+  {
+    text: 'Ethan',
+    action: 'Ethan',
+  },
+  {
+    text: 'Danny',
+    action: 'Danny',
+  },
+  {
+    text: "Ja'von",
+    action: "Ja'von",
+  },
+];
+
+const choices = [
+  {
+    text: 'Explore deeper (Encounter a monster)',
+    nextScene: '/forest-battle',
+  },
+  {
+    text: "Head to town (Maybe there's a gym.. or girls)",
+    nextScene: '/bronzebell',
+  },
+];
+
 export default function EmberfallEntrance() {
   const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
@@ -170,36 +196,16 @@ export default function EmberfallEntrance() {
   const [currentImage, setCurrentImage] = useState(emberfall1Clear);
   const [battleEnd, setBattleEnd] = useState('');
 
-  const perceptionChoices = [
-    {
-      text: 'Ethan',
-      action: 'Ethan',
-    },
-    {
-      text: 'Danny',
-      action: 'Danny',
-    },
-    {
-      text: "Ja'von",
-      action: "Ja'von",
-    },
-  ];
-
-  const choices = [
-    {
-      text: 'Head into the archway',
-      nextScene: '/spire-floor-1',
-    },
-    {
-      text: "Ethan: 'Guys I'm tired and need some Ale.. can we head back please'",
-      nextScene: '/bronzebell',
-    },
-  ];
-
   const handleNextEvent = () => {
     if (eventIndex < currentDialogue.length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     }
+  };
+
+  // Track that the user has visited the Mayor Hall
+  const handleChoiceSelected = (nextScene) => {
+    visitedLocation('visitedEmberfallEntrance');
+    navigate(nextScene);
   };
 
   // Calulcate the chance of the perception succeeding
@@ -270,7 +276,7 @@ export default function EmberfallEntrance() {
         backgroundPosition: 'center',
       }}
     >
-      {stage === 'battle' ? (
+      {battleEnd === 'win' ? null : stage === 'battle' ? (
         <EmberfallBattle
           enemies={[
             EmberfallMonsters[0],
@@ -302,7 +308,18 @@ export default function EmberfallEntrance() {
           )}
         </>
       ) : (
-        null
+        <>
+          <TextBox
+            textBox={{
+              text: '',
+              image: EthanFace,
+            }}
+          />
+          <NPCChoices
+            options={choices}
+            onChoiceSelected={handleChoiceSelected}
+          />
+        </>
       )}
     </div>
   );

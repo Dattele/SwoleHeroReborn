@@ -261,7 +261,9 @@ export default function Shrine() {
   // UseEffect that sets the stage for the interaction with Bobby
   useEffect(() => {
     const ethan = party?.find((member) => member.name === 'Ethan, the Brute');
-    const javon = party?.find((member) => member.name === "Ja'von, the Rizzler");
+    const javon = party?.find(
+      (member) => member.name === "Ja'von, the Rizzler",
+    );
     if (!ethan || !javon) {
       setStage('notReady');
     } else if (questFlags['emberfall'] === 'in-progress') {
