@@ -142,7 +142,8 @@ export default function IronHide() {
 
   // Skip straight to choices if user has been to Ironhide
   useEffect(() => {
-    if (visited.includes('visitedIronhide')) {
+    const userVisited = visited.includes('visitedIronhide')
+    if (userVisited) {
       setStage('options');
     }
   }, [visited]);
