@@ -97,7 +97,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         console.log('next turn combatant:', state.turnOrder[nextTurnIndex]);
 
         // Check to see if the active fighter has the stun effect
-        const stunEffect = nextFighter.statusEffects.findIndex(
+        const stunEffect = nextFighter?.statusEffects.findIndex(
           (e) => e.type === 'stun',
         );
 
