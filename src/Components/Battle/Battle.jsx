@@ -101,7 +101,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           (e) => e.type === 'stun',
         );
         console.log('stunEffect', stunEffect);
-        if (stunEffect !== -1 && stunEffect !== null) {
+        if (stunEffect !== -1 && stunEffect) {
           // Fighter is stunned: log it, then decrement/remove stun
           logs.push(`${nextFighter.name} is stunned and can't move!`);
 
@@ -583,6 +583,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'ADD_ENEMY': {
         const newEnemy = action.payload;
         newEnemy.id = uuidv4();
+        newEnemy.statusEffects = [];
 
         const updatedTurnOrder = [...state.turnOrder, newEnemy].sort(
           (a, b) => b.speed - a.speed,
