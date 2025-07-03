@@ -97,7 +97,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         console.log('next turn combatant:', state.turnOrder[nextTurnIndex]);
 
         // Check to see if the active fighter has the stun effect
-        const stunEffect = nextFighter?.statusEffects.findIndex(
+        const stunEffect = nextFighter?.statusEffects?.findIndex(
           (e) => e.type === 'stun',
         );
 
@@ -128,7 +128,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           const alivePlayers = state.turnOrder.filter(
             (p) => p?.type === 'player' && p?.hp > 0,
           );
-          playerIndex = alivePlayers.findIndex((p) => p.id === nextFighter.id);
+          playerIndex = alivePlayers?.findIndex((p) => p.id === nextFighter.id);
         }
 
         return {
@@ -175,7 +175,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let nextTurnIndex = state.turnIndex;
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
-        const targetIndex = updatedTurnOrder.findIndex(
+        const targetIndex = updatedTurnOrder?.findIndex(
           (e) => e?.id === target?.id,
         );
         if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
@@ -270,7 +270,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           );
 
           // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
-          const targetIndex = updatedTurnOrder.findIndex(
+          const targetIndex = updatedTurnOrder?.findIndex(
             (e) => e?.id === target?.id,
           );
           if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
@@ -406,7 +406,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         );
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
-        const targetIndex = updatedTurnOrder.findIndex(
+        const targetIndex = updatedTurnOrder?.findIndex(
           (e) => e.id === target.id,
         );
         if (updatedHP === 0 && targetIndex < nextTurnIndex) {
