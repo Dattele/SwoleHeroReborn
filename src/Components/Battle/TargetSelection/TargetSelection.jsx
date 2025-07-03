@@ -17,9 +17,9 @@ export default function TargetSelection({ enemies, onSelectTarget }) {
               }}
             >
               <span>
-                {enemy.name} (HP: {enemy.hp})
+                {enemy?.name} (HP: {enemy?.hp})
               </span>
-              <span>{enemy.description}</span>
+              <span>{enemy?.description}</span>
             </button>
           ))}
         </div>

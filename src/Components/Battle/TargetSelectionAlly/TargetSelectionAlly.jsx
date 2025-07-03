@@ -17,9 +17,9 @@ export default function TargetSelectionAlly({ allies, onSelectTarget }) {
               }}
             >
               <span>
-                {ally.name} (HP: {ally.hp})
+                {ally?.name} (HP: {ally?.hp})
               </span>
-              <span>{ally.description}</span>
+              <span>{ally?.description}</span>
             </button>
           ))}
         </div>

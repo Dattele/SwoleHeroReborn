@@ -37,7 +37,7 @@ export default function SpireBattle({ enemies, battleEnd, setBattleEnd }) {
   return (
     <div className='Spire-Battle'>
       <Battle
-        players={party.filter((p) => p.hp > 0)}
+        players={party.filter((p) => p?.hp > 0)}
         enemies={enemies}
         onBattleEnd={handleBattleEnd}
       />

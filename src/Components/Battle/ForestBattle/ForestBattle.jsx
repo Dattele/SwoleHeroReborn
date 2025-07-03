@@ -88,7 +88,7 @@ export default function ForestBattle() {
   return (
     <div className='Forest-Battle'>
       <Battle
-        players={party.filter((p) => p.hp > 0)}
+        players={party.filter((p) => p?.hp > 0)}
         enemies={enemies}
         onBattleEnd={handleBattleEnd}
       />

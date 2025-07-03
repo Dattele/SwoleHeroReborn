@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
-// import Choices from '../../../../Choices';
+import Choices from '../../../../Choices';
 import NPCChoices from '../../../../System/NPCChoices';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
@@ -276,7 +276,17 @@ export default function EmberfallEntrance() {
         backgroundPosition: 'center',
       }}
     >
-      {battleEnd === 'win' ? null : stage === 'battle' ? (
+      {battleEnd === 'win' ? (
+        <>
+        <TextBox
+          textBox={{
+            text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**",
+            image: DanielFace,
+          }}
+        />
+        <Choices options={choices} onChoiceSelected={navigate} />
+      </>
+      ) : stage === 'battle' ? (
         <EmberfallBattle
           enemies={[
             EmberfallMonsters[0],

@@ -1073,7 +1073,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             .map((enemy, index) => (
               <div key={index} className='Enemy'>
                 <h3>
-                  {enemy?.name} (HP: {enemy.hp})
+                  {enemy?.name} (HP: {enemy?.hp})
                 </h3>
                 <img src={enemy?.image} alt={enemy?.name} />
               </div>
@@ -1125,7 +1125,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           .map((player, index) => (
             <div key={index} className='Player'>
               <h3>
-                {player?.name} (HP: {player.hp})
+                {player?.name} (HP: {player?.hp})
               </h3>
               {console.log('active player index', state.activePlayerIndex)}
               {index === state.activePlayerIndex ? (

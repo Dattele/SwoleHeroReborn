@@ -23,7 +23,7 @@ import './EmberfallScreen.scss';
 
 const emberfallEvents = [
   {
-    text: 'The party emerges onto plateau—crumbling pillars and weathered stone arches standing against the desert sky.',
+    text: 'The party emerges upon plateau-crumbling pillars and weathered stone arches standing against the desert sky.',
     image: DanielFace,
   },
   {
