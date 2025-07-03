@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import dannyImage from '../../assets/images/Daniel.jpeg';
+// import dannyImage from '../../assets/images/Daniel.jpeg';
 import danielFace from '../../assets/images/DanielFace.png';
 import './HeroScreen.scss';
 

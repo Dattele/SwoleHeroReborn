@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
-import Choices from '../../../../Choices';
+// import Choices from '../../../../Choices';
 import NPCChoices from '../../../../System/NPCChoices';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
@@ -252,12 +252,12 @@ export default function EmberfallEntrance() {
   };
 
   // Skip straight to choices if user has been to the Emberfall Entrance
-  // useEffect(() => {
-  //   const userVisited = visited.includes('visitedEmberfallEntrance');
-  //   if (userVisited) {
-  //     setStage('options');
-  //   }
-  // }, []);
+  useEffect(() => {
+    const userVisited = visited.includes('visitedEmberfallEntrance');
+    if (userVisited) {
+      setStage('options');
+    }
+  }, [visited]);
 
   // Checks for when the emberfallEntranceEvents dialogue is complete
   // useEffect(() => {
