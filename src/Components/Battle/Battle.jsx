@@ -126,7 +126,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let playerIndex = state.activePlayerIndex;
         if (nextFighter.type === 'player') {
           const alivePlayers = state.turnOrder.filter(
-            (p) => p.type === 'player' && p.hp > 0,
+            (p) => p?.type === 'player' && p?.hp > 0,
           );
           playerIndex = alivePlayers.findIndex((p) => p.id === nextFighter.id);
         }
@@ -162,9 +162,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           newLog = `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`;
         }
 
+        // Dont let damage go below 0
+        damage = Math.max(0, damage);
+
         let updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
-            ? { ...element, hp: Math.max(0, element.hp - damage) }
+            ? { ...element, hp: Math.max(0, element?.hp - damage) }
             : element,
         );
 
@@ -173,9 +176,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
         const targetIndex = updatedTurnOrder.findIndex(
-          (e) => e.id === target.id,
+          (e) => e?.id === target?.id,
         );
-        if (target.hp - damage <= 0 && targetIndex < nextTurnIndex) {
+        if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
           nextTurnIndex = state.turnIndex - 1;
           console.log('target died and next turnIndex is now', nextTurnIndex);
         }
@@ -262,22 +265,22 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           // Update the HP of the target that got hit
           updatedTurnOrder = updatedTurnOrder.map((element) =>
             element.id === target.id
-              ? { ...element, hp: Math.max(0, element.hp - damage) }
+              ? { ...element, hp: Math.max(0, element?.hp - damage) }
               : element,
           );
 
           // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
           const targetIndex = updatedTurnOrder.findIndex(
-            (e) => e.id === target.id,
+            (e) => e?.id === target?.id,
           );
-          if (target.hp - damage <= 0 && targetIndex < nextTurnIndex) {
+          if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
             nextTurnIndex = state.turnIndex - 1;
             console.log('target died and next turnIndex is now', nextTurnIndex);
           }
 
           // Remove the dead enemies/players
           updatedTurnOrder = updatedTurnOrder.filter(
-            (element) => element.hp > 0,
+            (element) => element?.hp > 0,
           );
 
           // Add to deathLog
@@ -297,10 +300,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           // Gain xp and gold if an enemy is killed
           if (
             updatedTurnOrder.length < state.turnOrder.length &&
-            target.type === 'enemy'
+            target?.type === 'enemy'
           ) {
-            xp += Math.floor(target.xp / players.length);
-            gold += target.gold;
+            xp += Math.floor(target?.xp / players.length);
+            gold += target?.gold;
             logs.push(
               `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
             );
@@ -497,10 +500,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let originalHP = isEnemy
           ? enemies.find((e) => e?.name === target?.name)
           : players.find((p) => p?.name === target?.name);
-
+        console.log('originalHP', originalHP);
         const updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
-            ? { ...element, hp: Math.min(originalHP.hp, target.hp + heal) }
+            ? { ...element, hp: Math.min(originalHP?.hp, target?.hp + heal) }
             : element,
         );
 
@@ -1127,7 +1130,6 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
               <h3>
                 {player?.name} (HP: {player?.hp})
               </h3>
-              {console.log('active player index', state.activePlayerIndex)}
               {index === state.activePlayerIndex ? (
                 <div className='Attack-Buttons'>
                   <img
