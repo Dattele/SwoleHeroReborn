@@ -5,7 +5,7 @@ import './TextBox.scss';
 export default function TextBox({ textBox }) {
   return (
     <div className='Text-Box'>
-      <img src={textBox?.image} alt="Daniel's Face" />
+      <img src={textBox?.image} alt="Character's Face" />
       <p>{textBox?.text}</p>
     </div>
   );

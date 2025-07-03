@@ -12,6 +12,88 @@ import spireBackground from '../../../../assets/images/Spire.png';
 
 import '../../../../scss/All.scss';
 
+const spireDialogue = {
+  spireEvents: [
+    {
+      text: 'The party steps through a narrow mountain pass into the vast frozen ridge of the Spire Mountains. Snow falls gently. Wind howls through the peaks.',
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Damn, it's freezing. Feels like my nipples could cut steel.'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Charming visual. Remind me to never fight shirtless beside you.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Snow on the ground and no pump in sight? This place is cursed.'",
+      image: DanielFace,
+    },
+    {
+      text: "A distant voice echoes throughout the mountains - 'Turn back, surface-dwellers or be buried beneath the frost.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ja'von: 'Well that didn't sound like a welcome party..'",
+      image: JavonFace,
+    },
+    {
+      text: "Ethan: 'If that was the welcome, I really don't wanna meet the bouncer.'",
+      image: EthanFace,
+    },
+    {
+      text: "Danny: 'Alright. No gyms? No girls? Just mountains and monsters? Let's get to work boys.'",
+      image: DanielFace,
+    },
+  ],
+
+  spireInteriorEvents: [
+    {
+      text: 'The path narrows as the party descends between the jagged cliffs, the snow crunching under their boots.',
+      image: DanielFace,
+    },
+    {
+      text: "Danny: 'Man, I feel like I'm walking into a protein-shake commercial gone wrong.'",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Something's off... No birds. No sound. Just wind and rocks.'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Eyes sharp. I've read about ambushes in places like this. The cold isn't the only thing that bites up here.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'Alright, bros. Are we pressing on or heading back for hot meat and warmer company?'",
+      image: DanielFace,
+    },
+  ],
+};
+
+const spireChoices = [
+  {
+    text: '💪 Press onwards',
+    nextScene: '/spire-entrance',
+  },
+  {
+    text: '🍖 Head back to Bronzebell (hot meat and warm company)',
+    nextScene: '/bronzebell',
+  },
+];
+
+const secondTimeChoices = [
+  {
+    text: '💪 Climb deeper into the cold',
+    nextScene: '/spire-entrance',
+  },
+  {
+    text: "🔥 'Bros, I miss warm food and warmer taverns.' - Ethan",
+    nextScene: '/bronzebell',
+  },
+];
+
 export default function SpireScreen() {
   const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
@@ -19,91 +101,9 @@ export default function SpireScreen() {
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('spireEvents');
 
-  const spireDialogue = {
-    spireEvents: [
-      {
-        text: 'The party steps through a narrow mountain pass into the vast frozen ridge of the Spire Mountains. Snow falls gently. Wind howls through the peaks.',
-        image: DanielFace,
-      },
-      {
-        text: "Ethan: 'Damn, it's freezing. Feels like my nipples could cut steel.'",
-        image: EthanFace,
-      },
-      {
-        text: "Ja'von: 'Charming visual. Remind me to never fight shirtless beside you.'",
-        image: JavonFace,
-      },
-      {
-        text: "Danny: 'Snow on the ground and no pump in sight? This place is cursed.'",
-        image: DanielFace,
-      },
-      {
-        text: "A distant voice echoes throughout the mountains - 'Turn back, surface-dwellers or be buried beneath the frost.'",
-        image: DanielFace,
-      },
-      {
-        text: "Ja'von: 'Well that didn't sound like a welcome party..'",
-        image: JavonFace,
-      },
-      {
-        text: "Ethan: 'If that was the welcome, I really don't wanna meet the bouncer.'",
-        image: EthanFace,
-      },
-      {
-        text: "Danny: 'Alright. No gyms? No girls? Just mountains and monsters? Let's get to work boys.'",
-        image: DanielFace,
-      },
-    ],
-
-    spireInteriorEvents: [
-      {
-        text: 'The path narrows as the party descends between the jagged cliffs, the snow crunching under their boots.',
-        image: DanielFace,
-      },
-      {
-        text: "Danny: 'Man, I feel like I'm walking into a protein-shake commercial gone wrong.'",
-        image: DanielFace,
-      },
-      {
-        text: "Ethan: 'Something's off... No birds. No sound. Just wind and rocks.'",
-        image: EthanFace,
-      },
-      {
-        text: "Ja'von: 'Eyes sharp. I've read about ambushes in places like this. The cold isn't the only thing that bites up here.'",
-        image: JavonFace,
-      },
-      {
-        text: "Danny: 'Alright, bros. Are we pressing on or heading back for hot meat and warmer company?'",
-        image: DanielFace,
-      },
-    ],
-  };
-
-  const spireChoices = [
-    {
-      text: '💪 Press onwards',
-      nextScene: '/spire-entrance',
-    },
-    {
-      text: '🍖 Head back to Bronzebell (hot meat and warm company)',
-      nextScene: '/bronzebell',
-    },
-  ];
-
-  const secondTimeChoices = [
-    {
-      text: '💪 Climb deeper into the cold',
-      nextScene: '/spire-entrance',
-    },
-    {
-      text: "🔥 'Bros, I miss warm food and warmer taverns.' - Ethan",
-      nextScene: '/bronzebell',
-    },
-  ];
-
   const handleNextEvent = () => {
     if (eventIndex < spireDialogue[stage].length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     }
   };
 
@@ -113,23 +113,19 @@ export default function SpireScreen() {
     setEventIndex(0);
   };
 
+  // Track that the user has visited the Mayor Hall
+  const handleChoiceSelected = (nextScene) => {
+    visitedLocation('visitedSpire');
+    navigate(nextScene);
+  };
+
   // Skip straight to choices if user has been to the Spire Mountains
   useEffect(() => {
     const userVisited = visited.includes('visitedSpire');
     if (userVisited) {
       setStage('options');
     }
-  }, []);
-
-  // Checks for when the spireInteriorEvents dialogue is complete
-  useEffect(() => {
-    if (
-      eventIndex === spireDialogue.spireInteriorEvents.length - 1 &&
-      stage === 'spireInteriorEvents'
-    ) {
-      visitedLocation('visitedSpire');
-    }
-  }, [eventIndex]);
+  }, [visited]);
 
   return (
     <div
@@ -151,7 +147,10 @@ export default function SpireScreen() {
                 Head into the mountains
               </button>
             ) : (
-              <Choices options={spireChoices} onChoiceSelected={navigate} />
+              <Choices
+                options={spireChoices}
+                onChoiceSelected={handleChoiceSelected}
+              />
             )
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>

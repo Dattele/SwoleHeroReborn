@@ -11,16 +11,16 @@ import EthanFace from '../../../../../assets/images/EthanFace.png';
 
 import '../../../../../scss/All.scss';
 
+const continueChoices = [
+  {
+    text: 'Next Floor: More Gains',
+    nextScene: '/spire-floor-3',
+  },
+];
+
 export default function SpireFloor2() {
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
-
-  const continueChoices = [
-    {
-      text: 'Next Floor: More Gains',
-      nextScene: '/spire-floor-3',
-    },
-  ];
 
   return (
     <div

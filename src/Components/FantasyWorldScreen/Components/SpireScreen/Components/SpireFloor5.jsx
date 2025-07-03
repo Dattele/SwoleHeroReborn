@@ -11,16 +11,16 @@ import EthanFace from '../../../../../assets/images/EthanFace.png';
 
 import '../../../../../scss/All.scss';
 
+const continueChoices = [
+  {
+    text: 'Flex Onward',
+    nextScene: '/spire-floor-6',
+  },
+];
+
 export default function SpireFloor5() {
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
-
-  const continueChoices = [
-    {
-      text: 'Flex Onward',
-      nextScene: '/spire-floor-6',
-    },
-  ];
 
   return (
     <div

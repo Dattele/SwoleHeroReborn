@@ -9,7 +9,6 @@ export default function Save({ isOpen }) {
 
   // Get the user's last save if it exists
   const lastSave = JSON.parse(localStorage?.getItem('saveSlot1'));
-  //console.log(lastSave);
 
   // Get the user's location
   const location =
@@ -29,22 +28,22 @@ export default function Save({ isOpen }) {
     'No Active Quests';
 
   // Format the playTime into hrs, mins, and secs
-  function formatPlayTime(seconds) {
+  const formatPlayTime = (seconds) => {
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
     return `${hrs}h ${mins}m ${secs}s`;
-  }
+  };
 
   // Format the quest name to match the quest log
-  function formatQuestName(id) {
+  const formatQuestName = (id) => {
     const titles = {
       edenGrove: 'Cleanse EdenGrove Forest',
       spire: "The Spire's Crucible",
       emberfall: 'Explore the Ruins of Emberfall',
     };
     return titles[id] || id;
-  }
+  };
 
   return (
     <div className={`Save-Overlay ${!isOpen ? 'Closed' : ''}`}>

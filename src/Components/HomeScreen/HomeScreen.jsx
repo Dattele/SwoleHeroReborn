@@ -5,6 +5,7 @@ import './HomeScreen.scss';
 
 export default function HomeScreen() {
   const navigate = useNavigate();
+
   return (
     <div className='Play-Screen Full-Screen'>
       <div className='Play-Screen-Title-Area Max-Width'>

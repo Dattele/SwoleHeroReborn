@@ -11,16 +11,16 @@ import EthanFace from '../../../../../assets/images/EthanFace.png';
 
 import '../../../../../scss/All.scss';
 
+const continueChoices = [
+  {
+    text: 'Head out of the cave',
+    nextScene: '/spire-floor-5',
+  },
+];
+
 export default function SpireFloor4() {
   const navigate = useNavigate();
   const [battleEnd, setBattleEnd] = useState('');
-
-  const continueChoices = [
-    {
-      text: 'Head out of the cave',
-      nextScene: '/spire-floor-5',
-    },
-  ];
 
   return (
     <div

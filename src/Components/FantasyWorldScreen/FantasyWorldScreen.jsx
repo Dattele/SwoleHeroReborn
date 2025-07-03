@@ -66,7 +66,7 @@ export default function FantasyWorldScreen() {
 
   const handleNextEvent = () => {
     if (eventIndex < fantasyEvents.length - 1) {
-      setEventIndex(eventIndex + 1);
+      setEventIndex((prev) => prev + 1);
     } else {
       navigate('/plains');
     }
