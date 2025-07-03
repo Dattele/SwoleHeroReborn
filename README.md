@@ -76,17 +76,19 @@ This phase includes:
 | ------------------ | ------------------------- |
 | EdenGrove Forest   | Explorable, Battle-ready  |
 | Bronzebell Town    | Town Hub                  |
-| Rizz & Bits Market | Shop                      |
-| Ironhide Tavern    | NPCs, Party, Shop, & Rest |
-| Bobby's Shrine     | Quest                     |
-| Training Grounds   | Party                     |
-| Mayor's Hall       | NPC                       |
-| Goat               | NPC                       |
 | World Map          | Travel                    |
+| Spire Mountains    | Explorable, Battle-ready  |
+| Emberfall Ruins    | Explorable, Battle-ready  |
 
 ---
 
-## Running the Game
+## Playing the Game (NEW WAY TO PLAY)
+
+Swole Hero Reborn now has an official domain
+
+Play Swole Hero Reborn online @ https://swoleheroreborn.netlify.app/
+
+## Running the Game (OLD WAY TO PLAY - IN CASE YOU ALREADY HAVE PROGRESS)
 
 ### Clone the repo
 
@@ -106,7 +108,7 @@ npm start
 
 ---
 
-## Updating the Game
+## Updating the Game (OLD WAY TO PLAY - IN CASE YOU ALREADY HAVE PROGRESS)
 
 ### Navigate to repository
 
