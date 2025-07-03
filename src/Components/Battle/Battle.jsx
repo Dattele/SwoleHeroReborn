@@ -100,8 +100,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const stunEffect = nextFighter?.statusEffects?.findIndex(
           (e) => e.type === 'stun',
         );
-
-        if (stunEffect !== -1) {
+        console.log('stunEffect', stunEffect);
+        if (stunEffect !== -1 && stunEffect !== null) {
           // Fighter is stunned: log it, then decrement/remove stun
           logs.push(`${nextFighter.name} is stunned and can't move!`);
 
