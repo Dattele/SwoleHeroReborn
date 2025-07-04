@@ -16,6 +16,7 @@ const EmberfallMonsters = [
     image: AshborneKnight,
     description:
       "Charred, undead warriors clad in scorched plate. Served as the frontline of Emberfall's guard.",
+    maxHP: 90,
     hp: 90,
     strength: 14,
     defense: 10,
@@ -41,6 +42,7 @@ const EmberfallMonsters = [
     image: DarkAcolyte,
     description:
       "Fanatical cultists who wield dark magic to carry out the Demon King's will.",
+    maxHP: 70,
     hp: 70,
     strength: 8,
     defense: 6,
@@ -65,6 +67,7 @@ const EmberfallMonsters = [
     image: DreadedKnight,
     description:
       'Elite corrupted paladins, former paladins of Emberfall turned enforcers of dread under the Demon King.',
+    maxHP: 110,
     hp: 110,
     strength: 16,
     defense: 12,
@@ -89,6 +92,7 @@ const EmberfallMonsters = [
     image: NetherArcher,
     description:
       'Shadowy archers that strike from afar with cursed arrows and vanish into black smoke.',
+    maxHP: 75,
     hp: 75,
     strength: 8,
     defense: 8,
@@ -116,6 +120,7 @@ const EmberfallMonsters = [
     image: SoulBinder,
     description:
       'Grim reapers that corrupt souls and drain life, feared for their mental corruption as much as their spells.',
+    maxHP: 85,
     hp: 85,
     strength: 10,
     defense: 10,
@@ -135,6 +140,7 @@ const EmberfallMonsters = [
     image: HellForgedBrute,
     description:
       'A towering behemoth of molten steel. Moves slow, but hits with earth shattering force.',
+    maxHP: 85,
     hp: 85,
     strength: 16,
     defense: 16,
@@ -154,6 +160,7 @@ const EmberfallMonsters = [
     image: MoltenImp,
     description:
       'Hyperactive and unpredictable, these tiny demons fling fireballs and love chaos.',
+    maxHP: 40,
     hp: 40,
     strength: 9,
     defense: 5,
@@ -173,6 +180,7 @@ const EmberfallMonsters = [
     image: Esharion,
     description:
       'Second in command to Lord Malak - a warlord infused with infernal might, slaying all in his path.',
+    maxHP: 160,
     hp: 160,
     strength: 11,
     defense: 8,
@@ -205,6 +213,7 @@ export const EmberfallBossMonster = [
     image: LordMalak,
     description:
       'A Demon noble that rose from the ashes alongside the Demon King, he now rules over the ruins of Emberfall',
+    maxHP: 340,
     hp: 340,
     strength: 30,
     defense: 18,

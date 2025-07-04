@@ -490,20 +490,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'HANDLE_HEAL': {
         const { attacker, attack, target } = action.payload;
         const heal = attack?.heal;
-        const isEnemy = attacker?.type === 'enemy';
 
         console.log('enemies in HANDLE_HEAL', enemies);
         console.log('logging the target', target);
         console.log('total heal', heal);
         console.log('loggin the attacker', attacker);
 
-        let originalHP = isEnemy
-          ? enemies.find((e) => e?.name === target?.name)
-          : players.find((p) => p?.name === target?.name);
-        console.log('originalHP', originalHP);
         const updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
-            ? { ...element, hp: Math.min(originalHP?.hp, target?.hp + heal) }
+            ? { ...element, hp: Math.min(target?.maxHP, target?.hp + heal) }
             : element,
         );
 

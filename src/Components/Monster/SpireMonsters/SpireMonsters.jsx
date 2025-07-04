@@ -15,6 +15,7 @@ const SpireMonsters = [
     image: MoltenCrawler,
     description:
       'A lava-blooded insect that oozes molten fluid from its carapace. It sears its enemies with burning bites and drips embers with each step.',
+    maxHP: 40,
     hp: 40,
     strength: 9,
     defense: 4,
@@ -34,6 +35,7 @@ const SpireMonsters = [
     image: FrostDwarf,
     description:
       "A miner who refused to leave the Spire's frozen depths, now cursed by frost. His hatred burns colder than the mountain wind.",
+    maxHP: 50,
     hp: 50,
     strength: 9,
     defense: 7,
@@ -57,6 +59,7 @@ const SpireMonsters = [
     image: GoatMinotaur,
     description:
       'A wild, bipedal goat creature with horns sharp enough to split boulders. Mad from altitude sickness and rage.',
+    maxHP: 20,
     hp: 20,
     strength: 12,
     defense: 1,
@@ -73,6 +76,7 @@ const SpireMonsters = [
     image: FrostWolf,
     description:
       'A spectral hound born of howling snowstorms. Tracks heat with eerie precision and disappears into ice fog.',
+    maxHP: 45,
     hp: 45,
     strength: 9,
     defense: 4,
@@ -96,6 +100,7 @@ const SpireMonsters = [
     image: Troll,
     description:
       "A massive, hulking brute with skin like mountain rock. Slow to act, but when he swings, it's like an avalanche.",
+    maxHP: 65,
     hp: 65,
     strength: 12,
     defense: 10,
@@ -115,6 +120,7 @@ const SpireMonsters = [
     image: DwarvenJuggernaut,
     description:
       'A former champion of the forge, now a living battering ram. Covered head to toe in enchanted dwarven steel.',
+    maxHP: 55,
     hp: 55,
     strength: 11,
     defense: 8,
@@ -134,6 +140,7 @@ const SpireMonsters = [
     image: FrostWidow,
     description:
       'A venomous spider the size of a carriage wheel. Its webs are laced with frost magic and paralytic poison.',
+    maxHP: 30,
     hp: 30,
     strength: 6,
     defense: 2,
@@ -155,6 +162,7 @@ export const SpireBossMonster = [
     image: Balrog,
     description:
       "A cursed flame elemental sealed deep in the Spire's heart. Its roar melts steel, and its hatred fuels its rebirth",
+    maxHP: 200,
     hp: 200,
     strength: 25,
     defense: 14,
