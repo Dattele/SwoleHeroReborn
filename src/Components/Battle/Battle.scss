@@ -99,6 +99,11 @@
         color: #add8e6;
         border-color: #000080;
       }
+
+      &:disabled {
+        border-color: #d32f2f;
+        color: #cc6666;
+      }
     }
   }
 }

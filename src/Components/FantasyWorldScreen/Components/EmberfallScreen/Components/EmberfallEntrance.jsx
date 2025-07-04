@@ -278,14 +278,14 @@ export default function EmberfallEntrance() {
     >
       {battleEnd === 'win' ? (
         <>
-        <TextBox
-          textBox={{
-            text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**",
-            image: DanielFace,
-          }}
-        />
-        <Choices options={choices} onChoiceSelected={navigate} />
-      </>
+          <TextBox
+            textBox={{
+              text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**",
+              image: DanielFace,
+            }}
+          />
+          <Choices options={choices} onChoiceSelected={navigate} />
+        </>
       ) : stage === 'battle' ? (
         <EmberfallBattle
           enemies={[

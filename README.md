@@ -72,13 +72,13 @@ This phase includes:
 
 ## Current Game Map
 
-| Region             | Actions                   |
-| ------------------ | ------------------------- |
-| EdenGrove Forest   | Explorable, Battle-ready  |
-| Bronzebell Town    | Town Hub                  |
-| World Map          | Travel                    |
-| Spire Mountains    | Explorable, Battle-ready  |
-| Emberfall Ruins    | Explorable, Battle-ready  |
+| Region           | Actions                  |
+| ---------------- | ------------------------ |
+| EdenGrove Forest | Explorable, Battle-ready |
+| Bronzebell Town  | Town Hub                 |
+| World Map        | Travel                   |
+| Spire Mountains  | Explorable, Battle-ready |
+| Emberfall Ruins  | Explorable, Battle-ready |
 
 ---
 

@@ -127,7 +127,7 @@ export default function TrainingGrounds() {
 
   // Skip straight to choices if user has been to Training Grounds
   useEffect(() => {
-    const userVisited = visited.includes('visitedTrainingGrounds') === 'true';
+    const userVisited = visited.includes('visitedTrainingGrounds');
     if (userVisited) {
       setStage('options');
     }

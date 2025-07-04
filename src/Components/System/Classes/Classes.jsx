@@ -23,13 +23,13 @@ const Classes = {
       3: [
         { name: 'Dumbbell Throw', type: 'attack', damage: 15 }, // Unlocks at level 3
       ],
-      5: [
+      5: [{ name: 'Protein Shake Chug', type: 'heal', heal: 25 }],
+      7: [
         {
           name: 'Arnold Flex',
           type: 'stun',
           effect: 'All enemies stunned in awe',
-        }, // Unlocks at level 5
-        { name: 'Protein Shake Chug', type: 'heal', heal: 25 },
+        },
       ],
     },
   },
@@ -56,8 +56,10 @@ const Classes = {
         },
         { name: 'Cleaver', type: 'attack-all', damage: 8 },
       ],
-      5: [{ name: 'Skull Bash', type: 'smash', damage: 16 }],
-      7: [{ name: 'Fury Slame', type: 'strength', damage: 25 }],
+      5: [
+        { name: 'Skull Bash', type: 'smash', damage: 16, effect: '-3 defense' },
+      ],
+      7: [{ name: 'Fury Slam', type: 'strength', damage: 25 }],
     },
   },
   Knight: {
@@ -87,17 +89,17 @@ const Classes = {
       ],
       5: [
         {
-          name: 'Royal Decree',
-          type: 'group-buff',
-          effect: '+5 strength, +5 rizz',
+          name: 'Blade of Feymere',
+          type: 'attack-def',
+          damage: 20,
+          effect: 'Ignores enemy defense',
         },
       ],
       7: [
         {
-          name: 'Blade of Feymere',
-          type: 'attack-def',
-          damage: 22,
-          effect: 'Ignores enemy defense',
+          name: 'Royal Decree',
+          type: 'group-buff',
+          effect: '+5 strength, +5 rizz',
         },
       ],
     },

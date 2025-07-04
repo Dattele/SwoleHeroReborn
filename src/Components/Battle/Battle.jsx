@@ -103,9 +103,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         console.log('stunEffect', stunEffect);
         if (stunEffect !== -1 && stunEffect) {
           // Fighter is stunned: log it, then decrement/remove stun
-          logs.push(`${nextFighter.name} is stunned and can't move!`);
+          logs.push(`${nextFighter?.name} is stunned and can't move!`);
 
-          const newEffects = [...nextFighter.statusEffects];
+          const newEffects = [...nextFighter?.statusEffects];
           if (newEffects[stunEffect].turns <= 1) {
             newEffects.splice(stunEffect, 1);
           } else {
@@ -155,15 +155,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const critChance = 2 + attacker.rizz;
         const isCrit = Math.random() * 100 < critChance;
 
-        if (isCrit) {
-          damage = Math.floor(damage * 1.5);
-          newLog = `🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`;
-        } else {
-          newLog = `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`;
-        }
-
         // Dont let damage go below 0
         damage = Math.max(0, damage);
+
+        if (isCrit) {
+          damage = Math.floor(damage * 1.5);
+          newLog = `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`;
+        } else {
+          newLog = `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`;
+        }
 
         let updatedTurnOrder = state.turnOrder.map((element) =>
           element.id === target.id
@@ -189,10 +189,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let deathLog;
         if (updatedTurnOrder.length < state.turnOrder.length) {
           playRandomDeathSound();
-          if (attacker.name === 'Danny') {
-            deathLog = `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`;
+          if (attacker?.name === 'Danny') {
+            deathLog = `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`;
           } else {
-            deathLog = `${target.name} has been slaughtered by ${attacker.name}! 💀`;
+            deathLog = `${target?.name} has been slaughtered by ${attacker?.name}! 💀`;
           }
         }
 
@@ -254,11 +254,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           if (isCrit) {
             damage = Math.floor(damage * 1.5);
             logs.push(
-              `🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`,
+              `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
             );
           } else {
             logs.push(
-              `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`,
+              `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
             );
           }
 
@@ -286,13 +286,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           // Add to deathLog
           if (updatedTurnOrder.length < state.turnOrder.length) {
             playRandomDeathSound();
-            if (attacker.name === 'Danny') {
+            if (attacker?.name === 'Danny') {
               logs.push(
-                `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`,
+                `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
               );
             } else {
               logs.push(
-                `${target.name} has been slaughtered by ${attacker.name}! 💀`,
+                `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
               );
             }
           }
@@ -305,7 +305,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             xp += Math.floor(target?.xp / players.length);
             gold += target?.gold;
             logs.push(
-              `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
+              `Party members have gained ${Math.floor(target?.xp / players.length)} xp and ${target?.gold} gold!`,
             );
           }
         }
@@ -353,7 +353,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           turnOrder: updatedTurnOrder,
           battleLog: [
             ...state.battleLog,
-            `${target.name} has received a buff of ${attack.effect} from ${attacker.name}`,
+            `${target?.name} has received a buff of ${attack?.effect} from ${attacker?.name}`,
           ],
         };
       }
@@ -384,23 +384,23 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         if (isCrit) {
           damage = Math.floor(damage * 1.5);
           logs.push(
-            `🔥 CRITICAL HIT 🔥 ${attacker.name} unleashes a devastating ${attack.name} attack on ${target.name} for ${damage} damage!`,
+            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
           );
         } else {
           logs.push(
-            `${attacker.name} POUNDS ${target.name} for ${damage} damage with ${attack.name}!`,
+            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
           );
         }
 
         // If its a debuff log the action to the enemy, if buff log the action to yourself
         if (debuff) {
-          logs.push(`${target.name} receives a debuff of ${attack.effect}!`);
+          logs.push(`${target?.name} receives a debuff of ${attack?.effect}!`);
         } else {
-          logs.push(`${attacker.name} receives a buff of ${attack.effect}!`);
+          logs.push(`${attacker?.name} receives a buff of ${attack?.effect}!`);
         }
 
         // Update the HP of the target that got hit
-        const updatedHP = Math.max(0, target.hp - damage);
+        const updatedHP = Math.max(0, target?.hp - damage);
         updatedTurnOrder = updatedTurnOrder.map((element) =>
           element.id === target.id ? { ...element, hp: updatedHP } : element,
         );
@@ -419,22 +419,22 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           playRandomDeathSound();
 
           // Add to deathLog
-          if (attacker.name === 'Danny') {
+          if (attacker?.name === 'Danny') {
             logs.push(
-              `${target.name} has been crushed by ${attacker.name}'s massive Biceps! 💀`,
+              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
             );
           } else {
             logs.push(
-              `${target.name} has been slaughtered by ${attacker.name}! 💀`,
+              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
             );
           }
 
           // If target is an enemy, gain xp and gold
           if (target.type === 'enemy') {
-            xp += Math.floor(target.xp / players.length);
-            gold += target.gold;
+            xp += Math.floor(target?.xp / players.length);
+            gold += target?.gold;
             logs.push(
-              `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
+              `Party members have gained ${Math.floor(target?.xp / players.length)} xp and ${target?.gold} gold!`,
             );
           }
         }
@@ -466,11 +466,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // If debuff apply the effect to the enemy, if buff apply to attacker
         if (debuff) {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
-            element.id === target.id ? applyBuff(element) : element,
+            element?.id === target?.id ? applyBuff(element) : element,
           );
         } else {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
-            element.id === attacker.id ? applyBuff(element) : element,
+            element?.id === attacker?.id ? applyBuff(element) : element,
           );
         }
         console.log('updatedTurnOrder after buff/debuff', updatedTurnOrder);
@@ -489,8 +489,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'HANDLE_HEAL': {
         const { attacker, attack, target } = action.payload;
-        const heal = attack.heal;
-        const isEnemy = attacker.type === 'enemy';
+        const heal = attack?.heal;
+        const isEnemy = attacker?.type === 'enemy';
 
         console.log('enemies in HANDLE_HEAL', enemies);
         console.log('logging the target', target);
@@ -512,7 +512,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           turnOrder: updatedTurnOrder,
           battleLog: [
             ...state.battleLog,
-            `${attacker.name} healed ${target.name} for ${heal} hp`,
+            `${attacker?.name} healed ${target?.name} for ${heal} hp`,
           ],
         };
       }
@@ -532,7 +532,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         );
 
         // Add the stun to the logs
-        const log = `${target.name} has been put in a stun-lock for ${duration} turn. Good luck buddy!`;
+        const log = `${target?.name} has been put in a stun-lock for ${duration} turn. Good luck buddy!`;
 
         return {
           ...state,
@@ -595,7 +595,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           turnOrder: updatedTurnOrder,
           battleLog: [
             ...state.battleLog,
-            `${newEnemy.name} has been summoned into battle!`,
+            `${newEnemy?.name} has been summoned into battle!`,
           ],
         };
       }
@@ -698,11 +698,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     // Reset attack state
     dispatch({ type: 'SELECT_ATTACK', payload: {} });
 
-    const goNextTurn = async () => {
-      await sleep(2000);
-      NextTurn();
-    };
-    goNextTurn();
+    NextTurn();
   };
 
   /** Main Functions */
@@ -1000,11 +996,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const getAttackDescription = (attack) => {
     switch (attack.type) {
       case 'attack':
-        return `${attack.damage} DMG`;
+        return `${attack.damage} BASE DMG`;
       case 'attack-all':
-        return `${attack.damage} DMG to all`;
+        return `${attack.damage} BASE DMG to all`;
       case 'smash':
-        return `${attack.damage} DMG & ${attack.effect}`;
+        return `${attack.damage} BASE DMG & ${attack.effect}`;
       case 'heal':
         return `${attack.heal} HP`;
       case 'chug':
@@ -1141,7 +1137,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                   {player?.abilities.map((attack, i) => (
                     <button
                       key={i}
-                      disabled={state.isEnemyTurn}
+                      disabled={
+                        state.isEnemyTurn ||
+                        state.turnOrder[state.turnIndex]?.id !== player?.id ||
+                        state.battleOutcome
+                      }
                       className='Attack-Btn'
                       onClick={() => SelectTarget(attack)}
                     >
