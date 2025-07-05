@@ -35,4 +35,23 @@
       border-color: #000080;
     }
   }
+
+  svg {
+    width: 2rem;
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    cursor: pointer;
+
+    path {
+      fill: #f3e8ee;
+      transition: color 0.3s;
+    }
+
+    &:hover {
+      path {
+        fill: #efb7ce;
+      }
+    }
+  }
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDanny } from '../../../Context/DannyContext';
 
-import TargetSelectionAlly from '../../Battle/TargetSelectionAlly';
+import TargetSelection from '../../Battle/TargetSelection';
 
 import './Menu.scss';
 
@@ -110,9 +110,10 @@ export default function Menu({ isOpen, onClose }) {
 
           {/* Pop-up for selecting ally */}
           {isTargetingAlly && (
-            <TargetSelectionAlly
-              allies={party.filter((player) => player.type === 'player')}
+            <TargetSelection
+              targets={party.filter((player) => player.type === 'player')}
               onSelectTarget={HandleTargetSelection}
+              onClose={() => setIsTargetingAlly(false)}
             />
           )}
         </div>

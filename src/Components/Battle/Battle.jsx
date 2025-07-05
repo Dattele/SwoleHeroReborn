@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { useDanny } from '../../Context/DannyContext';
 
 import TargetSelection from './TargetSelection';
-import TargetSelectionAlly from './TargetSelectionAlly';
 
 import death from '../../assets/sounds/death.mp3';
 import fortniteDeath from '../../assets/sounds/fortnite-death.mp3';
@@ -1100,16 +1099,28 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       {/* Pop-up for selecting enemy */}
       {state.isTargetingEnemy && (
         <TargetSelection
-          enemies={state.turnOrder.filter((enemy) => enemy.type === 'enemy')}
+          targets={state.turnOrder.filter((enemy) => enemy.type === 'enemy')}
           onSelectTarget={HandleTargetSelection}
+          onClose={() =>
+            dispatch({
+              type: 'SET_TARGETING',
+              payload: { enemy: false, ally: false },
+            })
+          }
         />
       )}
 
       {/* Pop-up for selecting ally */}
       {state.isTargetingAlly && (
-        <TargetSelectionAlly
-          allies={state.turnOrder.filter((player) => player.type === 'player')}
+        <TargetSelection
+          targets={state.turnOrder.filter((player) => player.type === 'player')}
           onSelectTarget={HandleTargetSelection}
+          onClose={() =>
+            dispatch({
+              type: 'SET_TARGETING',
+              payload: { enemy: false, ally: false },
+            })
+          }
         />
       )}
 
