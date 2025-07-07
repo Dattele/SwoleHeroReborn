@@ -15,6 +15,13 @@ import EthanFace from '../../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../../assets/images/JavonFace.png';
 
 import '../../../../../scss/All.scss';
+import './Emberfall.scss';
+
+const emberfallEnemies = [
+  EmberfallMonsters[0],
+  EmberfallMonsters[0],
+  EmberfallMonsters[3],
+];
 
 const emberfallEntranceEvents = [
   {
@@ -185,7 +192,7 @@ const choices = [
 ];
 
 export default function EmberfallEntrance() {
-  const { visited, visitedLocation } = useDanny();
+  const { party, decreaseHP, visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [eventIndex, setEventIndex] = useState(0);
@@ -195,6 +202,13 @@ export default function EmberfallEntrance() {
   );
   const [currentImage, setCurrentImage] = useState(emberfall1Clear);
   const [battleEnd, setBattleEnd] = useState('');
+  const [perceptionResult, setPerceptionResult] = useState('');
+
+  const danny = party?.find((member) => member.name === 'Danny');
+  const ethan = party?.find((member) => member.name === 'Ethan, the Brute');
+  const javon = party?.find(
+    (member) => member.name === "Ja'von, the Rizzler",
+  );
 
   const handleNextEvent = () => {
     if (eventIndex < currentDialogue.length - 1) {
@@ -202,7 +216,7 @@ export default function EmberfallEntrance() {
     }
   };
 
-  // Track that the user has visited the Mayor Hall
+  // Track that the user has visited EmberfallEntrance
   const handleChoiceSelected = (nextScene) => {
     visitedLocation('visitedEmberfallEntrance');
     navigate(nextScene);
@@ -229,7 +243,7 @@ export default function EmberfallEntrance() {
         break;
       }
       case "Ja'von": {
-        check = perceptionCheck(6.5);
+        check = perceptionCheck(6);
         selectedPlayer = 'javon';
         break;
       }
@@ -244,10 +258,15 @@ export default function EmberfallEntrance() {
 
     if (check) {
       setCurrentDialogue(perceptionSuccessLines[selectedPlayer]);
-      setCurrentImage(emberfall1Enemies);
+      setPerceptionResult('-2 defense');
     } else {
       setCurrentDialogue(perceptionFailLines[selectedPlayer]);
+      decreaseHP(danny, 5);
+      decreaseHP(ethan, 5);
+      decreaseHP(javon, 5);
     }
+
+    setCurrentImage(emberfall1Enemies);
     setStage('perceptionResult');
   };
 
@@ -258,13 +277,6 @@ export default function EmberfallEntrance() {
       setStage('options');
     }
   }, [visited]);
-
-  // Checks for when the emberfallEntranceEvents dialogue is complete
-  // useEffect(() => {
-  //   if (eventIndex === emberfallEntranceEvents.length - 1) {
-  //     visitedLocation('visitedEmberfallEntrance');
-  //   }
-  // }, [eventIndex]);
 
   return (
     <div
@@ -284,18 +296,25 @@ export default function EmberfallEntrance() {
               image: DanielFace,
             }}
           />
-          <Choices options={choices} onChoiceSelected={navigate} />
+          <Choices options={choices} onChoiceSelected={handleChoiceSelected} />
         </>
       ) : stage === 'battle' ? (
-        <EmberfallBattle
-          enemies={[
-            EmberfallMonsters[0],
-            EmberfallMonsters[0],
-            EmberfallMonsters[3],
-          ]}
-          battleEnd={battleEnd}
-          setBattleEnd={setBattleEnd}
-        />
+        perceptionResult === '-2 defense' ? (
+          <EmberfallBattle
+            enemies={emberfallEnemies.map((enemy) => ({
+              ...enemy,
+              defense: enemy.defense - 2,
+            }))}
+            battleEnd={battleEnd}
+            setBattleEnd={setBattleEnd}
+          />
+        ) : (
+          <EmberfallBattle
+            enemies={emberfallEnemies}
+            battleEnd={battleEnd}
+            setBattleEnd={setBattleEnd}
+          />
+        )
       ) : stage !== 'options' ? (
         <>
           <TextBox textBox={currentDialogue[eventIndex]} />
@@ -303,7 +322,9 @@ export default function EmberfallEntrance() {
           {eventIndex === currentDialogue.length - 1 ? (
             <>
               {stage === 'perceptionResult' ? (
-                setStage('battle')
+                <button className='Next-Btn' onClick={() => setStage('battle')}>
+                  Go to Battle
+                </button>
               ) : (
                 <NPCChoices
                   options={perceptionChoices}
@@ -321,13 +342,13 @@ export default function EmberfallEntrance() {
         <>
           <TextBox
             textBox={{
-              text: '',
+              text: "Ethan: 'I can't believe we're back here again. At least there aren't any more creepy knights lurking around.. right?'",
               image: EthanFace,
             }}
           />
           <NPCChoices
             options={choices}
-            onChoiceSelected={handleChoiceSelected}
+            onChoiceSelected={navigate}
           />
         </>
       )}

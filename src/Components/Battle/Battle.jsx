@@ -990,17 +990,21 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
   const getAttackDescription = (attack) => {
     switch (attack.type) {
       case 'attack':
-        return `${attack.damage} BASE DMG`;
+        return `${attack.damage} Base DMG`;
       case 'attack-all':
-        return `${attack.damage} BASE DMG to all`;
+        return `${attack.damage} Base DMG to all`;
       case 'smash':
-        return `${attack.damage} BASE DMG & ${attack.effect}`;
+        return `${attack.damage} Base DMG & ${attack.effect}`;
       case 'heal':
         return `${attack.heal} HP`;
       case 'chug':
         return `${attack.heal} HP & ${attack.effect}`;
       case 'group-buff':
         return `${attack.effect} to all`;
+      case 'attack-def':
+        return `${attack.damage} Base DMG (Ignore Defense)`;
+      case 'attack-stun':
+        return `${attack.damage} Base DMG (Chance to stun)`;
       default:
         return attack.effect;
     }
