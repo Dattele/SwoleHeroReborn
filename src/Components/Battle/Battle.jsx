@@ -246,6 +246,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             Math.floor(target?.defense / 2);
           damage += addDamage;
 
+          // Dont let damage go below 0
+          damage = Math.max(0, damage);
+
           // Critical hit chance
           const critChance = 2 + attacker.rizz;
           const isCrit = Math.random() * 100 < critChance;
@@ -374,7 +377,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const addDamage =
           Math.floor(attacker?.strength / 2) - Math.floor(target?.defense / 2);
         damage += addDamage;
-        damage = Math.max(0, damage); // Ensure attack doesn't go below 0 damage
+
+        // Dont let damage go below 0
+        damage = Math.max(0, damage);
 
         // Critical hit chance
         const critChance = 2 + attacker.rizz;
