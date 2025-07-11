@@ -182,12 +182,12 @@ const perceptionChoices = [
 
 const choices = [
   {
-    text: 'Explore deeper (Encounter a monster)',
-    nextScene: '/forest-battle',
+    text: 'Explore deeper',
+    nextScene: '/emberfall/emberfall-2',
   },
   {
-    text: "Head to town (Maybe there's a gym.. or girls)",
-    nextScene: '/bronzebell',
+    text: 'Head back',
+    nextScene: '/world-map',
   },
 ];
 
@@ -206,9 +206,7 @@ export default function EmberfallEntrance() {
 
   const danny = party?.find((member) => member.name === 'Danny');
   const ethan = party?.find((member) => member.name === 'Ethan, the Brute');
-  const javon = party?.find(
-    (member) => member.name === "Ja'von, the Rizzler",
-  );
+  const javon = party?.find((member) => member.name === "Ja'von, the Rizzler");
 
   const handleNextEvent = () => {
     if (eventIndex < currentDialogue.length - 1) {
@@ -278,6 +276,12 @@ export default function EmberfallEntrance() {
     }
   }, [visited]);
 
+  useEffect(() => {
+    if (battleEnd === 'win') {
+      setCurrentImage(emberfall1Clear);
+    }
+  }, [battleEnd]);
+
   return (
     <div
       className='Screen Full-Screen Emberfall-Entrance-Screen'
@@ -292,7 +296,7 @@ export default function EmberfallEntrance() {
         <>
           <TextBox
             textBox={{
-              text: "The Balrog collapses in fire and fury. The summit belongs to the swole. **[ Quest Completed: The Spire's Crucible ]**",
+              text: "Danny: 'That's what happens when you skip arm day! Let's see what else is hiding in these ruins!",
               image: DanielFace,
             }}
           />
@@ -346,10 +350,7 @@ export default function EmberfallEntrance() {
               image: EthanFace,
             }}
           />
-          <NPCChoices
-            options={choices}
-            onChoiceSelected={navigate}
-          />
+          <NPCChoices options={choices} onChoiceSelected={navigate} />
         </>
       )}
     </div>

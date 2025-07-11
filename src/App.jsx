@@ -38,6 +38,7 @@ import SpireFloor7 from './Components/FantasyWorldScreen/Components/SpireScreen/
 import SpireBoss from './Components/FantasyWorldScreen/Components/SpireScreen/Components/SpireBoss';
 import EmberfallScreen from './Components/FantasyWorldScreen/Components/EmberfallScreen';
 import EmberfallEntrance from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/EmberfallEntrance';
+import Emberfall2 from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/Emberfall2';
 
 export default function App() {
   return (
@@ -85,6 +86,7 @@ export default function App() {
           <Route path='/spire-boss' element={<SpireBoss />} />
           <Route path='/emberfall' element={<EmberfallScreen />} />
           <Route path='/emberfall/entrance' element={<EmberfallEntrance />} />
+          <Route path='/emberfall/emberfall-2' element={<Emberfall2 />} />
         </Routes>
       </Router>
     </DannyProvider>

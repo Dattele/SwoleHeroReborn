@@ -16,6 +16,7 @@ import EmberfallNote5 from '../../../../assets/images/EmberfallNote5.png';
 import DanielFace from '../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../assets/images/JavonFace.png';
+
 import { ReactComponent as UpArrow } from '../../../../assets/images/UpArrow.svg';
 
 import '../../../../scss/All.scss';

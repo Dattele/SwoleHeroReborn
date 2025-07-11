@@ -100,7 +100,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           (e) => e.type === 'stun',
         );
         console.log('stunEffect', stunEffect);
-        if (stunEffect !== -1 && stunEffect) {
+        if (stunEffect !== -1) {
           // Fighter is stunned: log it, then decrement/remove stun
           logs.push(`${nextFighter?.name} is stunned and can't move!`);
 
@@ -127,7 +127,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           const alivePlayers = state.turnOrder.filter(
             (p) => p?.type === 'player' && p?.hp > 0,
           );
-          playerIndex = alivePlayers?.findIndex((p) => p.id === nextFighter.id);
+          playerIndex = alivePlayers?.findIndex(
+            (p) => p?.id === nextFighter?.id,
+          );
         }
 
         return {
@@ -165,7 +167,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         }
 
         let updatedTurnOrder = state.turnOrder.map((element) =>
-          element.id === target.id
+          element?.id === target?.id
             ? { ...element, hp: Math.max(0, element?.hp - damage) }
             : element,
         );
@@ -266,7 +268,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
           // Update the HP of the target that got hit
           updatedTurnOrder = updatedTurnOrder.map((element) =>
-            element.id === target.id
+            element?.id === target?.id
               ? { ...element, hp: Math.max(0, element?.hp - damage) }
               : element,
           );
@@ -347,7 +349,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         };
 
         const updatedTurnOrder = state.turnOrder.map((element) =>
-          element.id === target.id ? applyBuff(element) : element,
+          element?.id === target?.id ? applyBuff(element) : element,
         );
 
         return {
@@ -406,12 +408,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // Update the HP of the target that got hit
         const updatedHP = Math.max(0, target?.hp - damage);
         updatedTurnOrder = updatedTurnOrder.map((element) =>
-          element.id === target.id ? { ...element, hp: updatedHP } : element,
+          element?.id === target?.id ? { ...element, hp: updatedHP } : element,
         );
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
         const targetIndex = updatedTurnOrder?.findIndex(
-          (e) => e.id === target.id,
+          (e) => e?.id === target?.id,
         );
         if (updatedHP === 0 && targetIndex < nextTurnIndex) {
           nextTurnIndex = state.turnIndex - 1;
@@ -501,7 +503,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         console.log('loggin the attacker', attacker);
 
         const updatedTurnOrder = state.turnOrder.map((element) =>
-          element.id === target.id
+          element?.id === target?.id
             ? { ...element, hp: Math.min(target?.maxHP, target?.hp + heal) }
             : element,
         );
@@ -519,7 +521,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const { target, duration } = action.payload;
         // Adding the stun status effect to the target
         const updatedTurnOrder = state.turnOrder.map((element) =>
-          element.id === target.id
+          element?.id === target?.id
             ? {
                 ...element,
                 statusEffects: [

@@ -64,7 +64,7 @@ export default function ForestScreen() {
     }
   };
 
-  // Track that the user has visited the Mayor Hall
+  // Track that the user has visited EdenGrove
   const handleChoiceSelected = (nextScene) => {
     visitedLocation('visitedEdenGrove');
     navigate(nextScene);
