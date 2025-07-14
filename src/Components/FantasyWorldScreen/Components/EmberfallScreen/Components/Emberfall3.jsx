@@ -7,56 +7,56 @@ import Choices from '../../../../Choices';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
 
-import Emberfall2Image from '../../../../../assets/images/Emberfall2.png';
-import Emberfall2Clear from '../../../../../assets/images/Emberfall2Clear.png';
+import Emberfall3Image from '../../../../../assets/images/Emberfall3.png';
+import Emberfall3Clear from '../../../../../assets/images/Emberfall3Clear.png';
 import DanielFace from '../../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../../assets/images/JavonFace.png';
+import MoltenImp from '../../../../../assets/images/MoltenImp.png';
 
 import '../../../../../scss/All.scss';
 
-const Emberfall2Lines = [
+const Emberfall3Lines = [
   {
-    text: "The party steps from the dusty, golden light of Emberfall's streets into a plaza swallowed by unnatural darkness.",
+    text: "Danny: 'This place is a lot less crispy back here. Feels weird, like the Demon King forgot to finish the job.'",
     image: DanielFace,
   },
   {
-    text: 'Hooded cultists chant around flickering runes while Nether Archers stand upon the top of the ledges.',
-    image: DanielFace,
+    text: "Ethan: 'Wait, do you guys think anyone from Emberfall still lives here, hiding?'",
+    image: EthanFace,
   },
   {
-    text: "Danny: 'Whoaa, it just got really dark, did someone forget to pay the electric?'",
-    image: DanielFace,
-  },
-  {
-    text: "Ja'von: 'Careful, that's not shade, thats sorcery. Those cultists are up to something foul.",
+    text: "Ja'von: 'We don't have time for that - we must move quickly. The longer we linger, the more time their army has to surround us.'",
     image: JavonFace,
   },
   {
-    text: "Ethan: 'Umm why are they looking at us like we are the main course..?",
-    image: EthanFace,
+    text: 'Suddenly, small fiery imps leap from the shadows, cackling as they fling fireballs across the alleyway!',
+    image: MoltenImp,
   },
 ];
 
 const continueChoices = [
   {
     text: 'Continue',
-    nextScene: '/emberfall/emberfall-3',
+    nextScene: '/emberfall/emberfall-4',
   },
 ];
 
-export default function Emberfall2() {
+export default function Emberfall3() {
   const { visited, visitedLocation } = useDanny();
   const navigate = useNavigate();
 
   const [battleEnd, setBattleEnd] = useState('');
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
-  const [currentImage, setCurrentImage] = useState(Emberfall2Image);
+  const [currentImage, setCurrentImage] = useState(Emberfall3Clear);
 
   const handleNextEvent = () => {
-    if (eventIndex < Emberfall2Lines.length - 1) {
+    if (eventIndex < Emberfall3Lines.length - 2) {
       setEventIndex((prev) => prev + 1);
+    } else if (eventIndex < Emberfall3Lines.length - 1) {
+      setEventIndex((prev) => prev + 1);
+      setCurrentImage(Emberfall3Image);
     } else {
       setStage('battle');
     }
@@ -64,13 +64,13 @@ export default function Emberfall2() {
 
   // Track that the user has visited Emberfall2
   const handleChoiceSelected = (nextScene) => {
-    visitedLocation('visitedEmberfall2');
+    visitedLocation('visitedEmberfall3');
     navigate(nextScene);
   };
 
   // Skip straight to choices if user has been to Emberfall2
   useEffect(() => {
-    const userVisited = visited.includes('visitedEmberfall2');
+    const userVisited = visited.includes('visitedEmberfall3');
     if (userVisited) {
       setStage('options');
     }
@@ -78,7 +78,7 @@ export default function Emberfall2() {
 
   useEffect(() => {
     if (battleEnd === 'win') {
-      setCurrentImage(Emberfall2Clear);
+      setCurrentImage(Emberfall3Clear);
       setStage('options');
     }
   }, [battleEnd]);
@@ -95,7 +95,7 @@ export default function Emberfall2() {
     >
       {stage === 'intro' ? (
         <>
-          <TextBox textBox={Emberfall2Lines[eventIndex]} />
+          <TextBox textBox={Emberfall3Lines[eventIndex]} />
           <button className='Next-Btn' onClick={handleNextEvent}>
             Next
           </button>
@@ -116,9 +116,10 @@ export default function Emberfall2() {
       ) : (
         <EmberfallBattle
           enemies={[
-            EmberfallMonsters[1],
-            EmberfallMonsters[1],
-            EmberfallMonsters[3],
+            EmberfallMonsters[6],
+            EmberfallMonsters[6],
+            EmberfallMonsters[6],
+            EmberfallMonsters[6],
           ]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}
