@@ -62,13 +62,13 @@ export default function Emberfall3() {
     }
   };
 
-  // Track that the user has visited Emberfall2
+  // Track that the user has visited Emberfall3
   const handleChoiceSelected = (nextScene) => {
     visitedLocation('visitedEmberfall3');
     navigate(nextScene);
   };
 
-  // Skip straight to choices if user has been to Emberfall2
+  // Skip straight to choices if user has been to Emberfall3
   useEffect(() => {
     const userVisited = visited.includes('visitedEmberfall3');
     if (userVisited) {
