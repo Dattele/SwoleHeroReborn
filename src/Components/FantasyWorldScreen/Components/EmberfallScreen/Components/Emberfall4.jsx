@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
+import NPCChoices from '../../../../System/NPCChoices';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
 
@@ -38,7 +39,7 @@ const Emberfall4Lines = {
     },
   ],
 
-  altar: [
+  relic: [
     {
       text: "Ethan: 'This thing feels important, should we touch it??'",
       image: EthanFace,
@@ -51,9 +52,6 @@ const Emberfall4Lines = {
       text: "Ja'von: 'Don't flex at the relic Danny..",
       image: JavonFace,
     },
-  ],
-
-  altarTrigger: [
     {
       text: 'Ethan, following his gut, places his hand on the relic. Suddenly, the tone shifts.',
       image: EthanFace,
@@ -78,6 +76,10 @@ const Emberfall4Lines = {
       image: EthanFace,
     },
     {
+      text: 'The relic starts rumbling',
+      image: EthanFace,
+    },
+    {
       text: "Ja'von: 'Look, the altar moved! There's a hidden passageway!'",
       image: JavonFace,
     },
@@ -87,6 +89,13 @@ const Emberfall4Lines = {
     },
   ],
 };
+
+const choices = [
+  {
+    text: 'Check out the relic',
+    action: 'relic',
+  },
+];
 
 const continueChoices = [
   {
@@ -102,15 +111,19 @@ export default function Emberfall4() {
   const [battleEnd, setBattleEnd] = useState('');
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
+  const [currentText, setCurrentText] = useState('entrance');
   const [currentImage, setCurrentImage] = useState(Emberfall4Sanctuary);
 
   const handleNextEvent = () => {
-    if (eventIndex < Emberfall4Lines.length - 2) {
+    if (eventIndex < Emberfall4Lines[currentText].length - 1) {
       setEventIndex((prev) => prev + 1);
-    } else if (eventIndex < Emberfall4Lines.length - 1) {
-      setEventIndex((prev) => prev + 1);
+    } else if (currentText === 'entrance') {
+      setCurrentText('inside');
+      setEventIndex(0);
       setCurrentImage(Emberfall4Inside);
-    } else {
+    } else if (currentText === 'relic') {
+      setCurrentText('afterBattle');
+      setEventIndex(0);
       setStage('battle');
     }
   };
@@ -119,6 +132,18 @@ export default function Emberfall4() {
   const handleChoiceSelected = (nextScene) => {
     visitedLocation('visitedEmberfall4');
     navigate(nextScene);
+  };
+
+  // Handle the user taking an action
+  const handleAction = (choice) => {
+    switch (choice.action) {
+      case 'relic':
+        setCurrentText('relic');
+        setEventIndex(0);
+        break;
+      default:
+        break;
+    }
   };
 
   // Skip straight to choices if user has been to Emberfall4
@@ -131,14 +156,13 @@ export default function Emberfall4() {
 
   useEffect(() => {
     if (battleEnd === 'win') {
-      setCurrentImage(Emberfall4Sanctuary);
-      setStage('options');
+      setStage('intro');
     }
   }, [battleEnd]);
 
   return (
     <div
-      className='Screen Full-Screen Emberfall-Screen'
+      className={`Screen Full-Screen Emberfall-Screen  ${currentText === 'relic' && 'Zoom-Center'}`}
       style={{
         backgroundImage: `url(${currentImage})`,
         backgroundSize: 'contain',
@@ -148,10 +172,14 @@ export default function Emberfall4() {
     >
       {stage === 'intro' ? (
         <>
-          <TextBox textBox={Emberfall4Lines[eventIndex]} />
-          <button className='Next-Btn' onClick={handleNextEvent}>
-            Next
-          </button>
+          <TextBox textBox={Emberfall4Lines[currentText][eventIndex]} />
+          {currentText === 'inside' ? (
+            <NPCChoices options={choices} onChoiceSelected={handleAction} />
+          ) : (
+            <button className='Next-Btn' onClick={handleNextEvent}>
+              Next
+            </button>
+          )}
         </>
       ) : stage === 'options' ? (
         <>
@@ -169,10 +197,9 @@ export default function Emberfall4() {
       ) : (
         <EmberfallBattle
           enemies={[
-            EmberfallMonsters[6],
-            EmberfallMonsters[6],
-            EmberfallMonsters[6],
-            EmberfallMonsters[6],
+            EmberfallMonsters[2],
+            EmberfallMonsters[4],
+            EmberfallMonsters[4],
           ]}
           battleEnd={battleEnd}
           setBattleEnd={setBattleEnd}
