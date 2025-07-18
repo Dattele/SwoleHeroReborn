@@ -76,12 +76,13 @@ const EmberfallMonsters = [
     xp: 55,
     gold: 30,
     abilities: [
-      { name: 'Dread Cleave', type: 'attack-all', damage: 18 },
+      { name: 'Dreaded Cleave', type: 'attack-all', damage: 18 },
       {
         name: 'Fear Stare',
         type: 'stun-debuff',
         effect: '-2 attack, -1 rizz',
-        chance: 20,
+        chance: 0.2,
+        duration: 1,
       },
     ],
   },

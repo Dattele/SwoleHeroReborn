@@ -27,8 +27,9 @@ const Classes = {
       7: [
         {
           name: 'Arnold Flex',
-          type: 'stun',
-          effect: 'All enemies stunned in awe',
+          type: 'stun-all',
+          chance: 0.1,
+          duration: 2,
         },
       ],
     },
@@ -59,7 +60,7 @@ const Classes = {
       5: [
         { name: 'Skull Bash', type: 'smash', damage: 16, effect: '-3 defense' },
       ],
-      7: [{ name: 'Fury Slam', type: 'strength', damage: 25 }],
+      7: [{ name: 'Fury Slam', type: 'attack', damage: 25 }],
     },
   },
   Knight: {

@@ -645,7 +645,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       attack.type === 'drain' ||
       attack.type === 'attack-all' ||
       attack.type === 'attack-def' ||
-      attack.type === 'attack-stun'
+      attack.type === 'attack-stun' ||
+      attack.type === 'stun-all' ||
+      attack.type === 'stun-debuff'
     ) {
       dispatch({
         type: 'SET_TARGETING',
@@ -689,6 +691,15 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleAttack(selectedAttack, target, true);
     } else if (selectedAttack.type === 'attack-stun' && target) {
       HandleStunAttack(
+        selectedAttack,
+        target,
+        selectedAttack?.chance,
+        selectedAttack?.duration,
+      );
+    } else if (selectedAttack.type === 'stun-all') {
+      HandleStunAll(selectedAttack?.chance, selectedAttack?.duration);
+    } else if (selectedAttack.type === 'stun-debuff' && target) {
+      HandleStunDebuff(
         selectedAttack,
         target,
         selectedAttack?.chance,
@@ -774,6 +785,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         type: 'HANDLE_HEAL',
         payload: { attacker, attack, target: attackerCopy },
       });
+
+      // Check if battle has ended
+      CheckBattleEnd();
     },
     [state],
   );
@@ -850,11 +864,65 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       });
 
       // If stun succeeds, then apply the stun
-      if (Math.random() < stunChance)
+      if (Math.random() < stunChance) {
         dispatch({
           type: 'APPLY_STUN',
           payload: { target, duration },
         });
+      }
+
+      // Check if battle has ended
+      CheckBattleEnd();
+    },
+    [state],
+  );
+
+  const HandleStunDebuff = useCallback(
+    (attack, target, stunChance = 0.25, duration = 1) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // If stun succeeds, then apply the stun
+      if (Math.random() < stunChance) {
+        dispatch({
+          type: 'APPLY_STUN',
+          payload: { target, duration },
+        });
+      }
+
+      // Apply a debuff to the target
+      dispatch({
+        type: 'HANDLE_BUFF',
+        payload: { attacker, attack, target },
+      });
+    },
+    [state],
+  );
+
+  const HandleStunAll = useCallback(
+    (stunChance = 0.25, duration = 1) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Determine if attacking the players or the enemies
+      const isTargetingPlayers = attacker.type === 'enemy';
+      const targets = state.updatedTurnOrder.filter((target) =>
+        isTargetingPlayers ? target.type === 'player' : target.type === 'enemy',
+      );
+
+      targets.forEach((target) => {
+        // If stun succeeds, then apply the stun
+        if (Math.random() < stunChance) {
+          dispatch({
+            type: 'APPLY_STUN',
+            payload: { target, duration },
+          });
+        }
+      });
     },
     [state],
   );
@@ -876,7 +944,9 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         randomAttack.type === 'debuff' ||
         randomAttack.type === 'attack-all' ||
         randomAttack.type === 'attack-def' ||
-        randomAttack.type === 'attack-stun'
+        randomAttack.type === 'attack-stun' ||
+        randomAttack.type === 'stun-all' ||
+        randomAttack.type === 'stun-debuff'
       ) {
         targets = state.turnOrder.filter(
           (element) => element.type === 'player',
@@ -948,6 +1018,19 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           );
           break;
         }
+        case 'stun-debuff': {
+          HandleStunDebuff(
+            randomAttack,
+            randomTarget,
+            randomAttack?.chance,
+            randomAttack?.duration,
+          );
+          break;
+        }
+        case 'stun-all': {
+          HandleStunAll(randomAttack?.chance, randomAttack?.duration);
+          break;
+        }
         default: {
           console.log('Unknown attack type:', randomAttack.type);
           break;
@@ -965,6 +1048,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleSmash,
       HandleAttackAll,
       HandleStunAttack,
+      HandleStunDebuff,
+      HandleStunAll,
       state.turnOrder,
       NextTurn,
     ],
