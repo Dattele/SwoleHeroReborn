@@ -72,19 +72,15 @@ const Emberfall4Lines = {
 
   afterBattle: [
     {
-      text: "Ethan: 'Is it over!? That relic is glowing!'",
+      text: "Ethan: 'Whew... Is it finally over? Wait, the relic's glowing! That's never a good sign.'",
       image: EthanFace,
     },
     {
-      text: 'The relic starts rumbling',
-      image: EthanFace,
-    },
-    {
-      text: "Ja'von: 'Look, the altar moved! There's a hidden passageway!'",
+      text: "The relic rumbles and the altar shifts. Ja'von: 'Yooo! There's a secret passageway!'",
       image: JavonFace,
     },
     {
-      text: "Danny: 'Do you guys think a gym will be down there? I need a quick pump.'",
+      text: "Danny: 'If there's not a gym down there, I'm suing. Or at least flexing at something.'",
       image: DanielFace,
     },
   ],
