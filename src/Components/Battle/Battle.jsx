@@ -97,18 +97,20 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         // Check to see if the active fighter has the stun effect
         const stunEffect = nextFighter?.statusEffects?.findIndex(
-          (e) => e.type === 'stun',
+          (e) => e?.type === 'stun',
         );
-        console.log('stunEffect', stunEffect);
-        if (stunEffect !== -1) {
-          // Fighter is stunned: log it, then decrement/remove stun
-          logs.push(`${nextFighter?.name} is stunned and can't move!`);
 
+        // Check to see if the active fighter has the bound effect
+        const boundEffect = nextFighter?.statusEffects?.findIndex(
+          (e) => e?.type === 'bound',
+        );
+
+        const removeEffect = (effectIndex) => {
           const newEffects = [...nextFighter?.statusEffects];
-          if (newEffects[stunEffect].turns <= 1) {
-            newEffects.splice(stunEffect, 1);
+          if (newEffects[effectIndex]?.turns <= 1) {
+            newEffects.splice(effectIndex, 1);
           } else {
-            newEffects[stunEffect].turns -= 1;
+            newEffects[effectIndex].turns -= 1;
           }
 
           updatedTurnOrder = updatedTurnOrder.map((element, id) =>
@@ -116,9 +118,22 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
               ? { ...element, statusEffects: newEffects }
               : element,
           );
+        };
+
+        // Fighter is stunned
+        if (stunEffect !== -1) {
+          logs.push(`${nextFighter?.name} is stunned and can't move!`);
+          // Remove the stun effect or decrement
+          removeEffect(stunEffect);
 
           // Update the skipTurn to true
           skipTurn = true;
+        }
+
+        // Fighter is bound
+        if (boundEffect !== -1) {
+          // Remove the bound effect or decrement
+          removeEffect(boundEffect);
         }
 
         // Increase player index if the fighter was a player
@@ -144,7 +159,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'HANDLE_ATTACK': {
         const { attacker, attack, target, ignoreDefense } = action.payload;
-        let newLog;
+        let logs = [];
 
         // Calculate damage
         let damage = attack?.damage;
@@ -161,9 +176,13 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         if (isCrit) {
           damage = Math.floor(damage * 1.5);
-          newLog = `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`;
+          logs.push(
+            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
+          );
         } else {
-          newLog = `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`;
+          logs.push(
+            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
+          );
         }
 
         let updatedTurnOrder = state.turnOrder.map((element) =>
@@ -184,22 +203,54 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           console.log('target died and next turnIndex is now', nextTurnIndex);
         }
 
+        const boundTarget = target.statusEffects?.some(
+          (e) => e?.type === 'bound',
+        );
+
+        if (boundTarget) {
+          updatedTurnOrder = updatedTurnOrder.map((element) => {
+            if (
+              element?.id !== target?.id &&
+              element?.statusEffects?.some((e) => e?.type === 'bound') &&
+              element?.type === target?.type
+            ) {
+              logs.push(
+                `${element?.name} is bound and takes ${damage} shared damage!`,
+              );
+              const newHP = element?.hp - damage;
+              if (newHP <= 0) {
+                playRandomDeathSound();
+                logs.push(`${element?.name}'s soul has been crushed!`);
+                xp += Math.floor(target?.xp / players.length);
+                gold += target?.gold;
+                logs.push(
+                  `Party members have gained ${Math.floor(target?.xp / players.length)} xp and ${target?.gold} gold!`,
+                );
+              }
+              return { ...element, hp: Math.max(0, newHP) };
+            }
+            return element;
+          });
+        }
+
         updatedTurnOrder = updatedTurnOrder.filter((element) => element.hp > 0); // Remove the dead enemies/players
 
         // Add to deathLog
-        let deathLog;
         if (updatedTurnOrder.length < state.turnOrder.length) {
           playRandomDeathSound();
           if (attacker?.name === 'Danny') {
-            deathLog = `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`;
+            logs.push(
+              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
+            );
           } else {
-            deathLog = `${target?.name} has been slaughtered by ${attacker?.name}! 💀`;
+            logs.push(
+              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
+            );
           }
         }
 
         // Add an xp log and add to xp if an enemy died
         // Also add the gold gained to the party and to the xpLog
-        let xpLog;
         let xp = state.xpGained;
         let gold = state.goldGained;
         if (
@@ -208,16 +259,16 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         ) {
           xp += Math.floor(target.xp / players.length);
           gold += target.gold;
-          xpLog = `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`;
+          logs.push(
+            `Party members have gained ${Math.floor(target.xp / players.length)} xp and ${target.gold} gold!`,
+          );
         }
 
         return {
           ...state,
           turnOrder: updatedTurnOrder,
           turnIndex: nextTurnIndex,
-          battleLog: deathLog
-            ? [...state.battleLog, newLog, deathLog, xpLog]
-            : [...state.battleLog, newLog],
+          battleLog: [...state.battleLog, ...logs],
           xpGained: xp,
           goldGained: gold,
         };
@@ -445,6 +496,36 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           }
         }
 
+        const boundTarget = target.statusEffects?.some(
+          (e) => e?.type === 'bound',
+        );
+
+        if (boundTarget) {
+          updatedTurnOrder = updatedTurnOrder.map((element) => {
+            if (
+              element?.id !== target?.id &&
+              element?.statusEffects?.some((e) => e?.type === 'bound') &&
+              element?.type === target?.type
+            ) {
+              logs.push(
+                `${element?.name} is bound and takes ${damage} shared damage!`,
+              );
+              const newHP = element?.hp - damage;
+              if (newHP <= 0) {
+                playRandomDeathSound();
+                logs.push(`${element?.name}'s soul has been crushed!`);
+                xp += Math.floor(target?.xp / players.length);
+                gold += target?.gold;
+                logs.push(
+                  `Party members have gained ${Math.floor(target?.xp / players.length)} xp and ${target?.gold} gold!`,
+                );
+              }
+              return { ...element, hp: Math.max(0, newHP) };
+            }
+            return element;
+          });
+        }
+
         // Apply the debuff to the target/attacker
         const effects = attack.effect.split(',').map((e) => e.trim());
 
@@ -533,7 +614,32 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         );
 
         // Add the stun to the logs
-        const log = `${target?.name} has been put in a stun-lock for ${duration} turn. Good luck buddy!`;
+        const log = `${target?.name} has been put in a stun-lock for ${duration} turn(s). Good luck buddy!`;
+
+        return {
+          ...state,
+          turnOrder: updatedTurnOrder,
+          battleLog: [...state.battleLog, log],
+        };
+      }
+      case 'APPLY_BIND': {
+        const { target, duration } = action.payload;
+
+        // Adding the bind status effect to the target
+        const updatedTurnOrder = state.turnOrder.map((element) =>
+          element?.id === target?.id
+            ? {
+                ...element,
+                statusEffects: [
+                  ...target.statusEffects,
+                  { type: 'bound', turns: duration },
+                ],
+              }
+            : element,
+        );
+
+        // Add the stun to the logs
+        const log = `${target?.name}'s soul has been bound to the void for ${duration} turn(s). Good luck pal!`;
 
         return {
           ...state,
@@ -927,6 +1033,22 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
     [state],
   );
 
+  const HandleBind = useCallback(
+    (target, duration = 1) => {
+      const { turnOrder, turnIndex } = state;
+      const attacker = turnOrder[turnIndex]; // Get the current attacker
+
+      if (!attacker) return;
+
+      // Apply the bound effect to the target
+      dispatch({
+        type: 'APPLY_BIND',
+        payload: { target, duration },
+      });
+    },
+    [state],
+  );
+
   // Enemy turn logic
   const EnemyTurn = useCallback(
     (enemy) => {
@@ -946,7 +1068,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         randomAttack.type === 'attack-def' ||
         randomAttack.type === 'attack-stun' ||
         randomAttack.type === 'stun-all' ||
-        randomAttack.type === 'stun-debuff'
+        randomAttack.type === 'stun-debuff' ||
+        randomAttack.type === 'bind'
       ) {
         targets = state.turnOrder.filter(
           (element) => element.type === 'player',
@@ -1031,6 +1154,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           HandleStunAll(randomAttack?.chance, randomAttack?.duration);
           break;
         }
+        case 'bind': {
+          HandleBind(randomTarget, randomAttack?.duration);
+          break;
+        }
         default: {
           console.log('Unknown attack type:', randomAttack.type);
           break;
@@ -1050,6 +1177,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleStunAttack,
       HandleStunDebuff,
       HandleStunAll,
+      HandleBind,
       state.turnOrder,
       NextTurn,
     ],

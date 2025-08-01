@@ -131,7 +131,7 @@ const EmberfallMonsters = [
     gold: 30,
     abilities: [
       { name: 'Soul Flame', type: 'drain', damage: 15, heal: 15 },
-      { name: 'Bind Souls', type: 'bind' },
+      { name: 'Bind Souls', type: 'bind', duration: 3 },
     ],
   },
   {
