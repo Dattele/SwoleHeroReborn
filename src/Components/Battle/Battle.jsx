@@ -601,17 +601,33 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       case 'APPLY_STUN': {
         const { target, duration } = action.payload;
         // Adding the stun status effect to the target
-        const updatedTurnOrder = state.turnOrder.map((element) =>
-          element?.id === target?.id
-            ? {
-                ...element,
-                statusEffects: [
-                  ...target.statusEffects,
-                  { type: 'stun', turns: duration },
-                ],
-              }
-            : element,
-        );
+        const updatedTurnOrder = state.turnOrder.map((element) => {
+          if (element?.id !== target?.id) return element;
+
+          let found = false;
+
+          const updateStatusEffects = element?.statusEffects.map((effect) => {
+            if (effect?.type === 'stun') {
+              found = true;
+              // Update if new duration is higher
+              return {
+                ...effect,
+                turns: Math.max(effect?.turns, duration),
+              };
+            }
+            return effect;
+          });
+
+          // If not found, add new effect
+          if (!found) {
+            updateStatusEffects.push({ type: 'stun', turns: duration });
+          }
+
+          return {
+            ...element,
+            statusEffects: updateStatusEffects,
+          };
+        });
 
         // Add the stun to the logs
         const log = `${target?.name} has been put in a stun-lock for ${duration} turn(s). Good luck buddy!`;
@@ -626,17 +642,33 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const { target, duration } = action.payload;
 
         // Adding the bind status effect to the target
-        const updatedTurnOrder = state.turnOrder.map((element) =>
-          element?.id === target?.id
-            ? {
-                ...element,
-                statusEffects: [
-                  ...target.statusEffects,
-                  { type: 'bound', turns: duration },
-                ],
-              }
-            : element,
-        );
+        const updatedTurnOrder = state.turnOrder.map((element) => {
+          if (element?.id !== target?.id) return element;
+
+          let found = false;
+
+          const updateStatusEffects = element?.statusEffects.map((effect) => {
+            if (effect?.type === 'bound') {
+              found = true;
+              // Update if new duration is higher
+              return {
+                ...effect,
+                turns: Math.max(effect?.turns, duration),
+              };
+            }
+            return effect;
+          });
+
+          // If not found, add new effect
+          if (!found) {
+            updateStatusEffects.push({ type: 'bound', turns: duration });
+          }
+
+          return {
+            ...element,
+            statusEffects: updateStatusEffects,
+          };
+        });
 
         // Add the stun to the logs
         const log = `${target?.name}'s soul has been bound to the void for ${duration} turn(s). Good luck pal!`;
