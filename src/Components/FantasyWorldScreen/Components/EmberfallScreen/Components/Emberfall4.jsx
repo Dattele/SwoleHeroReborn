@@ -171,6 +171,12 @@ export default function Emberfall4() {
           <TextBox textBox={Emberfall4Lines[currentText][eventIndex]} />
           {currentText === 'inside' ? (
             <NPCChoices options={choices} onChoiceSelected={handleAction} />
+          ) : currentText === 'afterBattle' &&
+            eventIndex === Emberfall4Lines[currentText].length - 1 ? (
+            <Choices
+              options={continueChoices}
+              onChoiceSelected={handleChoiceSelected}
+            />
           ) : (
             <button className='Next-Btn' onClick={handleNextEvent}>
               Next
@@ -185,10 +191,7 @@ export default function Emberfall4() {
               image: DanielFace,
             }}
           />
-          <Choices
-            options={continueChoices}
-            onChoiceSelected={handleChoiceSelected}
-          />
+          <Choices options={continueChoices} onChoiceSelected={navigate} />
         </>
       ) : (
         <EmberfallBattle
