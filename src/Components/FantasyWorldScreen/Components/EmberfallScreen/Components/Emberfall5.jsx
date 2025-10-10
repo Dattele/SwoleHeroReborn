@@ -12,7 +12,6 @@ import Emberfall5Corridor from '../../../../../assets/images/Emberfall5Corridor.
 import DanielFace from '../../../../../assets/images/DanielFace.png';
 import EthanFace from '../../../../../assets/images/EthanFace.png';
 import JavonFace from '../../../../../assets/images/JavonFace.png';
-import MoltenImp from '../../../../../assets/images/MoltenImp.png';
 
 import '../../../../../scss/All.scss';
 
@@ -30,15 +29,11 @@ const Emberfall5Lines = {
       text: "Ethan: 'You guys smell that?? Something's burnt.. and I dont think it's Danny's pancakes this time.'",
       image: EthanFace,
     },
-    {
-      text: 'Suddenly, small fiery imps leap from the shadows, cackling as they fling fireballs across the alleyway!',
-      image: MoltenImp,
-    },
   ],
 
   notes: [
     {
-      text: 'Walking through the corridor the party finds messy, bloody notes',
+      text: 'Walking through the corridors, the party finds messages written with blood.',
       image: DanielFace,
     },
     {
@@ -74,7 +69,7 @@ const Emberfall5Lines = {
 const continueChoices = [
   {
     text: 'Continue',
-    nextScene: '/emberfall/emberfall-4',
+    nextScene: '/emberfall/emberfall-6',
   },
 ];
 
@@ -85,29 +80,32 @@ export default function Emberfall5() {
   const [battleEnd, setBattleEnd] = useState('');
   const [eventIndex, setEventIndex] = useState(0);
   const [stage, setStage] = useState('intro');
-  const [currentText, setCurrentText] = useState('entrance');
+  const [currentText, setCurrentText] = useState('start');
   const [currentImage, setCurrentImage] = useState(Emberfall5Entrance);
 
   const handleNextEvent = () => {
-    if (eventIndex < Emberfall5Lines.length - 2) {
+    if (eventIndex < Emberfall5Lines[currentText].length - 1) {
       setEventIndex((prev) => prev + 1);
-    } else if (eventIndex < Emberfall5Lines.length - 1) {
-      setEventIndex((prev) => prev + 1);
-      setCurrentImage(Emberfall5Entrance);
-    } else {
+    } else if (currentText === 'entrance') {
+      setCurrentText('inside');
+      setEventIndex(0);
+      setCurrentImage(Emberfall5Corridor);
+    } else if (currentText === 'relic') {
+      setCurrentText('afterBattle');
+      setEventIndex(0);
       setStage('battle');
     }
   };
 
-  // Track that the user has visited Emberfall3
+  // Track that the user has visited Emberfall5
   const handleChoiceSelected = (nextScene) => {
-    visitedLocation('visitedEmberfall3');
+    visitedLocation('visitedEmberfall5');
     navigate(nextScene);
   };
 
-  // Skip straight to choices if user has been to Emberfall3
+  // Skip straight to choices if user has been to Emberfall5
   useEffect(() => {
-    const userVisited = visited.includes('visitedEmberfall3');
+    const userVisited = visited.includes('visitedEmberfall5');
     if (userVisited) {
       setStage('options');
     }

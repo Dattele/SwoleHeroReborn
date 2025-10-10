@@ -26,7 +26,7 @@ const Emberfall3Lines = [
     image: EthanFace,
   },
   {
-    text: "Ja'von: 'We don't have time for that - we must move quickly. The longer we linger, the more time their army has to surround us.'",
+    text: "Ja'von: 'We don't have time for that - we must move quickly. The longer we take, the more time their army has to surround us.'",
     image: JavonFace,
   },
   {

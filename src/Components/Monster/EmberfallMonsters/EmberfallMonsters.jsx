@@ -171,7 +171,7 @@ const EmberfallMonsters = [
     gold: 30,
     abilities: [
       { name: 'Fireball', type: 'attack', damage: 15 },
-      { name: 'Self Destruct', type: 'attack-all', damage: 20 },
+      { name: 'Self Destruct', type: 'self-destruct', damage: 20 },
     ],
   },
   {
