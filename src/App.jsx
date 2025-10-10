@@ -41,6 +41,7 @@ import EmberfallEntrance from './Components/FantasyWorldScreen/Components/Emberf
 import Emberfall2 from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/Emberfall2';
 import Emberfall3 from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/Emberfall3';
 import Emberfall4 from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/Emberfall4';
+import Emberfall5 from './Components/FantasyWorldScreen/Components/EmberfallScreen/Components/Emberfall5';
 
 export default function App() {
   return (
@@ -91,6 +92,7 @@ export default function App() {
           <Route path='/emberfall/emberfall-2' element={<Emberfall2 />} />
           <Route path='/emberfall/emberfall-3' element={<Emberfall3 />} />
           <Route path='/emberfall/emberfall-4' element={<Emberfall4 />} />
+          <Route path='/emberfall/emberfall-5' element={<Emberfall5 />} />
         </Routes>
       </Router>
     </DannyProvider>

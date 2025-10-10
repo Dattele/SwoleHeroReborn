@@ -65,7 +65,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
   const initialState = {
     turnOrder: [...playersClone, ...enemiesClone].sort(
-      (a, b) => b.speed - a.speed
+      (a, b) => b.speed - a.speed,
     ),
     turnIndex: 0,
     battleLog: [],
@@ -97,12 +97,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         // Check to see if the active fighter has the stun effect
         const stunEffect = nextFighter?.statusEffects?.findIndex(
-          (e) => e?.type === 'stun'
+          (e) => e?.type === 'stun',
         );
 
         // Check to see if the active fighter has the bound effect
         const boundEffect = nextFighter?.statusEffects?.findIndex(
-          (e) => e?.type === 'bound'
+          (e) => e?.type === 'bound',
         );
 
         const removeEffect = (effectIndex) => {
@@ -116,7 +116,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           updatedTurnOrder = updatedTurnOrder.map((element, id) =>
             id === nextTurnIndex
               ? { ...element, statusEffects: newEffects }
-              : element
+              : element,
           );
         };
 
@@ -140,10 +140,10 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         let playerIndex = state.activePlayerIndex;
         if (nextFighter.type === 'player') {
           const alivePlayers = state.turnOrder.filter(
-            (p) => p?.type === 'player' && p?.hp > 0
+            (p) => p?.type === 'player' && p?.hp > 0,
           );
           playerIndex = alivePlayers?.findIndex(
-            (p) => p?.id === nextFighter?.id
+            (p) => p?.id === nextFighter?.id,
           );
         }
 
@@ -177,18 +177,18 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         if (isCrit) {
           damage = Math.floor(damage * 1.5);
           logs.push(
-            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`
+            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
           );
         } else {
           logs.push(
-            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`
+            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
           );
         }
 
         let updatedTurnOrder = state.turnOrder.map((element) =>
           element?.id === target?.id
             ? { ...element, hp: Math.max(0, element?.hp - damage) }
-            : element
+            : element,
         );
 
         // Getting the nextTurnIndex
@@ -196,7 +196,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
         const targetIndex = updatedTurnOrder?.findIndex(
-          (e) => e?.id === target?.id
+          (e) => e?.id === target?.id,
         );
         if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
           nextTurnIndex = state.turnIndex - 1;
@@ -204,7 +204,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         }
 
         const boundTarget = target.statusEffects?.some(
-          (e) => e?.type === 'bound'
+          (e) => e?.type === 'bound',
         );
 
         if (boundTarget) {
@@ -215,7 +215,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
               element?.type === target?.type
             ) {
               logs.push(
-                `${element?.name} is bound and takes ${damage} shared damage!`
+                `${element?.name} is bound and takes ${damage} shared damage!`,
               );
               const newHP = element?.hp - damage;
               if (newHP <= 0) {
@@ -225,8 +225,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                 gold += target?.gold;
                 logs.push(
                   `Party members have gained ${Math.floor(
-                    target?.xp / players.length
-                  )} xp and ${target?.gold} gold!`
+                    target?.xp / players.length,
+                  )} xp and ${target?.gold} gold!`,
                 );
               }
               return { ...element, hp: Math.max(0, newHP) };
@@ -242,11 +242,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           playRandomDeathSound();
           if (attacker?.name === 'Danny') {
             logs.push(
-              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`
+              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
             );
           } else {
             logs.push(
-              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`
+              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
             );
           }
         }
@@ -263,8 +263,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           gold += target.gold;
           logs.push(
             `Party members have gained ${Math.floor(
-              target.xp / players.length
-            )} xp and ${target.gold} gold!`
+              target.xp / players.length,
+            )} xp and ${target.gold} gold!`,
           );
         }
 
@@ -292,7 +292,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const targets = updatedTurnOrder.filter((target) =>
           isTargetingPlayers
             ? target.type === 'player'
-            : target.type === 'enemy'
+            : target.type === 'enemy',
         );
 
         for (const target of targets) {
@@ -313,11 +313,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           if (isCrit) {
             damage = Math.floor(damage * 1.5);
             logs.push(
-              `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`
+              `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
             );
           } else {
             logs.push(
-              `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`
+              `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
             );
           }
 
@@ -325,12 +325,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
             element?.id === target?.id
               ? { ...element, hp: Math.max(0, element?.hp - damage) }
-              : element
+              : element,
           );
 
           // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
           const targetIndex = updatedTurnOrder?.findIndex(
-            (e) => e?.id === target?.id
+            (e) => e?.id === target?.id,
           );
           if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
             nextTurnIndex = state.turnIndex - 1;
@@ -339,7 +339,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
           // Remove the dead enemies/players
           updatedTurnOrder = updatedTurnOrder.filter(
-            (element) => element?.hp > 0
+            (element) => element?.hp > 0,
           );
 
           // Add to deathLog
@@ -347,11 +347,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             playRandomDeathSound();
             if (attacker?.name === 'Danny') {
               logs.push(
-                `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`
+                `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
               );
             } else {
               logs.push(
-                `${target?.name} has been slaughtered by ${attacker?.name}! 💀`
+                `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
               );
             }
           }
@@ -365,8 +365,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             gold += target?.gold;
             logs.push(
               `Party members have gained ${Math.floor(
-                target?.xp / players.length
-              )} xp and ${target?.gold} gold!`
+                target?.xp / players.length,
+              )} xp and ${target?.gold} gold!`,
             );
           }
         }
@@ -406,7 +406,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         };
 
         const updatedTurnOrder = state.turnOrder.map((element) =>
-          element?.id === target?.id ? applyBuff(element) : element
+          element?.id === target?.id ? applyBuff(element) : element,
         );
 
         return {
@@ -447,11 +447,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         if (isCrit) {
           damage = Math.floor(damage * 1.5);
           logs.push(
-            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`
+            `🔥 CRITICAL HIT 🔥 ${attacker?.name} unleashes a devastating ${attack?.name} attack on ${target?.name} for ${damage} damage!`,
           );
         } else {
           logs.push(
-            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`
+            `${attacker?.name} POUNDS ${target?.name} for ${damage} damage with ${attack?.name}!`,
           );
         }
 
@@ -465,12 +465,12 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // Update the HP of the target that got hit
         const updatedHP = Math.max(0, target?.hp - damage);
         updatedTurnOrder = updatedTurnOrder.map((element) =>
-          element?.id === target?.id ? { ...element, hp: updatedHP } : element
+          element?.id === target?.id ? { ...element, hp: updatedHP } : element,
         );
 
         // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
         const targetIndex = updatedTurnOrder?.findIndex(
-          (e) => e?.id === target?.id
+          (e) => e?.id === target?.id,
         );
         if (updatedHP === 0 && targetIndex < nextTurnIndex) {
           nextTurnIndex = state.turnIndex - 1;
@@ -484,11 +484,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           // Add to deathLog
           if (attacker?.name === 'Danny') {
             logs.push(
-              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`
+              `${target?.name} has been crushed by ${attacker?.name}'s massive Biceps! 💀`,
             );
           } else {
             logs.push(
-              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`
+              `${target?.name} has been slaughtered by ${attacker?.name}! 💀`,
             );
           }
 
@@ -498,14 +498,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             gold += target?.gold;
             logs.push(
               `Party members have gained ${Math.floor(
-                target?.xp / players.length
-              )} xp and ${target?.gold} gold!`
+                target?.xp / players.length,
+              )} xp and ${target?.gold} gold!`,
             );
           }
         }
 
         const boundTarget = target.statusEffects?.some(
-          (e) => e?.type === 'bound'
+          (e) => e?.type === 'bound',
         );
 
         if (boundTarget) {
@@ -516,7 +516,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
               element?.type === target?.type
             ) {
               logs.push(
-                `${element?.name} is bound and takes ${damage} shared damage!`
+                `${element?.name} is bound and takes ${damage} shared damage!`,
               );
               const newHP = element?.hp - damage;
               if (newHP <= 0) {
@@ -526,8 +526,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
                 gold += target?.gold;
                 logs.push(
                   `Party members have gained ${Math.floor(
-                    target?.xp / players.length
-                  )} xp and ${target?.gold} gold!`
+                    target?.xp / players.length,
+                  )} xp and ${target?.gold} gold!`,
                 );
               }
               return { ...element, hp: Math.max(0, newHP) };
@@ -563,11 +563,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // If debuff apply the effect to the enemy, if buff apply to attacker
         if (debuff) {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
-            element?.id === target?.id ? applyBuff(element) : element
+            element?.id === target?.id ? applyBuff(element) : element,
           );
         } else {
           updatedTurnOrder = updatedTurnOrder.map((element) =>
-            element?.id === attacker?.id ? applyBuff(element) : element
+            element?.id === attacker?.id ? applyBuff(element) : element,
           );
         }
         console.log('updatedTurnOrder after buff/debuff', updatedTurnOrder);
@@ -599,7 +599,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const targets = updatedTurnOrder.filter((target) =>
           isTargetingPlayers
             ? target.type === 'player'
-            : target.type === 'enemy'
+            : target.type === 'enemy',
         );
 
         for (const target of targets) {
@@ -607,19 +607,19 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
           const damage = attack?.damage;
 
           logs.push(
-            `${attacker?.name} blows all over ${target?.name} for ${damage} damage with ${attack?.name}!`
+            `${attacker?.name} blows all over ${target?.name} for ${damage} damage with ${attack?.name}!`,
           );
 
           // Update the HP of the target that got hit
           updatedTurnOrder = updatedTurnOrder.map((element) =>
             element?.id === target?.id
               ? { ...element, hp: Math.max(0, element?.hp - damage) }
-              : element
+              : element,
           );
 
           // Subtract 1 from the nextTurnIndex if someone died that goes before the current fighter in the turn order
           const targetIndex = updatedTurnOrder?.findIndex(
-            (e) => e?.id === target?.id
+            (e) => e?.id === target?.id,
           );
           if (target?.hp - damage <= 0 && targetIndex < nextTurnIndex) {
             nextTurnIndex = state.turnIndex - 1;
@@ -628,7 +628,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
           // Remove the dead enemies/players
           updatedTurnOrder = updatedTurnOrder.filter(
-            (element) => element?.hp > 0
+            (element) => element?.hp > 0,
           );
 
           // Add to deathLog
@@ -636,11 +636,11 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             playRandomDeathSound();
             if (attacker?.name === 'Danny') {
               logs.push(
-                `${target?.name} has been crushed by ${attacker?.name}'s massive Body! 💀`
+                `${target?.name} has been crushed by ${attacker?.name}'s massive Body! 💀`,
               );
             } else {
               logs.push(
-                `${target?.name} has been blown up by ${attacker?.name}! 💀`
+                `${target?.name} has been blown up by ${attacker?.name}! 💀`,
               );
             }
           }
@@ -654,8 +654,8 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             gold += target?.gold;
             logs.push(
               `Party members have gained ${Math.floor(
-                target?.xp / players.length
-              )} xp and ${target?.gold} gold!`
+                target?.xp / players.length,
+              )} xp and ${target?.gold} gold!`,
             );
           }
         }
@@ -663,7 +663,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         // Blow up the attacker that used self-destruct
         updatedTurnOrder = updatedTurnOrder
           .map((element) =>
-            element?.id === attacker?.id ? { ...element, hp: 0 } : element
+            element?.id === attacker?.id ? { ...element, hp: 0 } : element,
           )
           .filter((element) => element?.hp > 0);
         logs.push(`${attacker?.name} blew themselves to bits! 💀`);
@@ -689,7 +689,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         const updatedTurnOrder = state.turnOrder.map((element) =>
           element?.id === target?.id
             ? { ...element, hp: Math.min(target?.maxHP, target?.hp + heal) }
-            : element
+            : element,
         );
 
         return {
@@ -798,14 +798,14 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       }
       case 'CHECK_WIN_CONDITIONS': {
         const aliveCombatants = state.turnOrder.filter(
-          (element) => element.hp > 0
+          (element) => element.hp > 0,
         );
 
         const aliveEnemies = aliveCombatants.filter(
-          (element) => element.type === 'enemy'
+          (element) => element.type === 'enemy',
         );
         const alivePlayers = aliveCombatants.filter(
-          (element) => element.type === 'player'
+          (element) => element.type === 'player',
         );
 
         let outcome = null;
@@ -828,7 +828,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         newEnemy.statusEffects = [];
 
         const updatedTurnOrder = [...state.turnOrder, newEnemy].sort(
-          (a, b) => b.speed - a.speed
+          (a, b) => b.speed - a.speed,
         );
         console.log(updatedTurnOrder);
 
@@ -935,7 +935,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         selectedAttack,
         target,
         selectedAttack?.chance,
-        selectedAttack?.duration
+        selectedAttack?.duration,
       );
     } else if (selectedAttack.type === 'stun-all') {
       HandleStunAll(selectedAttack?.chance, selectedAttack?.duration);
@@ -944,7 +944,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         selectedAttack,
         target,
         selectedAttack?.chance,
-        selectedAttack?.duration
+        selectedAttack?.duration,
       );
     }
 
@@ -973,7 +973,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   const HandleBuff = useCallback(
@@ -989,7 +989,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         payload: { attacker, attack, target },
       });
     },
-    [state]
+    [state],
   );
 
   const HandleHeal = useCallback(
@@ -1005,7 +1005,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         payload: { attacker, attack, target },
       });
     },
-    [state]
+    [state],
   );
 
   const HandleLifeDrain = useCallback(
@@ -1030,7 +1030,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   const HandleSmash = useCallback(
@@ -1049,7 +1049,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   const HandleChug = useCallback(
@@ -1069,7 +1069,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         payload: { attacker, attack, target },
       });
     },
-    [state]
+    [state],
   );
 
   const HandleAttackAll = useCallback(
@@ -1088,7 +1088,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   const HandleStunAttack = useCallback(
@@ -1115,7 +1115,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   const HandleStunDebuff = useCallback(
@@ -1139,7 +1139,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         payload: { attacker, attack, target },
       });
     },
-    [state]
+    [state],
   );
 
   const HandleStunAll = useCallback(
@@ -1152,7 +1152,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Determine if attacking the players or the enemies
       const isTargetingPlayers = attacker.type === 'enemy';
       const targets = state.updatedTurnOrder.filter((target) =>
-        isTargetingPlayers ? target.type === 'player' : target.type === 'enemy'
+        isTargetingPlayers ? target.type === 'player' : target.type === 'enemy',
       );
 
       targets.forEach((target) => {
@@ -1165,7 +1165,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         }
       });
     },
-    [state]
+    [state],
   );
 
   const HandleBind = useCallback(
@@ -1181,7 +1181,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         payload: { target, duration },
       });
     },
-    [state]
+    [state],
   );
 
   const HandleSelfDestruct = useCallback(
@@ -1200,7 +1200,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       // Check if battle has ended
       CheckBattleEnd();
     },
-    [state]
+    [state],
   );
 
   // Enemy turn logic
@@ -1227,7 +1227,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
         randomAttack.type === 'self-destruct'
       ) {
         targets = state.turnOrder.filter(
-          (element) => element.type === 'player'
+          (element) => element.type === 'player',
         ); // Attack or debuff players
       } else {
         targets = state.turnOrder.filter((element) => element.type === 'enemy'); // Buff or heal enemies
@@ -1292,7 +1292,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             randomAttack,
             randomTarget,
             randomAttack?.chance,
-            randomAttack?.duration
+            randomAttack?.duration,
           );
           break;
         }
@@ -1301,7 +1301,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
             randomAttack,
             randomTarget,
             randomAttack?.chance,
-            randomAttack?.duration
+            randomAttack?.duration,
           );
           break;
         }
@@ -1340,7 +1340,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
       HandleSelfDestruct,
       state.turnOrder,
       NextTurn,
-    ]
+    ],
   );
 
   // Check to see if the battle end conditions have been met
@@ -1363,7 +1363,7 @@ export default function Battle({ players, enemies, onBattleEnd = null }) {
 
       if (onBattleEnd !== null) onBattleEnd(result, enemies);
     },
-    [updateHP, updateXP, gainGold, state.turnOrder, onBattleEnd, enemies]
+    [updateHP, updateXP, gainGold, state.turnOrder, onBattleEnd, enemies],
   );
 
   // Get the attack description for the players attack buttons

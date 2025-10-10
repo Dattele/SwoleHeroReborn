@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDanny } from '../../../../../Context/DannyContext';
 import TextBox from '../../../../TextBox';
 import Choices from '../../../../Choices';
+import GlyphPuzzle from '../../../../System/Puzzles/GlyphPuzzle/GlyphPuzzle';
 import EmberfallBattle from '../../../../Battle/EmberfallBattle';
 import EmberfallMonsters from '../../../../Monster/EmberfallMonsters';
 
@@ -33,7 +34,7 @@ const Emberfall5Lines = {
 
   notes: [
     {
-      text: 'Walking through the corridors, the party finds messages written with blood.',
+      text: 'Walking through the corridors, the party finds messages written in blood.',
       image: DanielFace,
     },
     {
@@ -48,9 +49,6 @@ const Emberfall5Lines = {
       text: "Ja'von: 'Whoever wrote these, they bought us time that we  can't let be wasted.'",
       image: JavonFace,
     },
-  ],
-
-  beforeBattle: [
     {
       text: "Ja'von: 'The glyph chamber is close. I can feel the magic pouring out of it.'",
       image: JavonFace,
@@ -62,6 +60,28 @@ const Emberfall5Lines = {
     {
       text: "Danny: 'When we get that glyph, first round at the inn's on me!'",
       image: DanielFace,
+    },
+  ],
+
+  glyphEntrance: [
+    {
+      text: "Danny: 'Wow... this place looks sus..'",
+      image: DanielFace,
+    },
+    {
+      text: "Ethan: 'Whoa... what are those glowing thingies?'",
+      image: EthanFace,
+    },
+    {
+      text: "Ja'von: 'Those symbols... each one resonates differently. Be wary - they're filled with magic.'",
+      image: JavonFace,
+    },
+    {
+      text: "Danny: 'I call the red one. It's obviously the coolest.'",
+      image: DanielFace,
+    },
+    {
+      text: '',
     },
   ],
 };
@@ -86,14 +106,18 @@ export default function Emberfall5() {
   const handleNextEvent = () => {
     if (eventIndex < Emberfall5Lines[currentText].length - 1) {
       setEventIndex((prev) => prev + 1);
-    } else if (currentText === 'entrance') {
-      setCurrentText('inside');
+    } else if (currentText === 'start') {
+      setCurrentText('notes');
       setEventIndex(0);
       setCurrentImage(Emberfall5Corridor);
-    } else if (currentText === 'relic') {
+    } else if (currentText === 'notes') {
+      setCurrentText('glyphEntrance');
+      setEventIndex(0);
+      setCurrentImage(Emberfall5Corridor);
+    } else if (currentText === 'glyphEntrance') {
       setCurrentText('afterBattle');
       setEventIndex(0);
-      setStage('battle');
+      setCurrentImage(Emberfall5Corridor);
     }
   };
 
@@ -130,11 +154,13 @@ export default function Emberfall5() {
     >
       {stage === 'intro' ? (
         <>
-          <TextBox textBox={Emberfall5Lines[eventIndex]} />
+          <TextBox textBox={Emberfall5Lines[currentText][eventIndex]} />
           <button className='Next-Btn' onClick={handleNextEvent}>
             Next
           </button>
         </>
+      ) : stage === 'glyphPuzzle' ? (
+        <GlyphPuzzle onComplete={() => setStage('awakening')} />
       ) : stage === 'options' ? (
         <>
           <TextBox
