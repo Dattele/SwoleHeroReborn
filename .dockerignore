@@ -1,0 +1,37 @@
+# =========================================
+# Dependencies and build output
+# =========================================
+node_modules/
+dist/
+out/
+.tmp/
+.cache/
+ 
+# =========================================
+# Vite, Webpack, and React-specific artifacts
+# =========================================
+.vite/
+.vitepress/
+.eslintcache
+.npm/
+ 
+# =========================================
+# Environment and config files (sensitive)
+# =========================================
+*.env*
+!.env.production  # Allow production env file if needed
+*.log
+ 
+# =========================================
+# Local development files
+# =========================================
+.gitignore
+ 
+# =========================================
+# Docker-related files
+# =========================================
+Dockerfile
+.dockerignore
+docker-compose.yml
+docker-compose.override.yml
+ 
